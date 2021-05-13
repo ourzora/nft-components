@@ -9,11 +9,11 @@ import { NFTDataProvider } from "../context/NFTDataProvider";
 
 type NFTFullPageProps = {
   id: string;
-  style?: any;
   showBids?: boolean;
+  showAuthenticity?: boolean;
 };
 
-export const NFTFullPage = ({ id }: NFTFullPageProps) => {
+export const NFTFullPage = ({ id, showBids = true, showAuthenticity = true }: NFTFullPageProps) => {
   const { getStyles } = useMediaContext();
 
   return (
@@ -21,8 +21,8 @@ export const NFTFullPage = ({ id }: NFTFullPageProps) => {
       <div {...getStyles("fullPage")}>
         <MediaFull />
         <div style={{ height: "20px" }} />
-        <PricingComponent />
-        <ProofAuthenticity />
+        {showBids && <PricingComponent />}
+        {showAuthenticity && <ProofAuthenticity />}
       </div>
     </NFTDataProvider>
   );

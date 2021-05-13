@@ -3,7 +3,7 @@ import {NFTFullPage} from '../nft-full/NFTFullPage';
 import { Story, Meta } from '@storybook/react';
 
 export default {
-  title: 'Example/NFTFull',
+  title: 'Renderer/NFTFull',
   component: NFTFullPage,
   argTypes: {
   },
@@ -13,15 +13,20 @@ const Template: Story<typeof NFTFullPage> = (args) => <NFTFullPage {...args} />;
 
 export const Image = Template.bind({});
 Image.args = {
-  id: '3663',
+  id: '332',
 };
 
 export const Video = Template.bind({});
 Video.args = {
-  id: '2662',
+  id: '2733',
 };
 
-export const Large = Template.bind({});
-Large.args = {
+export const GIF = Template.bind({});
+GIF.args = {
   id: '2671',
+};
+
+export const Audio = Template.bind({});
+Audio.args = {
+  id: '2563',
 };

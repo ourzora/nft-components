@@ -3,7 +3,7 @@ import {NFTPreview, NFTPreviewProps} from '../nft-preview/NFTPreview';
 import { Story, Meta } from '@storybook/react';
 
 export default {
-  title: 'Example/NFTPreview',
+  title: 'Renderer/NFTPreview',
   component: NFTPreview,
   argTypes: {
   },
@@ -13,15 +13,20 @@ const Template: Story<NFTPreviewProps> = (args) => <NFTPreview {...args} />;
 
 export const Image = Template.bind({});
 Image.args = {
-  id: '3663',
+  id: '332',
 };
 
 export const Video = Template.bind({});
 Video.args = {
-  id: '2662',
+  id: '2733',
 };
 
-export const Large = Template.bind({});
-Large.args = {
+export const GIF = Template.bind({});
+GIF.args = {
   id: '2671',
+};
+
+export const Audio = Template.bind({});
+Audio.args = {
+  id: '2563',
 };
