@@ -1,9 +1,14 @@
 {
-  "name": "@zoralabs/nft-renderer",
+  "name": "@zoralabs/nft-components",
   "version": "0.0.1",
   "description": "NFT Media Rendering Components",
-  "main": "src/index.ts",
-  "repository": "https://github.com/ourzora/nft-renderer",
+  "typings": "dist/src/index.d.ts",
+  "source": "src/index.ts",
+  "main": "dist/src/index.js",
+  "files": [
+    "dist"
+  ],
+  "repository": "https://github.com/ourzora/nft-components",
   "author": "Zora",
   "license": "MIT",
   "private": false,
@@ -22,10 +27,21 @@
     "@storybook/react": "^6.2.9",
     "babel-loader": "^8.2.2",
     "gh-pages": "^3.1.0",
+    "husky": "^6.0.0",
     "parcel": "^2.0.0-beta.2",
     "typescript": "^4.2.4"
   },
+  "lint-staged": {
+    "*.{ts,md}": "prettier src --write"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "scripts": {
+    "prepack": "yarn clean && tsc",
+    "build": "yarn run prepack",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "predeploy": "npm run build-storybook",
