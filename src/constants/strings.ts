@@ -1,0 +1,16 @@
+export const Strings = {
+  COLLECTED: "Collected by: ",
+  CREATED: "Created by: ",
+  VIEW_MEDIA: "View on Zora",
+  LIST_PRICE: "List price",
+  HIGHEST_BID: "Highest bid",
+  RESERVE_PRICE: "Reserve price",
+  TOP_BID: "Top bid",
+  SOLD_FOR: "Sold for",
+  ENDS_IN: "Ends in",
+  CREATOR: "Creator",
+  PROOF_AUTHENTICITY: "Proof of authenticity",
+  ETHERSCAN_TXN: "View on Etherscan",
+  VIEW_IPFS: "View on IPFS",
+  VIEW_ZORA: "View on Zora",
+};
