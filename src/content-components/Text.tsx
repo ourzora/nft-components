@@ -1,10 +1,12 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/react";
+import { useMediaContext } from "../context/useMediaContext";
 
 export const Text = ({
   content,
 }: {
   content: string;
 }) => {
-  return <div>{content}</div>;
+  const { getStyles } = useMediaContext();
+  return <div {...getStyles("mediaContentText")}>{content}</div>;
 };

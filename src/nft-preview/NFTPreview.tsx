@@ -26,7 +26,7 @@ export const NFTPreview = ({
         {...getStyles("cardOuter", { hasClickEvent: !!onClick })}
         onClick={onClick}
       >
-        {<MediaThumbnail />}
+        <MediaThumbnail />
         {(showBidsLocal === undefined ? showBids : showBidsLocal) && (
           <PricingComponent />
         )}

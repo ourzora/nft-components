@@ -11,16 +11,7 @@ export const PricingComponent = () => {
   } = useContext(NFTDataContext);
   const { getStyles, getString } = useMediaContext();
 
-  if (!data) {
-    return (
-      <Fragment>
-        <span {...getStyles("textSubdued")}>{getString("RESERVE_PRICE")}</span>
-        <span>...</span>
-      </Fragment>
-    );
-  }
-
-  if (data.auction.current.auctionType === "perpetual") {
+  if (data && data.auction.current.auctionType === "perpetual") {
     let listPrice = null;
 
     if (data.auction.current.reservePrice) {
@@ -52,6 +43,7 @@ export const PricingComponent = () => {
       <div {...getStyles("cardAuctionPerpetual")}>
         <span {...getStyles("textSubdued")}>{getString("HIGHEST_BID")}</span>
         <span {...getStyles("pricingAmount")}>
+          {!highestBid && "--"}
           {highestBid?.pricing.prettyAmount}{" "}
           {highestBid?.pricing.currency.symbol}
         </span>
@@ -59,7 +51,7 @@ export const PricingComponent = () => {
       </div>
     );
   }
-  if (data.auction.current.auctionType === "reserve") {
+  if (data && data.auction.current.auctionType === "reserve") {
     if (data.auction.current.reserveMet) {
       return (
         <div {...getStyles("cardAuctionReserveActive")}>
@@ -73,7 +65,6 @@ export const PricingComponent = () => {
       );
     }
     if (data.auction.current.reservePrice) {
-      console.log({ reservePrice: data.auction.current.reservePrice });
       return (
         <div {...getStyles("cardAuctionReservePending")}>
           <span {...getStyles("textSubdued")}>
@@ -88,9 +79,12 @@ export const PricingComponent = () => {
         </div>
       );
     }
-    return <Fragment />;
   }
 
-  // Won't reach this line
-  return <Fragment />;
+  return (
+    <div {...getStyles("cardAuctionPerpetual")}>
+      <div {...getStyles("textSubdued")}>--</div>
+      <div {...getStyles("pricingAmount")}>--</div>
+    </div>
+  );
 };

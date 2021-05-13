@@ -30,3 +30,8 @@ export const Audio = Template.bind({});
 Audio.args = {
   id: '2563',
 };
+
+export const Text = Template.bind({});
+Text.args = {
+  id: '3079',
+};

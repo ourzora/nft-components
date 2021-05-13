@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/react";
 import React from "react";
-import { Strings } from "../constants/strings";
 
+import { Strings } from "../constants/strings";
 import { useMediaContext } from "../context/useMediaContext";
 
 type InfoContainerProps = {
@@ -18,9 +18,7 @@ export const InfoContainer = ({
 
   return (
     <div {...getStyles("fullProofAuthenticitySection")}>
-      <div {...getStyles("fullAuthenticityLabel")}>
-        <div {...getStyles("fullLabel")}>{getString(titleString)}</div>
-      </div>
+      <div {...getStyles("fullLabel")}>{getString(titleString)}</div>
       {children}
     </div>
   );

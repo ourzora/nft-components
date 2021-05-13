@@ -75,7 +75,10 @@ export const MediaObject = ({
       return { hasLoader: true, mediaTag: <Video mediaObject={mediaObject} /> };
     }
     if (metadata.mimeType.startsWith("audio/")) {
-      return { hasLoader: true, mediaTag: <Audio mediaObject={mediaObject} /> };
+      return {
+        hasLoader: true,
+        mediaTag: <Audio mediaObject={mediaObject} mediaLoaded={mediaLoaded} />,
+      };
     }
 
     return {
