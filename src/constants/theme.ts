@@ -27,6 +27,15 @@ const ThemeOptions = {
     fontWeight: 600,
   },
 
+  buttonColor: {
+    primaryBackground: '#333',
+    primaryText: '#fff',
+    background: '#eee',
+    text: '#000',
+  },
+
+  defaultBorderRadius: 4,
+
   // Font size base for grid view
   fontSizePreview: 14,
 
@@ -45,9 +54,10 @@ export const Theme = {
     cardOuter: (theme: typeof ThemeOptions, { hasClickEvent }: any) => ({
       cursor: hasClickEvent ? "pointer" : undefined,
       backgroundColor: "white",
-      borderRadius: "0 0 4px 4px",
+      borderRadius: `${theme.defaultBorderRadius}px`,
       border: theme.borderStyle,
       margin: 15,
+      width: `${theme.width}px`,
       fontSize: `${theme.fontSizePreview}px`,
       lineHeight: `${theme.lineSpacing}px`,
       ...theme.bodyFont,
@@ -120,7 +130,7 @@ export const Theme = {
     }),
     fullProofAuthenticitySection: (theme: typeof ThemeOptions) => ({
       border: theme.borderStyle,
-      borderRadius: "4px",
+      borderRadius: `${theme.defaultBorderRadius}px`,
       margin: "20px 20px 20px 0",
       position: "relative",
     }),
@@ -151,6 +161,23 @@ export const Theme = {
     }),
 
     // Generic styles
+    button: (theme: typeof ThemeOptions, {primary}: any) => ({
+      background: primary ? theme.buttonColor.primaryBackground : theme.buttonColor.background, 
+      color: primary ? theme.buttonColor.primaryText : theme.buttonColor.text,
+      borderRadius: `${theme.defaultBorderRadius}px`,
+      padding: '11px',
+      font: 'inherit',
+      textDecoration: 'none',
+      margin: '0',
+      border: '0',
+      cursor: 'pointer',
+      display: 'inline-block',
+      ...theme.bodyFont,
+      transition: "transform 0.1s ease-in-out",
+      "&:active": {
+        transform: "scale(.98)",
+      }, 
+    }),
     textSubdued: (theme: typeof ThemeOptions) => ({
       opacity: "0.5",
       ...theme.bodyFont,

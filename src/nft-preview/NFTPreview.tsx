@@ -6,7 +6,7 @@ import { PricingComponent } from "../components/PricingComponent";
 import { useMediaContext } from "../context/useMediaContext";
 import { NFTDataProvider } from "../context/NFTDataProvider";
 
-type NFTPreviewProps = {
+export type NFTPreviewProps = {
   id: string;
   style?: any;
   onClick?: (evt: React.MouseEvent<HTMLElement>) => void;

@@ -26,9 +26,7 @@ export const NFTDataContext = React.createContext<NFTDataContext>({
 export const NFTDataProvider = ({ id, children }: NFTDataProviderProps) => {
   const nft = useNFT(id);
 
-  // TODO(iain): Metadata allows null objects
   // @ts-ignore
-  console.log(nft.data?.nft.metadataURI);
   const metadata = useNFTMetadata(nft.data?.nft.metadataURI);
 
   return (
