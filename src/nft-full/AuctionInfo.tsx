@@ -1,59 +1,83 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/react";
-import { NFTDataType } from "@zoralabs/nft-hooks";
+import { PricingInfo } from "@zoralabs/nft-hooks/dist/src/fetcher/AuctionInfoTypes";
 import React, { useContext } from "react";
-import { Loader } from "src/components/Loader";
-import { NFTDataContext } from "src/context/NFTDataProvider";
 
-import {
-  MEDIA_URL_BASE_BY_NETWORK,
-  VIEW_ETHERSCAN_URL_BASE_BY_NETWORK,
-} from "../constants/media-urls";
+import { AddressView } from "../components/AddressView";
+import { CountdownDisplay } from "../components/CountdownDisplay";
+import { NFTDataContext } from "../context/NFTDataProvider";
 import { useMediaContext } from "../context/useMediaContext";
 import { InfoContainer } from "./InfoContainer";
 
-const ProofLink = ({
-  href,
-  children,
-  styles,
-}: {
-  href: string;
-  children: string;
-  styles: any;
-}) => (
-  <a {...styles} href={href} target="_blank">
-    {children}
-  </a>
-);
-
-export const ProofAuthenticity = () => {
+export const AuctionInfo = () => {
   const { nft } = useContext(NFTDataContext);
-  const { getString, getStyles, networkId } = useMediaContext();
-  const linkStyles = getStyles("fullProofLink");
+  const { getStyles, getString } = useMediaContext();
 
-  const getBoxContent = (nft: NFTDataType["nft"]) => (
+  const getPricingString = (pricing: PricingInfo) => (
     <React.Fragment>
-      <ProofLink
-        styles={linkStyles}
-        href={`${VIEW_ETHERSCAN_URL_BASE_BY_NETWORK[networkId]}${nft.id}`}
-      >
-        {getString("ETHERSCAN_TXN")}
-      </ProofLink>
-      <ProofLink styles={linkStyles} href={nft.contentURI}>
-        {getString("VIEW_IPFS")}
-      </ProofLink>
-      <ProofLink
-        styles={linkStyles}
-        href={`${MEDIA_URL_BASE_BY_NETWORK[networkId]}${nft.creator.id}/${nft.id}`}
-      >
-        {getString("VIEW_ZORA")}
-      </ProofLink>
+      {pricing.prettyAmount} {pricing.currency.symbol}
+      {pricing.computedValue && (
+        <span {...getStyles("textSubdued")}>
+          {" "}
+          ${parseInt(pricing.computedValue?.inUSD, 10).toString()}
+        </span>
+      )}
     </React.Fragment>
   );
 
+  if (!nft.data?.auction.current.reservePrice) {
+    return (
+      <InfoContainer titleString="OPEN_OFFERS">
+        Be the first one to bid on this piece!
+      </InfoContainer>
+    );
+  }
+
+  const auctionInfo = nft.data.auction;
+  if (
+    !auctionInfo.current.likelyHasEnded &&
+    auctionInfo.current.endingAt &&
+    auctionInfo.highestBid
+  ) {
+    return (
+      <InfoContainer titleString="AUCTION_ENDS">
+        <CountdownDisplay to={auctionInfo.current.endingAt} />
+        <div css={{ height: "20px" }} />
+        <div {...getStyles("fullLabel")}>{getString("HIGHEST_BID")}</div>
+        {getPricingString(auctionInfo.highestBid?.pricing)}
+        <div css={{ height: "20px" }} />
+        <div {...getStyles("fullLabel")}>{getString("BIDDER")}</div>
+        <AddressView address={auctionInfo.highestBid?.placedBy} />
+      </InfoContainer>
+    );
+  }
+
+  if (auctionInfo.current.likelyHasEnded && auctionInfo.highestBid) {
+    return (
+      <InfoContainer titleString="AUCTION_SOLD_FOR">
+        {getPricingString(auctionInfo.highestBid?.pricing)}
+        <div css={{ height: "20px" }} />
+        <div {...getStyles("fullLabel")}>{getString("BIDDER")}</div>
+        <AddressView address={auctionInfo.highestBid?.placedBy} />
+      </InfoContainer>
+    );
+  }
+
   return (
-    <InfoContainer titleString="PROOF_AUTHENTICITY">
-      {nft && nft.data ? getBoxContent(nft.data.nft) : <Loader />}
+    <InfoContainer
+      titleString={
+        nft.data.auction.current.auctionType === "perpetual"
+          ? "LIST_PRICE"
+          : "RESERVE_PRICE"
+      }
+    >
+      <div>
+        <div {...getStyles("pricingAmount")}>
+          {nft.data.auction.current.reservePrice
+            ? getPricingString(nft.data.auction.current.reservePrice)
+            : " "}
+        </div>
+      </div>
     </InfoContainer>
   );
 };

@@ -9,16 +9,16 @@ export function useMediaContext() {
     themeKey: keyof ThemeType["styles"],
     flags: any = {}
   ): any => {
-    if (!(themeKey in mediaContext.theme.styles)) {
+    if (!(themeKey in mediaContext.style.styles)) {
       throw new Error(
         `"${themeKey}" not found in [${Object.keys(
-          mediaContext.theme.styles
+          mediaContext.style.styles
         ).join(", ")}]`
       );
     }
     return {
       className: `zora-${themeKey}`,
-      css: mediaContext.theme.styles[themeKey](mediaContext.theme.theme, flags),
+      css: mediaContext.style.styles[themeKey](mediaContext.style.theme, flags),
     };
   };
 

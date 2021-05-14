@@ -53,7 +53,8 @@ export const ProofAuthenticity = () => {
   );
 
   return (
-    <InfoContainer titleString="PROOF_AUTHENTICITY">
+    <InfoContainer titleString="PROOF_AUTHENTICITY" bottomPadding={false}>
+      <div css={{height: '15px'}} />
       {data && getContent(data.nft)}
     </InfoContainer>
   );

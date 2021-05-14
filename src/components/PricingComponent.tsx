@@ -4,6 +4,7 @@ import { Fragment, useContext } from "react";
 
 import { useMediaContext } from "../context/useMediaContext";
 import { NFTDataContext } from "../context/NFTDataProvider";
+import { CountdownDisplay } from "./CountdownDisplay";
 
 export const PricingComponent = () => {
   const {
@@ -59,8 +60,14 @@ export const PricingComponent = () => {
           <span {...getStyles("pricingAmount")}>
             {data.auction.highestBid?.pricing.prettyAmount}
           </span>
-          <span {...getStyles("textSubdued")}>{getString("ENDS_IN")}</span>
-          <span {...getStyles("pricingAmount")}>12:32:23</span>
+          {data.auction.current.endingAt && (
+            <Fragment>
+              <span {...getStyles("textSubdued")}>{getString("ENDS_IN")}</span>
+              <span {...getStyles("pricingAmount")}>
+                <CountdownDisplay to={data.auction.current.endingAt} />
+              </span>
+            </Fragment>
+          )}
         </div>
       );
     }
@@ -74,8 +81,14 @@ export const PricingComponent = () => {
             {data.auction.current.reservePrice.prettyAmount}{" "}
             {data.auction.current.reservePrice.currency.symbol}
           </span>
-          <span {...getStyles("textSubdued")}>{getString("ENDS_IN")}</span>
-          <span {...getStyles("pricingAmount")}>12:32:23</span>
+          {data.auction.current.endingAt && (
+            <Fragment>
+              <span {...getStyles("textSubdued")}>{getString("ENDS_IN")}</span>
+              <span {...getStyles("pricingAmount")}>
+                <CountdownDisplay to={data.auction.current.endingAt} />
+              </span>
+            </Fragment>
+          )}
         </div>
       );
     }

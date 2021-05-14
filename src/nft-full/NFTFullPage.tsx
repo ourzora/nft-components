@@ -2,10 +2,13 @@
 import { jsx } from "@emotion/react";
 
 import { MediaFull } from "./MediaFull";
-import { PricingComponent } from "../components/PricingComponent";
 import { useMediaContext } from "../context/useMediaContext";
 import { ProofAuthenticity } from "./ProofAuthenticity";
 import { NFTDataProvider } from "../context/NFTDataProvider";
+import { AuctionInfo } from "./AuctionInfo";
+import { BidHistory } from "./BidHistory";
+import { CreatorEquity } from "./CreatorEquity";
+import { MediaInfo } from "./MediaInfo";
 
 type NFTFullPageProps = {
   id: string;
@@ -20,9 +23,13 @@ export const NFTFullPage = ({ id, showBids = true, showAuthenticity = true }: NF
     <NFTDataProvider id={id}>
       <div {...getStyles("fullPage")}>
         <MediaFull />
-        <div style={{ height: "20px" }} />
-        {showBids && <PricingComponent />}
-        {showAuthenticity && <ProofAuthenticity />}
+        <div {...getStyles("fullPageDataGrid")}>
+          <MediaInfo />
+          {showBids && <AuctionInfo />}
+          {showAuthenticity && <ProofAuthenticity />}
+          {showBids && <BidHistory />}
+          {showBids && <CreatorEquity />}
+        </div>
       </div>
     </NFTDataProvider>
   );

@@ -4,14 +4,17 @@ const pricingLayout = (theme: typeof Theme["theme"]) => ({
   display: "grid",
   gridAutoFlow: "column",
   gridTemplateRows: "auto auto",
+  gridAutoColumns: "1fr",
   padding: theme.textBlockPadding,
   borderTop: theme.borderStyle,
 });
 
 const ThemeOptions = {
   // Overall height and width for media
-  width: 330,
-  height: 330,
+  previewCard: {
+    width: 330,
+    height: 330,
+  },
 
   // Text overview
   textBlockPadding: "10px 15px",
@@ -26,11 +29,16 @@ const ThemeOptions = {
 
   titleFont: {
     fontFamily: "Inter",
-    fontWeight: 600,
+    fontWeight: 500,
+  },
+
+  headerFont: {
+    fontFamily: "Inter",
+    fontWeight: 500,
   },
 
   mediaContentFont: {
-    fontFamily: 'Times New Roman',
+    fontFamily: "Times New Roman",
   },
 
   buttonColor: {
@@ -42,26 +50,26 @@ const ThemeOptions = {
 
   defaultBorderRadius: 4,
 
-  // Font size base for grid view
-  fontSizePreview: 14,
-
   // Font size base for full view page
   fontSizeFull: 16,
+
   lineSpacing: 24,
 };
+
+export type ThemeOptionsType = typeof ThemeOptions;
 
 export const Theme = {
   theme: ThemeOptions,
   styles: {
     // Styles for preview card
-    cardOuter: (theme: typeof ThemeOptions, { hasClickEvent }: any) => ({
+    cardOuter: (theme: ThemeOptionsType, { hasClickEvent }: any) => ({
       cursor: hasClickEvent ? "pointer" : undefined,
       backgroundColor: "white",
+      overflow: "hidden",
       borderRadius: `${theme.defaultBorderRadius}px`,
       border: theme.borderStyle,
       margin: 15,
-      width: `${theme.width}px`,
-      fontSize: `${theme.fontSizePreview}px`,
+      width: `${theme.previewCard.width}px`,
       lineHeight: `${theme.lineSpacing}px`,
       ...theme.bodyFont,
       transition: "transform 0.1s ease-in-out",
@@ -69,36 +77,36 @@ export const Theme = {
         transform: "scale(.98)",
       },
     }),
-    cardHeader: (theme: typeof ThemeOptions) => ({
+    cardHeader: (theme: ThemeOptionsType) => ({
       padding: theme.textBlockPadding,
       ...theme.titleFont,
     }),
-    cardMediaWrapper: (theme: typeof ThemeOptions) => ({
-      width: theme.width,
-      height: theme.height,
+    cardMediaWrapper: (theme: ThemeOptionsType) => ({
+      width: theme.previewCard.width,
+      height: theme.previewCard.height,
       display: "flex",
       overflow: "hidden",
       position: "relative",
       justifyContent: "center",
     }),
-    cardItemInfo: (theme: typeof ThemeOptions) => ({
+    cardItemInfo: (theme: ThemeOptionsType) => ({
       padding: theme.textBlockPadding,
       borderTop: theme.borderStyle,
     }),
-    cardAuctionPerpetual: (theme: typeof ThemeOptions) => ({
+    cardAuctionPerpetual: (theme: ThemeOptionsType) => ({
       ...pricingLayout(theme),
     }),
-    cardAuctionReserveActive: (theme: typeof ThemeOptions) => ({
+    cardAuctionReserveActive: (theme: ThemeOptionsType) => ({
       background: "#000",
       color: "#fff",
       ...pricingLayout(theme),
     }),
-    cardAuctionReservePending: (theme: typeof ThemeOptions) => ({
+    cardAuctionReservePending: (theme: ThemeOptionsType) => ({
       background: "#e6e6e6",
       ...pricingLayout(theme),
     }),
-    cardTitle: (theme: typeof ThemeOptions) => ({
-      maxWidth: theme.width - 30,
+    cardTitle: (theme: ThemeOptionsType) => ({
+      maxWidth: theme.previewCard.width - 30,
       overflow: "hidden",
       whiteSpace: "nowrap",
       textOverflow: "ellipsis",
@@ -106,44 +114,61 @@ export const Theme = {
     }),
 
     // Styles for full-page view
-    fullPage: (theme: typeof ThemeOptions) => ({
+    fullPage: (theme: ThemeOptionsType) => ({
       ...theme.bodyFont,
     }),
-    fullMediaWrapper: (_: typeof ThemeOptions) => ({
+    fullMediaWrapper: (_: ThemeOptionsType) => ({
       margin: "5%",
       position: "relative",
     }),
-    fullItemInfo: (_: typeof ThemeOptions) => ({}),
-    fullTitle: (_: typeof ThemeOptions) => ({
+    fullItemInfo: (_: ThemeOptionsType) => ({}),
+    fullTitle: (_: ThemeOptionsType) => ({
       fontSize: "30px",
       margin: "20px 0",
     }),
-    fullDescription: (theme: typeof ThemeOptions) => ({
+    fullDescription: (theme: ThemeOptionsType) => ({
       fontSize: theme.fontSizeFull,
       margin: "10px 0",
     }),
-    fullOwnerAddress: (theme: typeof ThemeOptions) => ({
+    fullOwnerAddress: (theme: ThemeOptionsType) => ({
       fontSize: theme.fontSizeFull,
       ...theme.titleFont,
     }),
-    fullLabel: (theme: typeof ThemeOptions) => ({
+    fullLabel: (theme: ThemeOptionsType) => ({
       textTransform: "uppercase",
       fontSize: "14px",
-      marginBottom: "20px",
+      marginBottom: "5px",
       opacity: 0.5,
       ...theme.bodyFont,
     }),
-    fullProofAuthenticitySection: (theme: typeof ThemeOptions) => ({
+    fullPageHistoryItem: (theme: ThemeOptionsType) => ({
+      margin: "14px 0",
+      display: "flex",
+      flexDirection: "column",
+      ...theme.bodyFont,
+      fontWeight: 300,
+    }),
+    fullPageHistoryItemDatestamp: (theme: ThemeOptionsType) => ({
+      ...theme.bodyFont,
+      fontSize: "12px",
+      paddingTop: "2px",
+      opacity: 0.5,
+    }),
+    fullPageDataGrid: (_: ThemeOptionsType) => ({
+      display: "grid",
+      gridGap: "20px",
+    }),
+    infoContainer: (theme: ThemeOptionsType, { bottomPadding }: any) => ({
       border: theme.borderStyle,
       borderRadius: `${theme.defaultBorderRadius}px`,
-      padding: "20px 20px 0",
+      padding: `20px 20px ${bottomPadding ? "20px" : 0}`,
       position: "relative",
     }),
-    fullProofLink: (theme: typeof ThemeOptions) => ({
+    fullProofLink: (theme: ThemeOptionsType) => ({
       display: "block",
       textDecoration: "none",
       color: theme.linkColor,
-      padding: "20px 40px",
+      padding: "20px",
       margin: "0 -20px",
       borderTop: theme.borderStyle,
       ":hover": {
@@ -162,9 +187,13 @@ export const Theme = {
         position: "absolute",
       },
     }),
+    fullCreatorOwnerSection: (theme: ThemeOptionsType) => ({
+      ...pricingLayout(theme),
+      borderTop: 0,
+    }),
 
     // Generic styles
-    button: (theme: typeof ThemeOptions, { primary }: any) => ({
+    button: (theme: ThemeOptionsType, { primary }: any) => ({
       background: primary
         ? theme.buttonColor.primaryBackground
         : theme.buttonColor.background,
@@ -183,14 +212,14 @@ export const Theme = {
         transform: "scale(.98)",
       },
     }),
-    textSubdued: (theme: typeof ThemeOptions) => ({
+    textSubdued: (theme: ThemeOptionsType) => ({
       opacity: "0.5",
       ...theme.bodyFont,
     }),
-    pricingAmount: (theme: typeof ThemeOptions) => ({
+    pricingAmount: (theme: ThemeOptionsType) => ({
       ...theme.titleFont,
     }),
-    mediaLoader: (_: typeof ThemeOptions, { mediaLoaded }: any) => ({
+    mediaLoader: (_: ThemeOptionsType, { mediaLoaded }: any) => ({
       position: "absolute",
       pointerEvents: "none",
       top: 0,
@@ -205,26 +234,23 @@ export const Theme = {
       alignContent: "center",
       justifyItems: "center",
     }),
-    mediaObject: (
-      _: typeof ThemeOptions,
-      { mediaLoaded, isFullPage }: any
-    ) => ({
+    mediaObject: (_: ThemeOptionsType, { mediaLoaded, isFullPage }: any) => ({
       opacity: mediaLoaded ? 1 : 0,
       transition: "0.2s ease-in opacity",
       maxHeight: isFullPage ? "70vh" : undefined,
-      width: isFullPage ? "100%" : undefined,
+      maxWidth: isFullPage ? "100%" : undefined,
       display: "block",
       margin: "0 auto",
       flexShrink: "1",
     }),
-    mediaContentText: (theme: typeof ThemeOptions) => ({
-      whiteSpace: 'pre',
-      textAlign: 'left',
-      padding: '20px',
-      width: '100%',
-      ...theme.mediaContentFont
+    mediaContentText: (theme: ThemeOptionsType) => ({
+      whiteSpace: "pre",
+      textAlign: "left",
+      padding: "20px",
+      width: "100%",
+      ...theme.mediaContentFont,
     }),
-    mediaAudioButton: (_: typeof ThemeOptions, { playing }: any) => ({
+    mediaAudioButton: (_: ThemeOptionsType, { playing }: any) => ({
       padding: "30px",
       background: "#eee",
       border: 0,

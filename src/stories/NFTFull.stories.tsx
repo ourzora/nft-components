@@ -5,20 +5,19 @@ import { Story, Meta } from '@storybook/react';
 export default {
   title: 'Renderer/NFTFull',
   component: NFTFullPage,
-  argTypes: {
-  },
 } as Meta;
 
+// @ts-ignore
 const Template: Story<typeof NFTFullPage> = (args) => <NFTFullPage {...args} />;
 
 export const Image = Template.bind({});
 Image.args = {
-  id: '332',
+  id: '3099',
 };
 
 export const Video = Template.bind({});
 Video.args = {
-  id: '2733',
+  id: '2411',
 };
 
 export const GIF = Template.bind({});
