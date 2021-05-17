@@ -7,7 +7,7 @@ import { MediaObject } from "../components/MediaObject";
 import { useMediaContext } from "../context/useMediaContext";
 
 export const MediaFull = () => {
-  const { getStyles, getString } = useMediaContext();
+  const { getStyles } = useMediaContext();
   const {
     nft: { data },
     metadata: { metadata, error },

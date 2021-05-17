@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 export type CountdownDisplayProps = {
   from?: number | string;
@@ -58,12 +58,12 @@ export const CountdownDisplay = (props: CountdownDisplayProps) => {
     };
   });
   return (
-    <Fragment>
+    <React.Fragment>
       {timeLeft &&
         `${timeLeft.d ? `${timeLeft.d} days ` : ""}${padAndJoin(
           [timeLeft.h, timeLeft.m, timeLeft.s],
           ":"
         )}`}
-    </Fragment>
+    </React.Fragment>
   );
 };

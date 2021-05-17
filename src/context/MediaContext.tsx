@@ -1,11 +1,15 @@
 import React, { useContext, createContext } from "react";
-import { NetworkIDs, Networks, NFTFetchConfiguration } from "@zoralabs/nft-hooks";
-import {merge} from 'merge-anything';
+import {
+  NetworkIDs,
+  Networks,
+  NFTFetchConfiguration,
+} from "@zoralabs/nft-hooks";
+import { merge } from "merge-anything";
 
 import { Strings } from "../constants/strings";
-import { Theme } from "../constants/theme";
+import { Style } from "../constants/style";
 
-export type ThemeType = typeof Theme;
+export type ThemeType = typeof Style;
 
 export type MediaContextType = {
   style: ThemeType;
@@ -17,7 +21,7 @@ export type MediaContextType = {
 export const MediaContext = createContext<MediaContextType>({
   networkId: Networks.MAINNET,
   showBids: true,
-  style: Theme,
+  style: Style,
   strings: Strings,
 });
 
@@ -44,7 +48,6 @@ export const MediaConfiguration = ({
     networkId,
     showBids: showBids === undefined ? superContext.showBids : showBids,
   };
-  console.log({style, superStyle: superContext.style})
 
   return (
     <MediaContext.Provider value={newContext}>

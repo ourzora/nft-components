@@ -1,14 +1,15 @@
 import React from "react";
-import { NFTPreview, NFTPreviewProps } from "../nft-preview/NFTPreview";
+import { merge } from "merge-anything";
 import { Story, Meta } from "@storybook/react";
 
-import { merge } from "merge-anything";
-import { Theme } from "../constants/theme";
+import { NFTPreview } from "../nft-preview/NFTPreview";
+import { Style } from "../constants/style";
 import { MediaConfiguration } from "../context/MediaContext";
 import { NFTFullPage } from "../nft-full/NFTFullPage";
+import { DarkTheme } from "../constants/style-presets/dark";
 
 type ThemeProps = {
-  style: Partial<typeof Theme>;
+  style: Partial<typeof Style>;
   showFull: boolean;
   id: string;
 };
@@ -22,12 +23,11 @@ const DemoComponent = ({ id, style, showFull }: ThemeProps) => (
 export default {
   title: "Theming/PreviewComponent",
   component: DemoComponent,
-  argTypes: {},
 } as Meta;
 
 const Template: Story<ThemeProps> = DemoComponent;
 
-const { theme: themeDefault } = Theme;
+const { theme: themeDefault } = Style;
 
 export const PreviewCard = Template.bind({});
 PreviewCard.args = {
@@ -43,6 +43,14 @@ PreviewCard.args = {
         fontWeight: 500,
       },
     }),
+  },
+};
+
+export const Dark = Template.bind({});
+Dark.args = {
+  id: "3102",
+  style: {
+    theme: DarkTheme,
   },
 };
 

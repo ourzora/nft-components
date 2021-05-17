@@ -4,7 +4,6 @@ import { NFTDataType } from "@zoralabs/nft-hooks";
 import React, { useContext } from "react";
 
 import { NFTDataContext } from "../context/NFTDataProvider";
-import { useMediaContext } from "../context/useMediaContext";
 import { InfoContainer } from "./InfoContainer";
 
 export const CreatorEquity = () => {
