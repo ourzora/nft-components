@@ -14,6 +14,7 @@ const ThemeOptions = {
   previewCard: {
     width: 330,
     height: 330,
+    background: 'transparent',
   },
 
   // Text overview
@@ -61,10 +62,14 @@ export type ThemeOptionsType = typeof ThemeOptions;
 export const Theme = {
   theme: ThemeOptions,
   styles: {
+    auctionHouseList: (_: ThemeOptionsType) => ({
+      display: 'flex',
+      flexWrap: 'wrap',
+    }),
     // Styles for preview card
     cardOuter: (theme: ThemeOptionsType, { hasClickEvent }: any) => ({
       cursor: hasClickEvent ? "pointer" : undefined,
-      backgroundColor: "white",
+      background: theme.previewCard.background,
       overflow: "hidden",
       borderRadius: `${theme.defaultBorderRadius}px`,
       border: theme.borderStyle,
