@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
 import { useContext } from "react";
 
 import { NFTDataContext } from "../context/NFTDataProvider";

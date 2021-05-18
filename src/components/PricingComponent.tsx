@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
 import { Fragment, useContext } from "react";
 
 import { useMediaContext } from "../context/useMediaContext";
@@ -58,7 +56,8 @@ export const PricingComponent = () => {
         <div {...getStyles("cardAuctionReserveActive")}>
           <span {...getStyles("textSubdued")}>{getString("TOP_BID")}</span>
           <span {...getStyles("pricingAmount")}>
-            {data.auction.highestBid?.pricing.prettyAmount}
+            {data.auction.highestBid?.pricing.prettyAmount}{" "}
+            {data.auction.highestBid?.pricing.currency.symbol}
           </span>
           {data.auction.current.endingAt && (
             <Fragment>

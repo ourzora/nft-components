@@ -1,6 +1,4 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
-import React, { Fragment, useCallback, useRef, useState } from "react";
+import { Fragment, useCallback, useRef, useState } from "react";
 import { useMediaContext } from "../context/useMediaContext";
 
 import { MediaObject } from "../components/MediaObject";

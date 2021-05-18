@@ -10,14 +10,16 @@ export const DarkTheme = merge(Style, {
     titleFont: {
       color: "#fff",
       fontWeight: 400,
+      fontSize: '14px',
     },
     bodyFont: {
       color: "#fff",
       fontWeight: 300,
+      fontSize: '14px',
     },
 
     borderStyle: "0",
-    lineSpacing: 30,
+    lineSpacing: 28,
   },
   style: {
       

@@ -1,6 +1,3 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
-
 import { MediaFull } from "./MediaFull";
 import { useMediaContext } from "../context/useMediaContext";
 import { ProofAuthenticity } from "./ProofAuthenticity";

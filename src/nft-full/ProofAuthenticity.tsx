@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
 import { NFTDataType } from "@zoralabs/nft-hooks";
 import React, { useContext } from "react";
 

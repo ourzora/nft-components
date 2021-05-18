@@ -49,8 +49,12 @@ PreviewCard.args = {
 export const Dark = Template.bind({});
 Dark.args = {
   id: "3102",
-  style: {
-    theme: DarkTheme,
+  style: DarkTheme,
+};
+Dark.parameters = {
+  backgrounds: {
+    default: "dark",
+    values: [{ name: "dark", value: "#333" }],
   },
 };
 

@@ -199,6 +199,9 @@ export const Style = {
       margin: "0 auto",
       flexShrink: "1",
     }),
+    mediaObjectMessage: (_: ThemeOptionsType) => ({
+      alignSelf: "center",
+    }),
     mediaContentText: (theme: ThemeOptionsType) => ({
       whiteSpace: "pre",
       textAlign: "left",

@@ -1,7 +1,3 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
-import React from "react";
-
 import { Strings } from "../constants/strings";
 import { useMediaContext } from "../context/useMediaContext";
 

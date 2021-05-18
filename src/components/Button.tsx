@@ -1,6 +1,3 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
-
 import { useMediaContext } from "../context/useMediaContext";
 
 // One of onClick or href required

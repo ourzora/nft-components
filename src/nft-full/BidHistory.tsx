@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
 import { PricingInfo } from "@zoralabs/nft-hooks/dist/src/fetcher/AuctionInfoTypes";
 import React, { Fragment, useContext } from "react";
 

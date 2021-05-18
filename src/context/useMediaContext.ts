@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { css } from "@emotion/css";
 import { Strings } from "../constants/strings";
 import { MediaContext, ThemeType } from "./MediaContext";
 
@@ -16,9 +17,12 @@ export function useMediaContext() {
         ).join(", ")}]`
       );
     }
+    const styles = mediaContext.style.styles[themeKey](
+      mediaContext.style.theme,
+      flags
+    );
     return {
-      className: `zora-${themeKey}`,
-      css: mediaContext.style.styles[themeKey](mediaContext.style.theme, flags),
+      className: `zora-${themeKey} ${css(styles)}`,
     };
   };
 

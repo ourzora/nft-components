@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
 import { useState, useCallback, Fragment } from "react";
 import { useNFTContent } from "@zoralabs/nft-hooks";
 
@@ -49,7 +47,10 @@ export const MediaObject = ({
 
   const getMediaObjectTag = () => {
     if (!content) {
-      return { hasLoader: false, mediaTag: <span>Loading</span> };
+      return {
+        hasLoader: false,
+        mediaTag: <span {...getStyles("mediaObjectMessage")}>Loading</span>,
+      };
     }
 
     if (content.type === "text") {
@@ -57,7 +58,14 @@ export const MediaObject = ({
     }
 
     if (mediaError) {
-      return { hasLoader: false, mediaTag: <span>Error loading content</span> };
+      return {
+        hasLoader: false,
+        mediaTag: (
+          <span {...getStyles("mediaObjectMessage")}>
+            Error loading content
+          </span>
+        ),
+      };
     }
 
     const mediaObject: MediaObject = {

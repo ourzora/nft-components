@@ -1,6 +1,3 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
-
 import { MediaThumbnail } from "./MediaThumbnail";
 import { PricingComponent } from "../components/PricingComponent";
 import { useMediaContext } from "../context/useMediaContext";

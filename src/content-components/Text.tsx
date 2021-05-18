@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
 import { useMediaContext } from "../context/useMediaContext";
 
 export const Text = ({

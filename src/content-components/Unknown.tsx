@@ -1,10 +1,6 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
+import { useMediaContext } from "../context/useMediaContext";
 
-export const Unknown = ({
-  mimeType,
-}: {
-  mimeType: string;
-}) => {
-  return <div>{mimeType}</div>;
+export const Unknown = ({ mimeType }: { mimeType: string }) => {
+  const { getStyles } = useMediaContext();
+  return <div {...getStyles("mediaObjectMessage")}>{mimeType}</div>;
 };
