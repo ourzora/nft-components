@@ -1,232 +1,247 @@
+import { css } from "@emotion/css";
+
 import { SVG_NEXT_ICON, SVG_PAUSE, SVG_PLAY_ARROW } from "./svg-icons";
 import { ThemeOptions, ThemeOptionsType } from "./theme";
 
-const pricingLayout = (theme: ThemeOptionsType) => ({
-  display: "grid",
-  gridAutoFlow: "column",
-  gridTemplateRows: "auto auto",
-  gridAutoColumns: "1fr",
-  padding: theme.textBlockPadding,
-  borderTop: theme.borderStyle,
-});
+const pricingLayout = (theme: ThemeOptionsType) => css`
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: auto auto;
+  grid-auto-column: 1fr;
+  padding: ${theme.textBlockPadding};
+  border-top: ${theme.borderStyle};
+`;
 
 export const Style = {
   theme: ThemeOptions,
   styles: {
-    auctionHouseList: (_: ThemeOptionsType) => ({
-      display: "flex",
-      flexWrap: "wrap",
-    }),
+    auctionHouseList: (_: ThemeOptionsType) => css`
+      display: flex;
+      flex-wrap: wrap;
+    `,
     // Styles for preview card
-    cardOuter: (theme: ThemeOptionsType, { hasClickEvent }: any) => ({
-      cursor: hasClickEvent ? "pointer" : undefined,
-      background: theme.previewCard.background,
-      overflow: "hidden",
-      borderRadius: `${theme.defaultBorderRadius}px`,
-      border: theme.borderStyle,
-      margin: 15,
-      width: `${theme.previewCard.width}px`,
-      lineHeight: `${theme.lineSpacing}px`,
-      ...theme.bodyFont,
-      transition: "transform 0.1s ease-in-out",
-      "&:active": {
-        transform: "scale(.98)",
-      },
-    }),
-    cardHeader: (theme: ThemeOptionsType) => ({
-      padding: theme.textBlockPadding,
-      ...theme.titleFont,
-    }),
-    cardMediaWrapper: (theme: ThemeOptionsType) => ({
-      width: theme.previewCard.width,
-      height: theme.previewCard.height,
-      display: "flex",
-      overflow: "hidden",
-      position: "relative",
-      justifyContent: "center",
-    }),
-    cardItemInfo: (theme: ThemeOptionsType) => ({
-      padding: theme.textBlockPadding,
-      borderTop: theme.borderStyle,
-    }),
-    cardAuctionPerpetual: (theme: ThemeOptionsType) => ({
-      ...pricingLayout(theme),
-    }),
-    cardAuctionReserveActive: (theme: ThemeOptionsType) => ({
-      background: "#000",
-      color: "#fff",
-      ...pricingLayout(theme),
-    }),
-    cardAuctionReservePending: (theme: ThemeOptionsType) => ({
-      background: "#e6e6e6",
-      ...pricingLayout(theme),
-    }),
-    cardTitle: (theme: ThemeOptionsType) => ({
-      maxWidth: theme.previewCard.width - 30,
-      overflow: "hidden",
-      whiteSpace: "nowrap",
-      textOverflow: "ellipsis",
-      ...theme.titleFont,
-    }),
-
+    cardOuter: (theme: ThemeOptionsType, { hasClickEvent }: any) => css`
+      ${hasClickEvent ? "cursor: pointer;" : ""}
+      background: ${theme.previewCard.background};
+      overflow: hidden;
+      border-radius: ${theme.defaultBorderRadius}px;
+      border: ${theme.borderStyle};
+      margin: 15;
+      width: ${theme.previewCard.width}px;
+      line-height: ${theme.lineSpacing}px;
+      ${theme.bodyFont}
+      transition: transform 0.1s ease-in-out;
+      &:active {
+        transform: scale(0.98);
+      }
+    `,
+    cardHeader: (theme: ThemeOptionsType) => css`
+      padding: ${theme.textBlockPadding};
+      ${theme.titleFont}
+    `,
+    cardMediaWrapper: (theme: ThemeOptionsType) => css`
+      width: ${theme.previewCard.width}px;
+      height: ${theme.previewCard.height}px;
+      display: flex;
+      overflow: hidden;
+      position: relative;
+      justify-content: center;
+    `,
+    cardItemInfo: (theme: ThemeOptionsType) => css`
+      padding: ${theme.textBlockPadding};
+      border-top: ${theme.borderStyle};
+    `,
+    cardAuctionPerpetual: (theme: ThemeOptionsType) => pricingLayout(theme),
+    cardAuctionReserveActive: (theme: ThemeOptionsType) => [
+      css`
+        background: #000;
+        color: #fff;
+      `,
+      pricingLayout(theme),
+    ],
+    cardAuctionReservePending: (theme: ThemeOptionsType) => [
+      css`
+        background: #e6e6e6;
+      `,
+      pricingLayout(theme),
+    ],
+    cardTitle: (theme: ThemeOptionsType) => css`
+      max-width: ${theme.previewCard.width - 30},
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      ${theme.titleFont}
+    `,
     // Styles for full-page view
-    fullPage: (theme: ThemeOptionsType) => ({
-      ...theme.bodyFont,
-    }),
-    fullMediaWrapper: (_: ThemeOptionsType) => ({
-      margin: "5%",
-      position: "relative",
-    }),
-    fullItemInfo: (_: ThemeOptionsType) => ({}),
-    fullTitle: (_: ThemeOptionsType) => ({
-      fontSize: "30px",
-      margin: "20px 0",
-    }),
-    fullDescription: (theme: ThemeOptionsType) => ({
-      fontSize: theme.fontSizeFull,
-      margin: "10px 0",
-    }),
-    fullOwnerAddress: (theme: ThemeOptionsType) => ({
-      fontSize: theme.fontSizeFull,
-      ...theme.titleFont,
-    }),
-    fullLabel: (theme: ThemeOptionsType) => ({
-      textTransform: "uppercase",
-      fontSize: "14px",
-      marginBottom: "5px",
-      opacity: 0.5,
-      ...theme.bodyFont,
-    }),
-    fullPageHistoryItem: (theme: ThemeOptionsType) => ({
-      margin: "14px 0",
-      display: "flex",
-      flexDirection: "column",
-      ...theme.bodyFont,
-      fontWeight: 300,
-    }),
-    fullPageHistoryItemDatestamp: (theme: ThemeOptionsType) => ({
-      ...theme.bodyFont,
-      fontSize: "12px",
-      paddingTop: "2px",
-      opacity: 0.5,
-    }),
-    fullPageDataGrid: (_: ThemeOptionsType) => ({
-      display: "grid",
-      gridGap: "20px",
-    }),
-    infoContainer: (theme: ThemeOptionsType, { bottomPadding }: any) => ({
-      border: theme.borderStyle,
-      borderRadius: `${theme.defaultBorderRadius}px`,
-      padding: `20px 20px ${bottomPadding ? "20px" : 0}`,
-      position: "relative",
-    }),
-    fullProofLink: (theme: ThemeOptionsType) => ({
-      display: "block",
-      textDecoration: "none",
-      color: theme.linkColor,
-      padding: "20px",
-      margin: "0 -20px",
-      borderTop: theme.borderStyle,
-      ":hover": {
-        backgroundColor: "#f2f2f2",
-      },
-      ":after": {
-        content: '" "',
-        width: "14px",
-        height: "14px",
-        opacity: 0.5,
-        backgroundImage: `url("data:image/svg+xml,${encodeURIComponent(
-          SVG_NEXT_ICON
-        )}")`,
-        color: "#eee",
-        right: "20px",
-        position: "absolute",
-      },
-    }),
-    fullCreatorOwnerSection: (theme: ThemeOptionsType) => ({
-      ...pricingLayout(theme),
-      borderTop: 0,
-    }),
+    fullPage: (theme: ThemeOptionsType) => theme.bodyFont,
+    fullMediaWrapper: (_: ThemeOptionsType) => css`
+      margin: 5%;
+      position: relative;
+    `,
+    fullItemInfo: (_: ThemeOptionsType) => css``,
+    fullTitle: (_: ThemeOptionsType) => css`
+      font-size: 30px;
+      margin: 20px 0;
+    `,
+    fullDescription: (theme: ThemeOptionsType) => css`
+      font-size: ${theme.fontSizeFull};
+      margin: 10px 0;
+    `,
+    fullOwnerAddress: (theme: ThemeOptionsType) => [
+      css`
+        font-size: ${theme.fontSizeFull};
+      `,
+      theme.titleFont,
+    ],
+    fullLabel: (theme: ThemeOptionsType) => [
+      css`
+        text-transform: uppercase;
+        font-size: 14px;
+        margin-bottom: 5px;
+        opacity: 0.5;
+      `,
+      theme.bodyFont,
+    ],
+    fullPageHistoryItem: (theme: ThemeOptionsType) => [
+      css`
+        margin: 14px 0;
+        display: flex;
+        flex-direction: column;
+        font-weight: 300;
+      `,
+      theme.bodyFont,
+    ],
+    fullPageHistoryItemDatestamp: (theme: ThemeOptionsType) => [
+      css`
+        font-size: 12px;
+        padding-top: 2px;
+        opacity: 0.5;
+      `,
+      theme.bodyFont,
+    ],
+    fullPageDataGrid: (_: ThemeOptionsType) => css`
+      display: grid;
+      grid-gap: 20px;
+    `,
+    infoContainer: (theme: ThemeOptionsType, { bottomPadding }: any) =>
+      css`
+        border: ${theme.borderStyle};
+        border-radius: ${theme.defaultBorderRadius}px;
+        padding: 20px 20px ${bottomPadding ? "20px" : 0};
+        position: relative;
+      `,
+    fullProofLink: (theme: ThemeOptionsType) => css`
+      display: block;
+      text-decoration: none;
+      color: ${theme.linkColor};
+      padding: 20px;
+      margin: 0 -20px;
+      border-top: ${theme.borderStyle};
 
+      :hover {
+        background-color: #f2f2f2;
+      }
+      :after {
+        content: " ";
+        width: 14px;
+        height: 14px;
+        opacity: 0.5;
+        background-image: url("data:image/svg+xml,${encodeURIComponent(
+          SVG_NEXT_ICON
+        )}");
+        color: #eee;
+        right: 20px;
+        position: absolute;
+      }
+    `,
+    fullCreatorOwnerSection: (theme: ThemeOptionsType) => [
+      pricingLayout(theme),
+      css`
+        border-top: 0;
+      `,
+    ],
     // Generic styles
-    button: (theme: ThemeOptionsType, { primary }: any) => ({
-      background: primary
+    button: (theme: ThemeOptionsType, { primary }: any) => css`
+      background: ${primary
         ? theme.buttonColor.primaryBackground
-        : theme.buttonColor.background,
-      color: primary ? theme.buttonColor.primaryText : theme.buttonColor.text,
-      borderRadius: `${theme.defaultBorderRadius}px`,
-      padding: "11px",
-      font: "inherit",
-      textDecoration: "none",
-      margin: "0",
-      border: "0",
-      cursor: "pointer",
-      display: "inline-block",
-      ...theme.bodyFont,
-      transition: "transform 0.1s ease-in-out",
-      "&:active": {
-        transform: "scale(.98)",
-      },
-    }),
-    textSubdued: (theme: ThemeOptionsType) => ({
-      opacity: "0.5",
-      ...theme.bodyFont,
-    }),
-    pricingAmount: (theme: ThemeOptionsType) => ({
-      ...theme.titleFont,
-    }),
-    mediaLoader: (_: ThemeOptionsType, { mediaLoaded }: any) => ({
-      position: "absolute",
-      pointerEvents: "none",
-      top: 0,
-      left: 0,
-      bottom: 0,
-      right: 0,
-      justifyContent: "center",
-      alignItems: "center",
-      opacity: mediaLoaded ? 0 : 1,
-      transition: "0.1s ease-out opacity",
-      display: "flex",
-      alignContent: "center",
-      justifyItems: "center",
-    }),
-    mediaObject: (_: ThemeOptionsType, { mediaLoaded, isFullPage }: any) => ({
-      opacity: mediaLoaded ? 1 : 0,
-      transition: "0.2s ease-in opacity",
-      maxHeight: isFullPage ? "70vh" : undefined,
-      maxWidth: isFullPage ? "100%" : undefined,
-      display: "block",
-      margin: "0 auto",
-      flexShrink: "1",
-    }),
-    mediaObjectMessage: (_: ThemeOptionsType) => ({
-      alignSelf: "center",
-    }),
-    mediaContentText: (theme: ThemeOptionsType) => ({
-      whiteSpace: "pre",
-      textAlign: "left",
-      padding: "20px",
-      width: "100%",
-      ...theme.mediaContentFont,
-    }),
-    mediaAudioButton: (_: ThemeOptionsType, { playing }: any) => ({
-      padding: "30px",
-      background: "#eee",
-      border: 0,
-      borderRadius: "200px",
-      color: "transparent",
-      width: "30px",
-      height: "30px",
-      backgroundImage: `url("data:image/svg+xml,${encodeURIComponent(
+        : theme.buttonColor.background};
+      color: ${primary
+        ? theme.buttonColor.primaryText
+        : theme.buttonColor.text};
+      border-radius: ${theme.defaultBorderRadius}px;
+      padding: 11px;
+      font: inherit;
+      text-decoration: none;
+      margin: 0;
+      border: 0;
+      cursor: pointer;
+      display: inline-block;
+      transition: transform 0.1s ease-in-out;
+      &:active {
+        transform: scale(0.98);
+      }
+    `,
+    textSubdued: (theme: ThemeOptionsType) => [
+      css`
+        opacity: 0.5;
+      `,
+      theme.bodyFont,
+    ],
+    pricingAmount: (theme: ThemeOptionsType) => theme.titleFont,
+    mediaLoader: (_: ThemeOptionsType, { mediaLoaded }: any) => css`
+      position: absolute;
+      pointer-events: none;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      justify-content: center;
+      align-items: center;
+      opacity: ${mediaLoaded ? 0 : 1};
+      transition: 0.1s ease-out opacity;
+      display: flex;
+      align-content: center;
+      justify-items: center;
+    `,
+    mediaObject: (_: ThemeOptionsType, { mediaLoaded, isFullPage }: any) => css`
+      opacity: ${mediaLoaded ? "1" : "0"};
+      transition: 0.2s ease-in opacity;
+      ${isFullPage ? "max-height: 70vh;" : ""}
+      ${isFullPage ? "max-width: 100%;" : ""}
+      display: block;
+      margin: 0 auto;
+      flex-shrink: 1;
+    `,
+    mediaObjectMessage: (_: ThemeOptionsType) => css`
+      align-self: center;
+    `,
+    mediaContentText: (theme: ThemeOptionsType) => [
+      css`
+        white-space: pre;
+        text-align: left;
+        padding: 20px;
+        width: 100%;
+      `,
+      theme.mediaContentFont,
+    ],
+    mediaAudioButton: (_: ThemeOptionsType, { playing }: any) => css`
+      padding: 30px;
+      background: #eee;
+      border: 0;
+      border-radius: 200px;
+      color: transparent;
+      width: 30px;
+      height: 30px;
+      background-image: url("data:image/svg+xml,${encodeURIComponent(
         playing ? SVG_PAUSE : SVG_PLAY_ARROW
-      )}")`,
-      cursor: "pointer",
-      backgroundRepeat: "no-repeat",
-      backgroundPosition: "center",
-      alignSelf: "center",
-      position: "absolute",
-      left: "50%",
-      marginLeft: "-30px",
-    }),
+      )});
+      cursor: pointer,
+      background-repeat: no-repeat;
+      background-position: center;
+      align-self: center;
+      position: absolute;
+      left: 50%;
+      margin-left: -30px;
+     `,
   },
 };

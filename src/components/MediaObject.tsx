@@ -31,6 +31,7 @@ export type MediaObject = {
   onLoad: () => void;
 };
 
+
 export const MediaObject = ({
   uri,
   metadata,
@@ -79,9 +80,11 @@ export const MediaObject = ({
     if (metadata.mimeType.startsWith("image/")) {
       return { hasLoader: true, mediaTag: <Image mediaObject={mediaObject} /> };
     }
+
     if (metadata.mimeType.startsWith("video/")) {
       return { hasLoader: true, mediaTag: <Video mediaObject={mediaObject} /> };
     }
+
     if (metadata.mimeType.startsWith("audio/")) {
       return {
         hasLoader: true,

@@ -1,23 +1,29 @@
 import { MediaFull } from "./MediaFull";
 import { useMediaContext } from "../context/useMediaContext";
 import { ProofAuthenticity } from "./ProofAuthenticity";
-import { NFTDataProvider } from "../context/NFTDataProvider";
 import { AuctionInfo } from "./AuctionInfo";
 import { BidHistory } from "./BidHistory";
 import { CreatorEquity } from "./CreatorEquity";
 import { MediaInfo } from "./MediaInfo";
+import {
+  NFTPageWrapper,
+  NFTPageWrapperProps,
+} from "../components/NFTPageWrapper";
 
 type NFTFullPageProps = {
-  id: string;
   showBids?: boolean;
   showAuthenticity?: boolean;
-};
+} & NFTPageWrapperProps;
 
-export const NFTFullPage = ({ id, showBids = true, showAuthenticity = true }: NFTFullPageProps) => {
+export const NFTFullPage = ({
+  showBids = true,
+  showAuthenticity = true,
+  ...wrapperProps
+}: NFTFullPageProps) => {
   const { getStyles } = useMediaContext();
 
   return (
-    <NFTDataProvider id={id}>
+    <NFTPageWrapper {...wrapperProps}>
       <div {...getStyles("fullPage")}>
         <MediaFull />
         <div {...getStyles("fullPageDataGrid")}>
@@ -28,6 +34,6 @@ export const NFTFullPage = ({ id, showBids = true, showAuthenticity = true }: NF
           {showBids && <CreatorEquity />}
         </div>
       </div>
-    </NFTDataProvider>
+    </NFTPageWrapper>
   );
 };

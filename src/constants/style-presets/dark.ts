@@ -1,7 +1,6 @@
-import { merge } from "merge-anything";
-import { Style } from "../style";
+import {css} from '@emotion/css';
 
-export const DarkTheme = merge(Style, {
+export const DarkTheme = {
   theme: {
     previewCard: {
       background:
@@ -21,7 +20,10 @@ export const DarkTheme = merge(Style, {
     borderStyle: "0",
     lineSpacing: 28,
   },
-  style: {
-      
+  styles: {
+    cardItemInfo: () => (css`
+      background: red; 
+      padding: 20px;
+    `)
   }
-}) as any;
+};

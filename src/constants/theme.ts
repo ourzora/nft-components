@@ -1,3 +1,5 @@
+import {css} from '@emotion/css';
+
 export const ThemeOptions = {
   // Overall height and width for media
   previewCard: {
@@ -12,20 +14,20 @@ export const ThemeOptions = {
   linkColor: "#000",
 
   // Font settings
-  bodyFont: {
-    fontFamily: "Inter",
-    fontWeight: 400,
-  },
+  bodyFont: `
+    font-family: Inter;
+    font-weight: 400;
+  `,
 
-  titleFont: {
-    fontFamily: "Inter",
-    fontWeight: 500,
-  },
+  titleFont: `
+    font-family: Inter;
+    font-weight: 500;
+  `,
 
-  headerFont: {
-    fontFamily: "Inter",
-    fontWeight: 500,
-  },
+  headerFont: `
+    font-family: Inter;
+    font-weight: 500;
+  `,
 
   mediaContentFont: {
     fontFamily: "Times New Roman",

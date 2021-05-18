@@ -1,11 +1,18 @@
 import React from "react";
-import { useNFT, useNFTMetadata } from "@zoralabs/nft-hooks";
-import { useNFTType } from "@zoralabs/nft-hooks/dist/src/hooks/useNFT";
-import { useNFTMetadataType } from "@zoralabs/nft-hooks/dist/src/hooks/useNFTMetadata";
+import {
+  useNFT,
+  useNFTMetadata,
+  useNFTType,
+  useNFTMetadataType,
+} from "@zoralabs/nft-hooks";
 
 type NFTDataProviderProps = {
   id: string;
   children: React.ReactNode;
+  initialData?: {
+    nft?: useNFTType["data"];
+    metadata?: useNFTMetadataType["metadata"];
+  };
 };
 
 type NFTDataContext = {
@@ -23,9 +30,14 @@ export const NFTDataContext = React.createContext<NFTDataContext>({
   metadata: { ...DEFAULT_OBJECT, metadata: undefined },
 });
 
-export const NFTDataProvider = ({ id, children }: NFTDataProviderProps) => {
-  const nft = useNFT(id, true);
-  const metadata = useNFTMetadata(nft.data?.nft.metadataURI);
+export const NFTDataProvider = ({
+  id,
+  children,
+  initialData,
+}: NFTDataProviderProps) => {
+  const { nft: nftInitial, metadata: metadataInitial } = initialData || {};
+  const nft = useNFT(id, { loadCurrencyInfo: true, initialData: nftInitial });
+  const metadata = useNFTMetadata(nft.data?.nft.metadataURI, metadataInitial);
 
   return (
     <NFTDataContext.Provider value={{ nft, metadata }}>
