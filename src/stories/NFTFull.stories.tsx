@@ -1,4 +1,3 @@
-import React from 'react';
 import {NFTFullPage} from '../nft-full/NFTFullPage';
 import { Story, Meta } from '@storybook/react';
 

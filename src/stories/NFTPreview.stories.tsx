@@ -1,4 +1,3 @@
-import React from 'react';
 import {NFTPreview, NFTPreviewProps} from '../nft-preview/NFTPreview';
 import { Story, Meta } from '@storybook/react';
 

@@ -1,5 +1,3 @@
-import React from "react";
-
 type AddressViewProps = {
   address: string;
   showChars?: number;

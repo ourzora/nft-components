@@ -1,4 +1,3 @@
-import React from "react";
 import { merge } from "merge-anything";
 import { Story, Meta } from "@storybook/react";
 
