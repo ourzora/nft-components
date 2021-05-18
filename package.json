@@ -1,6 +1,6 @@
 {
   "name": "@zoralabs/nft-components",
-  "version": "0.0.2-pre",
+  "version": "0.0.3-pre",
   "description": "NFT Media Rendering Components",
   "typings": "dist/index.d.ts",
   "source": "src/index.ts",
@@ -15,10 +15,11 @@
   "dependencies": {
     "@emotion/css": "^11.1.3",
     "@types/react": "^17.0.5",
-    "@zoralabs/nft-hooks": "^0.1.5",
+    "@zoralabs/nft-hooks": "^0.1.6",
     "merge-anything": "^4.0.1",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "tslib": "^2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.2",
