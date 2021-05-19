@@ -11,3 +11,5 @@ export const VIEW_ETHERSCAN_URL_BASE_BY_NETWORK = {
   [Networks.RINKEBY]:
     "https://rinkeby.etherscan.io/token/0x7C2668BD0D3c050703CEcC956C11Bd520c26f7d4?a=",
 };
+
+export const ZORA_SITE_URL_BASE = "https://zora.co";

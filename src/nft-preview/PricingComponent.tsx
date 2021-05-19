@@ -2,12 +2,13 @@ import { Fragment, useContext } from "react";
 
 import { useMediaContext } from "../context/useMediaContext";
 import { NFTDataContext } from "../context/NFTDataProvider";
-import { CountdownDisplay } from "./CountdownDisplay";
+import { CountdownDisplay } from "../components/CountdownDisplay";
 
 export const PricingComponent = () => {
   const {
     nft: { data },
   } = useContext(NFTDataContext);
+
   const { getStyles, getString } = useMediaContext();
 
   if (data && data.auction.current.auctionType === "perpetual") {
@@ -51,7 +52,7 @@ export const PricingComponent = () => {
     );
   }
   if (data && data.auction.current.auctionType === "reserve") {
-    if (data.auction.current.reserveMet) {
+    if (data.auction.current.reserveMet && !data.auction.current.likelyHasEnded) {
       return (
         <div {...getStyles("cardAuctionReserveActive")}>
           <span {...getStyles("textSubdued")}>{getString("TOP_BID")}</span>

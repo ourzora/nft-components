@@ -1,5 +1,3 @@
-import {css} from '@emotion/css';
-
 export const ThemeOptions = {
   // Overall height and width for media
   previewCard: {

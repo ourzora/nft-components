@@ -1,4 +1,4 @@
-import { PricingInfo } from "@zoralabs/nft-hooks/dist/src/fetcher/AuctionInfoTypes";
+import { PricingInfo } from "@zoralabs/nft-hooks";
 import React, { useContext } from "react";
 
 import { AddressView } from "../components/AddressView";
@@ -40,10 +40,10 @@ export const AuctionInfo = () => {
     return (
       <InfoContainer titleString="AUCTION_ENDS">
         <CountdownDisplay to={auctionInfo.current.endingAt} />
-        <div css={{ height: "20px" }} />
+        <div style={{ height: "20px" }} />
         <div {...getStyles("fullLabel")}>{getString("HIGHEST_BID")}</div>
         {getPricingString(auctionInfo.highestBid?.pricing)}
-        <div css={{ height: "20px" }} />
+        <div style={{ height: "20px" }} />
         <div {...getStyles("fullLabel")}>{getString("BIDDER")}</div>
         <AddressView address={auctionInfo.highestBid?.placedBy} />
       </InfoContainer>
@@ -54,7 +54,7 @@ export const AuctionInfo = () => {
     return (
       <InfoContainer titleString="AUCTION_SOLD_FOR">
         {getPricingString(auctionInfo.highestBid?.pricing)}
-        <div css={{ height: "20px" }} />
+        <div style={{ height: "20px" }} />
         <div {...getStyles("fullLabel")}>{getString("BIDDER")}</div>
         <AddressView address={auctionInfo.highestBid?.placedBy} />
       </InfoContainer>

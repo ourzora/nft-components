@@ -1,9 +1,10 @@
-import { PricingComponent } from "../components/PricingComponent";
+import { PricingComponent } from "./PricingComponent";
 import { useMediaContext } from "../context/useMediaContext";
 import {
   NFTPageWrapper,
   NFTPageWrapperProps,
 } from "../components/NFTPageWrapper";
+
 import { MediaThumbnailWrapper } from "./MediaThumbnailWrapper";
 import { MediaThumbnail } from "./MediaThumbnail";
 

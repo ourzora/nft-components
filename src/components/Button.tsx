@@ -2,7 +2,7 @@ import { useMediaContext } from "../context/useMediaContext";
 
 // One of onClick or href required
 export type ButtonProps = {
-  primary: boolean;
+  primary?: boolean;
   href?: string;
   onClick?: () => void;
   children: React.ReactNode;

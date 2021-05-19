@@ -49,8 +49,7 @@ export const MediaObject = ({
   const getMediaObjectTag = () => {
     if (!content) {
       return {
-        hasLoader: false,
-        mediaTag: <span {...getStyles("mediaObjectMessage")}>Loading</span>,
+        hasLoader: true,
       };
     }
 

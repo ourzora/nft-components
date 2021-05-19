@@ -1,6 +1,6 @@
-import { MediaFull } from "./MediaFull";
 import { useMediaContext } from "../context/useMediaContext";
 import { ProofAuthenticity } from "./ProofAuthenticity";
+import { MediaFull } from "./MediaFull";
 import { AuctionInfo } from "./AuctionInfo";
 import { BidHistory } from "./BidHistory";
 import { CreatorEquity } from "./CreatorEquity";
@@ -9,6 +9,7 @@ import {
   NFTPageWrapper,
   NFTPageWrapperProps,
 } from "../components/NFTPageWrapper";
+import { PlaceOfferButton } from "./PlaceOfferButton";
 
 type NFTFullPageProps = {
   showBids?: boolean;
@@ -28,6 +29,7 @@ export const NFTFullPage = ({
         <MediaFull />
         <div {...getStyles("fullPageDataGrid")}>
           <MediaInfo />
+          <PlaceOfferButton />
           {showBids && <AuctionInfo />}
           {showAuthenticity && <ProofAuthenticity />}
           {showBids && <BidHistory />}

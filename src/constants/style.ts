@@ -26,7 +26,7 @@ export const Style = {
       overflow: hidden;
       border-radius: ${theme.defaultBorderRadius}px;
       border: ${theme.borderStyle};
-      margin: 15;
+      margin: 15px;
       width: ${theme.previewCard.width}px;
       line-height: ${theme.lineSpacing}px;
       ${theme.bodyFont}
@@ -189,17 +189,12 @@ export const Style = {
     ],
     pricingAmount: (theme: ThemeOptionsType) => theme.titleFont,
     mediaLoader: (_: ThemeOptionsType, { mediaLoaded }: any) => css`
-      position: absolute;
       pointer-events: none;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
+      min-height: 30vh;
+      width: 100%;
       justify-content: center;
       align-items: center;
-      opacity: ${mediaLoaded ? 0 : 1};
-      transition: 0.1s ease-out opacity;
-      display: flex;
+      display: ${mediaLoaded ? 'none' : 'flex'};
       align-content: center;
       justify-items: center;
     `,
@@ -234,8 +229,8 @@ export const Style = {
       height: 30px;
       background-image: url("data:image/svg+xml,${encodeURIComponent(
         playing ? SVG_PAUSE : SVG_PLAY_ARROW
-      )});
-      cursor: pointer,
+      )}");
+      cursor: pointer;
       background-repeat: no-repeat;
       background-position: center;
       align-self: center;

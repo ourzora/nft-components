@@ -1,7 +1,7 @@
 import {Networks} from '@zoralabs/nft-hooks';
 import {AuctionHouseList} from './auction-house/AuctionHouseList';
-import {NFTPreview} from './nft-preview/NFTPreview';
-import {NFTFullPage} from './nft-full/NFTFullPage';
+import {NFTPreview, PreviewComponents} from './nft-preview';
+import {NFTFullPage, FullComponents} from './nft-full';
 import {MediaConfiguration} from './context/MediaContext';
 
 export {
@@ -13,5 +13,8 @@ export {
     AuctionHouseList,
     // Media rendering component
     NFTPreview,
+    PreviewComponents,
+
     NFTFullPage,
+    FullComponents,
 };

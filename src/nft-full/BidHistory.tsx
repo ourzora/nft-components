@@ -1,4 +1,4 @@
-import { PricingInfo } from "@zoralabs/nft-hooks/dist/src/fetcher/AuctionInfoTypes";
+import { PricingInfo } from "@zoralabs/nft-hooks";
 import React, { Fragment, useContext } from "react";
 
 import { AddressView } from "../components/AddressView";
@@ -73,7 +73,9 @@ export const BidHistory = () => {
       .map((bidItem) => (
         <div {...getStyles("fullPageHistoryItem")} key={bidItem.createdAt}>
           <div>
-            <span {...getStyles("pricingAmount")}><AddressView address={bidItem.actor} />{" "}</span>
+            <span {...getStyles("pricingAmount")}>
+              <AddressView address={bidItem.actor} />{" "}
+            </span>
             {bidItem.activityDescription} {bidItem.pricing}
           </div>
           <div {...getStyles("fullPageHistoryItemDatestamp")}>
