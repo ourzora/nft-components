@@ -188,15 +188,28 @@ export const Style = {
       theme.bodyFont,
     ],
     pricingAmount: (theme: ThemeOptionsType) => theme.titleFont,
-    mediaLoader: (_: ThemeOptionsType, { mediaLoaded }: any) => css`
+    mediaLoader: (_: ThemeOptionsType, { mediaLoaded, isFullPage }: any) => css`
       pointer-events: none;
-      min-height: 30vh;
+      ${isFullPage ? 'min-height: 40vh;' : ''}
       width: 100%;
       justify-content: center;
       align-items: center;
-      display: ${mediaLoaded ? 'none' : 'flex'};
+      opacity: ${mediaLoaded ? '0' : '1'};
+      display: flex;
+      transition: 0.2s ease-out opacity;
       align-content: center;
       justify-items: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      ${isFullPage && !mediaLoaded ? `
+      &:after {
+        content: " ";
+        height: 30vh;
+      }
+      ` : ''}
     `,
     mediaObject: (_: ThemeOptionsType, { mediaLoaded, isFullPage }: any) => css`
       opacity: ${mediaLoaded ? "1" : "0"};
@@ -206,6 +219,12 @@ export const Style = {
       display: block;
       margin: 0 auto;
       flex-shrink: 1;
+    `,
+    mediaAudioWrapper: (_: ThemeOptionsType) => css`
+      height: 30vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     `,
     mediaObjectMessage: (_: ThemeOptionsType) => css`
       align-self: center;
@@ -233,10 +252,6 @@ export const Style = {
       cursor: pointer;
       background-repeat: no-repeat;
       background-position: center;
-      align-self: center;
-      position: absolute;
-      left: 50%;
-      margin-left: -30px;
      `,
   },
 };

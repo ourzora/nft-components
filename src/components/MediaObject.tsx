@@ -102,7 +102,7 @@ export const MediaObject = ({
     <Fragment>
       {mediaTag}
       {hasLoader && (
-        <div {...getStyles("mediaLoader", { mediaLoaded })}>
+        <div {...getStyles("mediaLoader", { mediaLoaded, isFullPage })}>
           <span>Loading...</span>
         </div>
       )}

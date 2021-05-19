@@ -26,7 +26,7 @@ export const Audio = ({
   );
 
   return (
-    <Fragment>
+    <div {...getStyles("mediaAudioWrapper")}>
       {mediaLoaded && (
         <button
           onClick={togglePlay}
@@ -38,10 +38,11 @@ export const Audio = ({
       <audio
         loop={true}
         ref={audioRef}
+        style={{display: 'none'}}
         preload="auto"
         onLoadedData={onLoad}
         {...mediaObject}
       />
-    </Fragment>
+    </div>
   );
 };
