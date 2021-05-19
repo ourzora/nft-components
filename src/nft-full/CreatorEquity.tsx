@@ -17,7 +17,7 @@ export const CreatorEquity = () => {
 
   return (
     <InfoContainer titleString="CREATOR_EQUITY">
-      <div css={{height: '15px'}} />
+      <div style={{height: '15px'}} />
       {data && getContent(data.nft)}
     </InfoContainer>
   );

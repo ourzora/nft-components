@@ -3,6 +3,7 @@ import {AuctionHouseList} from './auction-house/AuctionHouseList';
 import {NFTPreview, PreviewComponents} from './nft-preview';
 import {NFTFullPage, FullComponents} from './nft-full';
 import {MediaConfiguration} from './context/MediaContext';
+import {NFTPageWrapper} from './components/NFTPageWrapper';
 
 export {
     // Constant list of all networks
@@ -11,10 +12,15 @@ export {
     MediaConfiguration,
     // Auction house helper for listing curated NFTs
     AuctionHouseList,
+
     // Media rendering component
+    // Preview thumbnail renderer
     NFTPreview,
     PreviewComponents,
-
+    // Full Page renderer
     NFTFullPage,
     FullComponents,
+
+    // Generic data wrapper
+    NFTPageWrapper,
 };

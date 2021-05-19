@@ -11,7 +11,7 @@ import { MediaThumbnail } from "./MediaThumbnail";
 export type NFTPreviewProps = {
   onClick?: (evt: React.MouseEvent<HTMLElement>) => void;
   showBids?: boolean;
-} & NFTPageWrapperProps;
+} & Omit<NFTPageWrapperProps, 'children'>;
 
 export const NFTPreview = ({
   onClick = undefined,

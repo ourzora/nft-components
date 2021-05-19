@@ -14,7 +14,7 @@ import { PlaceOfferButton } from "./PlaceOfferButton";
 type NFTFullPageProps = {
   showBids?: boolean;
   showAuthenticity?: boolean;
-} & NFTPageWrapperProps;
+} & Omit<NFTPageWrapperProps, 'children'>;
 
 export const NFTFullPage = ({
   showBids = true,
