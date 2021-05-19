@@ -6,7 +6,7 @@ import {
   useNFTMetadataType,
 } from "@zoralabs/nft-hooks";
 
-type NFTDataProviderProps = {
+export type NFTDataProviderProps = {
   id: string;
   children: React.ReactNode;
   initialData?: {

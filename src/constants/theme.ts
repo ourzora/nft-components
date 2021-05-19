@@ -13,17 +13,17 @@ export const ThemeOptions = {
 
   // Font settings
   bodyFont: `
-    font-family: Inter;
+    font-family: Inter, Helvetica;
     font-weight: 400;
   `,
 
   titleFont: `
-    font-family: Inter;
+    font-family: Inter, Helvetica;
     font-weight: 500;
   `,
 
   headerFont: `
-    font-family: Inter;
+    font-family: Inter, Helvetica;
     font-weight: 500;
   `,
 

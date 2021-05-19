@@ -1,10 +1,19 @@
-import { NFTDataProvider } from "../context/NFTDataProvider";
+import {
+  NFTDataProvider,
+  NFTDataProviderProps,
+} from "../context/NFTDataProvider";
 
-export type NFTPageWrapperProps = {
-  id: string;
-  children: React.ReactNode;
-};
+export type NFTPageWrapperProps = NFTDataProviderProps;
 
-export const NFTPageWrapper = ({ id, children }: NFTPageWrapperProps) => {
-  return <NFTDataProvider id={id}>{children}</NFTDataProvider>;
+export const NFTPageWrapper = ({
+  id,
+  initialData,
+  children,
+}: NFTDataProviderProps) => {
+  return (
+    <NFTDataProvider id={id} initialData={initialData}>
+      {children}
+    </NFTDataProvider>
+  );
+
 };

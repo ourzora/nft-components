@@ -1,39 +1,46 @@
 import { NFTDataType } from "@zoralabs/nft-hooks";
 
 enum AuctionStateInfo {
-  SALE_LOADING,
-  SALE_NONE,
-  SALE_PERPETUAL,
-  SALE_PERPETUAL_RESERVE,
-  SALE_RESERVE_AUCTION_ACTIVE,
-  SALE_RESERVE_LAST_15,
-  SALE_RESERVE_AUCTION_FINISHED,
-  SALE_RESERVE_AUCTION_PENDING,
+  LOADING = 'LOADING',
+  NO_PRICING = 'NO_PRICING',
+  PERPETUAL_BID = 'PERPETUAL_BID',
+  PERPETUAL_ASK = 'PERPETUAL_ASK',
+  RESERVE_AUCTION_PENDING = 'RESERVE_AUCTION_PENDING',
+  RESERVE_AUCTION_ACTIVE = 'RESERVE_AUCTION_ACTIVE',
+  RESERVE_AUCTION_LAST_15 = 'RESERVE_AUCTION_LAST_15',
+  RESERVE_AUCTION_ENDED = 'RESERVE_AUCTION_ENDED',
+  RESERVE_AUCTION_FINISHED = 'RESERVE_AUCTION_FINISHED',
 }
 
 export function getAuctionState(data?: NFTDataType): AuctionStateInfo {
   if (!data) {
-    return AuctionStateInfo.SALE_LOADING;
+    return AuctionStateInfo.LOADING;
   }
 
   if (data.auction.current.auctionType === "perpetual") {
     if (data.auction.current.reservePrice) {
-      return AuctionStateInfo.SALE_PERPETUAL_RESERVE;
+      return AuctionStateInfo.PERPETUAL_ASK;
     }
     if (!data.auction.highestBid && data.pricing.reserve?.previousBids.length) {
-      return AuctionStateInfo.SALE_RESERVE_AUCTION_FINISHED;
+      return AuctionStateInfo.RESERVE_AUCTION_FINISHED;
     }
-    return AuctionStateInfo.SALE_PERPETUAL;
+    if (data.auction.highestBid) {
+      return AuctionStateInfo.PERPETUAL_BID;
+    }
+    return AuctionStateInfo.NO_PRICING;
   }
   if (data.auction.current.auctionType === "reserve") {
     if (data.auction.current.likelyHasEnded) {
-      return AuctionStateInfo.SALE_RESERVE_AUCTION_FINISHED;
+      return AuctionStateInfo.RESERVE_AUCTION_FINISHED;
     }
     if (data.auction.current.reserveMet) {
-      return AuctionStateInfo.SALE_RESERVE_AUCTION_ACTIVE;
+      if (data.auction.current.endingAt && Math.floor(new Date().getTime()/1000) - 15 * 60 > parseInt(data.auction.current.endingAt, 10)) {
+        return AuctionStateInfo.RESERVE_AUCTION_LAST_15;
+      }
+      return AuctionStateInfo.RESERVE_AUCTION_ACTIVE;
     }
-    return AuctionStateInfo.SALE_RESERVE_AUCTION_PENDING;
+    return AuctionStateInfo.RESERVE_AUCTION_PENDING;
   }
 
-  return AuctionStateInfo.SALE_NONE;
+  return AuctionStateInfo.NO_PRICING;
 }
