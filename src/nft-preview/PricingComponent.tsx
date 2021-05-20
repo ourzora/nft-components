@@ -3,6 +3,7 @@ import { Fragment, useContext } from "react";
 import { useMediaContext } from "../context/useMediaContext";
 import { NFTDataContext } from "../context/NFTDataProvider";
 import { CountdownDisplay } from "../components/CountdownDisplay";
+import { AuctionType } from "@zoralabs/nft-hooks";
 
 export const PricingComponent = () => {
   const {
@@ -11,7 +12,7 @@ export const PricingComponent = () => {
 
   const { getStyles, getString } = useMediaContext();
 
-  if (data && data.auction.current.auctionType === "perpetual") {
+  if (data && data.auction.current.auctionType === AuctionType.PERPETUAL) {
     let listPrice = null;
 
     if (data.auction.current.reservePrice) {
@@ -51,8 +52,11 @@ export const PricingComponent = () => {
       </div>
     );
   }
-  if (data && data.auction.current.auctionType === "reserve") {
-    if (data.auction.current.reserveMet && !data.auction.current.likelyHasEnded) {
+  if (data && data.auction.current.auctionType === AuctionType.RESERVE) {
+    if (
+      data.auction.current.reserveMet &&
+      !data.auction.current.likelyHasEnded
+    ) {
       return (
         <div {...getStyles("cardAuctionReserveActive")}>
           <span {...getStyles("textSubdued")}>{getString("TOP_BID")}</span>

@@ -14,11 +14,11 @@ export const MediaThumbnailWrapper = ({
   const { getStyles } = useMediaContext();
 
   const { nft } = useContext(NFTDataContext);
-  const auctionState = getAuctionState(nft.data);
+  const auctionStatus = nft.data?.auction.status;
 
   return (
     <div
-      {...getStyles("cardOuter", { hasClickEvent: !!onClick, auctionState })}
+      {...getStyles("cardOuter", { hasClickEvent: !!onClick, auctionStatus })}
       onClick={onClick}
     >
       {children}

@@ -1,4 +1,4 @@
-import { PricingInfo } from "@zoralabs/nft-hooks";
+import { AuctionType, PricingInfo } from "@zoralabs/nft-hooks";
 import React, { useContext } from "react";
 
 import { AddressView } from "../components/AddressView";
@@ -50,7 +50,13 @@ export const AuctionInfo = () => {
     );
   }
 
-  if (auctionInfo.current.likelyHasEnded && auctionInfo.highestBid) {
+  console.log({auctionInfo})
+  if (
+    auctionInfo.highestBid &&
+    (nft.data.pricing.reserve?.status === "Active" ||
+      nft.data.pricing.reserve?.status === "Finished")
+  ) {
+    console.log("HER");
     return (
       <InfoContainer titleString="AUCTION_SOLD_FOR">
         {getPricingString(auctionInfo.highestBid?.pricing)}
@@ -64,7 +70,7 @@ export const AuctionInfo = () => {
   return (
     <InfoContainer
       titleString={
-        nft.data.auction.current.auctionType === "perpetual"
+        nft.data.auction.current.auctionType === AuctionType.PERPETUAL
           ? "LIST_PRICE"
           : "RESERVE_PRICE"
       }
