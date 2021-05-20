@@ -31,11 +31,28 @@ export const MediaContext = createContext<MediaContextType>({
 });
 
 type MediaContextConfigurationProps = {
+  /**
+   * NetworkID to set. Use Networks export to set constant. Default is mainnet. 
+   */
   networkId?: NetworkIDs;
   children: React.ReactNode;
+  /**
+   * List of mediaRenderers configuration settings to add or replace media renderers. 
+   */
   mediaRenderers?: MediaRenderersType;
-  style?: any;
-  strings?: any;
+  /**
+   * Style configuration object. Contains both a theme and styles. Theme are generic settings for rendering styles.Style configuration object. Contains both a theme and styles.
+   * Theme are generic settings for rendering styles.
+   * Styles are raw emotion css-in-js styles for more fine-grained display settings.
+   */
+  style?: Partial<typeof Style>;
+  /**
+   * List of content strings.
+   */
+  strings?: Partial<typeof Strings>;
+  /**
+   * Theme preset to choose from. Themes can be found in `src/content-components/index.ts`.
+   */
   themePreset?: ThemePresetNames;
 };
 

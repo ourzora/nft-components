@@ -1,8 +1,8 @@
-import { MediaObjectProps } from ".";
+import { MediaRendererProps } from ".";
 
 export const Video = ({
   objectProps: { onLoad, ...props },
-}: MediaObjectProps) => {
+}: MediaRendererProps) => {
   return (
     <video
       preload="metadata"
