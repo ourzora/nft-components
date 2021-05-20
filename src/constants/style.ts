@@ -149,6 +149,7 @@ export const Style = {
     fullInfoSpacer: (_: any, { height = 15 }: { height: number }) => css`
       height: ${height}px;
     `,
+    fullInfoAuctionWrapper: () => ``;
     fullPlaceOfferButton: (_: any) => css``,
     fullInfoCreatorEquityContainer: (_: any) => css`
       margin-top: 15px;

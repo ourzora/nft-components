@@ -1,7 +1,7 @@
 import { Strings } from "../constants/strings";
 import { useMediaContext } from "../context/useMediaContext";
 
-type InfoContainerProps = {
+export type InfoContainerProps = {
   children: React.ReactNode;
   titleString: keyof typeof Strings;
   bottomPadding?: boolean,
