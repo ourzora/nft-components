@@ -9,19 +9,23 @@ import { merge } from "merge-anything";
 import { Strings } from "../constants/strings";
 import { Style } from "../constants/style";
 import { ThemePresetNames, THEME_PRESETS } from "../constants/style-presets";
+import {
+  DefaultMediaRenderers,
+  MediaRenderersType,
+} from "../content-components";
 
 export type ThemeType = typeof Style;
 
 export type MediaContextType = {
+  mediaRenderers: MediaRenderersType;
   style: ThemeType;
   networkId: NetworkIDs;
-  showBids: boolean;
   strings: typeof Strings;
 };
 
 export const MediaContext = createContext<MediaContextType>({
+  mediaRenderers: DefaultMediaRenderers,
   networkId: Networks.MAINNET,
-  showBids: true,
   style: Style,
   strings: Strings,
 });
@@ -29,8 +33,8 @@ export const MediaContext = createContext<MediaContextType>({
 type MediaContextConfigurationProps = {
   networkId?: NetworkIDs;
   children: React.ReactNode;
+  mediaRenderers?: MediaRenderersType;
   style?: any;
-  showBids?: boolean;
   strings?: any;
   themePreset?: ThemePresetNames;
 };
@@ -40,13 +44,12 @@ export const MediaConfiguration = ({
   style = {},
   children,
   strings = {},
+  mediaRenderers = {},
   themePreset,
-  showBids,
 }: MediaContextConfigurationProps) => {
   const superContext = useContext(MediaContext);
 
   const themePresetValue = themePreset ? THEME_PRESETS[themePreset] : undefined;
-  console.log({themePresetValue})
 
   let newContext = {
     style: merge(
@@ -56,8 +59,8 @@ export const MediaConfiguration = ({
       style
     ),
     strings: merge(superContext.strings, strings),
+    mediaRenderers: merge(superContext.mediaRenderers, mediaRenderers),
     networkId,
-    showBids: showBids === undefined ? superContext.showBids : showBids,
   };
 
   return (

@@ -1,5 +1,4 @@
 import { PricingComponent } from "./PricingComponent";
-import { useMediaContext } from "../context/useMediaContext";
 import {
   NFTPageWrapper,
   NFTPageWrapperProps,
@@ -12,15 +11,15 @@ import { Fragment } from "react";
 export type NFTPreviewProps = {
   onClick?: (evt: React.MouseEvent<HTMLElement>) => void;
   children?: React.ReactNode;
+  showBids?: boolean;
 } & Omit<NFTPageWrapperProps, "children">;
 
 export const NFTPreview = ({
   onClick = undefined,
+  showBids = true,
   children,
   ...wrapperProps
 }: NFTPreviewProps) => {
-  const { showBids } = useMediaContext();
-
   const getChildren = () => {
     if (children) {
       return children;

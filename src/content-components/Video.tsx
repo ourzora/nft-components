@@ -1,17 +1,15 @@
-import { MediaObject } from "../components/MediaObject";
+import { MediaObjectProps } from ".";
 
 export const Video = ({
-  mediaObject: { onLoad, ...mediaObject },
-}: {
-  mediaObject: MediaObject;
-}) => {
+  objectProps: { onLoad, ...props },
+}: MediaObjectProps) => {
   return (
     <video
       preload="metadata"
       autoPlay={true}
       loop={true}
       muted={true}
-      {...mediaObject}
+      {...props}
       onLoadedData={onLoad}
     ></video>
   );

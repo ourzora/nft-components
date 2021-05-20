@@ -149,7 +149,7 @@ export const Style = {
     fullInfoSpacer: (_: any, { height = 15 }: { height: number }) => css`
       height: ${height}px;
     `,
-    fullInfoAuctionWrapper: () => ``;
+    fullInfoAuctionWrapper: () => ``,
     fullPlaceOfferButton: (_: any) => css``,
     fullInfoCreatorEquityContainer: (_: any) => css`
       margin-top: 15px;
@@ -235,7 +235,7 @@ export const Style = {
         ? `
       &:after {
         content: " ";
-        height: 30vh;
+        ${isFullPage ? 'height: 30vh' : ''}
       }
       `
         : ""}

@@ -1,10 +1,11 @@
+import { useNFTContentType } from "@zoralabs/nft-hooks";
 import { useMediaContext } from "../context/useMediaContext";
 
-export const Text = ({
-  content,
-}: {
-  content: string;
-}) => {
+export const Text = ({ media }: { media: useNFTContentType["content"] }) => {
   const { getStyles } = useMediaContext();
-  return <div {...getStyles("mediaContentText")}>{content}</div>;
+  return (
+    <div {...getStyles("mediaContentText")}>
+      {media?.type === "text" ? media.text : ""}
+    </div>
+  );
 };

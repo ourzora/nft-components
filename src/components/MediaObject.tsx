@@ -2,13 +2,7 @@ import { useState, useCallback, Fragment } from "react";
 import { useNFTContent } from "@zoralabs/nft-hooks";
 
 import { useMediaContext } from "../context/useMediaContext";
-
-// MediaTypes
-import { Video } from "../content-components/Video";
-import { Image } from "../content-components/Image";
-import { Audio } from "../content-components/Audio";
-import { Text } from "../content-components/Text";
-import { Unknown } from "../content-components/Unknown";
+import { MediaRendererProps, RendererRecord } from "../content-components";
 
 type MetadataIsh = {
   mimeType: string;
@@ -22,23 +16,13 @@ type MediaObjectProps = {
   isFullPage?: boolean;
 };
 
-export type MediaObject = {
-  css: any;
-  className: string;
-  src: string;
-  alt: string;
-  onError: () => void;
-  onLoad: () => void;
-};
-
-
 export const MediaObject = ({
   uri,
   metadata,
   isFullPage = false,
 }: MediaObjectProps) => {
   const { content } = useNFTContent(uri, metadata.mimeType);
-  const { getStyles } = useMediaContext();
+  const { getStyles, mediaRenderers } = useMediaContext();
 
   const [mediaError, setMediaErrorMessage] = useState<undefined | string>();
   const [mediaLoaded, setMediaLoaded] = useState<boolean>(false);
@@ -47,54 +31,58 @@ export const MediaObject = ({
   }, []);
 
   const getMediaObjectTag = () => {
+    const renderMediaConfig = (mediaRenderer: RendererRecord) => {
+      const mediaObject: MediaRendererProps = {
+        objectProps: {
+          ...getStyles("mediaObject", { mediaLoaded, isFullPage }),
+          src: uri,
+          alt: metadata.description,
+          onError: setMediaError,
+          onLoad: () => setMediaLoaded(true),
+        },
+        mediaLoaded,
+        media: content,
+      };
+
+      const RendererComponent = mediaRenderer.renderer;
+      return {
+        hasLoader: mediaRenderer.hasLoader,
+        mediaTag: <RendererComponent {...mediaObject} />,
+      };
+    };
+    const handleMimePrefix = (prefix: string) => {
+      const keysToMatch = Object.keys(mediaRenderers)
+        .filter((renderKey) => renderKey.startsWith(prefix))
+        .sort(([rendererKeyA, rendererKeyB]) =>
+          rendererKeyA.length > rendererKeyB.length ? 1 : -1
+        );
+      const mediaRendererKey =
+        keysToMatch.find((key) =>
+          `${prefix}${content?.mimeType}`.startsWith(key)
+        ) || "unknown";
+      return mediaRenderers[mediaRendererKey];
+    };
+
+    // Returns in loading state
     if (!content) {
       return {
         hasLoader: true,
+        mediaTag: null,
       };
     }
 
+    // Handles text content types
     if (content.type === "text") {
-      return { hasLoader: false, mediaTag: <Text content={content.text} /> };
+      return renderMediaConfig(handleMimePrefix("text:"));
     }
 
+    // Loading error rendering
     if (mediaError) {
-      return {
-        hasLoader: false,
-        mediaTag: (
-          <span {...getStyles("mediaObjectMessage")}>
-            Error loading content
-          </span>
-        ),
-      };
+      return renderMediaConfig(mediaRenderers["error"]);
     }
 
-    const mediaObject: MediaObject = {
-      ...getStyles("mediaObject", { mediaLoaded, isFullPage }),
-      src: uri,
-      alt: metadata.description,
-      onError: setMediaError,
-      onLoad: () => setMediaLoaded(true),
-    };
-
-    if (metadata.mimeType.startsWith("image/")) {
-      return { hasLoader: true, mediaTag: <Image mediaObject={mediaObject} /> };
-    }
-
-    if (metadata.mimeType.startsWith("video/")) {
-      return { hasLoader: true, mediaTag: <Video mediaObject={mediaObject} /> };
-    }
-
-    if (metadata.mimeType.startsWith("audio/")) {
-      return {
-        hasLoader: true,
-        mediaTag: <Audio mediaObject={mediaObject} mediaLoaded={mediaLoaded} />,
-      };
-    }
-
-    return {
-      hasLoader: false,
-      mediaTag: <Unknown mimeType={metadata.mimeType} />,
-    };
+    // Render content with a URI
+    return renderMediaConfig(handleMimePrefix("uri:"));
   };
 
   const { hasLoader, mediaTag } = getMediaObjectTag();

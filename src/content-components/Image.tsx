@@ -1,5 +1,5 @@
-import { MediaObject } from "../components/MediaObject";
+import { MediaRendererProps } from ".";
 
-export const Image = ({ mediaObject }: { mediaObject: MediaObject }) => {
-  return <img {...mediaObject} />;
+export const Image = ({ objectProps }: MediaRendererProps) => {
+  return <img {...objectProps} />;
 };

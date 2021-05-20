@@ -4,8 +4,6 @@ import { Story, Meta } from '@storybook/react';
 export default {
   title: 'Renderer/NFTPreview',
   component: NFTPreview,
-  argTypes: {
-  },
 } as Meta;
 
 const Template: Story<NFTPreviewProps> = (args) => <NFTPreview {...args} />;

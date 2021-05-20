@@ -1,6 +1,7 @@
+import { MediaRendererProps } from ".";
 import { useMediaContext } from "../context/useMediaContext";
 
-export const Unknown = ({ mimeType }: { mimeType: string }) => {
+export const Unknown = ({ media }: MediaRendererProps) => {
   const { getStyles } = useMediaContext();
-  return <div {...getStyles("mediaObjectMessage")}>{mimeType}</div>;
+  return <div {...getStyles("mediaObjectMessage")}>{media?.mimeType}</div>;
 };

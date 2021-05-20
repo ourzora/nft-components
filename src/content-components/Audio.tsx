@@ -1,15 +1,12 @@
-import { Fragment, useCallback, useRef, useState } from "react";
-import { useMediaContext } from "../context/useMediaContext";
+import { useCallback, useRef, useState } from "react";
 
-import { MediaObject } from "../components/MediaObject";
+import { useMediaContext } from "../context/useMediaContext";
+import { MediaRendererProps } from ".";
 
 export const Audio = ({
-  mediaObject: { onLoad, ...mediaObject },
+  objectProps: { onLoad, ...mediaObject },
   mediaLoaded,
-}: {
-  mediaObject: MediaObject;
-  mediaLoaded: boolean;
-}) => {
+}: MediaRendererProps) => {
   const { getStyles } = useMediaContext();
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState<boolean>(false);
@@ -38,7 +35,7 @@ export const Audio = ({
       <audio
         loop={true}
         ref={audioRef}
-        style={{display: 'none'}}
+        style={{ display: "none" }}
         preload="auto"
         onLoadedData={onLoad}
         {...mediaObject}

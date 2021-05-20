@@ -3,7 +3,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Renderer/About" />
 
-# About dendering components
+# NFT Rendering Components and configuration
 
 These components render information from Zora NFTs and markets with default components and settings.
 
@@ -30,6 +30,9 @@ const STYLE_OVERRIDE = {
         bodyFont: `
             font-family: courier;
         `,
+        previewCard: {
+            height: '20vh',
+        },
     },
 };
 return (
@@ -43,20 +46,27 @@ return (
 )
 ```
 
-### With custom layout:
+### With custom layout and data components:
 ```tsx
-import {NFTFullPage, FullComponents} from '@zoralabs/nft-components';
+import {useContext} from 'react';
+import {NFTFullPage, FullComponents, NFTDataContext} from '@zoralabs/nft-components';
 
-return (
+const VerifyHash = () => {
+    const {nft} = useContext(NFTDataContext);
+    if (!nft.data?.contentHash) {
+        return null;
+    }
+    return (
+        <h3>Verification hash: {nft.data?.contentHash}</h3>
+    );
+};
+
+const Page = () => (
     <NFTFullPage id="YOUR_ID">
+        <h3>Media info:</h3>
         <FullComponents.MediaInfo />
+        <VerifyHash />
         <FullComponents.BidInfo />
     </NFTFullPage>
 );
-```
-
-which, is implemented as:
-
-```ts
-
 ```
