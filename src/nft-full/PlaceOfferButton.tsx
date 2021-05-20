@@ -7,13 +7,13 @@ import { NFTDataContext } from "../context/NFTDataProvider";
 
 export const PlaceOfferButton = () => {
   const { nft } = useContext(NFTDataContext);
-  const { getString } = useMediaContext();
+  const { getString, getStyles } = useMediaContext();
 
   if (!nft.data) {
     return <Fragment />;
   }
   return (
-    <div>
+    <div {...getStyles("fullPlaceOfferButton")}>
       <Button
         primary={true}
         href={[

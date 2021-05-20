@@ -1,8 +1,8 @@
 export const ThemeOptions = {
   // Overall height and width for media
   previewCard: {
-    width: 330,
-    height: 330,
+    width: '330px',
+    height: '330px',
     background: "transparent",
   },
 

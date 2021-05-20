@@ -1,6 +1,5 @@
 import { useContext } from "react";
 
-import { getAuctionState } from "../components/getAuctionState";
 import { NFTDataContext } from "../context/NFTDataProvider";
 import { useMediaContext } from "../context/useMediaContext";
 

@@ -17,7 +17,7 @@ Image.args = {
 
 export const Video = Template.bind({});
 Video.args = {
-  id: '2733',
+  id: '2411',
 };
 
 export const GIF = Template.bind({});

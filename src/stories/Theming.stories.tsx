@@ -5,16 +5,17 @@ import { NFTPreview } from "../nft-preview/NFTPreview";
 import { Style } from "../constants/style";
 import { MediaConfiguration } from "../context/MediaContext";
 import { NFTFullPage } from "../nft-full/NFTFullPage";
-import { DarkTheme } from "../constants/style-presets/dark";
+import { ThemePresetNames } from "../constants/style-presets";
 
 type ThemeProps = {
   style: Partial<typeof Style>;
   showFull: boolean;
+  themePreset?: ThemePresetNames,
   id: string;
 };
 
-const DemoComponent = ({ id, style, showFull }: ThemeProps) => (
-  <MediaConfiguration style={style}>
+const DemoComponent = ({ id, style, showFull, themePreset }: ThemeProps) => (
+  <MediaConfiguration style={style} themePreset={themePreset}>
     {showFull ? <NFTFullPage id={id} /> : <NFTPreview id={id} />}
   </MediaConfiguration>
 );
@@ -47,8 +48,8 @@ PreviewCard.args = {
 
 export const Dark = Template.bind({});
 Dark.args = {
-  id: "3102",
-  style: DarkTheme,
+  id: "3109",
+  themePreset: "Dark",
 };
 Dark.parameters = {
   backgrounds: {
@@ -56,6 +57,19 @@ Dark.parameters = {
     values: [{ name: "dark", value: "#333" }],
   },
 };
+
+export const Gallery = Template.bind({});
+Gallery.args = {
+  id: "3109",
+  themePreset: "Gallery",
+};
+Gallery.parameters = {
+  backgrounds: {
+    default: "gray",
+    values: [{ name: "gray", value: "#ddd" }],
+  },
+};
+
 
 export const FullPage = Template.bind({});
 FullPage.args = {

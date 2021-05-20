@@ -8,6 +8,7 @@ import { merge } from "merge-anything";
 
 import { Strings } from "../constants/strings";
 import { Style } from "../constants/style";
+import { ThemePresetNames, THEME_PRESETS } from "../constants/style-presets";
 
 export type ThemeType = typeof Style;
 
@@ -31,6 +32,7 @@ type MediaContextConfigurationProps = {
   style?: any;
   showBids?: boolean;
   strings?: any;
+  themePreset?: ThemePresetNames;
 };
 
 export const MediaConfiguration = ({
@@ -38,12 +40,21 @@ export const MediaConfiguration = ({
   style = {},
   children,
   strings = {},
+  themePreset,
   showBids,
 }: MediaContextConfigurationProps) => {
   const superContext = useContext(MediaContext);
 
-  const newContext = {
-    style: merge(superContext.style, style),
+  const themePresetValue = themePreset ? THEME_PRESETS[themePreset] : undefined;
+  console.log({themePresetValue})
+
+  let newContext = {
+    style: merge(
+      themePreset
+        ? merge(superContext.style, themePresetValue)
+        : superContext.style,
+      style
+    ),
     strings: merge(superContext.strings, strings),
     networkId,
     showBids: showBids === undefined ? superContext.showBids : showBids,

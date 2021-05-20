@@ -27,7 +27,7 @@ export const Style = {
       border-radius: ${theme.defaultBorderRadius}px;
       border: ${theme.borderStyle};
       margin: 15px;
-      width: ${theme.previewCard.width}px;
+      width: ${theme.previewCard.width};
       line-height: ${theme.lineSpacing}px;
       ${theme.bodyFont}
       transition: transform 0.1s ease-in-out;
@@ -40,8 +40,8 @@ export const Style = {
       ${theme.titleFont}
     `,
     cardMediaWrapper: (theme: ThemeOptionsType) => css`
-      width: ${theme.previewCard.width}px;
-      height: ${theme.previewCard.height}px;
+      width: ${theme.previewCard.width};
+      height: ${theme.previewCard.height};
       display: flex;
       overflow: hidden;
       position: relative;
@@ -51,20 +51,36 @@ export const Style = {
       padding: ${theme.textBlockPadding};
       border-top: ${theme.borderStyle};
     `,
-    cardAuctionPerpetual: (theme: ThemeOptionsType) => pricingLayout(theme),
-    cardAuctionReserveActive: (theme: ThemeOptionsType) => [
-      css`
-        background: #000;
-        color: #fff;
-      `,
-      pricingLayout(theme),
-    ],
-    cardAuctionReservePending: (theme: ThemeOptionsType) => [
-      css`
-        background: #e6e6e6;
-      `,
-      pricingLayout(theme),
-    ],
+    cardAuctionPricing: (
+      theme: ThemeOptionsType,
+      { type }: { type: "perpetual" | "reserve-active" | "reserve-pending" | "unknown" }
+    ) => {
+      const getActiveStyle = () => {
+        switch (type) {
+          case "reserve-active":
+            return `
+              background: #000;
+              color: #fff;
+            `;
+          case "reserve-pending":
+            return `
+              background: #e6e6e6; 
+            `;
+          case "unknown":
+          case "perpetual":
+            return ``;
+        }
+      };
+      return css`
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-rows: auto auto;
+        grid-auto-column: 1fr;
+        padding: ${theme.textBlockPadding};
+        border-top: ${theme.borderStyle};
+        ${getActiveStyle()}
+      `;
+    },
     cardTitle: (theme: ThemeOptionsType) => css`
       max-width: ${theme.previewCard.width - 30},
       overflow: hidden;
@@ -104,7 +120,7 @@ export const Style = {
     ],
     fullPageHistoryItem: (theme: ThemeOptionsType) => [
       css`
-        margin: 14px 0;
+        margin-top: 14px;
         display: flex;
         flex-direction: column;
         font-weight: 300;
@@ -130,6 +146,16 @@ export const Style = {
         padding: 20px 20px ${bottomPadding ? "20px" : 0};
         position: relative;
       `,
+    fullInfoSpacer: (_: any, { height = 15 }: { height: number }) => css`
+      height: ${height}px;
+    `,
+    fullPlaceOfferButton: (_: any) => css``,
+    fullInfoCreatorEquityContainer: (_: any) => css`
+      margin-top: 15px;
+    `,
+    fullInfoProofAuthenticityContainer: (_: any) => css`
+      margin-top: 15px;
+    `,
     fullProofLink: (theme: ThemeOptionsType) => css`
       display: block;
       text-decoration: none;
@@ -190,11 +216,11 @@ export const Style = {
     pricingAmount: (theme: ThemeOptionsType) => theme.titleFont,
     mediaLoader: (_: ThemeOptionsType, { mediaLoaded, isFullPage }: any) => css`
       pointer-events: none;
-      ${isFullPage ? 'min-height: 40vh;' : ''}
+      ${isFullPage ? "min-height: 40vh;" : ""}
       width: 100%;
       justify-content: center;
       align-items: center;
-      opacity: ${mediaLoaded ? '0' : '1'};
+      opacity: ${mediaLoaded ? "0" : "1"};
       display: flex;
       transition: 0.2s ease-out opacity;
       align-content: center;
@@ -204,12 +230,14 @@ export const Style = {
       left: 0;
       bottom: 0;
       right: 0;
-      ${isFullPage && !mediaLoaded ? `
+      ${isFullPage && !mediaLoaded
+        ? `
       &:after {
         content: " ";
         height: 30vh;
       }
-      ` : ''}
+      `
+        : ""}
     `,
     mediaObject: (_: ThemeOptionsType, { mediaLoaded, isFullPage }: any) => css`
       opacity: ${mediaLoaded ? "1" : "0"};
@@ -252,6 +280,6 @@ export const Style = {
       cursor: pointer;
       background-repeat: no-repeat;
       background-position: center;
-     `,
+    `,
   },
 };

@@ -7,26 +7,36 @@ import {
 
 import { MediaThumbnailWrapper } from "./MediaThumbnailWrapper";
 import { MediaThumbnail } from "./MediaThumbnail";
+import { Fragment } from "react";
 
 export type NFTPreviewProps = {
   onClick?: (evt: React.MouseEvent<HTMLElement>) => void;
-  showBids?: boolean;
-} & Omit<NFTPageWrapperProps, 'children'>;
+  children?: React.ReactNode;
+} & Omit<NFTPageWrapperProps, "children">;
 
 export const NFTPreview = ({
   onClick = undefined,
-  showBids: showBidsLocal,
+  children,
   ...wrapperProps
 }: NFTPreviewProps) => {
   const { showBids } = useMediaContext();
 
+  const getChildren = () => {
+    if (children) {
+      return children;
+    }
+    return (
+      <Fragment>
+        <MediaThumbnail />
+        {showBids && <PricingComponent />}
+      </Fragment>
+    );
+  };
+
   return (
     <NFTPageWrapper {...wrapperProps}>
       <MediaThumbnailWrapper onClick={onClick}>
-        <MediaThumbnail />
-        {(showBidsLocal === undefined ? showBids : showBidsLocal) && (
-          <PricingComponent />
-        )}
+        {getChildren()}
       </MediaThumbnailWrapper>
     </NFTPageWrapper>
   );

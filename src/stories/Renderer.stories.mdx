@@ -1,0 +1,62 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+
+<Meta title="Renderer/About" />
+
+# About dendering components
+
+These components render information from Zora NFTs and markets with default components and settings.
+
+Those settings can be overridden using a context component for general theme overrides and text overrides.
+
+However, to re-structure the components themselves or to add custom components, you can pass in children to the 
+rendering components to override the component structure. When no children are passed to either `NFTFullPage` or `NFTPreview`
+a default out-of-the-box layout is added. To customize the layout or rendering of these components,
+pass in React children to override and reset the defaults.
+
+
+### With defaults:
+```tsx
+<NFTFullPage id="YOUR_ID" />
+```
+
+### With custom styles:
+```ts
+const STRINGS_OVERRIDE = {
+    BIDS: "arr bids",
+};
+const STYLE_OVERRIDE = {
+    theme: {
+        bodyFont: `
+            font-family: courier;
+        `,
+    },
+};
+return (
+    <MediaConfiguration
+        themePreset="dark"
+        strings={STRINGS_OVERRIDE}
+        style={STYLE_OVERRIDE}
+    >
+        <NFTFullPage id="YOUR_ID" />
+    </MediaConfiguration>
+)
+```
+
+### With custom layout:
+```tsx
+import {NFTFullPage, FullComponents} from '@zoralabs/nft-components';
+
+return (
+    <NFTFullPage id="YOUR_ID">
+        <FullComponents.MediaInfo />
+        <FullComponents.BidInfo />
+    </NFTFullPage>
+);
+```
+
+which, is implemented as:
+
+```ts
+
+```

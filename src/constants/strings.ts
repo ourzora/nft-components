@@ -22,6 +22,8 @@ export const Strings = {
   BID_HISTORY_BID: "placed a bid of",
   OPEN_OFFERS: "Open offers",
   PLACE_BID: "Place bid",
+  WINNER: "Winner",
   BID_HISTORY_LISTED: "listed the NFT",
   BID_HISTORY_MINTED: "minted the NFT",
+  PRICING_LOADING: "...",
 };

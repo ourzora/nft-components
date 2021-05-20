@@ -1,11 +1,13 @@
 import { css } from "@emotion/css";
 import { AuctionStateInfo } from "@zoralabs/nft-hooks";
+
+import { Style } from "../style";
 import { ThemeOptionsType } from "../theme";
 
 export const DarkTheme = {
   theme: {
     previewCard: {
-      height: 420,
+      height: '420px',
     },
     titleFont: {
       fontFamily: "courier",
@@ -24,6 +26,14 @@ export const DarkTheme = {
     lineSpacing: 28,
   },
   styles: {
+    cardAuctionPricing: (theme: ThemeOptionsType, args: any) => {
+      return [
+        Style.styles.cardAuctionPricing(theme, args),
+        css`
+          background: transparent;
+        `,
+      ];
+    },
     cardOuter: (
       theme: ThemeOptionsType,
       { hasClickEvent, auctionStatus }: any
@@ -31,16 +41,16 @@ export const DarkTheme = {
       const getBackground = () => {
         switch (auctionStatus) {
           case AuctionStateInfo.RESERVE_AUCTION_ACTIVE:
-            return css`
+            return `
               background: linear-gradient(
                   180deg,
                   rgba(255, 255, 255, 0.5) 0%,
                   rgba(255, 255, 255, 0) 100%
                 ),
-                #696969;
+                #202020;
             `;
           case AuctionStateInfo.RESERVE_AUCTION_LAST_15:
-            return css`
+            return `
               background: linear-gradient(
                   0deg,
                   rgba(0, 0, 0, 0.5),
@@ -51,7 +61,7 @@ export const DarkTheme = {
           case AuctionStateInfo.PERPETUAL_ASK:
           case AuctionStateInfo.RESERVE_AUCTION_PENDING:
           default:
-            return css`
+            return `
               background: linear-gradient(
                   180deg,
                   rgba(255, 255, 255, 0.5) 0%,
@@ -62,21 +72,12 @@ export const DarkTheme = {
         }
       };
 
-      return css`
-        ${hasClickEvent ? "cursor: pointer;" : ""}
-        overflow: hidden;
-        ${getBackground()}
-        border-radius: ${theme.defaultBorderRadius}px;
-        border: ${theme.borderStyle};
-        margin: 15px;
-        width: ${theme.previewCard.width}px;
-        line-height: ${theme.lineSpacing}px;
-        ${theme.bodyFont}
-        transition: transform 0.1s ease-in-out;
-        &:active {
-          transform: scale(0.98);
-        }
-      `;
+      return [
+        Style.styles.cardOuter(theme, { hasClickEvent }),
+        css`
+          ${getBackground()}
+        `,
+      ];
     },
   },
 };

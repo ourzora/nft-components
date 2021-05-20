@@ -30,7 +30,7 @@ export const PricingComponent = () => {
     if (!highestBid && data.pricing.reserve?.previousBids.length) {
       const highestPreviousBid = data.pricing.reserve.previousBids[0];
       return (
-        <div {...getStyles("cardAuctionPerpetual")}>
+        <div {...getStyles("cardAuctionPricing", { type: "reserve-pending" })}>
           <span {...getStyles("textSubdued")}>{getString("SOLD_FOR")}</span>
           <span {...getStyles("pricingAmount")}>
             {highestPreviousBid?.pricing.prettyAmount}{" "}
@@ -41,7 +41,7 @@ export const PricingComponent = () => {
       );
     }
     return (
-      <div {...getStyles("cardAuctionPerpetual")}>
+      <div {...getStyles("cardAuctionPricing", { type: "perpetual" })}>
         <span {...getStyles("textSubdued")}>{getString("HIGHEST_BID")}</span>
         <span {...getStyles("pricingAmount")}>
           {!highestBid && "--"}
@@ -58,7 +58,7 @@ export const PricingComponent = () => {
       !data.auction.current.likelyHasEnded
     ) {
       return (
-        <div {...getStyles("cardAuctionReserveActive")}>
+        <div {...getStyles("cardAuctionPricing", { type: "reserve-active" })}>
           <span {...getStyles("textSubdued")}>{getString("TOP_BID")}</span>
           <span {...getStyles("pricingAmount")}>
             {data.auction.highestBid?.pricing.prettyAmount}{" "}
@@ -77,7 +77,7 @@ export const PricingComponent = () => {
     }
     if (data.auction.current.reservePrice) {
       return (
-        <div {...getStyles("cardAuctionReservePending")}>
+        <div {...getStyles("cardAuctionPricing", { type: "reserve-pending" })}>
           <span {...getStyles("textSubdued")}>
             {getString("RESERVE_PRICE")}
           </span>
@@ -99,9 +99,9 @@ export const PricingComponent = () => {
   }
 
   return (
-    <div {...getStyles("cardAuctionPerpetual")}>
-      <div {...getStyles("textSubdued")}>--</div>
-      <div {...getStyles("pricingAmount")}>--</div>
+    <div {...getStyles("cardAuctionPricing", { type: "unknown" })}>
+      <div {...getStyles("textSubdued")}>{getString("PRICING_LOADING")}</div>
+      <div {...getStyles("pricingAmount")}>{getString("PRICING_LOADING")}</div>
     </div>
   );
 };

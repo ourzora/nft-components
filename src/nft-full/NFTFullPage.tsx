@@ -10,32 +10,41 @@ import {
   NFTPageWrapperProps,
 } from "../components/NFTPageWrapper";
 import { PlaceOfferButton } from "./PlaceOfferButton";
+import { Fragment } from "react";
 
-type NFTFullPageProps = {
-  showBids?: boolean;
-  showAuthenticity?: boolean;
-} & Omit<NFTPageWrapperProps, 'children'>;
+type NFTFullPageProps = Omit<NFTPageWrapperProps, "children"> & {
+  children?: React.ReactNode;
+};
 
 export const NFTFullPage = ({
-  showBids = true,
-  showAuthenticity = true,
+  children,
   ...wrapperProps
 }: NFTFullPageProps) => {
   const { getStyles } = useMediaContext();
 
-  return (
-    <NFTPageWrapper {...wrapperProps}>
-      <div {...getStyles("fullPage")}>
+  const getChildren = () => {
+    if (children) {
+      return children;
+    }
+
+    return (
+      <Fragment>
         <MediaFull />
         <div {...getStyles("fullPageDataGrid")}>
           <MediaInfo />
           <PlaceOfferButton />
-          {showBids && <AuctionInfo />}
-          {showAuthenticity && <ProofAuthenticity />}
-          {showBids && <BidHistory />}
-          {showBids && <CreatorEquity />}
+          <AuctionInfo />
+          <ProofAuthenticity />
+          <BidHistory />
+          <CreatorEquity />
         </div>
-      </div>
+      </Fragment>
+    );
+  };
+
+  return (
+    <NFTPageWrapper {...wrapperProps}>
+      <div {...getStyles("fullPage")}>{getChildren()}</div>
     </NFTPageWrapper>
   );
 };

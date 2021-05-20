@@ -50,19 +50,14 @@ export const AuctionInfo = () => {
     );
   }
 
-  console.log({auctionInfo})
-  if (
-    auctionInfo.highestBid &&
-    (nft.data.pricing.reserve?.status === "Active" ||
-      nft.data.pricing.reserve?.status === "Finished")
-  ) {
-    console.log("HER");
+  if (!nft.data.auction.highestBid && nft.data.pricing.reserve?.previousBids.length) {
+    const highestPreviousBid = nft.data.pricing.reserve.previousBids[0];
     return (
       <InfoContainer titleString="AUCTION_SOLD_FOR">
-        {getPricingString(auctionInfo.highestBid?.pricing)}
-        <div style={{ height: "20px" }} />
-        <div {...getStyles("fullLabel")}>{getString("BIDDER")}</div>
-        <AddressView address={auctionInfo.highestBid?.placedBy} />
+        {getPricingString(highestPreviousBid.pricing)}
+        <div {...getStyles("fullInfoSpacer", { width: 15 })} />
+        <div {...getStyles("fullLabel")}>{getString("WINNER")}</div>
+        <AddressView address={highestPreviousBid.bidder.id} />
       </InfoContainer>
     );
   }
@@ -75,12 +70,10 @@ export const AuctionInfo = () => {
           : "RESERVE_PRICE"
       }
     >
-      <div>
-        <div {...getStyles("pricingAmount")}>
-          {nft.data.auction.current.reservePrice
-            ? getPricingString(nft.data.auction.current.reservePrice)
-            : " "}
-        </div>
+      <div {...getStyles("pricingAmount")}>
+        {nft.data.auction.current.reservePrice
+          ? getPricingString(nft.data.auction.current.reservePrice)
+          : " "}
       </div>
     </InfoContainer>
   );
