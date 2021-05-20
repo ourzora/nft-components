@@ -1,5 +1,4 @@
-import { Story, Meta } from "@storybook/react";
-import { MediaConfiguration } from "../context/MediaContext";
+import { MediaConfiguration } from "../context/MediaConfiguration";
 import { MediaObject } from "../components/MediaObject";
 import { MediaRendererProps } from "..";
 

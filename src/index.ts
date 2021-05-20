@@ -1,8 +1,9 @@
 import { Networks } from "@zoralabs/nft-hooks";
+
 import { AuctionHouseList } from "./auction-house/AuctionHouseList";
 import { NFTPreview, PreviewComponents } from "./nft-preview";
 import { NFTFullPage, FullComponents } from "./nft-full";
-import { MediaConfiguration } from "./context/MediaContext";
+import { MediaConfiguration } from "./context/MediaConfiguration";
 import { MediaRendererProps } from "./content-components";
 import { NFTDataContext } from "./context/NFTDataProvider";
 import { NFTPageWrapper } from "./components/NFTPageWrapper";

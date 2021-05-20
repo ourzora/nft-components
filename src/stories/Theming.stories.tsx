@@ -3,7 +3,7 @@ import { Story, Meta } from "@storybook/react";
 
 import { NFTPreview } from "../nft-preview/NFTPreview";
 import { Style } from "../constants/style";
-import { MediaConfiguration } from "../context/MediaContext";
+import { MediaConfiguration } from "../context/MediaConfiguration";
 import { NFTFullPage } from "../nft-full/NFTFullPage";
 import { ThemePresetNames } from "../constants/style-presets";
 

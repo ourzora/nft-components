@@ -53,7 +53,11 @@ export const Style = {
     `,
     cardAuctionPricing: (
       theme: ThemeOptionsType,
-      { type }: { type: "perpetual" | "reserve-active" | "reserve-pending" | "unknown" }
+      {
+        type,
+      }: {
+        type: "perpetual" | "reserve-active" | "reserve-pending" | "unknown";
+      }
     ) => {
       const getActiveStyle = () => {
         switch (type) {
@@ -82,7 +86,7 @@ export const Style = {
       `;
     },
     cardTitle: (theme: ThemeOptionsType) => css`
-      max-width: ${theme.previewCard.width - 30},
+      max-width: calc(${theme.previewCard.width} - 30px),
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -235,7 +239,7 @@ export const Style = {
         ? `
       &:after {
         content: " ";
-        ${isFullPage ? 'height: 30vh' : ''}
+        ${isFullPage ? "height: 30vh" : ""}
       }
       `
         : ""}
