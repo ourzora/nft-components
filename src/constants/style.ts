@@ -254,10 +254,15 @@ export const Style = {
       flex-shrink: 1;
     `,
     mediaAudioWrapper: (_: ThemeOptionsType) => css`
-      height: 30vh;
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
+      width: 100%;
+    `,
+    mediaAudioWaveform: (_: ThemeOptionsType) => css`
+      width: 100%;
+      cursor: pointer;
     `,
     mediaObjectMessage: (_: ThemeOptionsType) => css`
       align-self: center;
@@ -273,6 +278,7 @@ export const Style = {
     ],
     mediaAudioButton: (_: ThemeOptionsType, { playing }: any) => css`
       padding: 30px;
+      margin-top: 50px;
       background: #eee;
       border: 0;
       border-radius: 200px;

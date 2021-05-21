@@ -27,6 +27,7 @@ export {
   NFTPageWrapper,
   // Data context for fetching NFT info with custom components
   NFTDataContext,
+
   MediaRendererProps,
   MediaObject,
 };
