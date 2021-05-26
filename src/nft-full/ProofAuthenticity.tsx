@@ -14,7 +14,7 @@ const ProofLink = ({
   children,
   styles,
 }: {
-  href: string;
+  href?: string;
   children: string;
   styles: any;
 }) => (
@@ -34,16 +34,16 @@ export const ProofAuthenticity = () => {
     <React.Fragment>
       <ProofLink
         styles={linkStyles}
-        href={`${VIEW_ETHERSCAN_URL_BASE_BY_NETWORK[networkId]}${nft.id}`}
+        href={`${VIEW_ETHERSCAN_URL_BASE_BY_NETWORK[networkId]}${nft.tokenId}`}
       >
         {getString("ETHERSCAN_TXN")}
       </ProofLink>
-      <ProofLink styles={linkStyles} href={nft.contentURI}>
+      <ProofLink styles={linkStyles} href={data?.zoraNFT.contentURI || data?.nft.metadataURI}>
         {getString("VIEW_IPFS")}
       </ProofLink>
       <ProofLink
         styles={linkStyles}
-        href={`${MEDIA_URL_BASE_BY_NETWORK[networkId]}${nft.creator.id}/${nft.id}`}
+        href={`${MEDIA_URL_BASE_BY_NETWORK[networkId]}${nft.creator}/${nft.tokenId}`}
       >
         {getString("VIEW_ZORA")}
       </ProofLink>

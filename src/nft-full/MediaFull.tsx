@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 import { NFTDataContext } from "../context/NFTDataProvider";
 import { MediaObject } from "../components/MediaObject";
@@ -18,7 +18,6 @@ export const MediaFull = () => {
           isFullPage={true}
           contentURI={data.zoraNFT?.contentURI}
           metadata={metadata}
-          onError={() => setHasErrored(true)}
         />
       );
     }

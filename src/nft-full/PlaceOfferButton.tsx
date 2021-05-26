@@ -18,8 +18,8 @@ export const PlaceOfferButton = () => {
         primary={true}
         href={[
           ZORA_SITE_URL_BASE,
-          nft.data?.nft.creator.id,
-          nft.data.nft.id,
+          nft.data?.nft.creator,
+          nft.data.nft.tokenId,
           "bid",
         ].join("/")}
       >
