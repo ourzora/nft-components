@@ -8,27 +8,53 @@ type MetadataIsh = {
   mimeType: string;
   name: string;
   description: string;
+
+  // Only used for non-zora NFTs
+  animation_url?: string;
+  image?: string;
 };
 
 type MediaObjectProps = {
-  uri: string;
+  contentURI?: string;
   metadata: MetadataIsh;
   isFullPage?: boolean;
 };
 
 export const MediaObject = ({
-  uri,
+  contentURI,
   metadata,
   isFullPage = false,
 }: MediaObjectProps) => {
-  const { content } = useNFTContent(uri, metadata.mimeType);
-  const { getStyles, mediaRenderers } = useMediaContext();
-
   const [mediaError, setMediaErrorMessage] = useState<undefined | string>();
   const [mediaLoaded, setMediaLoaded] = useState<boolean>(false);
+  const [firstLoadFailed, setFirstLoadFailed] = useState<boolean>(false);
+
   const setMediaError = useCallback((error) => {
+    if (!firstLoadFailed) {
+      setFirstLoadFailed(true);
+      return;
+    }
     setMediaErrorMessage(error.description || "Error loading content");
   }, []);
+  const getURI = () => {
+    if (contentURI) {
+      if (firstLoadFailed) {
+        return contentURI;
+      }
+      // Replace main fleek instance for zora instance only with Zora NFTs
+      return contentURI.replace("ipfs.fleek.co", "zora.fleek.co");
+    }
+    if (metadata.animation_url && !firstLoadFailed) {
+      return metadata.animation_url;
+    }
+    if (metadata.image) {
+      return metadata.image;
+    }
+    return undefined;
+  };
+  const uri = getURI();
+  const { content } = useNFTContent(uri, metadata.mimeType);
+  const { getStyles, mediaRenderers } = useMediaContext();
 
   const getMediaObjectTag = () => {
     const renderMediaConfig = (mediaRenderer: RendererRecord) => {

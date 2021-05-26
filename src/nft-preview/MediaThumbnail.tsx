@@ -11,12 +11,12 @@ export const MediaThumbnail = () => {
     metadata: {metadata},
   } = useContext(NFTDataContext);
 
-  const { getStyles } = useMediaContext();
+  const { getStyles, getString } = useMediaContext();
 
   const getContent = () => {
     if (metadata && data) {
       return {
-        media: <MediaObject uri={data.nft.contentURI} metadata={metadata} />,
+        media: <MediaObject contentURI={data.zoraNFT.contentURI} metadata={metadata} />,
         title: metadata.name,
       };
     }
@@ -27,15 +27,17 @@ export const MediaThumbnail = () => {
   };
 
   const { media, title } = getContent();
+  const hasCreator = data?.nft.creator;
+  const address = hasCreator ? data?.nft.creator : data?.nft.owner;
   return (
     <Fragment>
       <div {...getStyles("cardMediaWrapper")}>{media}</div>
       <div {...getStyles("cardItemInfo")}>
         <div {...getStyles("cardTitle")}>{title}</div>
         <div>
-          <span {...getStyles("textSubdued")}>Created by</span>{" "}
+          <span {...getStyles("textSubdued")}>{hasCreator ? getString("CARD_CREATED_BY") : getString("CARD_OWNED_BY")}</span>{" "}
           <span>
-            {data && <AddressView address={data.nft.creator.id} />}
+            {address && <AddressView address={address} />}
           </span>
         </div>
       </div>
