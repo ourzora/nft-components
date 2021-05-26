@@ -45,11 +45,14 @@ export const DefaultMediaRenderers: MediaRenderersType = {
   },
   "uri:image": {
     renderer: Image,
+    hasLoader: true,
   },
   "uri:video": {
     renderer: Video,
+    hasLoader: true,
   },
   "uri:audio": {
     renderer: Audio,
+    hasLoader: true,
   },
 };

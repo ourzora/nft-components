@@ -55,6 +55,14 @@ export const Strings = {
    */
   SOLD_FOR: "Sold for",
   /**
+   * Created by text in preview card
+   */
+  CARD_CREATED_BY: "Created by",
+  /**
+   * Owned by text in preview card
+   */
+  CARD_OWNED_BY: "Owned by",
+  /**
    * Ends in used in pricing components
    * @default Ends in
    */

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { Fragment, useContext } from "react";
 
 import { NFTDataContext } from "../context/NFTDataProvider";
 import { AddressView } from "../components/AddressView";
@@ -36,13 +36,17 @@ export const MediaInfo = () => {
       <div {...getStyles("fullTitle")}>{title}</div>
       <div {...getStyles("fullDescription")}>{description}</div>
       <div {...getStyles("fullCreatorOwnerSection")}>
-        <div {...getStyles("fullLabel")}>{getString("CREATOR")}</div>
+        {data?.nft.creator && (
+          <Fragment>
+            <div {...getStyles("fullLabel")}>{getString("CREATOR")}</div>
+            <div {...getStyles("fullOwnerAddress")}>
+              {data ? <AddressView address={data.nft.creator} /> : " "}
+            </div>
+          </Fragment>
+        )}
+       <div {...getStyles("fullLabel")}>{getString("OWNER")}</div>
         <div {...getStyles("fullOwnerAddress")}>
-          {data ? <AddressView address={data.nft.creator.id} /> : " "}
-        </div>
-        <div {...getStyles("fullLabel")}>{getString("OWNER")}</div>
-        <div {...getStyles("fullOwnerAddress")}>
-          {data ? <AddressView address={data.nft.owner.id} /> : " "}
+          {data ? <AddressView address={data.nft.owner} /> : " "}
         </div>
       </div>
     </div>

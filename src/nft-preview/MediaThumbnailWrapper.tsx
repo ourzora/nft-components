@@ -13,7 +13,7 @@ export const MediaThumbnailWrapper = ({
   const { getStyles } = useMediaContext();
 
   const { nft } = useContext(NFTDataContext);
-  const auctionStatus = nft.data?.auction.status;
+  const auctionStatus = nft.data?.pricing.status;
 
   return (
     <div

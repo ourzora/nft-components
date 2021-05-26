@@ -5,6 +5,11 @@ import { NFTDataContext } from "../context/NFTDataProvider";
 import { CountdownDisplay } from "../components/CountdownDisplay";
 import { AuctionType } from "@zoralabs/nft-hooks";
 
+function isInFuture(timestamp: string) {
+  const timestampParsed = parseInt(timestamp);
+  return timestampParsed > Math.floor(new Date().getTime() / 1000);
+}
+
 export const PricingComponent = () => {
   const {
     nft: { data },
@@ -12,23 +17,25 @@ export const PricingComponent = () => {
 
   const { getStyles, getString } = useMediaContext();
 
-  if (data && data.auction.current.auctionType === AuctionType.PERPETUAL) {
+  const pricing = data?.pricing;
+
+  if (pricing && pricing.auctionType === AuctionType.PERPETUAL) {
     let listPrice = null;
 
-    if (data.auction.current.reservePrice) {
+    if (pricing.perpetual.ask?.pricing) {
+      const perpetualPricing = pricing.perpetual.ask?.pricing;
       listPrice = (
         <Fragment>
           <span {...getStyles("textSubdued")}>{getString("LIST_PRICE")}</span>
           <span>
-            {data.auction.current.reservePrice.prettyAmount}{" "}
-            {data.auction.current.reservePrice.currency.symbol}
+            {perpetualPricing.prettyAmount} {perpetualPricing.currency.symbol}
           </span>
         </Fragment>
       );
     }
-    const { highestBid } = data.auction;
-    if (!highestBid && data.pricing.reserve?.previousBids.length) {
-      const highestPreviousBid = data.pricing.reserve.previousBids[0];
+    const highestBid = pricing.perpetual.highestBid;
+    if (!highestBid && pricing.reserve?.previousBids.length) {
+      const highestPreviousBid = pricing.reserve.previousBids[0];
       return (
         <div {...getStyles("cardAuctionPricing", { type: "reserve-pending" })}>
           <span {...getStyles("textSubdued")}>{getString("SOLD_FOR")}</span>
@@ -52,47 +59,43 @@ export const PricingComponent = () => {
       </div>
     );
   }
-  if (data && data.auction.current.auctionType === AuctionType.RESERVE) {
+  if (pricing && pricing.auctionType === AuctionType.RESERVE) {
     if (
-      data.auction.current.reserveMet &&
-      !data.auction.current.likelyHasEnded
+      pricing.reserve?.current.reserveMet &&
+      !pricing.reserve?.current.likelyHasEnded
     ) {
+      const highestBid = pricing.reserve?.current.highestBid;
       return (
         <div {...getStyles("cardAuctionPricing", { type: "reserve-active" })}>
           <span {...getStyles("textSubdued")}>{getString("TOP_BID")}</span>
           <span {...getStyles("pricingAmount")}>
-            {data.auction.highestBid?.pricing.prettyAmount}{" "}
-            {data.auction.highestBid?.pricing.currency.symbol}
+            {highestBid?.pricing.prettyAmount}{" "}
+            {highestBid?.pricing.currency.symbol}
           </span>
-          {data.auction.current.endingAt && (
-            <Fragment>
-              <span {...getStyles("textSubdued")}>{getString("ENDS_IN")}</span>
-              <span {...getStyles("pricingAmount")}>
-                <CountdownDisplay to={data.auction.current.endingAt} />
-              </span>
-            </Fragment>
-          )}
+          {pricing.reserve?.expectedEndTimestamp &&
+            isInFuture(pricing.reserve.expectedEndTimestamp) && (
+              <Fragment>
+                <span {...getStyles("textSubdued")}>
+                  {getString("ENDS_IN")}
+                </span>
+                <span {...getStyles("pricingAmount")}>
+                  <CountdownDisplay to={pricing.reserve.expectedEndTimestamp} />
+                </span>
+              </Fragment>
+            )}
         </div>
       );
     }
-    if (data.auction.current.reservePrice) {
+    if (pricing.reserve?.reservePrice) {
       return (
         <div {...getStyles("cardAuctionPricing", { type: "reserve-pending" })}>
           <span {...getStyles("textSubdued")}>
             {getString("RESERVE_PRICE")}
           </span>
           <span>
-            {data.auction.current.reservePrice.prettyAmount}{" "}
-            {data.auction.current.reservePrice.currency.symbol}
+            {pricing.reserve.reservePrice.prettyAmount}{" "}
+            {pricing.reserve.reservePrice.currency.symbol}
           </span>
-          {data.auction.current.endingAt && (
-            <Fragment>
-              <span {...getStyles("textSubdued")}>{getString("ENDS_IN")}</span>
-              <span {...getStyles("pricingAmount")}>
-                <CountdownDisplay to={data.auction.current.endingAt} />
-              </span>
-            </Fragment>
-          )}
         </div>
       );
     }

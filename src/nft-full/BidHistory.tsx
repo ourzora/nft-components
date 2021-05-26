@@ -54,12 +54,12 @@ export const BidHistory = () => {
       });
     }
 
-    if (data.nft.createdAtTimestamp) {
+    if (data.zoraNFT.createdAtTimestamp) {
       eventsList.push({
         activityDescription: getString("BID_HISTORY_MINTED"),
         pricing: null,
-        actor: data.nft.creator.id,
-        createdAt: data.nft.createdAtTimestamp,
+        actor: data.nft.creator || '',
+        createdAt: data.zoraNFT.createdAtTimestamp,
       });
     }
 
