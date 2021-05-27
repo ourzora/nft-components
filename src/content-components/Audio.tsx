@@ -5,9 +5,11 @@ import {
   useEffect,
   useRef,
   useState,
+  forwardRef,
 } from "react";
 
 import { useMediaContext } from "../context/useMediaContext";
+import { useSyncRef } from "../utils/useSyncRef";
 import { MediaRendererProps } from ".";
 
 type FakeWaveformCanvasProps = {
@@ -28,6 +30,7 @@ const FakeWaveformCanvas = ({
       setWidth(newWidth);
     }
   }, [canvasRef.current]);
+
   useEffect(() => {
     updateWidth();
     window.addEventListener("resize", updateWidth);
@@ -95,12 +98,13 @@ const FakeWaveformCanvas = ({
   );
 };
 
-export const Audio = ({
+export const Audio = forwardRef<HTMLAudioElement, MediaRendererProps>(({
   objectProps: { onLoad, ...mediaObject },
   mediaLoaded,
-}: MediaRendererProps) => {
+}, ref) => {
   const { getStyles } = useMediaContext();
   const audioRef = useRef<HTMLAudioElement>(null);
+  useSyncRef(audioRef, ref);
   const [playing, setPlaying] = useState<boolean>(false);
   const wrapper = useRef<HTMLDivElement>();
 
@@ -122,7 +126,7 @@ export const Audio = ({
         <Fragment>
           <button
             onClick={togglePlay}
-            {...getStyles("mediaAudioButton", { playing })}
+            {...getStyles("mediaPlayButton", { playing })}
           >
             {playing ? "Pause" : "Play"}
           </button>
@@ -141,4 +145,4 @@ export const Audio = ({
       />
     </div>
   );
-};
+});

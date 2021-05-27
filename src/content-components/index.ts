@@ -16,11 +16,12 @@ export type MediaRendererProps = {
   };
   media: useNFTContentType["content"];
   mediaLoaded: boolean;
+  isFullPage: boolean;
 };
 
 export type MediaRendererComponent = (
   mediaProps: MediaRendererProps
-) => JSX.Element;
+) => JSX.Element | null;
 
 export type RendererRecord = {
   renderer: MediaRendererComponent;
