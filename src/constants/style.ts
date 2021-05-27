@@ -1,6 +1,13 @@
 import { css } from "@emotion/css";
 
-import { SVG_NEXT_ICON, SVG_PAUSE, SVG_PLAY_ARROW } from "./svg-icons";
+import {
+  SVG_FULLSCREEN,
+  SVG_MUTED,
+  SVG_NEXT_ICON,
+  SVG_PAUSE,
+  SVG_PLAY_ARROW,
+  SVG_UNMUTED,
+} from "./svg-icons";
 import { ThemeOptions, ThemeOptionsType } from "./theme";
 
 const pricingLayout = (theme: ThemeOptionsType) => css`
@@ -10,6 +17,31 @@ const pricingLayout = (theme: ThemeOptionsType) => css`
   grid-auto-column: 1fr;
   padding: ${theme.textBlockPadding};
   border-top: ${theme.borderStyle};
+`;
+
+const buttonCommonSize = (size: string) => `
+  padding: ${size};
+  width: ${size};
+  height: ${size};
+  background: #eee;
+  border: 0;
+  border-radius: 200px;
+  color: transparent;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0 10px;
+`;
+
+const CENTER_FULL_CONTAINER = `
+  position: absolute;
+  width: 100%;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+  display: flex;
+  height: 100%;
 `;
 
 export const Style = {
@@ -226,15 +258,8 @@ export const Style = {
       justify-content: center;
       align-items: center;
       opacity: ${mediaLoaded ? "0" : "1"};
-      display: flex;
       transition: 0.2s ease-out opacity;
-      align-content: center;
-      justify-items: center;
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
+      ${CENTER_FULL_CONTAINER}
       ${isFullPage && !mediaLoaded
         ? `
       &:after {
@@ -254,6 +279,7 @@ export const Style = {
       flex-shrink: 1;
     `,
     mediaAudioWrapper: (_: ThemeOptionsType) => css`
+      margin-top: 40px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -276,21 +302,36 @@ export const Style = {
       `,
       theme.mediaContentFont,
     ],
-    mediaAudioButton: (_: ThemeOptionsType, { playing }: any) => css`
-      padding: 30px;
-      margin-top: 50px;
-      background: #eee;
-      border: 0;
-      border-radius: 200px;
-      color: transparent;
-      width: 30px;
-      height: 30px;
+    mediaPlayButton: (_: ThemeOptionsType, { playing }: any) => css`
+      ${buttonCommonSize("32px")}
       background-image: url("data:image/svg+xml,${encodeURIComponent(
         playing ? SVG_PAUSE : SVG_PLAY_ARROW
       )}");
-      cursor: pointer;
-      background-repeat: no-repeat;
-      background-position: center;
+    `,
+    mediaVideoControls: (_: ThemeOptionsType, { isFullPage }: any) => css`
+      ${CENTER_FULL_CONTAINER}
+      ${isFullPage ? `
+        opacity: 0;
+        &:hover {
+          opacity: 1;
+        }
+        transition: opacity 0.6s ease-in-out;
+        transition-delay: 0 0.3s;
+      ` : "display: none;"}
+    `,
+    mediaFullscreenButton: (_: ThemeOptionsType) => css`
+      ${buttonCommonSize("16px")}
+      background-color: #000;
+      background-image: url("data:image/svg+xml,${encodeURIComponent(
+        SVG_FULLSCREEN
+      )}");
+    `,
+    mediaMuteButton: (_: ThemeOptionsType, { muted }: any) => css`
+      ${buttonCommonSize("16px")}
+      background-color: #000;
+      background-image: url("data:image/svg+xml,${encodeURIComponent(
+        muted ? SVG_UNMUTED : SVG_MUTED
+      )}");
     `,
   },
 };
