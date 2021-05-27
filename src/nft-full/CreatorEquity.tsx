@@ -11,16 +11,16 @@ export const CreatorEquity = () => {
   } = useContext(NFTDataContext);
   const {getStyles} = useMediaContext();
 
-  const getContent = (nft: NFTDataType["nft"]) => (
+  const getContent = (zoraNFT: NFTDataType["zoraNFT"]) => (
     <React.Fragment>
-        {Math.floor(nft.creatorBidSharePercentage)}%
+        {Math.floor(zoraNFT.creatorBidSharePercentage)}%
     </React.Fragment>
   );
 
   return (
     <InfoContainer titleString="CREATOR_EQUITY">
       <div {...getStyles("fullInfoCreatorEquityContainer")}>
-        {data && getContent(data.nft)}
+        {data && getContent(data.zoraNFT)}
       </div>
     </InfoContainer>
   );

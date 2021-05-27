@@ -1,5 +1,5 @@
-import { AuctionType, PricingInfo } from "@zoralabs/nft-hooks";
-import React, { useContext } from "react";
+import { AuctionStateInfo, AuctionType, PricingInfo } from "@zoralabs/nft-hooks";
+import React, { Fragment, useContext } from "react";
 
 import { AddressView } from "../components/AddressView";
 import { CountdownDisplay } from "../components/CountdownDisplay";
@@ -20,6 +20,12 @@ export const AuctionInfo = () => {
     </InfoContainer>
   );
 
+  if (!nft.data) {
+    return <Fragment />;
+  }
+  
+  const {data} = nft;
+
   const getPricingString = (pricing: PricingInfo) => (
     <React.Fragment>
       {pricing.prettyAmount} {pricing.currency.symbol}
@@ -32,7 +38,11 @@ export const AuctionInfo = () => {
     </React.Fragment>
   );
 
-  if (!nft.data?.auction.current.reservePrice) {
+  if (data.pricing.status === AuctionStateInfo.PERPETUAL_BID) {
+
+  }
+
+  if (data.pricing.status === AuctionStateInfo.NO_PRICING) {
     return (
       <AuctionInfoWrapper titleString="OPEN_OFFERS">
         Be the first one to bid on this piece!
@@ -40,30 +50,32 @@ export const AuctionInfo = () => {
     );
   }
 
-  const auctionInfo = nft.data.auction;
+  const reserve = data.pricing.reserve;
   if (
-    !auctionInfo.current.likelyHasEnded &&
-    auctionInfo.current.endingAt &&
-    auctionInfo.highestBid
+    reserve !== undefined &&
+    !reserve.current.likelyHasEnded &&
+    reserve.expectedEndTimestamp &&
+    reserve.current.highestBid !== undefined
   ) {
     return (
       <AuctionInfoWrapper titleString="AUCTION_ENDS">
-        <CountdownDisplay to={auctionInfo.current.endingAt} />
+        <CountdownDisplay to={reserve.expectedEndTimestamp} />
         <div style={{ height: "20px" }} />
         <div {...getStyles("fullLabel")}>{getString("HIGHEST_BID")}</div>
-        {getPricingString(auctionInfo.highestBid?.pricing)}
+        {getPricingString(reserve.current.highestBid?.pricing)}
         <div style={{ height: "20px" }} />
         <div {...getStyles("fullLabel")}>{getString("BIDDER")}</div>
-        <AddressView address={auctionInfo.highestBid?.placedBy} />
+        <AddressView address={reserve.current.highestBid?.placedBy} />
       </AuctionInfoWrapper>
     );
   }
 
   if (
-    !nft.data.auction.highestBid &&
-    nft.data.pricing.reserve?.previousBids.length
+    reserve !== undefined &&
+    !reserve?.current.highestBid &&
+    reserve.previousBids.length
   ) {
-    const highestPreviousBid = nft.data.pricing.reserve.previousBids[0];
+    const highestPreviousBid = reserve.previousBids[0];
     return (
       <AuctionInfoWrapper titleString="AUCTION_SOLD_FOR">
         {getPricingString(highestPreviousBid.pricing)}
@@ -77,15 +89,19 @@ export const AuctionInfo = () => {
   return (
     <AuctionInfoWrapper
       titleString={
-        nft.data.auction.current.auctionType === AuctionType.PERPETUAL
+        nft.data.pricing.auctionType === AuctionType.PERPETUAL
           ? "LIST_PRICE"
           : "RESERVE_PRICE"
       }
     >
       <div {...getStyles("pricingAmount")}>
-        {nft.data.auction.current.reservePrice
-          ? getPricingString(nft.data.auction.current.reservePrice)
-          : " "}
+        {data.pricing.auctionType === AuctionType.PERPETUAL && data.pricing.perpetual.highestBid && (
+          getPricingString(data.pricing.perpetual.highestBid?.pricing)
+        )}
+        {data.pricing.auctionType === AuctionType.RESERVE && data.pricing.reserve?.current.highestBid && (
+          getPricingString(data.pricing.reserve.current.highestBid?.pricing)
+        )}
+        {' '}
       </div>
     </AuctionInfoWrapper>
   );

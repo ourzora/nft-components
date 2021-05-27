@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  useNFT,
+  useZNFT,
   useNFTMetadata,
   useNFTType,
   useNFTMetadataType,
@@ -36,7 +36,7 @@ export const NFTDataProvider = ({
   initialData,
 }: NFTDataProviderProps) => {
   const { nft: nftInitial, metadata: metadataInitial } = initialData || {};
-  const nft = useNFT(id, { loadCurrencyInfo: true, initialData: nftInitial });
+  const nft = useZNFT(id, { loadCurrencyInfo: true, initialData: nftInitial });
   const metadata = useNFTMetadata(nft.data?.nft.metadataURI, metadataInitial);
 
   return (
