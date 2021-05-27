@@ -1,10 +1,12 @@
-# @zoralabs/nft-components
+# 💅 @zoralabs/nft-components
 
 Zora's NFT components allow you to easily create your own gallery or auction house with zNFT infrastructure.
 
 This library provides the front-end display components to compliment `@zoralabs/nft-hooks`.
 
-These libraires with the zora [auction house](https://zora.mirror.xyz/9mQ9AeJK84USTnQ9eBY4Sc7s1bi0N8RoZd3Oy4q82FM) ([code](https://github.com/ourzora/auction-house)) allows for DAOs and individuals to run their own decentralized auction house. Currently, only zNFTs are supported by this library but plans are to add in support for arbitary NFTs.
+This library works alongside the Zora [auction house](https://zora.mirror.xyz/9mQ9AeJK84USTnQ9eBY4Sc7s1bi0N8RoZd3Oy4q82FM) ([code](https://github.com/ourzora/auction-house)) allows for DAOs and individuals to run their own decentralized auction house. Currently, only zNFTs are supported by this library but plans are to add in support for arbitary NFTs.
+
+✨ [view docs on storybook](https://ourzora.github.io/nft-components) →
 
 ## NFT Components
 
