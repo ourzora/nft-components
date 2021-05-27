@@ -1,5 +1,8 @@
+import { forwardRef } from "react";
 import { MediaRendererProps } from ".";
 
-export const Image = ({ objectProps }: MediaRendererProps) => {
-  return <img {...objectProps} />;
-};
+export const Image = forwardRef<HTMLImageElement, MediaRendererProps>(
+  ({ objectProps }, ref) => {
+    return <img ref={ref} {...objectProps} />;
+  }
+);

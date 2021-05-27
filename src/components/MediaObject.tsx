@@ -66,6 +66,7 @@ export const MediaObject = ({
           onError: setMediaError,
           onLoad: () => setMediaLoaded(true),
         },
+        isFullPage,
         mediaLoaded,
         media: content,
       };
