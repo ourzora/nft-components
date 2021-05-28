@@ -14,13 +14,18 @@ import { Fragment } from "react";
 
 type NFTFullPageProps = Omit<NFTPageWrapperProps, "children"> & {
   children?: React.ReactNode;
+  config?: {
+    allowOffer?: boolean;
+  };
 };
 
 export const NFTFullPage = ({
   children,
+  config,
   ...wrapperProps
 }: NFTFullPageProps) => {
   const { getStyles } = useMediaContext();
+  const allowOffer = config?.allowOffer;
 
   const getChildren = () => {
     if (children) {
@@ -32,7 +37,7 @@ export const NFTFullPage = ({
         <MediaFull />
         <div {...getStyles("fullPageDataGrid")}>
           <MediaInfo />
-          <PlaceOfferButton />
+          <PlaceOfferButton allowOffer={allowOffer} />
           <AuctionInfo />
           <ProofAuthenticity />
           <BidHistory />

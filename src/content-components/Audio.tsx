@@ -52,9 +52,6 @@ const FakeWaveformCanvas = ({
           (evt.clientX - canvasRef.current.getBoundingClientRect().left) /
           width;
         audioRef.current.currentTime = position * audioRef.current.duration;
-        if (!audioRef.current.isPlaying) {
-          audioRef.current.play();
-        }
         setPlaying(true);
         updateCanvasLines();
       }
@@ -98,51 +95,61 @@ const FakeWaveformCanvas = ({
   );
 };
 
-export const Audio = forwardRef<HTMLAudioElement, MediaRendererProps>(({
-  objectProps: { onLoad, ...mediaObject },
-  mediaLoaded,
-}, ref) => {
-  const { getStyles } = useMediaContext();
-  const audioRef = useRef<HTMLAudioElement>(null);
-  useSyncRef(audioRef, ref);
-  const [playing, setPlaying] = useState<boolean>(false);
-  const wrapper = useRef<HTMLDivElement>();
+export const Audio = forwardRef<HTMLAudioElement, MediaRendererProps>(
+  ({ objectProps: { onLoad, ...mediaObject }, mediaLoaded }, ref) => {
+    const { getStyles } = useMediaContext();
+    const audioRef = useRef<HTMLAudioElement>(null);
+    useSyncRef(audioRef, ref);
+    const [playing, setPlaying] = useState<boolean>(false);
+    const wrapper = useRef<HTMLDivElement>();
 
-  const togglePlay: MouseEventHandler<HTMLAudioElement> = useCallback(
-    (evt) => {
-      evt.preventDefault();
-      evt.stopPropagation();
-      if (audioRef.current) {
-        playing ? audioRef.current.pause() : audioRef.current.play();
-        setPlaying(!playing);
+    const togglePlay: MouseEventHandler<HTMLAudioElement> = useCallback(
+      (evt) => {
+        evt.preventDefault();
+        evt.stopPropagation();
+        if (audioRef.current) {
+          // playing ? audioRef.current.pause() : audioRef.current.play();
+          setPlaying(!playing);
+        }
+      },
+      [audioRef.current, playing]
+    );
+
+    useEffect(() => {
+      if (!audioRef.current) {
+        return;
       }
-    },
-    [audioRef, playing]
-  );
+      if (playing) {
+        audioRef.current.play();
+      } else {
+        audioRef.current.pause();
+      }
+    }, [audioRef.current]);
 
-  return (
-    <div ref={wrapper} {...getStyles("mediaAudioWrapper")}>
-      {mediaLoaded && (
-        <Fragment>
-          <button
-            onClick={togglePlay}
-            {...getStyles("mediaPlayButton", { playing })}
-          >
-            {playing ? "Pause" : "Play"}
-          </button>
-          <div {...getStyles("mediaAudioWaveform")}>
-            <FakeWaveformCanvas audioRef={audioRef} setPlaying={setPlaying} />
-          </div>
-        </Fragment>
-      )}
-      <audio
-        loop={true}
-        ref={audioRef}
-        style={{ display: "none" }}
-        preload="auto"
-        onLoadedData={onLoad}
-        {...mediaObject}
-      />
-    </div>
-  );
-});
+    return (
+      <div ref={wrapper} {...getStyles("mediaAudioWrapper")}>
+        {mediaLoaded && (
+          <Fragment>
+            <button
+              onClick={togglePlay}
+              {...getStyles("mediaPlayButton", { playing })}
+            >
+              {playing ? "Pause" : "Play"}
+            </button>
+            <div {...getStyles("mediaAudioWaveform")}>
+              <FakeWaveformCanvas audioRef={audioRef} setPlaying={setPlaying} />
+            </div>
+          </Fragment>
+        )}
+        <audio
+          loop={true}
+          ref={audioRef}
+          style={{ display: "none" }}
+          preload="auto"
+          onLoadedData={onLoad}
+          {...mediaObject}
+        />
+      </div>
+    );
+  }
+);

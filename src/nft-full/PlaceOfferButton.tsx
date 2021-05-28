@@ -4,26 +4,45 @@ import { ZORA_SITE_URL_BASE } from "../constants/media-urls";
 import { useMediaContext } from "../context/useMediaContext";
 import { Button } from "../components/Button";
 import { NFTDataContext } from "../context/NFTDataProvider";
+import { AuctionType } from "@zoralabs/nft-hooks";
 
-export const PlaceOfferButton = () => {
+type PlaceOfferButtonProps = {
+  allowOffer?: boolean;
+};
+
+export const PlaceOfferButton = ({ allowOffer }: PlaceOfferButtonProps) => {
   const { nft } = useContext(NFTDataContext);
   const { getString, getStyles } = useMediaContext();
 
   if (!nft.data) {
     return <Fragment />;
   }
+  // Disable offer functionality if not a zora NFT or if offers are disabled
+  if (
+    (allowOffer === false || !nft.data.zoraNFT) &&
+    nft.data.pricing.auctionType !== AuctionType.RESERVE
+  ) {
+    return <Fragment />;
+  }
+
   return (
     <div {...getStyles("fullPlaceOfferButton")}>
       <Button
         primary={true}
         href={[
           ZORA_SITE_URL_BASE,
-          nft.data?.nft.creator,
+          nft.data.nft.creator,
           nft.data.nft.tokenId,
-          "bid",
+          nft.data.pricing.auctionType === AuctionType.RESERVE
+            ? "auction/bid"
+            : "bid",
         ].join("/")}
       >
-        {getString("PLACE_BID")}
+        {getString(
+          nft.data.pricing.auctionType === AuctionType.RESERVE
+            ? "PLACE_BID"
+            : "PLACE_OFFER"
+        )}
       </Button>
     </div>
   );
