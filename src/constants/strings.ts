@@ -118,6 +118,11 @@ export const Strings = {
    */
   PLACE_BID: "Place bid",
   /**
+   * CTA to go to zora website to place an offer
+   * @default Place offer
+   */
+  PLACE_OFFER: "Place offer",
+  /**
    * Winner of the auction on the full view page
    * @default Winner
    */

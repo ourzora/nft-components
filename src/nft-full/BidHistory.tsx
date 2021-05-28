@@ -58,17 +58,16 @@ export const BidHistory = () => {
       eventsList.push({
         activityDescription: getString("BID_HISTORY_MINTED"),
         pricing: null,
-        actor: data.nft.creator || '',
+        actor: data.nft.creator || "",
         createdAt: data.zoraNFT.createdAtTimestamp,
       });
     }
 
     return eventsList
-      .sort(({ createdAt: createdAtFirst }, { createdAt: createdAtSecond }) =>
-        parseInt(createdAtFirst.createdAt, 10) >
-        parseInt(createdAtSecond.createdAt, 10)
-          ? 1
-          : -1
+      .sort(
+        ({ createdAt: createdAtFirst }, { createdAt: createdAtSecond }) =>
+          parseInt(createdAtFirst.createdAt, 10) -
+          parseInt(createdAtSecond.createdAt, 10)
       )
       .map((bidItem) => (
         <div {...getStyles("fullPageHistoryItem")} key={bidItem.createdAt}>
