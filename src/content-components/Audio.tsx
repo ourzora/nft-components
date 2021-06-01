@@ -124,7 +124,7 @@ export const Audio = forwardRef<HTMLAudioElement, MediaRendererProps>(
       } else {
         audioRef.current.pause();
       }
-    }, [audioRef.current]);
+    }, [audioRef.current, playing]);
 
     return (
       <div ref={wrapper} {...getStyles("mediaAudioWrapper")}>
