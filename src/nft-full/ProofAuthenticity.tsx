@@ -1,7 +1,7 @@
 import { NFTDataType } from "@zoralabs/nft-hooks";
 import React, { useContext } from "react";
 
-import { NFTDataContext } from "../context/NFTDataProvider";
+import { NFTDataContext } from "../context/NFTDataContext";
 import {
   MEDIA_URL_BASE_BY_NETWORK,
   VIEW_ETHERSCAN_URL_BASE_BY_NETWORK,
@@ -34,19 +34,27 @@ export const ProofAuthenticity = () => {
     <React.Fragment>
       <ProofLink
         styles={linkStyles}
-        href={`${VIEW_ETHERSCAN_URL_BASE_BY_NETWORK[networkId]}${nft.tokenId}`}
+        href={`${VIEW_ETHERSCAN_URL_BASE_BY_NETWORK[networkId]}${nft.contract.address}?a=${nft.tokenId}`}
       >
         {getString("ETHERSCAN_TXN")}
       </ProofLink>
-      <ProofLink styles={linkStyles} href={data?.zoraNFT.contentURI || data?.nft.metadataURI}>
-        {getString("VIEW_IPFS")}
-      </ProofLink>
       <ProofLink
         styles={linkStyles}
-        href={`${MEDIA_URL_BASE_BY_NETWORK[networkId]}${nft.creator}/${nft.tokenId}`}
+        href={
+          (data && "zoraNFT" in data && data?.zoraNFT.contentURI) ||
+          data?.nft.metadataURI
+        }
       >
-        {getString("VIEW_ZORA")}
+        {getString("VIEW_IPFS")}
       </ProofLink>
+      {data && "zoraNFT" in data && (
+        <ProofLink
+          styles={linkStyles}
+          href={`${MEDIA_URL_BASE_BY_NETWORK[networkId]}${nft.creator}/${nft.tokenId}`}
+        >
+          {getString("VIEW_ZORA")}
+        </ProofLink>
+      )}
     </React.Fragment>
   );
 

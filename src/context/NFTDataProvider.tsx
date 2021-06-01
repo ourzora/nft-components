@@ -1,13 +1,11 @@
 import React from "react";
-import {
-  useZNFT,
-  useNFTMetadata,
-  useNFTType,
-  useNFTMetadataType,
-} from "@zoralabs/nft-hooks";
+import { useNFT, useNFTType, useNFTMetadataType } from "@zoralabs/nft-hooks";
+
+import { NFTDataContext } from "./NFTDataContext";
 
 export type NFTDataProviderProps = {
   id: string;
+  contract: string;
   children: React.ReactNode;
   initialData?: {
     nft?: useNFTType["data"];
@@ -15,29 +13,27 @@ export type NFTDataProviderProps = {
   };
 };
 
-type NFTDataContext = {
-  nft: useNFTType;
-  metadata: useNFTMetadataType;
-};
-
-const DEFAULT_OBJECT = {
-  loading: true,
-  error: undefined,
-};
-
-export const NFTDataContext = React.createContext<NFTDataContext>({
-  nft: { ...DEFAULT_OBJECT, currencyLoaded: false },
-  metadata: { ...DEFAULT_OBJECT, metadata: undefined },
-});
-
 export const NFTDataProvider = ({
   id,
   children,
+  contract,
   initialData,
 }: NFTDataProviderProps) => {
-  const { nft: nftInitial, metadata: metadataInitial } = initialData || {};
-  const nft = useZNFT(id, { loadCurrencyInfo: true, initialData: nftInitial });
-  const metadata = useNFTMetadata(nft.data?.nft.metadataURI, metadataInitial);
+  const { nft: nftInitial } = initialData || {};
+  const nft = useNFT(contract, id, {
+    loadCurrencyInfo: true,
+    initialData: nftInitial,
+  });
+  const metadata = {
+    loading: false,
+    metadata: {
+      name: nft.data?.openseaInfo.name,
+      description: nft.data?.openseaInfo.description,
+      image: nft.data?.openseaInfo.image_url,
+      image_thumbnail_url: nft.data?.openseaInfo.image_thumbnail_url,
+      animation_url: nft.data?.openseaInfo.animation_url,
+    },
+  };
 
   return (
     <NFTDataContext.Provider value={{ nft, metadata }}>

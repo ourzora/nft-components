@@ -1,9 +1,9 @@
 import { Fragment, useContext } from "react";
 
 import { useMediaContext } from "../context/useMediaContext";
-import { NFTDataContext } from "../context/NFTDataProvider";
+import { NFTDataContext } from "../context/NFTDataContext";
 import { CountdownDisplay } from "../components/CountdownDisplay";
-import { AuctionType } from "@zoralabs/nft-hooks";
+import { AuctionStateInfo, AuctionType } from "@zoralabs/nft-hooks";
 
 function isInFuture(timestamp: string) {
   const timestampParsed = parseInt(timestamp);
@@ -18,6 +18,17 @@ export const PricingComponent = () => {
   const { getStyles, getString } = useMediaContext();
 
   const pricing = data?.pricing;
+
+  if (pricing && pricing.status === AuctionStateInfo.NO_PRICING) {
+    return (
+      <div {...getStyles("cardAuctionPricing", { type: "unknown" })}>
+        <div {...getStyles("textSubdued")}>{getString("RESERVE_PRICE")}</div>
+        <div {...getStyles("pricingAmount")}>{getString("NO_PRICING_PLACEHOLDER")}</div>
+        <div {...getStyles("textSubdued")}>{getString("HIGHEST_BID")}</div>
+        <div {...getStyles("pricingAmount")}>{getString("NO_PRICING_PLACEHOLDER")}</div>
+      </div>
+    );
+  }
 
   if (pricing && pricing.auctionType === AuctionType.PERPETUAL) {
     let listPrice = null;
@@ -51,7 +62,7 @@ export const PricingComponent = () => {
       <div {...getStyles("cardAuctionPricing", { type: "perpetual" })}>
         <span {...getStyles("textSubdued")}>{getString("HIGHEST_BID")}</span>
         <span {...getStyles("pricingAmount")}>
-          {!highestBid && "--"}
+          {!highestBid && getString("NO_PRICING_PLACEHOLDER")}
           {highestBid?.pricing.prettyAmount}{" "}
           {highestBid?.pricing.currency.symbol}
         </span>

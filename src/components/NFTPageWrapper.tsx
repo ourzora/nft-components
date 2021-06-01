@@ -1,19 +1,31 @@
 import {
+  ZNFTDataProvider,
+  ZNFTDataProviderProps,
+} from "../context/ZNFTDataProvider";
+import {
   NFTDataProvider,
-  NFTDataProviderProps,
 } from "../context/NFTDataProvider";
 
-export type NFTPageWrapperProps = NFTDataProviderProps;
+export type NFTPageWrapperProps = ZNFTDataProviderProps & {
+  contract?: string;
+};
 
 export const NFTPageWrapper = ({
   id,
+  contract,
   initialData,
   children,
-}: NFTDataProviderProps) => {
+}: NFTPageWrapperProps) => {
+  if (contract) {
+    return (
+      <NFTDataProvider id={id} contract={contract} initialData={initialData}>
+        {children}
+      </NFTDataProvider>
+    );
+  }
   return (
-    <NFTDataProvider id={id} initialData={initialData}>
+    <ZNFTDataProvider id={id} contract={contract} initialData={initialData}>
       {children}
-    </NFTDataProvider>
+    </ZNFTDataProvider>
   );
-
 };

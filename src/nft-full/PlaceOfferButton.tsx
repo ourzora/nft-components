@@ -3,7 +3,7 @@ import { Fragment, useContext } from "react";
 import { ZORA_SITE_URL_BASE } from "../constants/media-urls";
 import { useMediaContext } from "../context/useMediaContext";
 import { Button } from "../components/Button";
-import { NFTDataContext } from "../context/NFTDataProvider";
+import { NFTDataContext } from "../context/NFTDataContext";
 import { AuctionType } from "@zoralabs/nft-hooks";
 
 type PlaceOfferButtonProps = {
@@ -19,7 +19,7 @@ export const PlaceOfferButton = ({ allowOffer }: PlaceOfferButtonProps) => {
   }
   // Disable offer functionality if not a zora NFT or if offers are disabled
   if (
-    (allowOffer === false || !nft.data.zoraNFT) &&
+    (allowOffer === false || !('zoraNFT' in nft.data)) &&
     nft.data.pricing.auctionType !== AuctionType.RESERVE
   ) {
     return <Fragment />;

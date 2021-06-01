@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { NFTDataContext } from "../context/NFTDataProvider";
+import { NFTDataContext } from "../context/NFTDataContext";
 import { useMediaContext } from "../context/useMediaContext";
 
 export const MediaThumbnailWrapper = ({

@@ -32,3 +32,9 @@ export const Text = Template.bind({});
 Text.args = {
   id: '3079',
 };
+
+export const NonZoraImage = Template.bind({});
+NonZoraImage.args = {
+  id: "5683",
+  contract: "0xb7f7f6c52f2e2fdb1963eab30438024864c313f6",
+};
