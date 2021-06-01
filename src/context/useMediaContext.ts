@@ -27,8 +27,7 @@ export function useMediaContext() {
   };
 
   const getString = (stringName: keyof typeof Strings) => {
-    // TODO(iain): Add formatting logic
-    return Strings[stringName];
+    return mediaContext.strings[stringName];
   };
 
   return { ...mediaContext, getString, getStyles };
