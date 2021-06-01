@@ -24,7 +24,7 @@ export const NFTPageWrapper = ({
     );
   }
   return (
-    <ZNFTDataProvider id={id} contract={contract} initialData={initialData}>
+    <ZNFTDataProvider id={id} initialData={initialData}>
       {children}
     </ZNFTDataProvider>
   );

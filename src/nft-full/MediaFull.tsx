@@ -16,7 +16,7 @@ export const MediaFull = () => {
       return (
         <MediaObject
           isFullPage={true}
-          contentURI={data.hasOwnProperty('zoraNFT') && data.zoraNFT?.contentURI}
+          contentURI={'zoraNFT' in data ? data.zoraNFT?.contentURI : undefined}
           metadata={metadata}
         />
       );
