@@ -46,6 +46,13 @@ export const Video = forwardRef<HTMLVideoElement, MediaRendererProps>(
       }
     }, [video]);
 
+    const playLoop = useCallback(() => {
+      if (!video.current) {
+        return;
+      }
+      video.current.currentTime = 0;
+    }, [video.current]);
+
     return (
       <Fragment>
         {video.current && (
@@ -72,11 +79,13 @@ export const Video = forwardRef<HTMLVideoElement, MediaRendererProps>(
         )}
         <video
           preload="metadata"
-          autoPlay={true}
-          loop={true}
+          autoPlay
+          loop
           muted={isMuted}
+          playsInline
           {...props}
           ref={video}
+          onEnded={playLoop}
           onLoadedData={onLoad}
         ></video>
       </Fragment>
