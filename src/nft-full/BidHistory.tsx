@@ -2,7 +2,7 @@ import { PricingInfo } from "@zoralabs/nft-hooks";
 import React, { Fragment, useContext } from "react";
 
 import { AddressView } from "../components/AddressView";
-import { NFTDataContext } from "../context/NFTDataProvider";
+import { NFTDataContext } from "../context/NFTDataContext";
 import { useMediaContext } from "../context/useMediaContext";
 import { InfoContainer } from "./InfoContainer";
 
@@ -54,12 +54,21 @@ export const BidHistory = () => {
       });
     }
 
-    if (data.zoraNFT.createdAtTimestamp) {
+    if ("zoraNFT" in data && data.zoraNFT.createdAtTimestamp) {
       eventsList.push({
         activityDescription: getString("BID_HISTORY_MINTED"),
         pricing: null,
         actor: data.nft.creator || "",
         createdAt: data.zoraNFT.createdAtTimestamp,
+      });
+    }
+
+    if ("openseaInfo" in data) {
+      eventsList.push({
+        activityDescription: getString("BID_HISTORY_MINTED"),
+        pricing: null,
+        actor: data.openseaInfo.creator.address,
+        createdAt: null,
       });
     }
 
@@ -77,9 +86,11 @@ export const BidHistory = () => {
             </span>
             {bidItem.activityDescription} {bidItem.pricing}
           </div>
-          <div {...getStyles("fullPageHistoryItemDatestamp")}>
-            {formatDate(bidItem.createdAt)}
-          </div>
+          {bidItem.createdAt && (
+            <div {...getStyles("fullPageHistoryItemDatestamp")}>
+              {formatDate(bidItem.createdAt)}
+            </div>
+          )}
         </div>
       ));
   };

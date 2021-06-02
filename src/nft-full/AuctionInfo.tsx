@@ -1,9 +1,13 @@
-import { AuctionStateInfo, AuctionType, PricingInfo } from "@zoralabs/nft-hooks";
+import {
+  AuctionStateInfo,
+  AuctionType,
+  PricingInfo,
+} from "@zoralabs/nft-hooks";
 import React, { Fragment, useContext } from "react";
 
 import { AddressView } from "../components/AddressView";
 import { CountdownDisplay } from "../components/CountdownDisplay";
-import { NFTDataContext } from "../context/NFTDataProvider";
+import { NFTDataContext } from "../context/NFTDataContext";
 import { useMediaContext } from "../context/useMediaContext";
 import { InfoContainer, InfoContainerProps } from "./InfoContainer";
 
@@ -23,8 +27,8 @@ export const AuctionInfo = () => {
   if (!nft.data) {
     return <Fragment />;
   }
-  
-  const {data} = nft;
+
+  const { data } = nft;
 
   const getPricingString = (pricing: PricingInfo) => (
     <React.Fragment>
@@ -38,11 +42,14 @@ export const AuctionInfo = () => {
     </React.Fragment>
   );
 
-  if (data.pricing.status === AuctionStateInfo.PERPETUAL_BID) {
-
+  if (data.pricing.status === AuctionStateInfo.NO_PRICING) {
+    return <React.Fragment />;
   }
 
-  if (data.pricing.status === AuctionStateInfo.NO_PRICING) {
+  if (
+    data.pricing.status === AuctionStateInfo.PERPETUAL_ASK ||
+    data.pricing.status === AuctionStateInfo.PERPETUAL_BID
+  ) {
     return (
       <AuctionInfoWrapper titleString="OPEN_OFFERS">
         Be the first one to bid on this piece!
@@ -95,13 +102,14 @@ export const AuctionInfo = () => {
       }
     >
       <div {...getStyles("pricingAmount")}>
-        {data.pricing.auctionType === AuctionType.PERPETUAL && data.pricing.perpetual.highestBid && (
-          getPricingString(data.pricing.perpetual.highestBid?.pricing)
-        )}
-        {data.pricing.auctionType === AuctionType.RESERVE && data.pricing.reserve?.current.highestBid && (
-          getPricingString(data.pricing.reserve.current.highestBid?.pricing)
-        )}
-        {' '}
+        {data.pricing.auctionType === AuctionType.PERPETUAL &&
+          data.pricing.perpetual.highestBid &&
+          getPricingString(data.pricing.perpetual.highestBid?.pricing)}
+        {data.pricing.auctionType === AuctionType.RESERVE &&
+          data.pricing.reserve?.current.highestBid &&
+          getPricingString(
+            data.pricing.reserve.current.highestBid?.pricing
+          )}{" "}
       </div>
     </AuctionInfoWrapper>
   );

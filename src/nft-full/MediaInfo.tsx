@@ -1,6 +1,6 @@
 import { Fragment, useContext } from "react";
 
-import { NFTDataContext } from "../context/NFTDataProvider";
+import { NFTDataContext } from "../context/NFTDataContext";
 import { AddressView } from "../components/AddressView";
 import { useMediaContext } from "../context/useMediaContext";
 

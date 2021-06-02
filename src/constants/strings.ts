@@ -142,4 +142,10 @@ export const Strings = {
    * @default ...
    */
   PRICING_LOADING: "...",
+  /**
+   * No pricing placeholder, shown if no pricing information
+   * exists but content is loaded
+   * @default --
+   */
+   NO_PRICING_PLACEHOLDER: '--',
 };
