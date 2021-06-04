@@ -6,9 +6,11 @@ import { useMediaContext } from "../context/useMediaContext";
 export const MediaThumbnailWrapper = ({
   children,
   onClick,
+  href,
 }: {
   children: React.ReactNode;
   onClick?: (evt: React.MouseEvent<HTMLElement>) => void;
+  href?: string;
 }) => {
   const { getStyles } = useMediaContext();
 
@@ -19,6 +21,7 @@ export const MediaThumbnailWrapper = ({
     <div
       {...getStyles("cardOuter", { hasClickEvent: !!onClick, auctionStatus })}
       onClick={onClick}
+      href={href}
     >
       {children}
     </div>
