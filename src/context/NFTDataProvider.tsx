@@ -1,5 +1,10 @@
 import React from "react";
-import { useNFT, useNFTType, useNFTMetadataType } from "@zoralabs/nft-hooks";
+import {
+  DataTransformers,
+  useNFT,
+  useNFTType,
+  useNFTMetadataType,
+} from "@zoralabs/nft-hooks";
 
 import { NFTDataContext } from "./NFTDataContext";
 
@@ -25,14 +30,8 @@ export const NFTDataProvider = ({
     initialData: nftInitial,
   });
   const metadata = {
-    loading: false,
-    metadata: {
-      name: nft.data?.openseaInfo.name,
-      description: nft.data?.openseaInfo.description,
-      image: nft.data?.openseaInfo.image_url,
-      image_thumbnail_url: nft.data?.openseaInfo.image_thumbnail_url,
-      animation_url: nft.data?.openseaInfo.animation_url,
-    },
+    loading: !!nft.data,
+    metadata: nft.data ? DataTransformers.openseaDataToMetadata(nft.data) : undefined,
   };
 
   return (

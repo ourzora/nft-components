@@ -4,16 +4,6 @@ import { AddressView } from "../components/AddressView";
 import { MediaObject } from "../components/MediaObject";
 import { useMediaContext } from "../context/useMediaContext";
 import { NFTDataContext } from "../context/NFTDataContext";
-import {
-  NFTDataType,
-  OpenseaNFTDataType,
-} from "@zoralabs/nft-hooks/dist/fetcher/AuctionInfoTypes";
-
-function isZoraNFT(
-  nftData: OpenseaNFTDataType | NFTDataType
-): nftData is NFTDataType {
-  return "zoraNFT" in nftData;
-}
 
 export const MediaThumbnail = () => {
   const {
@@ -28,7 +18,7 @@ export const MediaThumbnail = () => {
       return {
         media: (
           <MediaObject
-            contentURI={isZoraNFT(data) ? data.zoraNFT.contentURI : undefined}
+            contentURI={data && 'zoraNFT' in data ? data.zoraNFT.contentURI : undefined}
             metadata={metadata}
           />
         ),

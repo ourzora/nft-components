@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { useNFTMetadataType, useNFTType, useZNFTType } from "@zoralabs/nft-hooks";
+import { useNFTMetadataType, useNFTType, useZNFTType} from "@zoralabs/nft-hooks";
 
 export type NFTDataContext = {
   nft: useNFTType | useZNFTType;
