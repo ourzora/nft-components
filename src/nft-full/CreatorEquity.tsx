@@ -1,4 +1,3 @@
-import { NFTDataType } from "@zoralabs/nft-hooks";
 import React, { useContext } from "react";
 
 import { useMediaContext } from "../context/useMediaContext";
@@ -9,22 +8,18 @@ export const CreatorEquity = () => {
   const {
     nft: { data },
   } = useContext(NFTDataContext);
-  const {getStyles} = useMediaContext();
+  const { getStyles } = useMediaContext();
 
-  if (!data || !('zoraNFT' in data)) {
-    return <React.Fragment />;
-  }
-
-  const getContent = (zoraNFT: NFTDataType["zoraNFT"]) => (
-    <React.Fragment>
-        {Math.floor(zoraNFT.creatorBidSharePercentage)}%
-    </React.Fragment>
+  const getContent = (bidSharePercentage: number) => (
+    <React.Fragment>{Math.floor(bidSharePercentage)}%</React.Fragment>
   );
 
   return (
     <InfoContainer titleString="CREATOR_EQUITY">
       <div {...getStyles("fullInfoCreatorEquityContainer")}>
-        {data && getContent(data.zoraNFT)}
+        {data &&
+          "zoraNFT" in data &&
+          getContent(data.zoraNFT.creatorBidSharePercentage)}
       </div>
     </InfoContainer>
   );
