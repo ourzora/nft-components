@@ -1,21 +1,21 @@
 import { merge } from "merge-anything";
 import { Story, Meta } from "@storybook/react";
 
-import { NFTPreview } from "../nft-preview/NFTPreview";
-import { Style } from "../constants/style";
+import { DarkTheme } from "./example-themes/dark";
+import { GalleryTheme } from "./example-themes/gallery";
 import { MediaConfiguration } from "../context/MediaConfiguration";
 import { NFTFullPage } from "../nft-full/NFTFullPage";
-import { ThemePresetNames } from "../constants/style-presets";
+import { NFTPreview } from "../nft-preview/NFTPreview";
+import { Style } from "../constants/style";
 
 type ThemeProps = {
   style: Partial<typeof Style>;
   showFull: boolean;
-  themePreset?: ThemePresetNames,
   id: string;
 };
 
-const DemoComponent = ({ id, style, showFull, themePreset }: ThemeProps) => (
-  <MediaConfiguration style={style} themePreset={themePreset}>
+const DemoComponent = ({ id, style, showFull }: ThemeProps) => (
+  <MediaConfiguration style={style}>
     {showFull ? <NFTFullPage id={id} /> : <NFTPreview id={id} />}
   </MediaConfiguration>
 );
@@ -49,7 +49,7 @@ PreviewCard.args = {
 export const Dark = Template.bind({});
 Dark.args = {
   id: "3109",
-  themePreset: "Dark",
+  theme: DarkTheme,
 };
 Dark.parameters = {
   backgrounds: {
@@ -61,7 +61,7 @@ Dark.parameters = {
 export const Gallery = Template.bind({});
 Gallery.args = {
   id: "3109",
-  themePreset: "Gallery",
+  theme: GalleryTheme,
 };
 Gallery.parameters = {
   backgrounds: {
@@ -69,7 +69,6 @@ Gallery.parameters = {
     values: [{ name: "gray", value: "#ddd" }],
   },
 };
-
 
 export const FullPage = Template.bind({});
 FullPage.args = {
