@@ -49,7 +49,7 @@ PreviewCard.args = {
 export const Dark = Template.bind({});
 Dark.args = {
   id: "3109",
-  theme: DarkTheme,
+  style: DarkTheme,
 };
 Dark.parameters = {
   backgrounds: {
@@ -61,7 +61,7 @@ Dark.parameters = {
 export const Gallery = Template.bind({});
 Gallery.args = {
   id: "3109",
-  theme: GalleryTheme,
+  style: GalleryTheme,
 };
 Gallery.parameters = {
   backgrounds: {
