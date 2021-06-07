@@ -1,8 +1,8 @@
 import { css } from "@emotion/css";
 import { AuctionStateInfo } from "@zoralabs/nft-hooks";
 
-import { Style } from "../style";
-import { ThemeOptionsType } from "../theme";
+import { Style } from "../../constants/style";
+import { ThemeOptionsType } from "../../constants/theme";
 
 export const GalleryTheme = {
   theme: {

@@ -9,7 +9,6 @@ import { merge } from "merge-anything";
 import { Strings } from "../constants/strings";
 import { MediaRenderersType } from "../content-components";
 
-import { ThemePresetNames, THEME_PRESETS } from "../constants/style-presets";
 import { MediaContext, ThemeType } from "./MediaContext";
 
 type MediaContextConfigurationProps = {
@@ -32,10 +31,6 @@ type MediaContextConfigurationProps = {
    * List of content strings.
    */
   strings?: Partial<typeof Strings>;
-  /**
-   * Theme preset to choose from. Themes can be found in `src/content-components/index.ts`.
-   */
-  themePreset?: ThemePresetNames;
 };
 
 export const MediaConfiguration = ({
@@ -44,20 +39,12 @@ export const MediaConfiguration = ({
   children,
   strings = {},
   mediaRenderers = {},
-  themePreset,
 }: MediaContextConfigurationProps) => {
   const superContext = useContext(MediaContext);
 
-  const themePresetValue = themePreset ? THEME_PRESETS[themePreset] : undefined;
-
   let newContext = {
     // TODO(iain): Fix typing
-    style: merge(
-      themePreset
-        ? merge(superContext.style, themePresetValue)
-        : superContext.style,
-      style
-    ) as ThemeType,
+    style: merge(superContext.style, style) as ThemeType,
     strings: merge(superContext.strings, strings),
     mediaRenderers: merge(superContext.mediaRenderers, mediaRenderers),
     networkId,
