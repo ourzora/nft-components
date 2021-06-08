@@ -3,7 +3,8 @@ import { join } from "path";
 import { render, screen } from "@testing-library/react";
 import { FullComponents, NFTDataContext } from "../../src";
 import { ReactNode } from "react";
-import MockDate from 'mockdate'
+import MockDate from "mockdate";
+import fetchMock from "./fetchMock";
 
 const loadJSON = async (name: string) => {
   const path = join(__dirname, `mock-data/test_${name}.json`);
@@ -29,9 +30,13 @@ const TestHarness = ({
 };
 
 describe("AuctionInfo", () => {
+  beforeEach(() => {
+    fetchMock.mock("*", 404);
+  });
   afterEach(() => {
+    fetchMock.reset();
     MockDate.reset();
-  })
+  });
   describe("renders auction info correctly", () => {
     it("renders a auction with perpetual bids", async () => {
       const data = await loadJSON("perpetual_bids");
@@ -62,7 +67,7 @@ describe("AuctionInfo", () => {
       await screen.findByText("Be the first one to bid on this piece!");
     });
 
-    it('renders an auction with an pending reserve auction', async () => {
+    it("renders an auction with an pending reserve auction", async () => {
       const data = await loadJSON("reserve_pending_auction");
 
       render(
@@ -76,7 +81,7 @@ describe("AuctionInfo", () => {
       expect(weth.innerHTML).toEqual("0.1 ETH");
     });
 
-    it('renders a current auction with a bid', async () => {
+    it("renders a current auction with a bid", async () => {
       MockDate.set(1623156928000);
       const data = await loadJSON("reserve_active_auction");
 
@@ -94,7 +99,7 @@ describe("AuctionInfo", () => {
       await screen.findByText(/0x[a-f0-9]+/);
     });
 
-    it('renders finished reserve auction', async () => {
+    it("renders finished reserve auction", async () => {
       const data = await loadJSON("reserve_auction_complete");
 
       render(
@@ -110,7 +115,7 @@ describe("AuctionInfo", () => {
     });
   });
 
-  describe('hides perpetual auction information', () => {
+  describe("hides perpetual auction information", () => {
     it("does not render info for perpetual bids when disabled", async () => {
       const data = await loadJSON("perpetual_bids");
 
@@ -122,7 +127,6 @@ describe("AuctionInfo", () => {
 
       expect(await screen.queryByText("Highest bid")).toBeNull();
     });
-
 
     it("renders a auction with perpetual bids", async () => {
       const data = await loadJSON("perpetual_bids");
@@ -149,7 +153,7 @@ describe("AuctionInfo", () => {
       expect(await screen.queryByText("Open offers")).toBeNull();
     });
 
-    it('renders an auction with an pending reserve auction', async () => {
+    it("renders an auction with an pending reserve auction", async () => {
       const data = await loadJSON("reserve_pending_auction");
 
       render(
@@ -163,7 +167,7 @@ describe("AuctionInfo", () => {
       expect(weth.innerHTML).toEqual("0.1 ETH");
     });
 
-    it('renders a current auction with a bid', async () => {
+    it("renders a current auction with a bid", async () => {
       MockDate.set(1623156928000);
       const data = await loadJSON("reserve_active_auction");
 
@@ -181,7 +185,7 @@ describe("AuctionInfo", () => {
       await screen.findByText(/0x[a-f0-9]+/);
     });
 
-    it('renders finished reserve auction', async () => {
+    it("renders finished reserve auction", async () => {
       const data = await loadJSON("reserve_auction_complete");
 
       render(
@@ -195,6 +199,5 @@ describe("AuctionInfo", () => {
       await screen.findByText("Winner");
       await screen.findByText("@michael");
     });
-  })
-
+  });
 });

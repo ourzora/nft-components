@@ -14,7 +14,7 @@ export const AddressView = ({ address, showChars = 6 }: AddressViewProps) => {
   const addressLast = address.slice(address.length - showChars);
 
   if (username.username?.username) {
-    return <span>@{username.username.username}</span>;
+    return <span>{`@${username.username.username}`}</span>;
   }
   if (!username.error && !username.username) {
     return <span>...</span>;
