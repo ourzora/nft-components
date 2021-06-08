@@ -11,6 +11,7 @@ import { NFTDataContext } from "./NFTDataContext";
 export type ZNFTDataProviderProps = {
   id: string;
   children: React.ReactNode;
+  refreshInterval?: number,
   initialData?: {
     nft?: useNFTType["data"];
     metadata?: useNFTMetadataType["metadata"];
@@ -21,10 +22,11 @@ export type ZNFTDataProviderProps = {
 export const ZNFTDataProvider = ({
   id,
   children,
+  refreshInterval,
   initialData,
 }: ZNFTDataProviderProps) => {
   const { nft: nftInitial, metadata: metadataInitial } = initialData || {};
-  const nft = useZNFT(id, { loadCurrencyInfo: true, initialData: nftInitial });
+  const nft = useZNFT(id, { loadCurrencyInfo: true, initialData: nftInitial, refreshInterval });
   const metadata = useNFTMetadata(nft.data?.nft.metadataURI, metadataInitial);
 
   return (
