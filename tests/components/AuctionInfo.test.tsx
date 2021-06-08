@@ -111,7 +111,6 @@ describe("AuctionInfo", () => {
       await screen.findByText("Sold for");
       await screen.findByText(/0.4 ETH/);
       await screen.findByText("Winner");
-      await screen.findByText("@michael");
     });
   });
 
@@ -197,7 +196,6 @@ describe("AuctionInfo", () => {
       await screen.findByText("Sold for");
       await screen.findByText(/0.4 ETH/);
       await screen.findByText("Winner");
-      await screen.findByText("@michael");
     });
   });
 });
