@@ -17,7 +17,11 @@ const formatDate = (timestamp: string) =>
     hour12: true,
   });
 
-export const BidHistory = () => {
+type BidHistoryProps = {
+  showPerpetual?: boolean;
+};
+
+export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
   const { nft } = useContext(NFTDataContext);
   const { getString, getStyles } = useMediaContext();
 
@@ -37,7 +41,7 @@ export const BidHistory = () => {
       ? [data.pricing.reserve?.currentBid]
       : [];
     const eventsList = [
-      ...data.pricing.perpetual.bids,
+      ...(showPerpetual ? data.pricing.perpetual.bids : []),
       ...(data.pricing.reserve?.previousBids || []),
       ...currentBid,
     ].map((bid) => ({
@@ -47,11 +51,16 @@ export const BidHistory = () => {
       createdAt: bid.createdAtTimestamp,
     }));
 
-    if (data.pricing.reserve?.createdAtTimestamp) {
+    if (
+      data.pricing.reserve?.createdAtTimestamp &&
+      // Only show approved auction listings
+      data.pricing.reserve?.approved
+    ) {
       eventsList.push({
         activityDescription: getString("BID_HISTORY_LISTED"),
         pricing: null,
         actor: data.pricing.reserve.tokenOwner.id,
+        // TODO(iain): Update to the timestamp when approved
         createdAt: data.pricing.reserve.createdAtTimestamp,
       });
     }
