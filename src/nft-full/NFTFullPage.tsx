@@ -42,7 +42,7 @@ export const NFTFullPage = ({
           <PlaceOfferButton allowOffer={allowOffer} />
           <AuctionInfo showPerpetual={showPerpetual} />
           <ProofAuthenticity />
-          <BidHistory />
+          <BidHistory showPerpetual={showPerpetual} />
           <CreatorEquity />
         </div>
       </Fragment>
