@@ -113,12 +113,14 @@ export const AuctionInfo = () => {
       }
     >
       <div {...getStyles("pricingAmount")}>
-        {data.pricing.auctionType === AuctionType.PERPETUAL &&
+        {(data.pricing.auctionType === AuctionType.PERPETUAL &&
           data.pricing.perpetual.ask &&
-          getPricingString(data.pricing.perpetual.ask?.pricing)}
-        {data.pricing.auctionType === AuctionType.RESERVE &&
+          getPricingString(data.pricing.perpetual.ask?.pricing)) ||
+          getString("NO_PRICING_PLACEHOLDER")}
+        {(data.pricing.auctionType === AuctionType.RESERVE &&
           data.pricing.reserve?.reservePrice &&
-          getPricingString(data.pricing.reserve.reservePrice)}{" "}
+          getPricingString(data.pricing.reserve.reservePrice)) ||
+          getString("NO_PRICING_PLACEHOLDER")}{" "}
       </div>
     </AuctionInfoWrapper>
   );
