@@ -21,8 +21,6 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
   const { nft } = useContext(NFTDataContext);
   const { getStyles, getString } = useMediaContext();
 
-  // return <pre>{JSON.stringify(nft, null, 2)}</pre>
-
   const AuctionInfoWrapper = ({
     children,
     ...containerArgs

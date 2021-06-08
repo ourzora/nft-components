@@ -2856,10 +2856,10 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@zoralabs/nft-hooks@^0.3.2":
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@zoralabs/nft-hooks/-/nft-hooks-0.3.2.tgz#84c29a8433d2e3228c174fcb737c370e0fb4b9e9"
-  integrity sha512-reLhHX3pvt0A+KFEl7uys7dX2hLKLAkyCtz6dJMvkPRjg7lzIb999iu9ZkfwlrB+k+rNPG58pu0CqZcDrmhvIA==
+"@zoralabs/nft-hooks@^0.3.3":
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/@zoralabs/nft-hooks/-/nft-hooks-0.3.3.tgz#8a4068673e7bb29d97eb2d33d86fa7f0e9410fd5"
+  integrity sha512-nj9IX67JRB8y0gSQJrHujS0UpQxl0/DK9xUMVAIPbl508gJzTtyvdmebQ5cejl7GSUQdjLD85rhtTGsduUyM8g==
   dependencies:
     big.js "^6.1.0"
     cross-fetch "^3.1.4"
