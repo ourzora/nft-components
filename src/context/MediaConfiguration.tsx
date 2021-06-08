@@ -43,8 +43,7 @@ export const MediaConfiguration = ({
   const superContext = useContext(MediaContext);
 
   let newContext = {
-    // TODO(iain): Fix typing
-    style: merge(superContext.style, style) as ThemeType,
+    style: merge(superContext.style, style),
     strings: merge(superContext.strings, strings),
     mediaRenderers: merge(superContext.mediaRenderers, mediaRenderers),
     networkId,
