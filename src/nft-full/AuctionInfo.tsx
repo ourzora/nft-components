@@ -11,7 +11,7 @@ import { NFTDataContext } from "../context/NFTDataContext";
 import { useMediaContext } from "../context/useMediaContext";
 import { InfoContainer, InfoContainerProps } from "./InfoContainer";
 
-interface AuctionInfoProps {
+type AuctionInfoProps = {
   showPerpetual?: boolean;
 }
 
