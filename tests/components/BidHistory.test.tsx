@@ -54,7 +54,7 @@ describe("AuctionInfo", () => {
         </TestHarness>
       );
 
-      await screen.findByText("listed the NFT");
+      expect(await screen.queryByText("listed the NFT")).toBeNull();
       await screen.findByText("minted the NFT");
       await screen.findByText(/0\.169 WETH/);
       expect(getBids()).toEqual([
@@ -68,6 +68,20 @@ describe("AuctionInfo", () => {
         "0.3 WETH",
         "0.169 WETH",
       ]);
+    });
+
+    it("renders a auction with hiding perpetual bids", async () => {
+      const data = await loadJSON("perpetual_bids");
+
+      render(
+        <TestHarness data={data}>
+          <FullComponents.BidHistory showPerpetual={false} />
+        </TestHarness>
+      );
+
+      await screen.findByText("minted the NFT");
+      expect(screen.queryByText("listed the NFT")).toBeNull();
+      expect(getBids()).toEqual([]);
     });
 
     it("renders a auction with perpetual bids and ask", async () => {
