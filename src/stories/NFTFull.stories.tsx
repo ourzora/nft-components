@@ -1,17 +1,24 @@
-import { NFTFullPage } from "../nft-full/NFTFullPage";
 import { Story, Meta } from "@storybook/react";
+import { NFTFullPage } from "../nft-full/NFTFullPage";
+import {MediaConfiguration} from "../context/MediaConfiguration";
+import { Networks } from "@zoralabs/nft-hooks";
 
 export default {
   title: "Renderer/NFTFull",
   component: NFTFullPage,
 } as Meta;
 
-// @ts-ignore
-const Template: Story<typeof NFTFullPage> = (args) => <NFTFullPage {...args} />;
+const Template: Story<typeof NFTFullPage> = (args) => (
+  <MediaConfiguration networkId={(args as any).testnet ? Networks.RINKEBY : Networks.MAINNET}>
+    {/* @ts-ignore */}
+    <NFTFullPage {...args} />
+  </MediaConfiguration>
+);
 
 export const Image = Template.bind({});
 Image.args = {
-  id: "3102",
+  id: "2662",
+  testnet: true,
 };
 
 export const Video = Template.bind({});

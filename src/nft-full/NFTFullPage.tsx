@@ -16,6 +16,7 @@ type NFTFullPageProps = Omit<NFTPageWrapperProps, "children"> & {
   children?: React.ReactNode;
   config?: {
     allowOffer?: boolean;
+    showPerpetual?: boolean;
   };
 };
 
@@ -26,6 +27,7 @@ export const NFTFullPage = ({
 }: NFTFullPageProps) => {
   const { getStyles } = useMediaContext();
   const allowOffer = config?.allowOffer;
+  const showPerpetual = config?.showPerpetual;
 
   const getChildren = () => {
     if (children) {
@@ -38,7 +40,7 @@ export const NFTFullPage = ({
         <div {...getStyles("fullPageDataGrid")}>
           <MediaInfo />
           <PlaceOfferButton allowOffer={allowOffer} />
-          <AuctionInfo />
+          <AuctionInfo showPerpetual={showPerpetual} />
           <ProofAuthenticity />
           <BidHistory />
           <CreatorEquity />

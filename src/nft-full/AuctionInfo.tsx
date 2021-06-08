@@ -11,7 +11,13 @@ import { NFTDataContext } from "../context/NFTDataContext";
 import { useMediaContext } from "../context/useMediaContext";
 import { InfoContainer, InfoContainerProps } from "./InfoContainer";
 
-export const AuctionInfo = () => {
+type AuctionInfoProps = {
+  showPerpetual?: boolean;
+}
+
+const { format } = new Intl.NumberFormat();
+
+export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
   const { nft } = useContext(NFTDataContext);
   const { getStyles, getString } = useMediaContext();
 
@@ -32,11 +38,11 @@ export const AuctionInfo = () => {
 
   const getPricingString = (pricing: PricingInfo) => (
     <React.Fragment>
-      {pricing.prettyAmount} {pricing.currency.symbol}
+      {format(parseFloat(pricing.prettyAmount))} {pricing.currency.symbol}
       {pricing.computedValue && (
         <span {...getStyles("textSubdued")}>
           {" "}
-          ${parseInt(pricing.computedValue?.inUSD, 10).toString()}
+          ${format(parseInt(pricing.computedValue?.inUSD, 10))}
         </span>
       )}
     </React.Fragment>
@@ -46,14 +52,19 @@ export const AuctionInfo = () => {
     return <React.Fragment />;
   }
 
-  if (
-    data.pricing.status === AuctionStateInfo.PERPETUAL_ASK ||
-    data.pricing.status === AuctionStateInfo.PERPETUAL_BID
-  ) {
+  if (data.pricing.status === AuctionStateInfo.PERPETUAL_ASK && showPerpetual) {
     return (
-      <AuctionInfoWrapper titleString="OPEN_OFFERS">
-        Be the first one to bid on this piece!
-      </AuctionInfoWrapper>
+      <Fragment>
+        {data.pricing.perpetual.ask && (
+          <AuctionInfoWrapper titleString="LIST_PRICE">
+            {getPricingString(data.pricing.perpetual.ask.pricing)}
+          </AuctionInfoWrapper>
+        )}
+
+        <AuctionInfoWrapper titleString="OPEN_OFFERS">
+          Be the first one to bid on this piece!
+        </AuctionInfoWrapper>
+      </Fragment>
     );
   }
 
@@ -78,11 +89,10 @@ export const AuctionInfo = () => {
   }
 
   if (
-    reserve !== undefined &&
-    !reserve?.current.highestBid &&
-    reserve.previousBids.length
+    data.pricing.reserve &&
+    data.pricing.status === AuctionStateInfo.RESERVE_AUCTION_FINISHED
   ) {
-    const highestPreviousBid = reserve.previousBids[0];
+    const highestPreviousBid = data.pricing.reserve.previousBids[0];
     return (
       <AuctionInfoWrapper titleString="AUCTION_SOLD_FOR">
         {getPricingString(highestPreviousBid.pricing)}
@@ -93,23 +103,37 @@ export const AuctionInfo = () => {
     );
   }
 
+  if (
+    showPerpetual &&
+    data.pricing.auctionType === AuctionType.PERPETUAL &&
+    data.pricing.perpetual.highestBid
+  ) {
+    return (
+      <AuctionInfoWrapper titleString="HIGHEST_BID">
+        {getPricingString(data.pricing.perpetual.highestBid?.pricing)}
+      </AuctionInfoWrapper>
+    );
+  }
+
+  if (!showPerpetual && data.pricing.auctionType === AuctionType.PERPETUAL) {
+    return <Fragment />;
+  }
+
   return (
     <AuctionInfoWrapper
       titleString={
-        nft.data.pricing.auctionType === AuctionType.PERPETUAL
+        data.pricing.auctionType === AuctionType.PERPETUAL
           ? "LIST_PRICE"
           : "RESERVE_PRICE"
       }
     >
       <div {...getStyles("pricingAmount")}>
         {data.pricing.auctionType === AuctionType.PERPETUAL &&
-          data.pricing.perpetual.highestBid &&
-          getPricingString(data.pricing.perpetual.highestBid?.pricing)}
+          data.pricing.perpetual.ask &&
+          getPricingString(data.pricing.perpetual.ask?.pricing)}
         {data.pricing.auctionType === AuctionType.RESERVE &&
-          data.pricing.reserve?.current.highestBid &&
-          getPricingString(
-            data.pricing.reserve.current.highestBid?.pricing
-          )}{" "}
+          data.pricing.reserve?.reservePrice &&
+          getPricingString(data.pricing.reserve.reservePrice)}
       </div>
     </AuctionInfoWrapper>
   );

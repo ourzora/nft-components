@@ -1,10 +1,12 @@
-import { PricingInfo } from "@zoralabs/nft-hooks";
+import { AuctionStateInfo, PricingInfo } from "@zoralabs/nft-hooks";
 import React, { Fragment, useContext } from "react";
 
 import { AddressView } from "../components/AddressView";
 import { NFTDataContext } from "../context/NFTDataContext";
 import { useMediaContext } from "../context/useMediaContext";
 import { InfoContainer } from "./InfoContainer";
+
+const { format } = new Intl.NumberFormat();
 
 const formatDate = (timestamp: string) =>
   new Date(parseInt(timestamp, 10) * 1000).toLocaleString("en-US", {
@@ -21,7 +23,7 @@ export const BidHistory = () => {
 
   const getPricingString = (pricing: PricingInfo) => (
     <span {...getStyles("pricingAmount")}>
-      {pricing.prettyAmount} {pricing.currency.symbol}
+      {format(parseFloat(pricing.prettyAmount))} {pricing.currency.symbol}
     </span>
   );
 
@@ -54,6 +56,32 @@ export const BidHistory = () => {
       });
     }
 
+    if (
+      data.pricing.reserve &&
+      data.pricing.reserve.currentBid &&
+      data.pricing.status === AuctionStateInfo.RESERVE_AUCTION_ENDED
+    ) {
+      eventsList.push({
+        activityDescription: getString("BID_HISTORY_WON_AUCTION"),
+        pricing: null,
+        actor: data.pricing.reserve.currentBid.bidder.id,
+        createdAt: data.pricing.reserve.expectedEndTimestamp,
+      });
+    }
+
+    if (
+      data.pricing.reserve &&
+      data.pricing.reserve.previousBids.length &&
+      data.pricing.status === AuctionStateInfo.RESERVE_AUCTION_FINISHED
+    ) {
+      eventsList.push({
+        activityDescription: getString("BID_HISTORY_WON_AUCTION"),
+        pricing: null,
+        actor: data.pricing.reserve.previousBids[0].bidder.id,
+        createdAt: data.pricing.reserve.finalizedAtTimestamp,
+      });
+    }
+
     if ("zoraNFT" in data && data.zoraNFT.createdAtTimestamp) {
       eventsList.push({
         activityDescription: getString("BID_HISTORY_MINTED"),
@@ -73,11 +101,7 @@ export const BidHistory = () => {
     }
 
     return eventsList
-      .sort(
-        ({ createdAt: createdAtFirst }, { createdAt: createdAtSecond }) =>
-          parseInt(createdAtFirst.createdAt, 10) -
-          parseInt(createdAtSecond.createdAt, 10)
-      )
+      .sort((bidA, bidB) => (bidA.createdAt > bidB.createdAt ? -1 : 1))
       .map((bidItem) => (
         <div {...getStyles("fullPageHistoryItem")} key={bidItem.createdAt}>
           <div>

@@ -133,6 +133,11 @@ export const Strings = {
    */
   BID_HISTORY_LISTED: "listed the NFT",
   /**
+   * Won the auction in bid history text
+   * @default won the auction
+   */
+  BID_HISTORY_WON_AUCTION: "won the auction",
+  /**
    * Minted by bid history text
    * @default minted the NFT
    */
