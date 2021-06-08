@@ -73,11 +73,7 @@ export const BidHistory = () => {
     }
 
     return eventsList
-      .sort(
-        ({ createdAt: createdAtFirst }, { createdAt: createdAtSecond }) =>
-          parseInt(createdAtFirst.createdAt, 10) -
-          parseInt(createdAtSecond.createdAt, 10)
-      )
+      .sort((bidA, bidB) => (bidA.createdAt > bidB.createdAt ? -1 : 1))
       .map((bidItem) => (
         <div {...getStyles("fullPageHistoryItem")} key={bidItem.createdAt}>
           <div>
