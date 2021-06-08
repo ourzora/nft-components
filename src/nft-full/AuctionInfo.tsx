@@ -93,6 +93,17 @@ export const AuctionInfo = () => {
     );
   }
 
+  if (
+    data.pricing.auctionType === AuctionType.PERPETUAL &&
+    data.pricing.perpetual.highestBid
+  ) {
+    return (
+      <AuctionInfoWrapper titleString="HIGHEST_BID">
+        {getPricingString(data.pricing.perpetual.highestBid?.pricing)}
+      </AuctionInfoWrapper>
+    );
+  }
+
   return (
     <AuctionInfoWrapper
       titleString={
@@ -103,13 +114,11 @@ export const AuctionInfo = () => {
     >
       <div {...getStyles("pricingAmount")}>
         {data.pricing.auctionType === AuctionType.PERPETUAL &&
-          data.pricing.perpetual.highestBid &&
-          getPricingString(data.pricing.perpetual.highestBid?.pricing)}
+          data.pricing.perpetual.ask &&
+          getPricingString(data.pricing.perpetual.ask?.pricing)}
         {data.pricing.auctionType === AuctionType.RESERVE &&
-          data.pricing.reserve?.current.highestBid &&
-          getPricingString(
-            data.pricing.reserve.current.highestBid?.pricing
-          )}{" "}
+          data.pricing.reserve?.reservePrice &&
+          getPricingString(data.pricing.reserve.reservePrice)}{" "}
       </div>
     </AuctionInfoWrapper>
   );
