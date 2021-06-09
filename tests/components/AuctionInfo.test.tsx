@@ -91,12 +91,11 @@ describe("AuctionInfo", () => {
         </TestHarness>
       );
 
-      await screen.findByText("Auction ends");
-      await screen.findByText(/00:00:12/);
-      await screen.findByText("Highest bid");
-      await screen.findByText(/0\.1[ \t]*ETH/);
-      await screen.findByText("Bidder");
-      await screen.findByText(/0x[a-f0-9]+/);
+      screen.getByText("Auction ends");
+      screen.getByText(/12s/);
+      screen.getByText("Highest bid");
+      screen.getByText(/0\.1[ \t]*ETH/);
+      screen.getByText("Bidder");
     });
 
     it("renders finished reserve auction", async () => {
@@ -177,7 +176,7 @@ describe("AuctionInfo", () => {
       );
 
       await screen.findByText("Auction ends");
-      await screen.findByText(/00:00:12/);
+      await screen.findByText(/12s/);
       await screen.findByText("Highest bid");
       await screen.findByText(/0\.1[ \t]*ETH/);
       await screen.findByText("Bidder");
