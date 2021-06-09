@@ -32,6 +32,7 @@ const TestHarness = ({
 describe("AuctionInfo", () => {
   beforeEach(() => {
     fetchMock.mock("*", 404);
+    MockDate.set('2020-01-01');
   });
   afterEach(() => {
     fetchMock.reset();
