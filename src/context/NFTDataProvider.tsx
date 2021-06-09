@@ -4,9 +4,14 @@ import {
   useNFT,
   useNFTType,
   useNFTMetadataType,
+  useNFTMetadata,
 } from "@zoralabs/nft-hooks";
 
 import { NFTDataContext } from "./NFTDataContext";
+import {
+  OpenseaNFTDataType,
+  ZNFTDataType,
+} from "@zoralabs/nft-hooks/dist/fetcher/AuctionInfoTypes";
 
 export type NFTDataProviderProps = {
   id: string;
@@ -18,6 +23,9 @@ export type NFTDataProviderProps = {
     metadata?: useNFTMetadataType["metadata"];
   };
 };
+
+let isOpensea = (p: any): p is OpenseaNFTDataType => !!p.openseaData;
+let isZNFT = (p: any): p is ZNFTDataType => !!p.zoraNFT;
 
 export const NFTDataProvider = ({
   id,
@@ -32,12 +40,20 @@ export const NFTDataProvider = ({
     initialData: nftInitial,
     refreshInterval: refreshInterval,
   });
-  const metadata = {
-    loading: !!nft.data,
-    metadata: nft.data
-      ? DataTransformers.openseaDataToMetadata(nft.data)
-      : undefined,
-  };
+  const fetchedMetadata = useNFTMetadata(
+    isZNFT(nft.data) ? nft.data?.nft.metadataURI : undefined,
+    initialData?.metadata
+  );
+  const openseaMetadata = isOpensea(nft.data)
+    ? {
+        loading: !!nft.data,
+        metadata: nft.data
+          ? DataTransformers.openseaDataToMetadata(nft.data)
+          : undefined,
+      }
+    : undefined;
+
+  const metadata = fetchedMetadata || openseaMetadata;
 
   return (
     <NFTDataContext.Provider value={{ nft, metadata }}>

@@ -17,7 +17,8 @@ const Template: Story<typeof NFTFullPage> = (args) => (
 
 export const Image = Template.bind({});
 Image.args = {
-  id: "3366",
+  id: "2732",
+  testnet: true,
 };
 
 export const Video = Template.bind({});

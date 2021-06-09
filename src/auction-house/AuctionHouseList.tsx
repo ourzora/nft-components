@@ -16,7 +16,7 @@ export const AuctionHouseList = ({
   approved = null,
   onClick,
 }: AuctionHouseProps) => {
-  const { auctions, loading, error } = useAuctions(curatorIds, approved);
+  const { data, loading, error } = useAuctions(curatorIds, approved);
   const { getStyles } = useMediaContext();
 
   if (loading || error) {
@@ -25,8 +25,8 @@ export const AuctionHouseList = ({
 
   return (
     <div {...getStyles("auctionHouseList")}>
-      {auctions &&
-        auctions.map((auction) => (
+      {data &&
+        data.map((auction) => (
           <NFTPreview
             id={auction.tokenId}
             onClick={onClick ? (evt) => onClick(evt, auction) : undefined}
