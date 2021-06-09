@@ -58,7 +58,10 @@ orbs:
 workflows:
   test:
     jobs:
-      - build
+      - prepare
+      - build:
+          requires:
+            - prepare
       - test:
           requires:
             - build
