@@ -41,7 +41,7 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          command: yarn run jest --ci
+          command: yarn run test --ci 
           name: Run Tests
   build:
     <<: *env_defaults
