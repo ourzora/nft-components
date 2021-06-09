@@ -24,8 +24,8 @@ export type NFTDataProviderProps = {
   };
 };
 
-let isOpensea = (p: any): p is OpenseaNFTDataType => !!p.openseaData;
-let isZNFT = (p: any): p is ZNFTDataType => !!p.zoraNFT;
+let isZNFT = (p: any): p is ZNFTDataType => p && !!p.zoraNFT;
+let isOpensea = (p: any): p is OpenseaNFTDataType => p && !!p.openseaInfo;
 
 export const NFTDataProvider = ({
   id,
@@ -53,7 +53,8 @@ export const NFTDataProvider = ({
       }
     : undefined;
 
-  const metadata = fetchedMetadata || openseaMetadata;
+  const metadata = openseaMetadata || fetchedMetadata;
+  console.log({metadata})
 
   return (
     <NFTDataContext.Provider value={{ nft, metadata }}>
