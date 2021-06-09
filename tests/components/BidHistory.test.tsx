@@ -108,7 +108,7 @@ describe("AuctionInfo", () => {
 
       await screen.findByText("minted the NFT");
       await screen.findByText("listed the NFT");
-      await screen.findByText("May 20, 08:47 AM");
+      await screen.findByText("May 20, 07:47 AM");
       expect((await screen.findAllByText(/0xa04daa\.\.\./)).length).toBe(2);
     });
 
@@ -137,7 +137,7 @@ describe("AuctionInfo", () => {
       );
 
       const wonArea = await screen.findByText("won the auction");
-      expect(wonArea.parentElement?.innerHTML).toContain("May 16, 05:36 AM");
+      expect(wonArea.parentElement?.innerHTML).toContain("May 16, 04:36 AM");
       await screen.findByText("minted the NFT");
       await screen.findByText("listed the NFT");
       expect(getBids()).toEqual(["0.4 ETH"])
