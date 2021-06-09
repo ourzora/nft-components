@@ -1,10 +1,7 @@
-import {
-  AuctionStateInfo,
-  AuctionType,
-  PricingInfo,
-} from "@zoralabs/nft-hooks";
+import { AuctionStateInfo, AuctionType } from "@zoralabs/nft-hooks";
 import React, { Fragment, useContext } from "react";
 
+import { PricingString } from "../utils/PricingString";
 import { AddressView } from "../components/AddressView";
 import { CountdownDisplay } from "../components/CountdownDisplay";
 import { NFTDataContext } from "../context/NFTDataContext";
@@ -13,9 +10,7 @@ import { InfoContainer, InfoContainerProps } from "./InfoContainer";
 
 type AuctionInfoProps = {
   showPerpetual?: boolean;
-}
-
-const { format } = new Intl.NumberFormat();
+};
 
 export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
   const { nft } = useContext(NFTDataContext);
@@ -36,18 +31,6 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
 
   const { data } = nft;
 
-  const getPricingString = (pricing: PricingInfo) => (
-    <React.Fragment>
-      {format(parseFloat(pricing.prettyAmount))} {pricing.currency.symbol}
-      {pricing.computedValue && (
-        <span {...getStyles("textSubdued")}>
-          {" "}
-          ${format(parseInt(pricing.computedValue?.inUSD, 10))}
-        </span>
-      )}
-    </React.Fragment>
-  );
-
   if (data.pricing.status === AuctionStateInfo.NO_PRICING) {
     return <React.Fragment />;
   }
@@ -57,7 +40,7 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
       <Fragment>
         {data.pricing.perpetual.ask && (
           <AuctionInfoWrapper titleString="LIST_PRICE">
-            {getPricingString(data.pricing.perpetual.ask.pricing)}
+            <PricingString pricing={data.pricing.perpetual.ask.pricing} />
           </AuctionInfoWrapper>
         )}
 
@@ -80,7 +63,7 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
         <CountdownDisplay to={reserve.expectedEndTimestamp} />
         <div style={{ height: "20px" }} />
         <div {...getStyles("fullLabel")}>{getString("HIGHEST_BID")}</div>
-        {getPricingString(reserve.current.highestBid?.pricing)}
+        <PricingString pricing={reserve.current.highestBid.pricing} />
         <div style={{ height: "20px" }} />
         <div {...getStyles("fullLabel")}>{getString("BIDDER")}</div>
         <AddressView address={reserve.current.highestBid?.placedBy} />
@@ -95,7 +78,7 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
     const highestPreviousBid = data.pricing.reserve.previousBids[0];
     return (
       <AuctionInfoWrapper titleString="AUCTION_SOLD_FOR">
-        {getPricingString(highestPreviousBid.pricing)}
+        <PricingString pricing={highestPreviousBid.pricing} />
         <div {...getStyles("fullInfoSpacer", { width: 15 })} />
         <div {...getStyles("fullLabel")}>{getString("WINNER")}</div>
         <AddressView address={highestPreviousBid.bidder.id} />
@@ -110,7 +93,7 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
   ) {
     return (
       <AuctionInfoWrapper titleString="HIGHEST_BID">
-        {getPricingString(data.pricing.perpetual.highestBid?.pricing)}
+        <PricingString pricing={data.pricing.perpetual.highestBid?.pricing} />
       </AuctionInfoWrapper>
     );
   }
@@ -129,11 +112,13 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
     >
       <div {...getStyles("pricingAmount")}>
         {data.pricing.auctionType === AuctionType.PERPETUAL &&
-          data.pricing.perpetual.ask &&
-          getPricingString(data.pricing.perpetual.ask?.pricing)}
+          data.pricing.perpetual.ask && (
+            <PricingString pricing={data.pricing.perpetual.ask.pricing} />
+          )}
         {data.pricing.auctionType === AuctionType.RESERVE &&
-          data.pricing.reserve?.reservePrice &&
-          getPricingString(data.pricing.reserve.reservePrice)}
+          data.pricing.reserve?.reservePrice && (
+            <PricingString pricing={data.pricing.reserve.reservePrice} />
+          )}
       </div>
     </AuctionInfoWrapper>
   );

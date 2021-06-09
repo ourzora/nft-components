@@ -9,6 +9,11 @@ export const ThemeOptions = {
     background: "transparent",
   },
 
+  nftProposalCard: {
+    mediaWidth: '160px',
+    mediaHeight: '160px',
+  },
+
   /**
    * Padding for preview card text block
    * @default 10px 15px

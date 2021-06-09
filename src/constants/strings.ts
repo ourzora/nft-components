@@ -142,6 +142,21 @@ export const Strings = {
    * @default minted the NFT
    */
   BID_HISTORY_MINTED: "minted the NFT",
+  /**
+   * Shown on media proposal card for proposed by user
+   * @default Proposed by
+   */
+  PROPOSED_BY: "Proposed by",
+  /**
+   * Shown on media proposal card for curator share
+   * @default Curator share
+   */
+  PROPOSAL_CURATOR_SHARE: "Curator share",
+  /**
+   * Shown on media proposal card for accepted auctions
+   * @default Accepted
+   */
+  PROPOSAL_ACCEPTED: "Accepted",
   /** 
    * String to show while pricing is loading
    * @default ...
