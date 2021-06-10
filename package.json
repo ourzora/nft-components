@@ -52,7 +52,7 @@
   "scripts": {
     "prepack": "yarn clean && tsc",
     "build": "yarn run prepack",
-    "test": "jest",
+    "test": "TZ='EST' jest",
     "clean": "rm -rf ./dist",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",

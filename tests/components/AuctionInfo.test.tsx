@@ -32,6 +32,7 @@ const TestHarness = ({
 describe("AuctionInfo", () => {
   beforeEach(() => {
     fetchMock.mock("*", 404);
+    MockDate.set('2020-01-01');
   });
   afterEach(() => {
     fetchMock.reset();
@@ -180,7 +181,6 @@ describe("AuctionInfo", () => {
       await screen.findByText("Highest bid");
       await screen.findByText(/0\.1[ \t]*ETH/);
       await screen.findByText("Bidder");
-      await screen.findByText(/0x[a-f0-9]+/);
     });
 
     it("renders finished reserve auction", async () => {
