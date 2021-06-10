@@ -10,6 +10,7 @@ import { Strings } from "../constants/strings";
 import { MediaRenderersType } from "../content-components";
 
 import { MediaContext, ThemeType } from "./MediaContext";
+import { RecursivePartial } from "../utils/RecursivePartial";
 
 type MediaContextConfigurationProps = {
   /**
@@ -26,7 +27,7 @@ type MediaContextConfigurationProps = {
    * Theme are generic settings for rendering styles.
    * Styles are raw emotion css-in-js styles for more fine-grained display settings.
    */
-  style?: Partial<ThemeType>;
+  style?: RecursivePartial<ThemeType>;
   /**
    * List of content strings.
    */
