@@ -109,7 +109,6 @@ describe("AuctionInfo", () => {
       await screen.findByText("minted the NFT");
       await screen.findByText("listed the NFT");
       await screen.findByText("May 20, 07:47 AM");
-      expect((await screen.findAllByText(/0xa04daa\.\.\./)).length).toBe(2);
     });
 
     it("renders a current auction with a bid", async () => {
