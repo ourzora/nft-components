@@ -12,18 +12,20 @@ function getNumber(time: number | string) {
   return time;
 }
 
+// Counts down, does not support negative values
 export const CountdownDisplay = (props: CountdownDisplayProps) => {
   const getTimeLeft = (to: number, from: number) => {
     if (!from) {
       return null;
     }
     const difference = to - from;
+    const duration = difference > 0 ? difference : 0;
 
     return {
-      d: Math.floor(difference / (3600 * 24)),
-      h: Math.floor(difference / 3600) % 24,
-      m: Math.floor((difference / 60) % 60),
-      s: Math.floor(difference % 60),
+      d: Math.floor(duration / (3600 * 24)),
+      h: Math.floor(duration / 3600) % 24,
+      m: Math.floor((duration / 60) % 60),
+      s: Math.floor(duration % 60),
     };
   };
   const [timeLeft, setTimeLeft] = useState<{
