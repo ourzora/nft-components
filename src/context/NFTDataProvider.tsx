@@ -54,7 +54,6 @@ export const NFTDataProvider = ({
     : undefined;
 
   const metadata = openseaMetadata || fetchedMetadata;
-  console.log({metadata})
 
   return (
     <NFTDataContext.Provider value={{ nft, metadata }}>

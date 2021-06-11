@@ -10,7 +10,13 @@ function isInFuture(timestamp: string) {
   return timestampParsed > Math.floor(new Date().getTime() / 1000);
 }
 
-export const PricingComponent = () => {
+type PricingComponentProps = {
+  showPerpetual?: boolean;
+};
+
+export const PricingComponent = ({
+  showPerpetual = true,
+}: PricingComponentProps) => {
   const {
     nft: { data },
   } = useContext(NFTDataContext);
@@ -23,14 +29,23 @@ export const PricingComponent = () => {
     return (
       <div {...getStyles("cardAuctionPricing", { type: "unknown" })}>
         <div {...getStyles("textSubdued")}>{getString("RESERVE_PRICE")}</div>
-        <div {...getStyles("pricingAmount")}>{getString("NO_PRICING_PLACEHOLDER")}</div>
+        <div {...getStyles("pricingAmount")}>
+          {getString("NO_PRICING_PLACEHOLDER")}
+        </div>
         <div {...getStyles("textSubdued")}>{getString("HIGHEST_BID")}</div>
-        <div {...getStyles("pricingAmount")}>{getString("NO_PRICING_PLACEHOLDER")}</div>
+        <div {...getStyles("pricingAmount")}>
+          {getString("NO_PRICING_PLACEHOLDER")}
+        </div>
       </div>
     );
   }
 
-  if (pricing && pricing.auctionType === AuctionType.PERPETUAL) {
+  if (
+    pricing &&
+    showPerpetual &&
+    (!pricing.reserve || pricing.reserve?.finalizedAtTimestamp) &&
+    pricing.auctionType === AuctionType.PERPETUAL
+  ) {
     let listPrice = null;
 
     if (pricing.perpetual.ask?.pricing) {
@@ -70,7 +85,7 @@ export const PricingComponent = () => {
       </div>
     );
   }
-  if (pricing && pricing.auctionType === AuctionType.RESERVE) {
+  if (pricing && pricing.reserve) {
     if (
       pricing.reserve?.current.reserveMet &&
       !pricing.reserve?.current.likelyHasEnded
@@ -94,6 +109,22 @@ export const PricingComponent = () => {
                 </span>
               </Fragment>
             )}
+        </div>
+      );
+    }
+
+    if (pricing.reserve && pricing.reserve.current.likelyHasEnded) {
+      const highestBid =
+        pricing.reserve.currentBid || pricing.reserve.previousBids[0];
+      return (
+        <div {...getStyles("cardAuctionPricing", { type: "reserve-finished" })}>
+          <span {...getStyles("textSubdued")}>
+            {getString("AUCTION_SOLD_FOR")}
+          </span>
+          <span {...getStyles("pricingAmount")}>
+            {highestBid.pricing.prettyAmount}{" "}
+            {highestBid.pricing.currency.symbol}
+          </span>
         </div>
       );
     }
