@@ -1,12 +1,10 @@
-import { PricingInfo } from "@zoralabs/nft-hooks";
-import React, { Fragment, useContext } from "react";
+import { Fragment, useContext } from "react";
 
+import { PricingString } from "../utils/PricingString";
 import { AddressView } from "../components/AddressView";
 import { NFTDataContext } from "../context/NFTDataContext";
 import { useMediaContext } from "../context/useMediaContext";
 import { InfoContainer } from "./InfoContainer";
-
-const { format } = new Intl.NumberFormat();
 
 const formatDate = (timestamp: string) =>
   new Date(parseInt(timestamp, 10) * 1000).toLocaleString("en-US", {
@@ -25,12 +23,6 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
   const { nft } = useContext(NFTDataContext);
   const { getString, getStyles } = useMediaContext();
 
-  const getPricingString = (pricing: PricingInfo) => (
-    <span {...getStyles("pricingAmount")}>
-      {format(parseFloat(pricing.prettyAmount))} {pricing.currency.symbol}
-    </span>
-  );
-
   const getPastBids = () => {
     const { data } = nft;
     if (!data || !data.nft) {
@@ -47,7 +39,7 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
     ].map((bid) => ({
       activityDescription: getString("BID_HISTORY_BID"),
       actor: bid.bidder.id,
-      pricing: getPricingString(bid.pricing) as React.ReactNode,
+      pricing: <PricingString pricing={bid.pricing} />,
       createdAt: bid.createdAtTimestamp,
     }));
 
@@ -58,7 +50,7 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
     ) {
       eventsList.push({
         activityDescription: getString("BID_HISTORY_LISTED"),
-        pricing: null,
+        pricing: <Fragment />,
         actor: data.pricing.reserve.tokenOwner.id,
         // TODO(iain): Update to the timestamp when approved
         createdAt: data.pricing.reserve.createdAtTimestamp,
@@ -76,7 +68,7 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
         data.pricing.reserve.currentBid || data.pricing.reserve.previousBids[0];
       eventsList.push({
         activityDescription: getString("BID_HISTORY_WON_AUCTION"),
-        pricing: null,
+        pricing: <Fragment />,
         actor: highestBid.bidder.id,
         createdAt: data.pricing.reserve.expectedEndTimestamp,
       });
@@ -85,7 +77,7 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
     if ("zoraNFT" in data && data.zoraNFT.createdAtTimestamp) {
       eventsList.push({
         activityDescription: getString("BID_HISTORY_MINTED"),
-        pricing: null,
+        pricing: <Fragment />,
         actor: data.nft.creator || "",
         createdAt: data.zoraNFT.createdAtTimestamp,
       });
@@ -94,7 +86,7 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
     if ("openseaInfo" in data) {
       eventsList.push({
         activityDescription: getString("BID_HISTORY_MINTED"),
-        pricing: null,
+        pricing: <Fragment />,
         actor: data.openseaInfo.creator.address,
         createdAt: null,
       });
