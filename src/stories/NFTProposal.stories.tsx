@@ -13,14 +13,17 @@ const Template: Story<typeof NFTFullPage> = (args) => (
   <MediaConfiguration
     networkId={(args as any).testnet ? Networks.RINKEBY : Networks.MAINNET}
   >
-    <NFTProposal
-      id="3472"
-      proposedByAddress="0x18C8dF1fb7FB44549F90d1C2BB1DC8b690CD0559"
-    />
+    <NFTProposal id="3366" />
   </MediaConfiguration>
 );
 
 export const Image = Template.bind({});
 Image.args = {
-  id: "2732",
+  id: "3366",
+};
+
+export const TestImage = Template.bind({});
+TestImage.args = {
+  id: "2793",
+  testnet: true,
 };

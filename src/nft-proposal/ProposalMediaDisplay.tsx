@@ -44,7 +44,7 @@ export const ProposalMediaDisplay = ({}: ProposalMediaDisplayProps) => {
       <div {...getStyles("nftProposalInfoLayout")}>
         <div {...getStyles("nftProposalTitle")}>{title}</div>
         <div>
-          <div {...getStyles("fullLabel")}>
+          <div {...getStyles("nftProposalLabel")}>
             {hasCreator
               ? getString("CARD_CREATED_BY")
               : getString("CARD_OWNED_BY")}
@@ -55,7 +55,7 @@ export const ProposalMediaDisplay = ({}: ProposalMediaDisplayProps) => {
         </div>
         {data?.pricing.reserve?.tokenOwner && (
           <div>
-            <div {...getStyles("fullLabel")}>{getString("PROPOSED_BY")}</div>
+            <div {...getStyles("nftProposalLabel")}>{getString("PROPOSED_BY")}</div>
             <div {...getStyles("fullOwnerAddress")}>
               {address && (
                 <AddressView address={data.pricing.reserve.tokenOwner.id} />

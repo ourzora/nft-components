@@ -15,3 +15,9 @@ export const SVG_UNMUTED =
 
 export const SVG_FULLSCREEN =
   '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M2 6H0V1C0 0.4 0.4 0 1 0H6V2H2V6Z" fill="white"/> <path d="M16 6H14V2H10V0H15C15.6 0 16 0.4 16 1V6Z" fill="white"/> <path d="M15 16H10V14H14V10H16V15C16 15.6 15.6 16 15 16Z" fill="white"/> <path d="M6 16H1C0.4 16 0 15.6 0 15V10H2V14H6V16Z" fill="white"/> </svg> ';
+
+export const SVG_AUCTION_APPROVE =
+  '<svg width="24" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M2 7.5L9.5 15L22.5 2" stroke="black" stroke-width="3"/> </svg>';
+
+export const SVG_AUCTION_DENY =
+  '<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M2 2L8.75 8.75M15.5 15.5L8.75 8.75M8.75 8.75L15.5 2L2 15.5" stroke="black" stroke-width="3"/> </svg>';

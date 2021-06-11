@@ -18,12 +18,22 @@ export const ProposalActionList = ({
   const { getStyles, getString } = useMediaContext();
 
   const getActions = () => {
-    if (data?.pricing.reserve?.approved === false) {
+    if (true || data?.pricing.reserve?.approved === false) {
       return (
-        <Fragment>
-          <button onClick={onAccept}>approve</button>
-          <button onClick={onDeny}>reject</button>
-        </Fragment>
+        <div {...getStyles("nftProposalActions")}>
+          <button
+            {...getStyles("nftProposalActionButton", { action: "approve" })}
+            onClick={onAccept}
+          >
+            approve
+          </button>
+          <button
+            {...getStyles("nftProposalActionButton", { action: "deny" })}
+            onClick={onDeny}
+          >
+            reject
+          </button>
+        </div>
       );
     }
     if (data?.pricing.reserve?.approved) {
@@ -40,24 +50,28 @@ export const ProposalActionList = ({
 
   return (
     <div {...getStyles("nftProposalActionList")}>
-        <div>
-          <div {...getStyles("fullLabel")}>{getString("RESERVE_PRICE")}</div>
-          <div {...getStyles("fullOwnerAddress")}>
-            {data?.pricing.reserve?.reservePrice !== undefined && (
-              <PricingString pricing={data.pricing.reserve.reservePrice} showUSD={false} />
-            )}
-          </div>
+      <div>
+        <div {...getStyles("nftProposalLabel")}>
+          {getString("RESERVE_PRICE")}
         </div>
+        <div {...getStyles("fullOwnerAddress")}>
+          {data?.pricing.reserve?.reservePrice !== undefined && (
+            <PricingString
+              pricing={data.pricing.reserve.reservePrice}
+              showUSD={false}
+            />
+          )}
+        </div>
+      </div>
 
-        <div>
-          <div {...getStyles("fullLabel")}>
-            {getString("PROPOSAL_CURATOR_SHARE")}
-          </div>
-          <div {...getStyles("fullOwnerAddress")}>
-            {data?.pricing.reserve && data.pricing.reserve.curatorFeePercentage}
-            %
-          </div>
+      <div>
+        <div {...getStyles("nftProposalLabel")}>
+          {getString("PROPOSAL_CURATOR_SHARE")}
         </div>
+        <div {...getStyles("fullOwnerAddress")}>
+          {data?.pricing.reserve && data.pricing.reserve.curatorFeePercentage}%
+        </div>
+      </div>
       {getActions()}
     </div>
   );
