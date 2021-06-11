@@ -10,15 +10,17 @@ import { Fragment } from "react";
 
 export type NFTPreviewProps = {
   onClick?: (evt: React.MouseEvent<HTMLElement>) => void;
-  href?: string,
+  href?: string;
   children?: React.ReactNode;
   showBids?: boolean;
+  showPerpetual?: boolean;
 } & Omit<NFTPageWrapperProps, "children">;
 
 export const NFTPreview = ({
   onClick = undefined,
   href = undefined,
   showBids = true,
+  showPerpetual = true,
   children,
   ...wrapperProps
 }: NFTPreviewProps) => {
@@ -29,7 +31,7 @@ export const NFTPreview = ({
     return (
       <Fragment>
         <MediaThumbnail />
-        {showBids && <PricingComponent />}
+        {showBids && <PricingComponent showPerpetual={showPerpetual} />}
       </Fragment>
     );
   };
