@@ -5,14 +5,11 @@ import { AuctionInfo } from "./AuctionInfo";
 import { BidHistory } from "./BidHistory";
 import { CreatorEquity } from "./CreatorEquity";
 import { MediaInfo } from "./MediaInfo";
-import {
-  NFTPageWrapper,
-  NFTPageWrapperProps,
-} from "../components/NFTPageWrapper";
 import { PlaceOfferButton } from "./PlaceOfferButton";
 import { Fragment } from "react";
+import { NFTDataProvider, NFTDataProviderProps } from "src/context/NFTDataProvider";
 
-type NFTFullPageProps = Omit<NFTPageWrapperProps, "children"> & {
+type NFTFullPageProps = Omit<NFTDataProviderProps, "children"> & {
   children?: React.ReactNode;
   config?: {
     allowOffer?: boolean;
@@ -50,8 +47,8 @@ export const NFTFullPage = ({
   };
 
   return (
-    <NFTPageWrapper {...wrapperProps}>
+    <NFTDataProvider {...wrapperProps}>
       <div {...getStyles("fullPage")}>{getChildren()}</div>
-    </NFTPageWrapper>
+    </NFTDataProvider>
   );
 };

@@ -5,7 +5,7 @@ import { NFTPreview, PreviewComponents } from "./nft-preview";
 import { NFTFullPage, FullComponents } from "./nft-full";
 import { MediaConfiguration } from "./context/MediaConfiguration";
 import { MediaRendererProps } from "./content-components";
-import { NFTPageWrapper } from "./components/NFTPageWrapper";
+import { NFTDataProvider } from "./context/NFTDataProvider";
 import { MediaObject } from "./components/MediaObject";
 import { NFTDataContext } from "./context/NFTDataContext";
 
@@ -24,10 +24,9 @@ export {
   NFTFullPage,
   FullComponents,
   // Generic data wrapper
-  NFTPageWrapper,
+  NFTDataProvider,
   // Data context for fetching NFT info with custom components
   NFTDataContext,
-
   MediaRendererProps,
   MediaObject,
 };
