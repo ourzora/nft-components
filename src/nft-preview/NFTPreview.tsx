@@ -1,8 +1,8 @@
 import { PricingComponent } from "./PricingComponent";
 import {
-  NFTPageWrapper,
-  NFTPageWrapperProps,
-} from "../components/NFTPageWrapper";
+  NFTDataProvider,
+  NFTDataProviderProps,
+} from "../context/NFTDataProvider";
 
 import { MediaThumbnailWrapper } from "./MediaThumbnailWrapper";
 import { MediaThumbnail } from "./MediaThumbnail";
@@ -14,7 +14,7 @@ export type NFTPreviewProps = {
   children?: React.ReactNode;
   showBids?: boolean;
   showPerpetual?: boolean;
-} & Omit<NFTPageWrapperProps, "children">;
+} & Omit<NFTDataProviderProps, "children">;
 
 export const NFTPreview = ({
   onClick = undefined,
@@ -37,10 +37,10 @@ export const NFTPreview = ({
   };
 
   return (
-    <NFTPageWrapper {...wrapperProps}>
+    <NFTDataProvider {...wrapperProps}>
       <MediaThumbnailWrapper onClick={onClick} href={href}>
         {getChildren()}
       </MediaThumbnailWrapper>
-    </NFTPageWrapper>
+    </NFTDataProvider>
   );
 };

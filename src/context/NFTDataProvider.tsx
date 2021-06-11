@@ -15,7 +15,7 @@ import {
 
 export type NFTDataProviderProps = {
   id: string;
-  contract: string;
+  contract?: string;
   refreshInterval?: number;
   children: React.ReactNode;
   initialData?: {

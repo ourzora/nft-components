@@ -18,7 +18,7 @@ These components allow for drop-in rendering of NFTs. They work on the frontend 
   - Used to render a zNFT preview thumbnail
 - [NFTFullPage](https://ourzora.github.io/nft-components?path=/docs/renderer-nftfull--image)
   - Used to render a zNFT full page component
-- [NFTPageWrapper](https://ourzora.github.io/nft-components?path=/story/renderer-nftpagewrapper--page)
+- [NFTDataProvider](https://ourzora.github.io/nft-components?path=/story/renderer-nftdataprovider--page)
   - Used to compose a custom set of zNFT components
 - [MediaConfiguration](https://ourzora.github.io/nft-components?path=/story/renderer-mediaconfiguration--page)
   - Configure the text, theme, and network settings for the zNFT.

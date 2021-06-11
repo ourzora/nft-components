@@ -1,8 +1,8 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
-<Meta title="Renderer/NFTPageWrapper" />
+<Meta title="Renderer/NFTDataProvider" />
 
-# NFTPageWrapper component
+# NFTDataProvider Component
 
 This component sets data state and settings for fetching NFT data.
 
@@ -12,7 +12,7 @@ custom display components that don't fit within the preset NFTPreview and NFTFul
 Initial data is used for server-side hydration. If there is no `initialData`, the required data will be fetched client-side by the `@zoralabs/nft-hooks` library.
 
 ```tsx
-type NFTPageWrapperProps = {
+type NFTDataProvider = {
   id: string;
   initialData: {
     // Response from useNFT hook's data parameters
