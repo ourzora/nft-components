@@ -1,3 +1,5 @@
+import { Fragment } from "react";
+
 import { useMediaContext } from "../context/useMediaContext";
 import { ProofAuthenticity } from "./ProofAuthenticity";
 import { MediaFull } from "./MediaFull";
@@ -6,8 +8,10 @@ import { BidHistory } from "./BidHistory";
 import { CreatorEquity } from "./CreatorEquity";
 import { MediaInfo } from "./MediaInfo";
 import { PlaceOfferButton } from "./PlaceOfferButton";
-import { Fragment } from "react";
-import { NFTDataProvider, NFTDataProviderProps } from "src/context/NFTDataProvider";
+import {
+  NFTDataProvider,
+  NFTDataProviderProps,
+} from "../context/NFTDataProvider";
 
 type NFTFullPageProps = Omit<NFTDataProviderProps, "children"> & {
   children?: React.ReactNode;
