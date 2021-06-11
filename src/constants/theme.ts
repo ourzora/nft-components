@@ -27,6 +27,13 @@ export const ThemeOptions = {
   lineSpacing: 24,
 
   /**
+   * Maximum number of decimal digits to show
+   * for pricing information
+   * @default 8
+   */
+  maximumPricingDecimals: 8,
+
+  /**
    * Color for link on full preview page authenticity link
    * @default #000
    */
