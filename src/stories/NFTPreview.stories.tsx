@@ -10,7 +10,7 @@ const Template: Story<NFTPreviewProps> = (args) => <NFTPreview {...args} />;
 
 export const Image = Template.bind({});
 Image.args = {
-  id: '3102',
+  id: '3366',
 };
 
 export const Video = Template.bind({});

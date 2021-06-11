@@ -44,7 +44,7 @@ export const MediaInfo = () => {
             </div>
           </Fragment>
         )}
-       <div {...getStyles("fullLabel")}>{getString("OWNER")}</div>
+        <div {...getStyles("fullLabel")}>{getString("OWNER")}</div>
         <div {...getStyles("fullOwnerAddress")}>
           {data ? <AddressView address={data.nft.owner} /> : " "}
         </div>

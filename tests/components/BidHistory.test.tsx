@@ -136,10 +136,24 @@ describe("AuctionInfo", () => {
       );
 
       const wonArea = await screen.findByText("won the auction");
-      expect(wonArea.parentElement?.innerHTML).toContain("May 16, 04:36 AM");
+      expect(wonArea.parentElement?.innerHTML).toContain("May 14, 10:23 PM");
       await screen.findByText("minted the NFT");
       await screen.findByText("listed the NFT");
       expect(getBids()).toEqual(["0.4 ETH"])
+    });
+    it("renders finalized reserve auction", async () => {
+      const data = await loadJSON("doge_auction_finished");
+
+      render(
+        <TestHarness data={data}>
+          <FullComponents.BidHistory />
+        </TestHarness>
+      );
+
+      const wonArea = await screen.findByText("won the auction");
+      expect(wonArea.parentElement?.innerHTML).toContain("June 11, 12:25 PM");
+      await screen.findByText("minted the NFT");
+      await screen.findByText("listed the NFT");
     });
   });
 });
