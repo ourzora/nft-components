@@ -3,8 +3,6 @@ import { Fragment } from "react";
 
 import { useMediaContext } from "../context/useMediaContext";
 
-const { format } = new Intl.NumberFormat();
-
 export const PricingString = ({
   pricing,
   showUSD = true,
@@ -12,7 +10,12 @@ export const PricingString = ({
   pricing: PricingInfo;
   showUSD?: boolean;
 }) => {
-  const { getStyles } = useMediaContext();
+  const { getStyles, style } = useMediaContext();
+
+  const { format } = new Intl.NumberFormat(navigator.language, {
+    style: "decimal",
+    maximumFractionDigits: style.theme.maximumPricingDecimals,
+  });
 
   return (
     <Fragment>

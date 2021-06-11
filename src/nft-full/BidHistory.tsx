@@ -39,7 +39,7 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
     ].map((bid) => ({
       activityDescription: getString("BID_HISTORY_BID"),
       actor: bid.bidder.id,
-      pricing: <PricingString pricing={bid.pricing} />,
+      pricing: <PricingString pricing={bid.pricing} showUSD={false} />,
       createdAt: bid.createdAtTimestamp,
     }));
 
