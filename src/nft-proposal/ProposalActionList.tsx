@@ -18,7 +18,7 @@ export const ProposalActionList = ({
   const { getStyles, getString } = useMediaContext();
 
   const getActions = () => {
-    if (true || data?.pricing.reserve?.approved === false) {
+    if (data?.pricing.reserve?.approved === false) {
       return (
         <div {...getStyles("nftProposalActions")}>
           <button

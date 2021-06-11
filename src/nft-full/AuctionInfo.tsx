@@ -98,7 +98,7 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
     const highestPreviousBid = data.pricing.reserve.currentBid;
     return (
       <AuctionInfoWrapper titleString="AUCTION_SOLD_FOR">
-        {getPricingString(highestPreviousBid.pricing)}
+        <PricingString pricing={highestPreviousBid.pricing} />
         <div {...getStyles("fullInfoSpacer", { width: 15 })} />
         <div {...getStyles("fullLabel")}>{getString("WINNER")}</div>
         <AddressView address={highestPreviousBid.bidder.id} />
