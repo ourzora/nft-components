@@ -1,4 +1,4 @@
-import { AuctionStateInfo, PricingInfo } from "@zoralabs/nft-hooks";
+import { PricingInfo } from "@zoralabs/nft-hooks";
 import React, { Fragment, useContext } from "react";
 
 import { AddressView } from "../components/AddressView";
@@ -33,7 +33,7 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
 
   const getPastBids = () => {
     const { data } = nft;
-    if (!data) {
+    if (!data || !data.nft) {
       return <Fragment />;
     }
 
@@ -66,28 +66,19 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
     }
 
     if (
+      data.pricing &&
       data.pricing.reserve &&
-      data.pricing.reserve.currentBid &&
-      data.pricing.status === AuctionStateInfo.RESERVE_AUCTION_ENDED
+      data.pricing.reserve.current.likelyHasEnded &&
+      (data.pricing.reserve.status === "Active" ||
+        data.pricing.reserve.status === "Finished")
     ) {
+      const highestBid =
+        data.pricing.reserve.currentBid || data.pricing.reserve.previousBids[0];
       eventsList.push({
         activityDescription: getString("BID_HISTORY_WON_AUCTION"),
         pricing: null,
-        actor: data.pricing.reserve.currentBid.bidder.id,
+        actor: highestBid.bidder.id,
         createdAt: data.pricing.reserve.expectedEndTimestamp,
-      });
-    }
-
-    if (
-      data.pricing.reserve &&
-      data.pricing.reserve.previousBids.length &&
-      data.pricing.status === AuctionStateInfo.RESERVE_AUCTION_FINISHED
-    ) {
-      eventsList.push({
-        activityDescription: getString("BID_HISTORY_WON_AUCTION"),
-        pricing: null,
-        actor: data.pricing.reserve.previousBids[0].bidder.id,
-        createdAt: data.pricing.reserve.finalizedAtTimestamp,
       });
     }
 

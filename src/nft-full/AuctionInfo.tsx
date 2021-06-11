@@ -13,7 +13,7 @@ import { InfoContainer, InfoContainerProps } from "./InfoContainer";
 
 type AuctionInfoProps = {
   showPerpetual?: boolean;
-}
+};
 
 const { format } = new Intl.NumberFormat();
 
@@ -70,6 +70,25 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
 
   const reserve = data.pricing.reserve;
   if (
+    !showPerpetual &&
+    data.pricing.reserve &&
+    data.pricing.reserve.current.likelyHasEnded &&
+    (data.pricing.reserve.status === "Finished" ||
+      data.pricing.reserve.status === "Active")
+  ) {
+    const highestPreviousBid =
+      data.pricing.reserve.currentBid || data.pricing.reserve.previousBids[0];
+    return (
+      <AuctionInfoWrapper titleString="AUCTION_SOLD_FOR">
+        {getPricingString(highestPreviousBid.pricing)}
+        <div {...getStyles("fullInfoSpacer", { width: 15 })} />
+        <div {...getStyles("fullLabel")}>{getString("WINNER")}</div>
+        <AddressView address={highestPreviousBid.bidder.id} />
+      </AuctionInfoWrapper>
+    );
+  }
+
+  if (
     reserve !== undefined &&
     !reserve.current.likelyHasEnded &&
     reserve.expectedEndTimestamp &&
@@ -84,6 +103,22 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
         <div style={{ height: "20px" }} />
         <div {...getStyles("fullLabel")}>{getString("BIDDER")}</div>
         <AddressView address={reserve.current.highestBid?.placedBy} />
+      </AuctionInfoWrapper>
+    );
+  }
+
+  if (
+    data.pricing.reserve &&
+    data.pricing.status === AuctionStateInfo.RESERVE_AUCTION_ENDED &&
+    data.pricing.reserve.currentBid
+  ) {
+    const highestPreviousBid = data.pricing.reserve.currentBid;
+    return (
+      <AuctionInfoWrapper titleString="AUCTION_SOLD_FOR">
+        {getPricingString(highestPreviousBid.pricing)}
+        <div {...getStyles("fullInfoSpacer", { width: 15 })} />
+        <div {...getStyles("fullLabel")}>{getString("WINNER")}</div>
+        <AddressView address={highestPreviousBid.bidder.id} />
       </AuctionInfoWrapper>
     );
   }
