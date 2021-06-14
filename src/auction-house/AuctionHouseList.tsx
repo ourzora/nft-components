@@ -28,6 +28,7 @@ export const AuctionHouseList = ({
       {data &&
         data.map((auction) => (
           <NFTPreview
+            key={auction.id}
             id={auction.tokenId}
             onClick={onClick ? (evt) => onClick(evt, auction) : undefined}
           />
