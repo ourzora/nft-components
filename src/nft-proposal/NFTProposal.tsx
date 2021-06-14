@@ -1,15 +1,15 @@
 import { useMediaContext } from "../context/useMediaContext";
 import {
-  NFTPageWrapper,
-  NFTPageWrapperProps,
-} from "../components/NFTPageWrapper";
+  NFTDataProvider,
+  NFTDataProviderProps,
+} from "../context/NFTDataProvider";
 import { ProposalMediaDisplay } from "./ProposalMediaDisplay";
 import {
   ProposalActionList,
   ProposalActionListProps,
 } from "./ProposalActionList";
 
-type NFTProposalProps = Omit<NFTPageWrapperProps, "children"> & {
+type NFTProposalProps = Omit<NFTDataProviderProps, "children"> & {
   actionConfiguration?: ProposalActionListProps;
 };
 
@@ -20,11 +20,11 @@ export const NFTProposal = ({
   const { getStyles } = useMediaContext();
 
   return (
-    <NFTPageWrapper {...wrapperProps}>
+    <NFTDataProvider {...wrapperProps}>
       <div {...getStyles("nftProposal")}>
         <ProposalMediaDisplay />
         <ProposalActionList {...actionConfiguration} />
       </div>
-    </NFTPageWrapper>
+    </NFTDataProvider>
   );
 };
