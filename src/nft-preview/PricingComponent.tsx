@@ -3,6 +3,7 @@ import { Fragment, useContext } from "react";
 import { useMediaContext } from "../context/useMediaContext";
 import { NFTDataContext } from "../context/NFTDataContext";
 import { CountdownDisplay } from "../components/CountdownDisplay";
+import { PricingString } from "../utils/PricingString";
 import { AuctionStateInfo, AuctionType } from "@zoralabs/nft-hooks";
 
 function isInFuture(timestamp: string) {
@@ -53,9 +54,7 @@ export const PricingComponent = ({
       listPrice = (
         <Fragment>
           <span {...getStyles("textSubdued")}>{getString("LIST_PRICE")}</span>
-          <span>
-            {perpetualPricing.prettyAmount} {perpetualPricing.currency.symbol}
-          </span>
+          <PricingString pricing={perpetualPricing} showUSD={false} />
         </Fragment>
       );
     }
