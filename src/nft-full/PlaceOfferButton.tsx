@@ -17,6 +17,7 @@ export const PlaceOfferButton = ({ allowOffer }: PlaceOfferButtonProps) => {
   if (!nft.data) {
     return <Fragment />;
   }
+
   // Disable offer functionality if not a zora NFT or if offers are disabled
   if (
     (allowOffer === false || !('zoraNFT' in nft.data)) &&

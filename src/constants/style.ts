@@ -7,6 +7,8 @@ import {
   SVG_PAUSE,
   SVG_PLAY_ARROW,
   SVG_UNMUTED,
+  SVG_AUCTION_APPROVE,
+  SVG_AUCTION_DENY,
 } from "./svg-icons";
 import { ThemeOptions, ThemeOptionsType } from "./theme";
 
@@ -43,6 +45,12 @@ const CENTER_FULL_CONTAINER = `
   display: flex;
   height: 100%;
 `;
+
+function renderSVG(svg: string) {
+  return `background-image: url("data:image/svg+xml,${encodeURIComponent(
+    svg
+  )}");`;
+}
 
 export const Style = {
   theme: ThemeOptions,
@@ -136,12 +144,12 @@ export const Style = {
       margin: 20px 0;
     `,
     fullDescription: (theme: ThemeOptionsType) => css`
-      font-size: ${theme.fontSizeFull};
+      font-size: ${theme.fontSizeFull}px;
       margin: 10px 0;
     `,
     fullOwnerAddress: (theme: ThemeOptionsType) => [
       css`
-        font-size: ${theme.fontSizeFull};
+        font-size: ${theme.fontSizeFull}px;
       `,
       theme.titleFont,
     ],
@@ -160,6 +168,49 @@ export const Style = {
         display: flex;
         flex-direction: column;
         font-weight: 300;
+      `,
+      theme.bodyFont,
+    ],
+    nftProposalMediaWrapper: (theme: ThemeOptionsType) => css`
+      border-radius: 4px;
+      display: flex;
+      height: ${theme.nftProposalCard.mediaHeight};
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      width: ${theme.nftProposalCard.mediaWidth};
+    `,
+    nftProposalInfoLayout: (theme: ThemeOptionsType) => css`
+      flex-grow: 1;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin: 0 30px;
+      position: relative;
+
+      &:after {
+        content: " ";
+        position: absolute;
+        top: 10px;
+        bottom: 10px;
+        right: 5px;
+        border-right: ${theme.borderStyle};
+        border-right-width: 1px;
+      }
+    `,
+    nftProposalActionList: (_: ThemeOptionsType) => css`
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 10px;
+      padding: 5px 0;
+    `,
+    nftProposalLabel: (theme: ThemeOptionsType) => [
+      css`
+        text-transform: uppercase;
+        font-size: 12px;
+        margin-bottom: 10px;
+        opacity: 0.5;
       `,
       theme.bodyFont,
     ],
@@ -209,9 +260,7 @@ export const Style = {
         width: 14px;
         height: 14px;
         opacity: 0.5;
-        background-image: url("data:image/svg+xml,${encodeURIComponent(
-          SVG_NEXT_ICON
-        )}");
+        ${renderSVG(SVG_NEXT_ICON)}
         color: #eee;
         right: 20px;
         position: absolute;
@@ -251,6 +300,50 @@ export const Style = {
       theme.bodyFont,
     ],
     pricingAmount: (theme: ThemeOptionsType) => theme.titleFont,
+    nftProposal: (theme: ThemeOptionsType) => css`
+      border: ${theme.borderStyle};
+      border-radius: ${theme.defaultBorderRadius}px;
+      display: flex;
+      padding: 20px;
+    `,
+    nftProposalActions: () => css`
+      grid-area: 1 / 2 / span 1 / span 2;
+      text-align: right;
+    `,
+    nftProposalActionButton: (
+      theme: ThemeOptionsType,
+      { action }: { action: "approve" | "deny" }
+    ) => css`
+      border-radius: 1000px;
+      background-color: ${theme.buttonColor.background};
+      background-repeat: no-repeat;
+      color: transparent;
+      width: 40px;
+      height: 40px;
+      background-position: center;
+      border: 0;
+      cursor: pointer;
+
+      ${action === "approve" && `margin-right: 15px;`}
+
+      ${action === "approve" && renderSVG(SVG_AUCTION_APPROVE)}
+      ${action === "deny" && renderSVG(SVG_AUCTION_DENY)}
+    `,
+    nftProposalAcceptedPill: (theme: ThemeOptionsType) => css`
+      color: #009165;
+      background: rgba(64, 193, 154, 0.2);
+      padding: 5px 10px;
+      display: inline-block;
+      border-radius: 4px;
+
+      ${theme.bodyFont}
+    `,
+    nftProposalTitle: (theme: ThemeOptionsType) => css`
+      font-size: 40px;
+      grid-column: 1 / 3;
+
+      ${theme.titleFont}
+    `,
     mediaLoader: (_: ThemeOptionsType, { mediaLoaded, isFullPage }: any) => css`
       pointer-events: none;
       ${isFullPage ? "min-height: 40vh;" : ""}
@@ -310,21 +403,21 @@ export const Style = {
     `,
     mediaVideoControls: (_: ThemeOptionsType, { isFullPage }: any) => css`
       ${CENTER_FULL_CONTAINER}
-      ${isFullPage ? `
+      ${isFullPage
+        ? `
         opacity: 0;
         &:hover {
           opacity: 1;
         }
         transition: opacity 0.6s ease-in-out;
         transition-delay: 0 0.3s;
-      ` : "display: none;"}
+      `
+        : "display: none;"}
     `,
     mediaFullscreenButton: (_: ThemeOptionsType) => css`
       ${buttonCommonSize("16px")}
       background-color: #000;
-      background-image: url("data:image/svg+xml,${encodeURIComponent(
-        SVG_FULLSCREEN
-      )}");
+      ${renderSVG(SVG_FULLSCREEN)}
     `,
     mediaMuteButton: (_: ThemeOptionsType, { muted }: any) => css`
       ${buttonCommonSize("16px")}
