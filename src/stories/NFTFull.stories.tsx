@@ -21,6 +21,7 @@ Image.args = {
   config: {
     showPerpetual: false,
   },
+  refreshInterval: 5000
 };
 
 export const Video = Template.bind({});
