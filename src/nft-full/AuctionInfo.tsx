@@ -53,7 +53,6 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
 
   const reserve = data.pricing.reserve;
   if (
-    !showPerpetual &&
     data.pricing.reserve &&
     data.pricing.reserve.current.likelyHasEnded &&
     (data.pricing.reserve.status === "Finished" ||
@@ -90,36 +89,36 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
     );
   }
 
-  if (
-    data.pricing.reserve &&
-    data.pricing.status === AuctionStateInfo.RESERVE_AUCTION_ENDED &&
-    data.pricing.reserve.currentBid
-  ) {
-    const highestPreviousBid = data.pricing.reserve.currentBid;
-    return (
-      <AuctionInfoWrapper titleString="AUCTION_SOLD_FOR">
-        <PricingString pricing={highestPreviousBid.pricing} />
-        <div {...getStyles("fullInfoSpacer", { width: 15 })} />
-        <div {...getStyles("fullLabel")}>{getString("WINNER")}</div>
-        <AddressView address={highestPreviousBid.bidder.id} />
-      </AuctionInfoWrapper>
-    );
-  }
+  // if (
+  //   data.pricing.reserve &&
+  //   data.pricing.status === AuctionStateInfo.RESERVE_AUCTION_ENDED &&
+  //   data.pricing.reserve.currentBid
+  // ) {
+  //   const highestPreviousBid = data.pricing.reserve.currentBid;
+  //   return (
+  //     <AuctionInfoWrapper titleString="AUCTION_SOLD_FOR">
+  //       <PricingString pricing={highestPreviousBid.pricing} />
+  //       <div {...getStyles("fullInfoSpacer", { width: 15 })} />
+  //       <div {...getStyles("fullLabel")}>{getString("WINNER")}</div>
+  //       <AddressView address={highestPreviousBid.bidder.id} />
+  //     </AuctionInfoWrapper>
+  //   );
+  // }
 
-  if (
-    data.pricing.reserve &&
-    data.pricing.status === AuctionStateInfo.RESERVE_AUCTION_FINISHED
-  ) {
-    const highestPreviousBid = data.pricing.reserve.previousBids[0];
-    return (
-      <AuctionInfoWrapper titleString="AUCTION_SOLD_FOR">
-        <PricingString pricing={highestPreviousBid.pricing} />
-        <div {...getStyles("fullInfoSpacer", { width: 15 })} />
-        <div {...getStyles("fullLabel")}>{getString("WINNER")}</div>
-        <AddressView address={highestPreviousBid.bidder.id} />
-      </AuctionInfoWrapper>
-    );
-  }
+  // if (
+  //   data.pricing.reserve &&
+  //   data.pricing.status === AuctionStateInfo.RESERVE_AUCTION_FINISHED
+  // ) {
+  //   const highestPreviousBid = data.pricing.reserve.previousBids[0];
+  //   return (
+  //     <AuctionInfoWrapper titleString="AUCTION_SOLD_FOR">
+  //       <PricingString pricing={highestPreviousBid.pricing} />
+  //       <div {...getStyles("fullInfoSpacer", { width: 15 })} />
+  //       <div {...getStyles("fullLabel")}>{getString("WINNER")}</div>
+  //       <AddressView address={highestPreviousBid.bidder.id} />
+  //     </AuctionInfoWrapper>
+  //   );
+  // }
 
   if (
     showPerpetual &&
