@@ -13,7 +13,7 @@ type AuctionHouseProps = {
 
 export const AuctionHouseList = ({
   curatorIds,
-  approved = null,
+  approved = true,
   onClick,
 }: AuctionHouseProps) => {
   const { data, loading, error } = useAuctions(curatorIds, approved);
