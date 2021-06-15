@@ -58,6 +58,7 @@ export const Style = {
     auctionHouseList: (_: ThemeOptionsType) => css`
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
     `,
     // Styles for preview card
     cardOuter: (theme: ThemeOptionsType, { hasClickEvent }: any) => css`
