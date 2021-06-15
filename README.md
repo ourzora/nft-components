@@ -2,7 +2,7 @@
 
 Zora's NFT components allow you to easily create your own gallery or auction house with zNFT infrastructure.
 
-This library provides the front-end display components to compliment `@zoralabs/nft-hooks`.
+This library provides the front-end display components on top of the [`@zoralabs/nft-hooks`](https://github.com/ourzora/nft-hooks) data-fetching library;
 
 This library works alongside the Zora [auction house](https://zora.mirror.xyz/9mQ9AeJK84USTnQ9eBY4Sc7s1bi0N8RoZd3Oy4q82FM) ([code](https://github.com/ourzora/auction-house)) allows for DAOs and individuals to run their own decentralized auction house. Currently, only zNFTs are supported by this library but plans are to add in support for arbitary NFTs.
 
@@ -39,7 +39,7 @@ These components allow for drop-in rendering of NFTs. They work on the frontend 
 yarn add @zoralabs/nft-components
 ```
 
-2. Render a ZNFT Thumbnail:
+2. Render a NFT Thumbnail:
 
 ```tsx
 import { NFTPreview } from "@zoralabs/nft-components";
@@ -47,10 +47,32 @@ import { NFTPreview } from "@zoralabs/nft-components";
 export const Page = () => <NFTPreview id="3002" />;
 ```
 
-3. Render a ZNFT Full page:
+3. Render a NFT Full page:
 
 ```tsx
 import { NFTFullPage } from "@zoralabs/nft-components";
 
 export const Page = () => <NFTFullPage id="3002" />;
+```
+
+4. Render a list of auctions for a curator:
+
+```tsx
+import { NFTFullPage } from "@zoralabs/nft-components";
+
+export const Page = ({curatorId}: {curatorId: string}) => (
+    <AuctionHouseList
+      onClick={(_, auction) => alert(`Clicked token ${auction.tokenId}`)}
+      curatorIds={[curatorId]}
+    />
+);
+```
+
+
+4. Render a proposed auction:
+
+```tsx
+import { NFTProposal } from "@zoralabs/nft-components";
+
+export const Page = () => <NFTProposal id="3002" />;
 ```
