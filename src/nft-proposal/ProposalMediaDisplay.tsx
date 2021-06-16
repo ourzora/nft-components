@@ -43,7 +43,7 @@ export const ProposalMediaDisplay = ({}: ProposalMediaDisplayProps) => {
       <div {...getStyles("nftProposalMediaWrapper")}>{media}</div>
       <div {...getStyles("nftProposalInfoLayout")}>
         <div {...getStyles("nftProposalTitle")}>{title}</div>
-        <div>
+        <div {...getStyles("nftProposalLabelWrapper")}>
           <div {...getStyles("nftProposalLabel")}>
             {hasCreator
               ? getString("CARD_CREATED_BY")
@@ -54,7 +54,7 @@ export const ProposalMediaDisplay = ({}: ProposalMediaDisplayProps) => {
           </div>
         </div>
         {data?.pricing.reserve?.tokenOwner && (
-          <div>
+          <div {...getStyles("nftProposalLabelWrapper")}>
             <div {...getStyles("nftProposalLabel")}>{getString("PROPOSED_BY")}</div>
             <div {...getStyles("fullOwnerAddress")}>
               {address && (

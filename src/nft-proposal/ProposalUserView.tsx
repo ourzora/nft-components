@@ -11,7 +11,7 @@ export const ProposalUserView = ({ address }: ProposalUserViewProps) => {
   const username = useZoraUsername(address);
 
   return (
-    <div>
+    <div {...getStyles("nftProposalUserView")}>
       {username.username?.profile_image_url && (
         <img
           src={username.username?.profile_image_url}
