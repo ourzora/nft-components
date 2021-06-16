@@ -39,21 +39,21 @@ export const MediaObject = ({
   const getURI = () => {
     if (contentURI) {
       if (firstLoadFailed) {
-        return contentURI;
+        return [contentURI, metadata.mimeType];
       }
       // Replace main fleek instance for zora instance only with Zora NFTs
-      return contentURI.replace("ipfs.fleek.co", "zora.fleek.co");
+      return [contentURI.replace("ipfs.fleek.co", "zora.fleek.co"), metadata.mimeType];
     }
     if (metadata.animation_url && !firstLoadFailed) {
-      return metadata.animation_url;
+      return [metadata.animation_url, 'video'];
     }
     if (metadata.image) {
-      return metadata.image;
+      return [metadata.image, 'image'];
     }
-    return undefined;
+    return [undefined, undefined];
   };
-  const uri = getURI();
-  const { content } = useNFTContent(uri, metadata.mimeType);
+  const [uri, contentType] = getURI();
+  const { content } = useNFTContent(uri, contentType);
   const { getStyles, mediaRenderers } = useMediaContext();
 
   const getMediaObjectTag = () => {

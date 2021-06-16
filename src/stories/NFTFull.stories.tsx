@@ -50,6 +50,13 @@ NonZoraImage.args = {
   contract: "0xb7f7f6c52f2e2fdb1963eab30438024864c313f6",
 };
 
+export const ArtBlocks = Template.bind({});
+ArtBlocks.args = {
+  id: '83000067',
+  contract: '0x152eee3dcc5526efd646e9b45c9a9672bffcc097',
+  testnet: true,
+};
+
 export const CryptoKitty = Template.bind({});
 CryptoKitty.args = {
   id: "556",
