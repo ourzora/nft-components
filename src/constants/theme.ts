@@ -6,7 +6,7 @@ export const ThemeOptions = {
   previewCard: {
     width: '330px',
     height: '330px',
-    background: "transparent",
+    background: "white",
   },
 
   nftProposalCard: {
