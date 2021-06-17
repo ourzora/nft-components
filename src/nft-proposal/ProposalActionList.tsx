@@ -50,7 +50,7 @@ export const ProposalActionList = ({
 
   return (
     <div {...getStyles("nftProposalActionList")}>
-      <div>
+      <div {...getStyles("nftProposalLabelWrapper")}>
         <div {...getStyles("nftProposalLabel")}>
           {getString("RESERVE_PRICE")}
         </div>
@@ -64,7 +64,7 @@ export const ProposalActionList = ({
         </div>
       </div>
 
-      <div>
+      <div {...getStyles("nftProposalLabelWrapper")}>
         <div {...getStyles("nftProposalLabel")}>
           {getString("PROPOSAL_CURATOR_SHARE")}
         </div>

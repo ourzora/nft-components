@@ -206,6 +206,8 @@ export const Style = {
       gap: 10px;
       padding: 5px 0;
     `,
+    nftProposalLabelWrapper: (_: ThemeOptionsType) => css``,
+    nftProposalUserView: (_: ThemeOptionsType) => css``,
     nftProposalLabel: (theme: ThemeOptionsType) => [
       css`
         text-transform: uppercase;
