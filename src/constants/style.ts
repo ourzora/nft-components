@@ -368,14 +368,13 @@ export const Style = {
     mediaObject: (_: ThemeOptionsType, { mediaLoaded, isFullPage }: any) => css`
       opacity: ${mediaLoaded ? "1" : "0"};
       transition: 0.2s ease-in opacity;
-      ${isFullPage ? "max-height: 70vh;" : "max-width: 100%;"}
-      ${isFullPage ? "max-width: 100%;" : "max-width: 100%;"}
+      ${isFullPage ? "max-height: 70vh;" : "height: 100%;"}
+      ${isFullPage ? "max-width: 100%;" : "width: 100%;"}
       display: block;
+      margin: 0 auto;
       flex-shrink: 1;
       min-width: 0px;
       object-fit: cover;
-      height: 100%;
-      width: 100%;
     `,
     mediaAudioWrapper: (_: ThemeOptionsType) => css`
       margin-top: 40px;
