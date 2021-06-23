@@ -7,8 +7,6 @@ import {
   useState,
   forwardRef,
 } from "react";
-
-import { useMediaContext } from "../context/useMediaContext";
 import { useSyncRef } from "../utils/useSyncRef";
 import { MediaLoader, useMediaObjectProps } from "./MediaLoader";
 import {
