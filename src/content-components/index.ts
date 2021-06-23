@@ -4,13 +4,17 @@ import { Image } from "./Image";
 import { Video } from "./Video";
 import { Audio } from "./Audio";
 import { Unknown } from "./Unknown";
+import * as RendererConfigTypes from "./RendererConfig";
 
+const MediaRendererDefaults = [Audio, Text, HTML, Image, Video, Unknown];
 
-export const MediaRendererDefaultTable = [
-  Audio,
+export {
   Text,
   HTML,
   Image,
   Video,
-  Unknown
-];
+  Audio,
+  Unknown,
+  RendererConfigTypes,
+  MediaRendererDefaults,
+};

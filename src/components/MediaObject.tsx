@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNFTContent } from "@zoralabs/nft-hooks";
 
 import { useMediaContext } from "../context/useMediaContext";
-import { MediaRendererDefaultTable } from "../content-components";
 import {
   RendererConfig,
   RenderRequest,
@@ -33,7 +32,7 @@ export const MediaObject = ({
 }: MediaObjectProps) => {
   const mediaType = useNFTContent(metadata.animation_url);
   const [renderingInfo, setRenderingInfo] = useState<RendererConfig>();
-  const { getStyles, getString } = useMediaContext();
+  const { getStyles, getString, renderers } = useMediaContext();
 
   const request: RenderRequest = {
     media: {
@@ -64,7 +63,7 @@ export const MediaObject = ({
   };
 
   useEffect(() => {
-    const sortedRenderers = MediaRendererDefaultTable.sort((a, b) =>
+    const sortedRenderers = renderers.sort((a, b) =>
       a.getRenderingPreference(request) > b.getRenderingPreference(request)
         ? -1
         : 1
