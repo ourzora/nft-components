@@ -17,12 +17,17 @@ export const MediaThumbnailWrapper = ({
   const { nft } = useContext(NFTDataContext);
   const auctionStatus = nft.data?.pricing.status;
 
+  const LinkComponent = href ? 'a' : 'button';
+
   return (
     <div
       {...getStyles("cardOuter", { hasClickEvent: !!onClick, auctionStatus })}
-      onClick={onClick}
-      href={href}
     >
+      {(href || onClick) && (
+        <LinkComponent {...getStyles("cardLink")} href={href} onClick={onClick}>
+          View NFT
+        </LinkComponent>
+      )}
       {children}
     </div>
   );

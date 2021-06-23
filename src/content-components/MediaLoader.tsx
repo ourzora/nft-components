@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { useMediaContext } from "../context/useMediaContext";
 import { RenderRequest } from "./RendererConfig";
 
-export function useMediaObjectProps(uri: string | undefined, request: RenderRequest) {
+export function useMediaObjectProps(
+  uri: string | undefined,
+  request: RenderRequest,
+  a11yIdPrefix?: string
+) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>();
   const { getStyles } = useMediaContext();
@@ -11,6 +15,7 @@ export function useMediaObjectProps(uri: string | undefined, request: RenderRequ
     loading,
     error,
     props: {
+      "aria-describedby": `${a11yIdPrefix}description`,
       alt: request.metadata.name || request.metadata.description,
       onLoad: () => setLoading(false),
       // TODO(iain): Update Error

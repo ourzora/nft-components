@@ -12,6 +12,7 @@ import {
   NFTDataProvider,
   NFTDataProviderProps,
 } from "../context/NFTDataProvider";
+import { useA11yIdPrefix } from "../utils/useA11yIdPrefix";
 
 type NFTFullPageProps = Omit<NFTDataProviderProps, "children"> & {
   children?: React.ReactNode;
@@ -26,6 +27,7 @@ export const NFTFullPage = ({
   config,
   ...wrapperProps
 }: NFTFullPageProps) => {
+  const a11yIdPrefix = useA11yIdPrefix('media');
   const { getStyles } = useMediaContext();
   const allowOffer = config?.allowOffer;
   const showPerpetual = config?.showPerpetual;
@@ -37,9 +39,9 @@ export const NFTFullPage = ({
 
     return (
       <Fragment>
-        <MediaFull />
+        <MediaFull a11yIdPrefix={a11yIdPrefix} />
         <div {...getStyles("fullPageDataGrid")}>
-          <MediaInfo />
+          <MediaInfo a11yIdPrefix={a11yIdPrefix} />
           <PlaceOfferButton allowOffer={allowOffer} />
           <AuctionInfo showPerpetual={showPerpetual} />
           <ProofAuthenticity />

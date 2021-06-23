@@ -8,10 +8,11 @@ import {
 } from "./RendererConfig";
 
 export const ImageRenderer = forwardRef<HTMLImageElement, RenderComponentType>(
-  ({ request }, ref) => {
+  ({ request, a11yIdPrefix }, ref) => {
     const { props, loading, error } = useMediaObjectProps(
       request.media.content?.uri || request.media.image?.uri,
-      request
+      request,
+      a11yIdPrefix
     );
 
     return (

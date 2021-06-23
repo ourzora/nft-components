@@ -35,6 +35,15 @@ const buttonCommonSize = (size: string) => `
   margin: 0 10px;
 `;
 
+const buttonReset = `
+  font: inherit;
+  text-decoration: none;
+  margin: 0;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+`;
+
 const CENTER_FULL_CONTAINER = `
   position: absolute;
   width: 100%;
@@ -62,7 +71,6 @@ export const Style = {
     `,
     // Styles for preview card
     cardOuter: (theme: ThemeOptionsType, { hasClickEvent }: any) => css`
-      ${hasClickEvent ? "cursor: pointer;" : ""}
       background: ${theme.previewCard.background};
       overflow: hidden;
       border-radius: ${theme.defaultBorderRadius}px;
@@ -72,9 +80,23 @@ export const Style = {
       line-height: ${theme.lineSpacing}px;
       ${theme.bodyFont}
       transition: transform 0.1s ease-in-out;
-      &:active {
-        transform: scale(0.98);
-      }
+      position: relative;
+      ${hasClickEvent
+        ? `
+        &:active {
+          transform: scale(0.98);
+        }
+      `
+        : ""}
+    `,
+    cardLink: (_: ThemeOptionsType) => css`
+      ${buttonReset}
+      color: transparent;
+      background: transparent;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: 1;
     `,
     cardHeader: (theme: ThemeOptionsType) => css`
       padding: ${theme.textBlockPadding};
@@ -127,10 +149,12 @@ export const Style = {
       `;
     },
     cardTitle: (theme: ThemeOptionsType) => css`
+      font-size: inherit;
+      margin: 0;
       max-width: calc(${theme.previewCard.width} - 30px),
       overflow: hidden;
-      white-space: nowrap;
       text-overflow: ellipsis;
+      white-space: nowrap;
       ${theme.titleFont}
     `,
     // Styles for full-page view
@@ -141,6 +165,7 @@ export const Style = {
     `,
     fullItemInfo: (_: ThemeOptionsType) => css``,
     fullTitle: (_: ThemeOptionsType) => css`
+      font-weight: inherit;
       font-size: 30px;
       margin: 20px 0;
     `,
@@ -151,14 +176,15 @@ export const Style = {
     fullOwnerAddress: (theme: ThemeOptionsType) => [
       css`
         font-size: ${theme.fontSizeFull}px;
+        margin: 0;
       `,
       theme.titleFont,
     ],
     fullLabel: (theme: ThemeOptionsType) => [
       css`
+        margin: 0 0 5px;
         text-transform: uppercase;
         font-size: 14px;
-        margin-bottom: 5px;
         opacity: 0.5;
       `,
       theme.bodyFont,
@@ -242,10 +268,10 @@ export const Style = {
     fullInfoAuctionWrapper: () => ``,
     fullPlaceOfferButton: (_: any) => css``,
     fullInfoCreatorEquityContainer: (_: any) => css`
-      margin-top: 15px;
+      margin-top: 20px;
     `,
     fullInfoProofAuthenticityContainer: (_: any) => css`
-      margin-top: 15px;
+      margin-top: 20px;
     `,
     fullProofLink: (theme: ThemeOptionsType) => css`
       display: block;
@@ -277,6 +303,7 @@ export const Style = {
     ],
     // Generic styles
     button: (theme: ThemeOptionsType, { primary }: any) => css`
+      ${buttonReset}
       background: ${primary
         ? theme.buttonColor.primaryBackground
         : theme.buttonColor.background};
@@ -285,12 +312,6 @@ export const Style = {
         : theme.buttonColor.text};
       border-radius: ${theme.defaultBorderRadius}px;
       padding: 11px;
-      font: inherit;
-      text-decoration: none;
-      margin: 0;
-      border: 0;
-      cursor: pointer;
-      display: inline-block;
       transition: transform 0.1s ease-in-out;
       &:active {
         transform: scale(0.98);
@@ -368,11 +389,13 @@ export const Style = {
     mediaObject: (_: ThemeOptionsType, { mediaLoaded, isFullPage }: any) => css`
       opacity: ${mediaLoaded ? "1" : "0"};
       transition: 0.2s ease-in opacity;
-      ${isFullPage ? "max-height: 70vh;" : ""}
-      ${isFullPage ? "max-width: 100%;" : ""}
+      ${isFullPage ? "max-height: 70vh;" : "height: 100%;"}
+      ${isFullPage ? "max-width: 100%;" : "width: 100%;"}
       display: block;
       margin: 0 auto;
       flex-shrink: 1;
+      min-width: 0px;
+      object-fit: cover;
     `,
     mediaAudioWrapper: (_: ThemeOptionsType) => css`
       margin-top: 40px;
@@ -403,13 +426,17 @@ export const Style = {
       background-image: url("data:image/svg+xml,${encodeURIComponent(
         playing ? SVG_PAUSE : SVG_PLAY_ARROW
       )}");
+      z-index: 8;
     `,
     mediaVideoControls: (_: ThemeOptionsType, { isFullPage }: any) => css`
       ${CENTER_FULL_CONTAINER}
       ${isFullPage
         ? `
+        z-index: 1; /* todo: iain remove need for line */
         opacity: 0;
-        &:hover {
+        &:hover,
+        &:focus,
+        &:focus-within {
           opacity: 1;
         }
         transition: opacity 0.6s ease-in-out;
@@ -418,12 +445,12 @@ export const Style = {
         : "display: none;"}
     `,
     mediaFullscreenButton: (_: ThemeOptionsType) => css`
-      ${buttonCommonSize("16px")}
+      ${buttonCommonSize("20px")}
       background-color: #000;
       ${renderSVG(SVG_FULLSCREEN)}
     `,
     mediaMuteButton: (_: ThemeOptionsType, { muted }: any) => css`
-      ${buttonCommonSize("16px")}
+      ${buttonCommonSize("20px")}
       background-color: #000;
       background-image: url("data:image/svg+xml,${encodeURIComponent(
         muted ? SVG_UNMUTED : SVG_MUTED

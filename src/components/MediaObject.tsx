@@ -20,6 +20,7 @@ type MetadataIsh = {
 
 type MediaObjectProps = {
   contentURI?: string;
+  a11yIdPrefix?: string;
   metadata: MetadataIsh;
   isFullPage?: boolean;
 };
@@ -27,6 +28,7 @@ type MediaObjectProps = {
 export const MediaObject = ({
   contentURI,
   metadata,
+  a11yIdPrefix,
   isFullPage = false,
 }: MediaObjectProps) => {
   const mediaType = useNFTContent(metadata.animation_url);
@@ -67,7 +69,6 @@ export const MediaObject = ({
         ? -1
         : 1
     );
-    console.log(sortedRenderers);
     setRenderingInfo(sortedRenderers[0]);
   }, [metadata, contentURI, mediaType.content]);
 
@@ -75,6 +76,7 @@ export const MediaObject = ({
     const RenderingComponent = renderingInfo.render;
     return (
       <RenderingComponent
+        a11yIdPrefix={a11yIdPrefix}
         getStyles={getStyles}
         getString={getString}
         request={request}

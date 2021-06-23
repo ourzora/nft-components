@@ -4,7 +4,11 @@ import { NFTDataContext } from "../context/NFTDataContext";
 import { MediaObject } from "../components/MediaObject";
 import { useMediaContext } from "../context/useMediaContext";
 
-export const MediaFull = () => {
+type MediaFullProps = {
+  a11yIdPrefix: string;
+};
+
+export const MediaFull = ({ a11yIdPrefix }: MediaFullProps) => {
   const { getStyles } = useMediaContext();
   const {
     nft: { data },
@@ -16,8 +20,9 @@ export const MediaFull = () => {
       return (
         <MediaObject
           isFullPage={true}
-          contentURI={'zoraNFT' in data ? data.zoraNFT?.contentURI : undefined}
+          contentURI={"zoraNFT" in data ? data.zoraNFT?.contentURI : undefined}
           metadata={metadata}
+          a11yIdPrefix={a11yIdPrefix}
         />
       );
     }

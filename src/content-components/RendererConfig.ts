@@ -28,8 +28,10 @@ export type RenderRequest = {
 
 export type RenderComponentType = {
   request: RenderRequest;
+  // TODO(iain): Fix types
   getString: any;
   getStyles: any;
+  a11yIdPrefix?: string;
 };
 
 export interface RendererConfig {
