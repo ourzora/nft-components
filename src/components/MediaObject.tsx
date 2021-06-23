@@ -3,7 +3,10 @@ import { useNFTContent } from "@zoralabs/nft-hooks";
 
 import { useMediaContext } from "../context/useMediaContext";
 import { MediaRendererDefaultTable } from "../content-components";
-import { RendererConfig, RenderRequest } from "../content-components/RendererConfig";
+import {
+  RendererConfig,
+  RenderRequest,
+} from "../content-components/RendererConfig";
 
 type MetadataIsh = {
   mimeType: string;
@@ -36,7 +39,8 @@ export const MediaObject = ({
       content: contentURI
         ? {
             uri: contentURI,
-            type: metadata.mimeType,
+            // TODO(iain): Clean up for catalog.works
+            type: metadata.mimeType || (metadata as any).body?.mimeType,
           }
         : undefined,
       image: metadata.image
@@ -63,7 +67,7 @@ export const MediaObject = ({
         ? -1
         : 1
     );
-    console.log(sortedRenderers)
+    console.log(sortedRenderers);
     setRenderingInfo(sortedRenderers[0]);
   }, [metadata, contentURI, mediaType.content]);
 

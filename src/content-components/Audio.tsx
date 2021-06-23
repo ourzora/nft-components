@@ -10,6 +10,13 @@ import {
 
 import { useMediaContext } from "../context/useMediaContext";
 import { useSyncRef } from "../utils/useSyncRef";
+import { MediaLoader, useMediaObjectProps } from "./MediaLoader";
+import {
+  RenderComponentType,
+  RendererConfig,
+  RenderingPreference,
+  RenderRequest,
+} from "./RendererConfig";
 
 type FakeWaveformCanvasProps = {
   audioRef: any;
@@ -94,9 +101,13 @@ const FakeWaveformCanvas = ({
   );
 };
 
-export const Audio = forwardRef<HTMLAudioElement, any>(
-  ({ objectProps: { onLoad, ...mediaObject }, mediaLoaded }, ref) => {
-    const { getStyles } = useMediaContext();
+export const AudioRenderer = forwardRef<HTMLAudioElement, RenderComponentType>(
+  ({ request, getStyles }, ref) => {
+    const { props, loading, error } = useMediaObjectProps(
+      request.media.content?.uri || request.media.animation?.uri,
+      request
+    );
+
     const audioRef = useRef<HTMLAudioElement>(null);
     useSyncRef(audioRef, ref);
     const [playing, setPlaying] = useState<boolean>(false);
@@ -126,29 +137,47 @@ export const Audio = forwardRef<HTMLAudioElement, any>(
     }, [audioRef.current, playing]);
 
     return (
-      <div ref={wrapper} {...getStyles("mediaAudioWrapper")}>
-        {mediaLoaded && (
-          <Fragment>
-            <button
-              onClick={togglePlay}
-              {...getStyles("mediaPlayButton", { playing })}
-            >
-              {playing ? "Pause" : "Play"}
-            </button>
-            <div {...getStyles("mediaAudioWaveform")}>
-              <FakeWaveformCanvas audioRef={audioRef} setPlaying={setPlaying} />
-            </div>
-          </Fragment>
-        )}
-        <audio
-          loop={true}
-          ref={audioRef}
-          style={{ display: "none" }}
-          preload="auto"
-          onLoadedData={onLoad}
-          {...mediaObject}
-        />
-      </div>
+      <MediaLoader loading={loading} error={error}>
+        <div ref={wrapper} {...getStyles("mediaAudioWrapper")}>
+          {!loading && (
+            <Fragment>
+              <button
+                onClick={togglePlay}
+                {...getStyles("mediaPlayButton", { playing })}
+              >
+                {playing ? "Pause" : "Play"}
+              </button>
+              <div {...getStyles("mediaAudioWaveform")}>
+                <FakeWaveformCanvas
+                  audioRef={audioRef}
+                  setPlaying={setPlaying}
+                />
+              </div>
+            </Fragment>
+          )}
+          <audio
+            loop={true}
+            ref={audioRef}
+            style={{ display: "none" }}
+            preload="auto"
+            onLoadedData={props.onLoad}
+            {...props}
+          />
+        </div>
+      </MediaLoader>
     );
   }
 );
+
+export const Audio: RendererConfig = {
+  getRenderingPreference(request: RenderRequest) {
+    if (request.media.content?.type?.startsWith("audio")) {
+      return RenderingPreference.PRIORITY;
+    }
+    if (request.media.animation?.type?.startsWith("audio")) {
+      return RenderingPreference.PRIORITY;
+    }
+    return RenderingPreference.INVALID;
+  },
+  render: AudioRenderer,
+};

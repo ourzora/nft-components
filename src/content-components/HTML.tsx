@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { MediaLoader, useMediaObjectProps } from "./MediaLoader";
 import {
   RenderComponentType,
   RendererConfig,
@@ -5,16 +7,35 @@ import {
   RenderRequest,
 } from "./RendererConfig";
 
-const HTMLRenderer = ({ request, getStyles }: RenderComponentType) => (
-  <div {...getStyles("mediaContentText")}>
-    <iframe
-      style={{border: 0}}
-      width="800"
-      height="800"
-      src={request.media.content?.uri || request.media.animation?.uri}
-    ></iframe>
-  </div>
-);
+const HTMLRenderer = ({ request }: RenderComponentType) => {
+  const { props, loading, error } = useMediaObjectProps(
+    request.media.content?.uri || request.media.animation?.uri,
+    request
+  );
+  const [windowHeight, setWindowHeight] = useState<number>(
+    () => window.innerHeight
+  );
+  useEffect(() => {
+    const resizeHandler = () => {
+      setWindowHeight(window.innerHeight);
+    };
+    document.addEventListener("resize", resizeHandler);
+    return () => {
+      document.removeEventListener("resize", resizeHandler);
+    };
+  });
+
+  return (
+    <MediaLoader loading={loading} error={error}>
+      <iframe
+        height={Math.floor(windowHeight * 0.6)}
+        width="100%"
+        style={{ border: 0 }}
+        {...props}
+      />
+    </MediaLoader>
+  );
+};
 
 export const HTML: RendererConfig = {
   getRenderingPreference(request: RenderRequest) {

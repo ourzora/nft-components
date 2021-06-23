@@ -14,8 +14,6 @@ export const ImageRenderer = forwardRef<HTMLImageElement, RenderComponentType>(
       request
     );
 
-    console.log({props, loading, error})
-
     return (
       <MediaLoader loading={loading} error={error}>
         <img ref={ref} {...props} />
