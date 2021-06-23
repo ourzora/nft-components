@@ -158,7 +158,6 @@ export const AudioRenderer = forwardRef<HTMLAudioElement, RenderComponentType>(
             loop={true}
             ref={audioRef}
             preload="auto"
-            autoPlay={true}
             playsInline
             onPlay={() => setPlaying(true)}
             onPause={() => setPlaying(false)}
