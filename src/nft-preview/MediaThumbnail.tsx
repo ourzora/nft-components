@@ -38,7 +38,7 @@ export const MediaThumbnail = () => {
     <Fragment>
       <div {...getStyles("cardMediaWrapper")}>{media}</div>
       <div {...getStyles("cardItemInfo")}>
-        <div {...getStyles("cardTitle")}>{title}</div>
+        <h5 {...getStyles("cardTitle")}>{title}</h5>
         <div>
           <span {...getStyles("textSubdued")}>
             {hasCreator

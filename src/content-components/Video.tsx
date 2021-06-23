@@ -1,39 +1,70 @@
-import { forwardRef, Fragment, useCallback, useRef, useState } from "react";
+import {
+  forwardRef,
+  Fragment,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import { useSyncRef } from "../utils/useSyncRef";
 import { MediaRendererProps } from ".";
 import { useMediaContext } from "../context/useMediaContext";
+import { useA11yIdPrefix } from "../utils/useA11yIdPrefix";
 
 export const Video = forwardRef<HTMLVideoElement, MediaRendererProps>(
   ({ objectProps: { onLoad, ...props }, isFullPage }, ref) => {
-    const { getStyles } = useMediaContext();
-    const [isPlaying, setIsPlaying] = useState(true);
+    const { getString, getStyles } = useMediaContext();
+    const [isPlaying, setIsPlaying] = useState(false);
     const [isMuted, setIsMuted] = useState(true);
+    const [isFullScreen, setIsFullScreen] = useState(false);
     const video = useRef<HTMLVideoElement>(null);
+
+    const controlAriaId = useA11yIdPrefix("video-renderer");
+
     useSyncRef(video, ref);
+
+    useEffect(() => {
+      const fullScreenCallback = () => {
+        setIsFullScreen(!!document.fullscreenElement);
+      };
+      document.addEventListener("fullscreenchange", fullScreenCallback);
+      return () => {
+        document.removeEventListener("fullscreenchange", fullScreenCallback);
+      };
+    }, []);
 
     const togglePlay = useCallback(() => {
       if (!video.current) {
         return;
       }
       if (video.current.paused) {
-        setIsPlaying(true);
         video.current.play();
       } else {
-        setIsPlaying(false);
         video.current?.pause();
       }
     }, [video]);
 
     const openFullscreen = useCallback(() => {
-      const elem = video.current
+      const elem = video.current;
       if (elem && elem.requestFullscreen) {
-        elem.muted = false
         setIsMuted(false);
-        return elem.requestFullscreen()
+        return elem.requestFullscreen();
       }
-      return
+
+      // Thank Apple for this one :(. Needed for iOS
+      // @ts-ignore
+      if (elem && elem.webkitSetPresentationMode) {
+        setIsMuted(false);
+        // @ts-ignore
+        return elem.webkitSetPresentationMode("fullscreen");
+      }
+      return;
     }, [video]);
+
+    const onCanPlay = useCallback(() => {
+      setIsPlaying(!video.current?.paused);
+    }, []);
 
     const toggleMute = useCallback(() => {
       if (!video.current) {
@@ -53,40 +84,61 @@ export const Video = forwardRef<HTMLVideoElement, MediaRendererProps>(
       video.current.currentTime = 0;
     }, [video.current]);
 
+    const playingText = isPlaying
+      ? getString("VIDEO_CONTROLS_PAUSE")
+      : getString("VIDEO_CONTROLS_PLAY");
+
     return (
       <Fragment>
         {video.current && (
-          <div {...getStyles("mediaVideoControls", { isFullPage })}>
+          <div
+            aria-label={getString("VIDEO_CONTROLS_LABEL")}
+            id={controlAriaId}
+            tabIndex="0"
+            // @ts-ignore Blur is kinda invalid but okay to be unsafe here.
+            onMouseOut={(evt) => evt.target.blur()}
+            {...getStyles("mediaVideoControls", { isFullPage })}
+          >
             <button
-              {...getStyles("mediaFullscreenButton", { muted: isMuted })}
+              {...getStyles("mediaFullscreenButton")}
+              aria-pressed={isFullScreen ? "true" : "false"}
               onClick={openFullscreen}
+              title={getString("VIDEO_CONTROLS_FULLSCREEN")}
             >
-              {isMuted ? "Unmute" : "Mute"}
+              {getString("VIDEO_CONTROLS_FULLSCREEN")}
             </button>
             <button
               {...getStyles("mediaPlayButton", { playing: isPlaying })}
+              aria-live="polite"
               onClick={togglePlay}
+              title={playingText}
             >
-              {isPlaying ? "Play" : "Pause"}
+              {playingText}
             </button>
             <button
               {...getStyles("mediaMuteButton", { muted: isMuted })}
               onClick={toggleMute}
+              aria-pressed={isMuted ? "false" : "true"}
             >
-              {isMuted ? "Unmute" : "Mute"}
+              {getString("VIDEO_CONTROLS_MUTE")}
             </button>
           </div>
         )}
         <video
-          preload="metadata"
+          {...props}
+          aria-controls={controlAriaId}
           autoPlay
+          controls={isFullScreen}
           loop
           muted={isMuted}
-          playsInline
-          {...props}
-          ref={video}
+          onCanPlayThrough={onCanPlay}
           onEnded={playLoop}
           onLoadedData={onLoad}
+          onPause={() => setIsPlaying(false)}
+          onPlay={() => setIsPlaying(true)}
+          playsInline
+          preload="metadata"
+          ref={video}
         ></video>
       </Fragment>
     );

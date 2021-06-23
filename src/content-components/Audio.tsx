@@ -14,13 +14,9 @@ import { MediaRendererProps } from ".";
 
 type FakeWaveformCanvasProps = {
   audioRef: any;
-  setPlaying: (playing: boolean) => void;
 };
 
-const FakeWaveformCanvas = ({
-  audioRef,
-  setPlaying,
-}: FakeWaveformCanvasProps) => {
+const FakeWaveformCanvas = ({ audioRef }: FakeWaveformCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [width, setWidth] = useState<undefined | number>();
   const updateWidth = useCallback(() => {
@@ -52,7 +48,7 @@ const FakeWaveformCanvas = ({
           (evt.clientX - canvasRef.current.getBoundingClientRect().left) /
           width;
         audioRef.current.currentTime = position * audioRef.current.duration;
-        setPlaying(true);
+        audioRef.current.play();
         updateCanvasLines();
       }
     },
@@ -108,8 +104,11 @@ export const Audio = forwardRef<HTMLAudioElement, MediaRendererProps>(
         evt.preventDefault();
         evt.stopPropagation();
         if (audioRef.current) {
-          // playing ? audioRef.current.pause() : audioRef.current.play();
-          setPlaying(!playing);
+          if (playing) {
+            audioRef.current.pause();
+          } else {
+            audioRef.current.play();
+          }
         }
       },
       [audioRef.current, playing]
@@ -126,27 +125,35 @@ export const Audio = forwardRef<HTMLAudioElement, MediaRendererProps>(
       }
     }, [audioRef.current, playing]);
 
+    const playingText = playing ? "Pause" : "Play";
+
     return (
       <div ref={wrapper} {...getStyles("mediaAudioWrapper")}>
         {mediaLoaded && (
           <Fragment>
             <button
+              aria-live="polite"
               onClick={togglePlay}
+              title={playingText}
               {...getStyles("mediaPlayButton", { playing })}
             >
-              {playing ? "Pause" : "Play"}
+              {playingText}
             </button>
             <div {...getStyles("mediaAudioWaveform")}>
-              <FakeWaveformCanvas audioRef={audioRef} setPlaying={setPlaying} />
+              <FakeWaveformCanvas audioRef={audioRef} />
             </div>
           </Fragment>
         )}
         <audio
           loop={true}
           ref={audioRef}
-          style={{ display: "none" }}
           preload="auto"
+          autoPlay={true}
+          playsInline
+          onPlay={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
           onLoadedData={onLoad}
+          onCanPlayThrough={onLoad}
           {...mediaObject}
         />
       </div>
