@@ -426,6 +426,7 @@ export const Style = {
       background-image: url("data:image/svg+xml,${encodeURIComponent(
         playing ? SVG_PAUSE : SVG_PLAY_ARROW
       )}");
+      z-index: 8;
     `,
     mediaVideoControls: (_: ThemeOptionsType, { isFullPage }: any) => css`
       ${CENTER_FULL_CONTAINER}
