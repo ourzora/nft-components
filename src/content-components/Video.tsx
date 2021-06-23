@@ -1,26 +1,33 @@
+import { forwardRef, useCallback, useEffect, useRef, useState } from "react";
+import { MediaLoader, useMediaObjectProps } from "./MediaLoader";
 import {
-  forwardRef,
-  Fragment,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+  RenderComponentType,
+  RendererConfig,
+  RenderingPreference,
+  RenderRequest,
+} from "./RendererConfig";
 
 import { useSyncRef } from "../utils/useSyncRef";
-import { MediaRendererProps } from ".";
-import { useMediaContext } from "../context/useMediaContext";
 import { useA11yIdPrefix } from "../utils/useA11yIdPrefix";
 
-export const Video = forwardRef<HTMLVideoElement, MediaRendererProps>(
-  ({ objectProps: { onLoad, ...props }, isFullPage }, ref) => {
-    const { getString, getStyles } = useMediaContext();
-    const [isPlaying, setIsPlaying] = useState(false);
+export const VideoRenderer = forwardRef<HTMLVideoElement, RenderComponentType>(
+  ({ getString, getStyles, request, a11yIdPrefix }, ref) => {
+    const [isPlaying, setIsPlaying] = useState(true);
     const [isMuted, setIsMuted] = useState(true);
     const [isFullScreen, setIsFullScreen] = useState(false);
     const video = useRef<HTMLVideoElement>(null);
 
     const controlAriaId = useA11yIdPrefix("video-renderer");
+    const uri =
+      request.renderingContext === "FULL"
+        ? request.media.animation?.uri || request.media.content?.uri
+        : request.media.content?.uri || request.media.animation?.uri;
+
+    const { props, loading, error } = useMediaObjectProps(
+      uri,
+      request,
+      a11yIdPrefix
+    );
 
     useSyncRef(video, ref);
 
@@ -89,7 +96,7 @@ export const Video = forwardRef<HTMLVideoElement, MediaRendererProps>(
       : getString("VIDEO_CONTROLS_PLAY");
 
     return (
-      <Fragment>
+      <MediaLoader loading={loading} error={error}>
         {video.current && (
           <div
             aria-label={getString("VIDEO_CONTROLS_LABEL")}
@@ -97,7 +104,9 @@ export const Video = forwardRef<HTMLVideoElement, MediaRendererProps>(
             tabIndex="0"
             // @ts-ignore Blur is kinda invalid but okay to be unsafe here.
             onMouseOut={(evt) => evt.target.blur()}
-            {...getStyles("mediaVideoControls", { isFullPage })}
+            {...getStyles("mediaVideoControls", {
+              isFullPage: request.renderingContext === "FULL",
+            })}
           >
             <button
               {...getStyles("mediaFullscreenButton")}
@@ -133,14 +142,27 @@ export const Video = forwardRef<HTMLVideoElement, MediaRendererProps>(
           muted={isMuted}
           onCanPlayThrough={onCanPlay}
           onEnded={playLoop}
-          onLoadedData={onLoad}
+          onLoadedData={props.onLoad}
           onPause={() => setIsPlaying(false)}
           onPlay={() => setIsPlaying(true)}
           playsInline
           preload="metadata"
           ref={video}
         ></video>
-      </Fragment>
+      </MediaLoader>
     );
   }
 );
+
+export const Video: RendererConfig = {
+  getRenderingPreference: (request: RenderRequest) => {
+    if (request.media.animation?.type?.startsWith("video/")) {
+      return RenderingPreference.PRIORITY;
+    }
+    if (request.media.content?.type?.startsWith("video/")) {
+      return RenderingPreference.PRIORITY;
+    }
+    return RenderingPreference.INVALID;
+  },
+  render: VideoRenderer,
+};

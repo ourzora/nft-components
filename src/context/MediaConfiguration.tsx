@@ -7,10 +7,10 @@ import {
 import { merge } from "merge-anything";
 
 import { Strings } from "../constants/strings";
-import { MediaRenderersType } from "../content-components";
-
-import { MediaContext, ThemeType } from "./MediaContext";
 import { RecursivePartial } from "../utils/RecursivePartial";
+import { RendererConfig } from "../content-components/RendererConfig";
+import { MediaRendererDefaults } from "../content-components";
+import { MediaContext, ThemeType } from "./MediaContext";
 
 type MediaContextConfigurationProps = {
   /**
@@ -18,10 +18,6 @@ type MediaContextConfigurationProps = {
    */
   networkId?: NetworkIDs;
   children: React.ReactNode;
-  /**
-   * List of mediaRenderers configuration settings to add or replace media renderers.
-   */
-  mediaRenderers?: MediaRenderersType;
   /**
    * Style configuration object. Contains both a theme and styles. Theme are generic settings for rendering styles.Style configuration object. Contains both a theme and styles.
    * Theme are generic settings for rendering styles.
@@ -32,6 +28,10 @@ type MediaContextConfigurationProps = {
    * List of content strings.
    */
   strings?: Partial<typeof Strings>;
+  /**
+   * List of renderers.
+   */
+  renderers: RendererConfig[];
 };
 
 export const MediaConfiguration = ({
@@ -39,7 +39,7 @@ export const MediaConfiguration = ({
   style = {},
   children,
   strings = {},
-  mediaRenderers = {},
+  renderers = MediaRendererDefaults,
 }: MediaContextConfigurationProps) => {
   const superContext = useContext(MediaContext);
 
@@ -47,7 +47,7 @@ export const MediaConfiguration = ({
     // TODO(iain): Fix typing
     style: merge(superContext.style, style) as ThemeType,
     strings: merge(superContext.strings, strings),
-    mediaRenderers: merge(superContext.mediaRenderers, mediaRenderers),
+    renderers,
     networkId,
   };
 

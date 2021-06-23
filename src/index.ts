@@ -1,13 +1,13 @@
 import { Networks } from "@zoralabs/nft-hooks";
 
 import { AuctionHouseList } from "./auction-house/AuctionHouseList";
-import { NFTPreview, PreviewComponents } from "./nft-preview";
-import { NFTFullPage, FullComponents } from "./nft-full";
 import { MediaConfiguration } from "./context/MediaConfiguration";
-import { MediaRendererProps } from "./content-components";
+import * as MediaRenderers from "./content-components";
 import { NFTDataProvider } from "./context/NFTDataProvider";
 import { MediaObject } from "./components/MediaObject";
 import { NFTDataContext } from "./context/NFTDataContext";
+import { NFTPreview, PreviewComponents } from "./nft-preview";
+import { NFTFullPage, FullComponents } from "./nft-full";
 
 export {
   // Constant list of all networks
@@ -27,6 +27,7 @@ export {
   NFTDataProvider,
   // Data context for fetching NFT info with custom components
   NFTDataContext,
-  MediaRendererProps,
   MediaObject,
+  // Renderers and default array for configuration
+  MediaRenderers,
 };

@@ -1,8 +1,11 @@
-import { useState, useCallback, Fragment } from "react";
+import { useState, useEffect } from "react";
 import { useNFTContent } from "@zoralabs/nft-hooks";
 
 import { useMediaContext } from "../context/useMediaContext";
-import { MediaRendererProps, RendererRecord } from "../content-components";
+import {
+  RendererConfig,
+  RenderRequest,
+} from "../content-components/RendererConfig";
 
 type MetadataIsh = {
   mimeType: string;
@@ -27,103 +30,58 @@ export const MediaObject = ({
   a11yIdPrefix,
   isFullPage = false,
 }: MediaObjectProps) => {
-  const [mediaError, setMediaErrorMessage] = useState<undefined | string>();
-  const [mediaLoaded, setMediaLoaded] = useState<boolean>(false);
-  const [firstLoadFailed, setFirstLoadFailed] = useState<boolean>(false);
+  const mediaType = useNFTContent(metadata.animation_url);
+  const [renderingInfo, setRenderingInfo] = useState<RendererConfig>();
+  const { getStyles, getString, renderers } = useMediaContext();
 
-  const setMediaError = useCallback((error) => {
-    if (!firstLoadFailed) {
-      setFirstLoadFailed(true);
-      return;
-    }
-    setMediaErrorMessage(error.description || "Error loading content");
-  }, []);
-  const getURI = () => {
-    if (contentURI) {
-      if (firstLoadFailed) {
-        return [contentURI, metadata.mimeType];
-      }
-      // Replace main fleek instance for zora instance only with Zora NFTs
-      return [contentURI.replace("ipfs.fleek.co", "zora.fleek.co"), metadata.mimeType];
-    }
-    if (metadata.animation_url && !firstLoadFailed) {
-      return [metadata.animation_url, 'video'];
-    }
-    if (metadata.image) {
-      return [metadata.image, 'image'];
-    }
-    return [undefined, undefined];
-  };
-  const [uri, contentType] = getURI();
-  const { content } = useNFTContent(uri, contentType);
-  const { getStyles, mediaRenderers } = useMediaContext();
-
-  const getMediaObjectTag = () => {
-    const renderMediaConfig = (mediaRenderer: RendererRecord) => {
-      const mediaObject: MediaRendererProps = {
-        objectProps: {
-          ...getStyles("mediaObject", { mediaLoaded, isFullPage }),
-          src: uri,
-          alt: metadata.name,
-          'aria-describedby': a11yIdPrefix ?? `${a11yIdPrefix}description`,
-          onError: setMediaError,
-          onLoad: () => setMediaLoaded(true),
-        },
-        isFullPage,
-        mediaLoaded,
-        media: content,
-      };
-
-      const RendererComponent = mediaRenderer.renderer;
-      return {
-        hasLoader: mediaRenderer.hasLoader,
-        mediaTag: <RendererComponent {...mediaObject} />,
-      };
-    };
-    const handleMimePrefix = (prefix: string) => {
-      const keysToMatch = Object.keys(mediaRenderers)
-        .filter((renderKey) => renderKey.startsWith(prefix))
-        .sort(([rendererKeyA, rendererKeyB]) =>
-          rendererKeyA.length > rendererKeyB.length ? 1 : -1
-        );
-      const mediaRendererKey =
-        keysToMatch.find((key) =>
-          `${prefix}${content?.mimeType}`.startsWith(key)
-        ) || "unknown";
-      return mediaRenderers[mediaRendererKey];
-    };
-
-    // Returns in loading state
-    if (!content) {
-      return {
-        hasLoader: true,
-        mediaTag: null,
-      };
-    }
-
-    // Handles text content types
-    if (content.type === "text") {
-      return renderMediaConfig(handleMimePrefix("text:"));
-    }
-
-    // Loading error rendering
-    if (mediaError) {
-      return renderMediaConfig(mediaRenderers["error"]);
-    }
-
-    // Render content with a URI
-    return renderMediaConfig(handleMimePrefix("uri:"));
+  const request: RenderRequest = {
+    media: {
+      // from zora content uri
+      content: contentURI
+        ? {
+            uri: contentURI,
+            // TODO(iain): Clean up for catalog.works
+            type: metadata.mimeType || (metadata as any).body?.mimeType,
+          }
+        : undefined,
+      image: metadata.image
+        ? {
+            uri: metadata.image,
+            type: "image/",
+          }
+        : undefined,
+      // from metadata.animation_url
+      animation: metadata.animation_url
+        ? {
+            uri: metadata.animation_url,
+            type: mediaType.content?.mimeType,
+          }
+        : undefined,
+    },
+    metadata,
+    renderingContext: isFullPage ? "FULL" : "PREVIEW",
   };
 
-  const { hasLoader, mediaTag } = getMediaObjectTag();
-  return (
-    <Fragment>
-      {mediaTag}
-      {hasLoader && (
-        <div {...getStyles("mediaLoader", { mediaLoaded, isFullPage })}>
-          <span>Loading...</span>
-        </div>
-      )}
-    </Fragment>
-  );
+  useEffect(() => {
+    const sortedRenderers = renderers.sort((a, b) =>
+      a.getRenderingPreference(request) > b.getRenderingPreference(request)
+        ? -1
+        : 1
+    );
+    setRenderingInfo(sortedRenderers[0]);
+  }, [metadata, contentURI, mediaType.content]);
+
+  if (renderingInfo) {
+    const RenderingComponent = renderingInfo.render;
+    return (
+      <RenderingComponent
+        a11yIdPrefix={a11yIdPrefix}
+        getStyles={getStyles}
+        getString={getString}
+        request={request}
+      />
+    );
+  }
+
+  return <span>hai</span>;
 };

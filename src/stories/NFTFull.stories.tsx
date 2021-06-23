@@ -1,6 +1,6 @@
 import { Story, Meta } from "@storybook/react";
 import { NFTFullPage } from "../nft-full/NFTFullPage";
-import {MediaConfiguration} from "../context/MediaConfiguration";
+import { MediaConfiguration } from "../context/MediaConfiguration";
 import { Networks } from "@zoralabs/nft-hooks";
 
 export default {
@@ -9,7 +9,9 @@ export default {
 } as Meta;
 
 const Template: Story<typeof NFTFullPage> = (args) => (
-  <MediaConfiguration networkId={(args as any).testnet ? Networks.RINKEBY : Networks.MAINNET}>
+  <MediaConfiguration
+    networkId={(args as any).testnet ? Networks.RINKEBY : Networks.MAINNET}
+  >
     {/* @ts-ignore */}
     <NFTFullPage {...args} />
   </MediaConfiguration>
@@ -21,7 +23,7 @@ Image.args = {
   config: {
     showPerpetual: false,
   },
-  refreshInterval: 5000
+  refreshInterval: 5000,
 };
 
 export const Video = Template.bind({});
@@ -44,6 +46,22 @@ Text.args = {
   id: "3079",
 };
 
+export const PDF = Template.bind({});
+PDF.args = {
+  id: "3327",
+};
+
+export const HTML = Template.bind({});
+HTML.args = {
+  id: "3609",
+};
+
+export const FND = Template.bind({});
+FND.args = {
+  id: "7685",
+  contract: "0x3b3ee1931dc30c1957379fac9aba94d1c48a5405",
+};
+
 export const NonZoraImage = Template.bind({});
 NonZoraImage.args = {
   id: "5683",
@@ -52,8 +70,8 @@ NonZoraImage.args = {
 
 export const ArtBlocks = Template.bind({});
 ArtBlocks.args = {
-  id: '83000067',
-  contract: '0x152eee3dcc5526efd646e9b45c9a9672bffcc097',
+  id: "83000067",
+  contract: "0x152eee3dcc5526efd646e9b45c9a9672bffcc097",
   testnet: true,
 };
 
