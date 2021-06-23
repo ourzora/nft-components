@@ -4,7 +4,7 @@ import { AuctionHouseList } from "./auction-house/AuctionHouseList";
 import { NFTPreview, PreviewComponents } from "./nft-preview";
 import { NFTFullPage, FullComponents } from "./nft-full";
 import { MediaConfiguration } from "./context/MediaConfiguration";
-import { MediaRendererProps } from "./content-components";
+// import { MediaRendererProps } from "./content-components";
 import { NFTDataProvider } from "./context/NFTDataProvider";
 import { MediaObject } from "./components/MediaObject";
 import { NFTDataContext } from "./context/NFTDataContext";
@@ -27,6 +27,6 @@ export {
   NFTDataProvider,
   // Data context for fetching NFT info with custom components
   NFTDataContext,
-  MediaRendererProps,
+  // MediaRendererProps,
   MediaObject,
 };

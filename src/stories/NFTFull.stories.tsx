@@ -44,6 +44,16 @@ Text.args = {
   id: "3079",
 };
 
+export const PDF = Template.bind({});
+PDF.args = {
+  id: "3327",
+};
+
+export const HTML = Template.bind({});
+HTML.args = {
+  id: "3609",
+};
+
 export const NonZoraImage = Template.bind({});
 NonZoraImage.args = {
   id: "5683",

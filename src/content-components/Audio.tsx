@@ -10,7 +10,6 @@ import {
 
 import { useMediaContext } from "../context/useMediaContext";
 import { useSyncRef } from "../utils/useSyncRef";
-import { MediaRendererProps } from ".";
 
 type FakeWaveformCanvasProps = {
   audioRef: any;
@@ -95,7 +94,7 @@ const FakeWaveformCanvas = ({
   );
 };
 
-export const Audio = forwardRef<HTMLAudioElement, MediaRendererProps>(
+export const Audio = forwardRef<HTMLAudioElement, any>(
   ({ objectProps: { onLoad, ...mediaObject }, mediaLoaded }, ref) => {
     const { getStyles } = useMediaContext();
     const audioRef = useRef<HTMLAudioElement>(null);

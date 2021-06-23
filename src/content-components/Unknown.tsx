@@ -1,7 +1,21 @@
-import { MediaRendererProps } from ".";
-import { useMediaContext } from "../context/useMediaContext";
+import {
+  RenderComponentType,
+  RendererConfig,
+  RenderingPreference,
+  RenderRequest,
+} from "./RendererConfig";
 
-export const Unknown = ({ media }: MediaRendererProps) => {
-  const { getStyles } = useMediaContext();
-  return <div {...getStyles("mediaObjectMessage")}>{media?.mimeType}</div>;
+export const Unknown: RendererConfig = {
+  getRenderingPreference: (request: RenderRequest) => {
+    if (request.media.content?.type?.startsWith("text/")) {
+      return RenderingPreference.LOW;
+    }
+    return RenderingPreference.INVALID;
+  },
+
+  render: ({ request, getStyles }: RenderComponentType) => (
+    <div {...getStyles("mediaObjectMessage")}>
+      {request.media.content?.type || "unknown"}
+    </div>
+  ),
 };
