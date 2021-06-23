@@ -28,6 +28,7 @@ const HTMLRenderer = ({ request }: RenderComponentType) => {
   return (
     <MediaLoader loading={loading} error={error}>
       <iframe
+        sandbox="allow-scripts"
         height={Math.floor(windowHeight * 0.6)}
         width="100%"
         style={{ border: 0 }}
