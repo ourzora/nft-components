@@ -4,7 +4,7 @@ export const Strings = {
    * @default Collected by:
    */
   COLLECTED: "Collected by: ",
-  /** 
+  /**
    * Created by, used in the thumbnail image view
    */
   CREATED: "Created by: ",
@@ -88,7 +88,7 @@ export const Strings = {
    */
   BIDDER: "Bidder",
   /**
-   * Header for NFT / bid history box on full view page 
+   * Header for NFT / bid history box on full view page
    * @default History
    */
   NFT_HISTORY: "History",
@@ -157,7 +157,7 @@ export const Strings = {
    * @default Accepted
    */
   PROPOSAL_ACCEPTED: "Accepted",
-  /** 
+  /**
    * String to show while pricing is loading
    * @default ...
    */
@@ -167,5 +167,47 @@ export const Strings = {
    * exists but content is loaded
    * @default --
    */
-   NO_PRICING_PLACEHOLDER: '--',
+  NO_PRICING_PLACEHOLDER: "--",
+  /**
+   * Play audio button description text
+   * 
+   * @default Play audio
+   */
+  AUDIO_CONTROLS_PLAY: "Play audio",
+  /**
+   * Pause audio description text
+   * 
+   * @default Pause audio
+   */
+  AUDIO_CONTROLS_PAUSE: "Pause audio",
+  /**
+   * aria-label for video controls container, announced when user selects video controls
+   * 
+   * @default Video playback controls
+   */
+  VIDEO_CONTROLS_LABEL: "Video playback controls",
+  /**
+   * Fullscreen button accessible label
+   * i
+   * @default Fullscreen
+   */
+  VIDEO_CONTROLS_FULLSCREEN: "Fullscreen",
+  /**
+   * Play video button description text
+   * 
+   * @default Play
+   */
+  VIDEO_CONTROLS_PLAY: "Play",
+  /**
+   * Pause video description text
+   * 
+   * @default Pause
+   */
+  VIDEO_CONTROLS_PAUSE: "Pause",
+  /**
+   * Mute video controls description text
+   * 
+   * @default Mute
+   */
+  VIDEO_CONTROLS_MUTE: "Mute",
 };

@@ -16,6 +16,7 @@ type MetadataIsh = {
 
 type MediaObjectProps = {
   contentURI?: string;
+  a11yIdPrefix?: string;
   metadata: MetadataIsh;
   isFullPage?: boolean;
 };
@@ -23,6 +24,7 @@ type MediaObjectProps = {
 export const MediaObject = ({
   contentURI,
   metadata,
+  a11yIdPrefix,
   isFullPage = false,
 }: MediaObjectProps) => {
   const [mediaError, setMediaErrorMessage] = useState<undefined | string>();
@@ -62,7 +64,8 @@ export const MediaObject = ({
         objectProps: {
           ...getStyles("mediaObject", { mediaLoaded, isFullPage }),
           src: uri,
-          alt: metadata.description,
+          alt: metadata.name,
+          'aria-describedby': a11yIdPrefix ?? `${a11yIdPrefix}description`,
           onError: setMediaError,
           onLoad: () => setMediaLoaded(true),
         },

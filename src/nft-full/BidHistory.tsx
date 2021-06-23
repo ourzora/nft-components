@@ -6,8 +6,11 @@ import { NFTDataContext } from "../context/NFTDataContext";
 import { useMediaContext } from "../context/useMediaContext";
 import { InfoContainer } from "./InfoContainer";
 
+const dateFromTimestamp = (timestamp: string) =>
+  new Date(parseInt(timestamp, 10) * 1000);
+
 const formatDate = (timestamp: string) =>
-  new Date(parseInt(timestamp, 10) * 1000).toLocaleString("en-US", {
+  dateFromTimestamp(timestamp).toLocaleString("en-US", {
     month: "long",
     day: "numeric",
     hour: "2-digit",
@@ -95,7 +98,7 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
     return eventsList
       .sort((bidA, bidB) => (bidA.createdAt > bidB.createdAt ? -1 : 1))
       .map((bidItem) => (
-        <div {...getStyles("fullPageHistoryItem")} key={bidItem.createdAt}>
+        <li {...getStyles("fullPageHistoryItem")} key={bidItem.createdAt}>
           <div>
             <span {...getStyles("pricingAmount")}>
               <AddressView address={bidItem.actor} />{" "}
@@ -103,15 +106,20 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
             {bidItem.activityDescription} {bidItem.pricing}
           </div>
           {bidItem.createdAt && (
-            <div {...getStyles("fullPageHistoryItemDatestamp")}>
+            <time
+              dateTime={dateFromTimestamp(bidItem.createdAt).toISOString()}
+              {...getStyles("fullPageHistoryItemDatestamp")}
+            >
               {formatDate(bidItem.createdAt)}
-            </div>
+            </time>
           )}
-        </div>
+        </li>
       ));
   };
 
   return (
-    <InfoContainer titleString="NFT_HISTORY">{getPastBids()}</InfoContainer>
+    <InfoContainer titleString="NFT_HISTORY">
+      <ol style={{ padding: 0 }}>{getPastBids()}</ol>
+    </InfoContainer>
   );
 };

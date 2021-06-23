@@ -16,7 +16,7 @@ export const InfoContainer = ({
 
   return (
     <div {...getStyles("infoContainer", {bottomPadding})}>
-      <div {...getStyles("fullLabel")}>{getString(titleString)}</div>
+      <h4 {...getStyles("fullLabel")}>{getString(titleString)}</h4>
       {children}
     </div>
   );

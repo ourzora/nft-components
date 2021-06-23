@@ -141,6 +141,7 @@ export const Style = {
     `,
     fullItemInfo: (_: ThemeOptionsType) => css``,
     fullTitle: (_: ThemeOptionsType) => css`
+      font-weight: inherit;
       font-size: 30px;
       margin: 20px 0;
     `,
@@ -151,14 +152,15 @@ export const Style = {
     fullOwnerAddress: (theme: ThemeOptionsType) => [
       css`
         font-size: ${theme.fontSizeFull}px;
+        margin: 0;
       `,
       theme.titleFont,
     ],
     fullLabel: (theme: ThemeOptionsType) => [
       css`
+        margin: 0 0 5px;
         text-transform: uppercase;
         font-size: 14px;
-        margin-bottom: 5px;
         opacity: 0.5;
       `,
       theme.bodyFont,
@@ -242,10 +244,10 @@ export const Style = {
     fullInfoAuctionWrapper: () => ``,
     fullPlaceOfferButton: (_: any) => css``,
     fullInfoCreatorEquityContainer: (_: any) => css`
-      margin-top: 15px;
+      margin-top: 20px;
     `,
     fullInfoProofAuthenticityContainer: (_: any) => css`
-      margin-top: 15px;
+      margin-top: 20px;
     `,
     fullProofLink: (theme: ThemeOptionsType) => css`
       display: block;
@@ -410,8 +412,11 @@ export const Style = {
       ${CENTER_FULL_CONTAINER}
       ${isFullPage
         ? `
+        z-index: 1; /* todo: iain remove need for line */
         opacity: 0;
-        &:hover {
+        &:hover,
+        &:focus,
+        &:focus-within {
           opacity: 1;
         }
         transition: opacity 0.6s ease-in-out;
@@ -420,12 +425,12 @@ export const Style = {
         : "display: none;"}
     `,
     mediaFullscreenButton: (_: ThemeOptionsType) => css`
-      ${buttonCommonSize("16px")}
+      ${buttonCommonSize("20px")}
       background-color: #000;
       ${renderSVG(SVG_FULLSCREEN)}
     `,
     mediaMuteButton: (_: ThemeOptionsType, { muted }: any) => css`
-      ${buttonCommonSize("16px")}
+      ${buttonCommonSize("20px")}
       background-color: #000;
       background-image: url("data:image/svg+xml,${encodeURIComponent(
         muted ? SVG_UNMUTED : SVG_MUTED
