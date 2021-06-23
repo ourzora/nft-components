@@ -35,6 +35,15 @@ const buttonCommonSize = (size: string) => `
   margin: 0 10px;
 `;
 
+const buttonReset = `
+  font: inherit;
+  text-decoration: none;
+  margin: 0;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+`;
+
 const CENTER_FULL_CONTAINER = `
   position: absolute;
   width: 100%;
@@ -62,7 +71,6 @@ export const Style = {
     `,
     // Styles for preview card
     cardOuter: (theme: ThemeOptionsType, { hasClickEvent }: any) => css`
-      ${hasClickEvent ? "cursor: pointer;" : ""}
       background: ${theme.previewCard.background};
       overflow: hidden;
       border-radius: ${theme.defaultBorderRadius}px;
@@ -72,9 +80,23 @@ export const Style = {
       line-height: ${theme.lineSpacing}px;
       ${theme.bodyFont}
       transition: transform 0.1s ease-in-out;
-      &:active {
-        transform: scale(0.98);
-      }
+      position: relative;
+      ${hasClickEvent
+        ? `
+        &:active {
+          transform: scale(0.98);
+        }
+      `
+        : ""}
+    `,
+    cardLink: (_: ThemeOptionsType) => css`
+      ${buttonReset}
+      color: transparent;
+      background: transparent;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: 1;
     `,
     cardHeader: (theme: ThemeOptionsType) => css`
       padding: ${theme.textBlockPadding};
@@ -127,10 +149,12 @@ export const Style = {
       `;
     },
     cardTitle: (theme: ThemeOptionsType) => css`
+      font-size: inherit;
+      margin: 0;
       max-width: calc(${theme.previewCard.width} - 30px),
       overflow: hidden;
-      white-space: nowrap;
       text-overflow: ellipsis;
+      white-space: nowrap;
       ${theme.titleFont}
     `,
     // Styles for full-page view
@@ -279,6 +303,7 @@ export const Style = {
     ],
     // Generic styles
     button: (theme: ThemeOptionsType, { primary }: any) => css`
+      ${buttonReset}
       background: ${primary
         ? theme.buttonColor.primaryBackground
         : theme.buttonColor.background};
@@ -287,12 +312,6 @@ export const Style = {
         : theme.buttonColor.text};
       border-radius: ${theme.defaultBorderRadius}px;
       padding: 11px;
-      font: inherit;
-      text-decoration: none;
-      margin: 0;
-      border: 0;
-      cursor: pointer;
-      display: inline-block;
       transition: transform 0.1s ease-in-out;
       &:active {
         transform: scale(0.98);

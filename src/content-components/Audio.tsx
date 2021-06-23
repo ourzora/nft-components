@@ -14,13 +14,9 @@ import { MediaRendererProps } from ".";
 
 type FakeWaveformCanvasProps = {
   audioRef: any;
-  setPlaying: (playing: boolean) => void;
 };
 
-const FakeWaveformCanvas = ({
-  audioRef,
-  setPlaying,
-}: FakeWaveformCanvasProps) => {
+const FakeWaveformCanvas = ({ audioRef }: FakeWaveformCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [width, setWidth] = useState<undefined | number>();
   const updateWidth = useCallback(() => {
@@ -156,7 +152,6 @@ export const Audio = forwardRef<HTMLAudioElement, MediaRendererProps>(
           playsInline
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
-          onLoad={onLoad}
           onLoadedData={onLoad}
           onCanPlayThrough={onLoad}
           {...mediaObject}

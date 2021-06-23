@@ -25,12 +25,12 @@ export const Video = forwardRef<HTMLVideoElement, MediaRendererProps>(
     useSyncRef(video, ref);
 
     useEffect(() => {
-      const cb = () => {
+      const fullScreenCallback = () => {
         setIsFullScreen(!!document.fullscreenElement);
       };
-      document.addEventListener("fullscreenchange", cb);
+      document.addEventListener("fullscreenchange", fullScreenCallback);
       return () => {
-        document.removeEventListener("fullscreenchange", cb);
+        document.removeEventListener("fullscreenchange", fullScreenCallback);
       };
     }, []);
 
