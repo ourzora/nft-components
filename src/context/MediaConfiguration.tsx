@@ -31,7 +31,7 @@ type MediaContextConfigurationProps = {
   /**
    * List of renderers.
    */
-  renderers: RendererConfig[];
+  renderers?: RendererConfig[];
 };
 
 export const MediaConfiguration = ({
