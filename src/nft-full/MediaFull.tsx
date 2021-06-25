@@ -5,7 +5,7 @@ import { MediaObject } from "../components/MediaObject";
 import { useMediaContext } from "../context/useMediaContext";
 
 type MediaFullProps = {
-  a11yIdPrefix: string;
+  a11yIdPrefix?: string;
 };
 
 export const MediaFull = ({ a11yIdPrefix }: MediaFullProps) => {
