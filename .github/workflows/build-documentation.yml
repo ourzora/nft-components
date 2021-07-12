@@ -1,10 +1,10 @@
-name: Publish Storybook
+name: Build Storybook
 on:
-  push:
+  pull_request:
     branches: [main]
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Setup repo
@@ -17,8 +17,3 @@ jobs:
         run: yarn
       - name: Build storybook
         run: yarn run build-storybook
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.4
-        with:
-          branch: gh-pages
-          folder: storybook-static
