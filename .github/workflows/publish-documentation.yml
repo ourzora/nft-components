@@ -19,5 +19,7 @@ jobs:
         run: yarn
       - name: Build storybook
         run: yarn run build-storybook
+      - run: git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+      - run: git config --global user.name "$GITHUB_ACTOR"
       - name: Deploy storybook
         run: yarn run deploy-storybook -r "https://$GITHUB_TOKEN@github.com/ourzora/nft-components.git"
