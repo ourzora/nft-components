@@ -17,9 +17,8 @@ jobs:
         run: yarn
       - name: Build storybook
         run: yarn run build-storybook
-      - name: Publish generated content to GitHub Pages
-        uses: tsunematsu21/actions-publish-gh-pages@v1.0.2
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
-          dir: storybook-static
           branch: gh-pages
-          token: ${{ github.token }}
+          folder: storybook-static
