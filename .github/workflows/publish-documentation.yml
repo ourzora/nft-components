@@ -16,6 +16,6 @@ jobs:
         with:
           node-version: '14'
       - name: Build storybook
-        runs: yarn build-storybook
+        run: yarn build-storybook
       - name: Deploy storybook
-        runs: yarn deploy-storybook
+        run: yarn deploy-storybook
