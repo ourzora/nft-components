@@ -20,4 +20,4 @@ jobs:
       - name: Build storybook
         run: yarn run build-storybook
       - name: Deploy storybook
-        run: yarn run deploy-storybook -r https://$GITHUB_TOKEN@github.com/ourzora/nft-components.git"
+        run: yarn run deploy-storybook -r "https://$GITHUB_TOKEN@github.com/ourzora/nft-components.git"
