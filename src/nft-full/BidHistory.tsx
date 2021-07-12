@@ -49,14 +49,14 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
     if (
       data.pricing.reserve?.createdAtTimestamp &&
       // Only show approved auction listings
-      data.pricing.reserve?.approved
+      data.pricing.reserve?.approvedTimestamp
     ) {
       eventsList.push({
         activityDescription: getString("BID_HISTORY_LISTED"),
         pricing: <Fragment />,
         actor: data.pricing.reserve.tokenOwner.id,
         // TODO(iain): Update to the timestamp when approved
-        createdAt: data.pricing.reserve.createdAtTimestamp,
+        createdAt: data.pricing.reserve.approvedTimestamp,
       });
     }
 
