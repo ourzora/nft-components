@@ -14,4 +14,4 @@ jobs:
         with:
           node-version: '14'
       - name: Build storybook
-        run: yarn build-storybook
+        run: yarn run build-storybook
