@@ -56,6 +56,7 @@
         },
         "duration": "3600",
         "expectedEndTimestamp": "1623156940",
+        "approvedTimestamp": "1621049015",
         "finalizedAtTimestamp": null,
         "firstBidTime": "1623153340",
         "id": "110",

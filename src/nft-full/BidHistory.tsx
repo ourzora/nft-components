@@ -49,7 +49,6 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
     if (
       data.pricing.reserve?.createdAtTimestamp &&
       // Only show approved auction listings
-      data.pricing.reserve?.approved && 
       data.pricing.reserve?.approvedTimestamp
     ) {
       eventsList.push({

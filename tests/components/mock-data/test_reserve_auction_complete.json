@@ -38,6 +38,7 @@
         "curatorFeePercentage": 0,
         "duration": "86400",
         "expectedEndTimestamp": "1621049015",
+        "approvedTimestamp": "1621049015",
         "finalizedAtTimestamp": "1621157804",
         "firstBidTime": "1620962615",
         "id": "22",
