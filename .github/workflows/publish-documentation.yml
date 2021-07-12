@@ -2,6 +2,8 @@ name: Publish Storybook
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   publish:
@@ -9,15 +11,11 @@ jobs:
     steps:
       - name: Setup repo
         uses: actions/checkout@v2
-      - name: Yarn install
-        uses: CultureHQ/actions-yarn@master
+      - name: Setup Node
+        uses: actions/setup-node@v2
         with:
-          args: install
+          node-version: '14'
       - name: Build storybook
-        uses: CultureHQ/actions-yarn@master
-        with:
-          args: run build-storybook
+        runs: yarn build-storybook
       - name: Deploy storybook
-        uses: CultureHQ/actions-yarn@master
-        with:
-          args: run deploy-storybook
+        runs: yarn deploy-storybook
