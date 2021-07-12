@@ -24,4 +24,4 @@ jobs:
         with:
           dir: storybook-static
           branch: gh-pages
-          token: ${{ secrets.ACCESS_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
