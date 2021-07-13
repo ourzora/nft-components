@@ -39,9 +39,13 @@ export const MediaConfiguration = ({
   style = {},
   children,
   strings = {},
-  renderers = MediaRendererDefaults,
+  renderers,
 }: MediaContextConfigurationProps) => {
   const superContext = useContext(MediaContext);
+
+  if (!renderers) {
+    renderers = MediaRendererDefaults;
+  }
 
   let newContext = {
     // TODO(iain): Fix typing

@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
   forwardRef,
+  useMemo,
 } from "react";
 import { useSyncRef } from "../utils/useSyncRef";
 import { MediaLoader, useMediaObjectProps } from "./MediaLoader";
@@ -18,9 +19,10 @@ import {
 
 type FakeWaveformCanvasProps = {
   audioRef: any;
+  uri: string;
 };
 
-const FakeWaveformCanvas = ({ audioRef }: FakeWaveformCanvasProps) => {
+const FakeWaveformCanvas = ({ audioRef, uri }: FakeWaveformCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [width, setWidth] = useState<undefined | number>();
   const updateWidth = useCallback(() => {
@@ -38,6 +40,14 @@ const FakeWaveformCanvas = ({ audioRef }: FakeWaveformCanvasProps) => {
       window.removeEventListener("resize", updateWidth);
     };
   }, [updateWidth]);
+
+  const uriEntropy = useMemo(
+    () =>
+      uri
+        .split("")
+        .reduce((last, char) => last ^ (last + char.charCodeAt(0)), 0),
+    [uri]
+  );
 
   useEffect(() => {
     updateCanvasLines();
@@ -68,8 +78,9 @@ const FakeWaveformCanvas = ({ audioRef }: FakeWaveformCanvasProps) => {
       }
       context.clearRect(0, 0, width, height);
 
+      console.log({ uriEntropy });
       for (let i = 0; i < width; i += 5) {
-        const sinRnd = Math.sin(i) * 10000;
+        const sinRnd = Math.sin(i + uriEntropy) * 10000;
         const lineHeight = Math.floor(
           Math.min(
             Math.sin((i / width) * 0.2) +
@@ -96,12 +107,14 @@ const FakeWaveformCanvas = ({ audioRef }: FakeWaveformCanvasProps) => {
 };
 
 export const AudioRenderer = forwardRef<HTMLAudioElement, RenderComponentType>(
-  (renderProps, ref) => {
-    const {request, getStyles} = renderProps;
+  ({ request, getStyles, a11yIdPrefix }, ref) => {
+    const uri = request.media.content?.uri || request.media.animation?.uri;
     const { props, loading, error } = useMediaObjectProps({
-      uri: request.media.content?.uri || request.media.animation?.uri,
-      ...renderProps
-  });
+      uri,
+      request,
+      a11yIdPrefix,
+      getStyles,
+    });
 
     const audioRef = useRef<HTMLAudioElement>(null);
     useSyncRef(audioRef, ref);
@@ -150,7 +163,7 @@ export const AudioRenderer = forwardRef<HTMLAudioElement, RenderComponentType>(
                 {playingText}
               </button>
               <div {...getStyles("mediaAudioWaveform")}>
-                <FakeWaveformCanvas audioRef={audioRef} />
+                <FakeWaveformCanvas uri={uri} audioRef={audioRef} />
               </div>
             </Fragment>
           )}
