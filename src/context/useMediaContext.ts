@@ -5,7 +5,6 @@ import { MediaContext, ThemeType } from "./MediaContext";
 
 export function useMediaContext() {
   const mediaContext = useContext(MediaContext);
-  console.log({mediaContext});
 
   const getStyles = (
     themeKey: keyof ThemeType["styles"],
