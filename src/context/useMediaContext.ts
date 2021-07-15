@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { css } from "@emotion/css";
-import { Strings } from "../constants/strings";
+import type { Strings } from "../constants/strings";
 import { MediaContext, ThemeType } from "./MediaContext";
 
 export function useMediaContext() {

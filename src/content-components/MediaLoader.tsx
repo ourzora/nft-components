@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMediaContext } from "../context/useMediaContext";
-import { RenderRequest } from "./RendererConfig";
+import type { RenderRequest } from "./RendererConfig";
 
 export function useMediaObjectProps(
   uri: string | undefined,

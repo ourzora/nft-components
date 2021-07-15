@@ -4,7 +4,7 @@ import { NetworkIDs, Networks } from "@zoralabs/nft-hooks";
 import { Strings } from "../constants/strings";
 import { Style } from "../constants/style";
 import { MediaRendererDefaults } from "../content-components";
-import { RendererConfig } from "../content-components/RendererConfig";
+import type { RendererConfig } from "../content-components/RendererConfig";
 
 export type ThemeType = typeof Style;
 
@@ -15,6 +15,7 @@ export type MediaContextType = {
   renderers: RendererConfig[];
 };
 
+console.log({MediaRendererDefaults});
 export const MediaContext = createContext<MediaContextType>({
   networkId: Networks.MAINNET,
   style: Style,

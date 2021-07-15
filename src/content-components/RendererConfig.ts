@@ -1,5 +1,3 @@
-import React from "react";
-
 export enum RenderingPreference {
   INVALID = -1,
   FALLBACK = 0,

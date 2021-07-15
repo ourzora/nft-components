@@ -1,4 +1,4 @@
-import { Strings } from "../constants/strings";
+import type { Strings } from "../constants/strings";
 import { useMediaContext } from "../context/useMediaContext";
 
 export type InfoContainerProps = {
