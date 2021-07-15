@@ -23,11 +23,12 @@ export const VideoRenderer = forwardRef<HTMLVideoElement, RenderComponentType>(
         ? request.media.animation?.uri || request.media.content?.uri
         : request.media.content?.uri || request.media.animation?.uri;
 
-    const { props, loading, error } = useMediaObjectProps(
+    const { props, loading, error } = useMediaObjectProps({
       uri,
       request,
-      a11yIdPrefix
-    );
+      a11yIdPrefix,
+      getStyles,
+    });
 
     useSyncRef(video, ref);
 
@@ -96,7 +97,7 @@ export const VideoRenderer = forwardRef<HTMLVideoElement, RenderComponentType>(
       : getString("VIDEO_CONTROLS_PLAY");
 
     return (
-      <MediaLoader loading={loading} error={error}>
+      <MediaLoader getStyles={getStyles} loading={loading} error={error}>
         {video.current && (
           <div
             aria-label={getString("VIDEO_CONTROLS_LABEL")}

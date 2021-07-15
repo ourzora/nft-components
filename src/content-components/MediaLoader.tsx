@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-import { useMediaContext } from "../context/useMediaContext";
 import type { RenderRequest } from "./RendererConfig";
 
-export function useMediaObjectProps(
-  uri: string | undefined,
-  request: RenderRequest,
-  a11yIdPrefix?: string
-) {
+export function useMediaObjectProps({
+  uri,
+  request,
+  a11yIdPrefix,
+  getStyles,
+}: {
+  uri: string | undefined;
+  request: RenderRequest;
+  a11yIdPrefix?: string;
+  getStyles: any;
+}) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>();
-  const { getStyles } = useMediaContext();
 
   return {
     loading,
@@ -30,16 +34,16 @@ export function useMediaObjectProps(
 }
 
 export const MediaLoader = ({
+  getStyles,
   children,
   loading,
   error,
 }: {
+  getStyles: any;
   children: React.ReactNode;
   loading: boolean;
   error: string | undefined;
 }) => {
-  const { getStyles } = useMediaContext();
-
   if (!loading && !error) {
     return <React.Fragment>{children}</React.Fragment>;
   }

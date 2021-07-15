@@ -21,7 +21,7 @@ export const Text: RendererConfig = {
     const media = useNFTContent(request.media.content?.uri);
 
     return (
-      <MediaLoader loading={media.content ? false : true} error={media.error}>
+      <MediaLoader getStyles={getStyles} loading={media.content ? false : true} error={media.error}>
         <div {...getStyles("mediaContentText")}>
           {media.content && "text" in media.content ? media.content.text : ""}
         </div>

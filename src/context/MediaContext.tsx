@@ -15,7 +15,6 @@ export type MediaContextType = {
   renderers: RendererConfig[];
 };
 
-console.log({MediaRendererDefaults});
 export const MediaContext = createContext<MediaContextType>({
   networkId: Networks.MAINNET,
   style: Style,

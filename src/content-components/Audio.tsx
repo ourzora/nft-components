@@ -96,12 +96,12 @@ const FakeWaveformCanvas = ({ audioRef }: FakeWaveformCanvasProps) => {
 };
 
 export const AudioRenderer = forwardRef<HTMLAudioElement, RenderComponentType>(
-  ({ request, getStyles, a11yIdPrefix }, ref) => {
-    const { props, loading, error } = useMediaObjectProps(
-      request.media.content?.uri || request.media.animation?.uri,
-      request,
-      a11yIdPrefix
-    );
+  (renderProps, ref) => {
+    const {request, getStyles} = renderProps;
+    const { props, loading, error } = useMediaObjectProps({
+      uri: request.media.content?.uri || request.media.animation?.uri,
+      ...renderProps
+  });
 
     const audioRef = useRef<HTMLAudioElement>(null);
     useSyncRef(audioRef, ref);
@@ -137,7 +137,7 @@ export const AudioRenderer = forwardRef<HTMLAudioElement, RenderComponentType>(
     const playingText = playing ? "Pause" : "Play";
 
     return (
-      <MediaLoader loading={loading} error={error}>
+      <MediaLoader getStyles={getStyles} loading={loading} error={error}>
         <div ref={wrapper} {...getStyles("mediaAudioWrapper")}>
           {!loading && (
             <Fragment>
