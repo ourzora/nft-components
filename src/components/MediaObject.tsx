@@ -69,7 +69,7 @@ export const MediaObject = ({
         : 1
     );
     setRenderingInfo(sortedRenderers[0]);
-  }, [metadata, contentURI, mediaType.content]);
+  }, [renderers, metadata, contentURI, mediaType.content]);
 
   if (renderingInfo) {
     const RenderingComponent = renderingInfo.render;
@@ -83,5 +83,5 @@ export const MediaObject = ({
     );
   }
 
-  return <span>hai</span>;
+  return <span></span>;
 };
