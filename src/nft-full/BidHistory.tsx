@@ -98,7 +98,7 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
     return eventsList
       .sort((bidA, bidB) => (bidA.createdAt > bidB.createdAt ? -1 : 1))
       .map((bidItem) => (
-        <li {...getStyles("fullPageHistoryItem")} key={bidItem.createdAt}>
+        <li {...getStyles("fullPageHistoryItem")} key={`${bidItem.actor}-${bidItem.createdAt}`}>
           <div>
             <span {...getStyles("pricingAmount")}>
               <AddressView address={bidItem.actor} />{" "}

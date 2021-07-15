@@ -1,4 +1,3 @@
-import React from "react";
 import {
   DataTransformers,
   useNFT,
@@ -8,7 +7,7 @@ import {
 } from "@zoralabs/nft-hooks";
 
 import { NFTDataContext } from "./NFTDataContext";
-import {
+import type {
   OpenseaNFTDataType,
   ZNFTDataType,
 } from "@zoralabs/nft-hooks/dist/fetcher/AuctionInfoTypes";

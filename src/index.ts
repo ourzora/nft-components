@@ -3,6 +3,7 @@ import { Networks } from "@zoralabs/nft-hooks";
 import { AuctionHouseList } from "./auction-house/AuctionHouseList";
 import { MediaConfiguration } from "./context/MediaConfiguration";
 import * as MediaRenderers from "./content-components";
+import * as RendererConfigTypes from "./content-components/RendererConfig";
 import { NFTDataProvider } from "./context/NFTDataProvider";
 import { MediaObject } from "./components/MediaObject";
 import { NFTDataContext } from "./context/NFTDataContext";
@@ -30,4 +31,5 @@ export {
   MediaObject,
   // Renderers and default array for configuration
   MediaRenderers,
+  RendererConfigTypes,
 };

@@ -6,9 +6,9 @@ import {
 } from "@zoralabs/nft-hooks";
 import { merge } from "merge-anything";
 
-import { Strings } from "../constants/strings";
-import { RecursivePartial } from "../utils/RecursivePartial";
-import { RendererConfig } from "../content-components/RendererConfig";
+import type { Strings } from "../constants/strings";
+import type { RecursivePartial } from "../utils/RecursivePartial";
+import type { RendererConfig } from "../content-components/RendererConfig";
 import { MediaRendererDefaults } from "../content-components";
 import { MediaContext, ThemeType } from "./MediaContext";
 

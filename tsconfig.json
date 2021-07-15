@@ -23,7 +23,8 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "importsNotUsedAsValues": "error"
   },
   "include": ["src"],
   "exclude": ["src/stories"]

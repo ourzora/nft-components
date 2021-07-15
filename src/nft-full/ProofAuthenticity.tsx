@@ -1,4 +1,4 @@
-import { NFTDataType } from "@zoralabs/nft-hooks";
+import type { NFTDataType } from "@zoralabs/nft-hooks";
 import React, { useContext } from "react";
 
 import { NFTDataContext } from "../context/NFTDataContext";

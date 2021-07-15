@@ -7,11 +7,12 @@ import {
   RenderRequest,
 } from "./RendererConfig";
 
-const HTMLRenderer = ({ request }: RenderComponentType) => {
-  const { props, loading, error } = useMediaObjectProps(
-    request.media.content?.uri || request.media.animation?.uri,
-    request
-  );
+const HTMLRenderer = (requestProps: RenderComponentType) => {
+  const { getStyles, request } = requestProps;
+  const { props, loading, error } = useMediaObjectProps({
+    uri: request.media.content?.uri || request.media.animation?.uri,
+    ...requestProps,
+  });
   const [windowHeight, setWindowHeight] = useState<number>(
     () => window.innerHeight
   );
@@ -26,7 +27,7 @@ const HTMLRenderer = ({ request }: RenderComponentType) => {
   });
 
   return (
-    <MediaLoader loading={loading} error={error}>
+    <MediaLoader getStyles={getStyles} loading={loading} error={error}>
       <iframe
         sandbox="allow-scripts"
         height={Math.floor(windowHeight * 0.6)}

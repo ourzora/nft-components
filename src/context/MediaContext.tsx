@@ -4,7 +4,7 @@ import { NetworkIDs, Networks } from "@zoralabs/nft-hooks";
 import { Strings } from "../constants/strings";
 import { Style } from "../constants/style";
 import { MediaRendererDefaults } from "../content-components";
-import { RendererConfig } from "../content-components/RendererConfig";
+import type { RendererConfig } from "../content-components/RendererConfig";
 
 export type ThemeType = typeof Style;
 

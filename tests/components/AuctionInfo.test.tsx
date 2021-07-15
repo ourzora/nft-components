@@ -1,9 +1,10 @@
 import { readFile } from "fs/promises";
+import type { ReactNode } from "react";
 import { join } from "path";
 import { render, screen } from "@testing-library/react";
-import { FullComponents, NFTDataContext } from "../../src";
-import { ReactNode } from "react";
 import MockDate from "mockdate";
+
+import { FullComponents, NFTDataContext } from "../../src";
 import fetchMock from "./fetchMock";
 
 const loadJSON = async (name: string) => {

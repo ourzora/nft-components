@@ -8,15 +8,15 @@ import {
 } from "./RendererConfig";
 
 export const ImageRenderer = forwardRef<HTMLImageElement, RenderComponentType>(
-  ({ request, a11yIdPrefix }, ref) => {
-    const { props, loading, error } = useMediaObjectProps(
-      request.media.content?.uri || request.media.image?.uri,
-      request,
-      a11yIdPrefix
-    );
+  (requestProps, ref) => {
+    const { getStyles, request } = requestProps;
+    const { props, loading, error } = useMediaObjectProps({
+      uri: request.media.content?.uri || request.media.image?.uri,
+      ...requestProps,
+    });
 
     return (
-      <MediaLoader loading={loading} error={error}>
+      <MediaLoader getStyles={getStyles} loading={loading} error={error}>
         <img ref={ref} {...props} />
       </MediaLoader>
     );

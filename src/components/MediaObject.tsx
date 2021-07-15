@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNFTContent } from "@zoralabs/nft-hooks";
 
 import { useMediaContext } from "../context/useMediaContext";
-import {
+import type {
   RendererConfig,
   RenderRequest,
 } from "../content-components/RendererConfig";

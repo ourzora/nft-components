@@ -1,4 +1,4 @@
-import { PricingInfo } from "@zoralabs/nft-hooks";
+import type { PricingInfo } from "@zoralabs/nft-hooks";
 import { Fragment } from "react";
 
 import { useMediaContext } from "../context/useMediaContext";
