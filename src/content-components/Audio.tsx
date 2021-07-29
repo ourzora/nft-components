@@ -17,12 +17,21 @@ import {
   RenderRequest,
 } from "./RendererConfig";
 
+
+import { useMediaContext } from "../context/useMediaContext";
+
 type FakeWaveformCanvasProps = {
   audioRef: any;
   uri: string;
 };
 
 const FakeWaveformCanvas = ({ audioRef, uri }: FakeWaveformCanvasProps) => {
+  
+  const { style } = useMediaContext();
+  const audioPlayerColors = style.theme.audioPlayerColor
+
+  console.log(audioPlayerColors)
+  
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [width, setWidth] = useState<undefined | number>();
   const updateWidth = useCallback(() => {
@@ -92,9 +101,9 @@ const FakeWaveformCanvas = ({ audioRef, uri }: FakeWaveformCanvasProps) => {
           audioRef.current.currentTime / audioRef.current.duration >
           i / width
         ) {
-          context.fillStyle = "#333";
+          context.fillStyle = audioPlayerColors.progressColor;
         } else {
-          context.fillStyle = "#999";
+          context.fillStyle = audioPlayerColors.waveformColor;
         }
         context.fillRect(i, (height - lineHeight) / 2, 2, lineHeight);
       }
