@@ -109,8 +109,8 @@ export const ThemeOptions = {
    * @default {waveformColor: '#999, progressColor: '#333'}
    */
   audioPlayerColor: {
-    waveformColor: '#ff0000',
-    progressColor: '#91ff00'
+    waveformColor: '#999',
+    progressColor: '#333'
   }
 };
 
