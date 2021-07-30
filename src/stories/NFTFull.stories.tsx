@@ -56,10 +56,10 @@ HTML.args = {
   id: "3609",
 };
 
-export const FND = Template.bind({});
-FND.args = {
-  id: "7685",
-  contract: "0x3b3ee1931dc30c1957379fac9aba94d1c48a5405",
+export const VideoCustom = Template.bind({});
+VideoCustom.args = {
+  id: "1",
+  contract: "0x9edb1d313cfeb24a71cd3619ede76b41f7909c20",
 };
 
 export const NonZoraImage = Template.bind({});

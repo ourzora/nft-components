@@ -1,3 +1,5 @@
+import type { ThemeType } from "../context/MediaContext";
+
 export enum RenderingPreference {
   INVALID = -1,
   FALLBACK = 0,
@@ -29,6 +31,7 @@ export type RenderComponentType = {
   // TODO(iain): Fix types
   getString: any;
   getStyles: any;
+  theme: ThemeType["theme"];
   a11yIdPrefix?: string;
 };
 

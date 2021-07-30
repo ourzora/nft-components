@@ -25,7 +25,8 @@ export const ImageRenderer = forwardRef<HTMLImageElement, RenderComponentType>(
 export const Image: RendererConfig = {
   getRenderingPreference: (request: RenderRequest) => {
     if (request.media.image) {
-      if (request.media.animation) {
+      // Make low priority only if full screen, move to normal priority if preview
+      if (request.renderingContext === "FULL" && request.media.animation) {
         return RenderingPreference.LOW;
       }
       return RenderingPreference.NORMAL;
