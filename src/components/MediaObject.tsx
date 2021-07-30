@@ -32,7 +32,7 @@ export const MediaObject = ({
 }: MediaObjectProps) => {
   const mediaType = useNFTContent(metadata.animation_url);
   const [renderingInfo, setRenderingInfo] = useState<RendererConfig>();
-  const { getStyles, getString, renderers } = useMediaContext();
+  const { getStyles, getString, renderers, style } = useMediaContext();
 
   const request: RenderRequest = {
     media: {
@@ -78,6 +78,7 @@ export const MediaObject = ({
         a11yIdPrefix={a11yIdPrefix}
         getStyles={getStyles}
         getString={getString}
+        theme={style.theme}
         request={request}
       />
     );

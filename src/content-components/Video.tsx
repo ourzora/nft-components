@@ -6,12 +6,14 @@ import {
   RenderingPreference,
   RenderRequest,
 } from "./RendererConfig";
+import {ImageRenderer} from './Image';
 
 import { useSyncRef } from "../utils/useSyncRef";
 import { useA11yIdPrefix } from "../utils/useA11yIdPrefix";
 
 export const VideoRenderer = forwardRef<HTMLVideoElement, RenderComponentType>(
-  ({ getString, getStyles, request, a11yIdPrefix }, ref) => {
+  (props, ref) => {
+    const { getString, getStyles, request, a11yIdPrefix } = props;
     const [isPlaying, setIsPlaying] = useState(true);
     const [isMuted, setIsMuted] = useState(true);
     const [isFullScreen, setIsFullScreen] = useState(false);
@@ -23,7 +25,7 @@ export const VideoRenderer = forwardRef<HTMLVideoElement, RenderComponentType>(
         ? request.media.animation?.uri || request.media.content?.uri
         : request.media.content?.uri || request.media.animation?.uri;
 
-    const { props, loading, error } = useMediaObjectProps({
+    const { props: mediaProps, loading, error } = useMediaObjectProps({
       uri,
       request,
       a11yIdPrefix,
@@ -96,6 +98,11 @@ export const VideoRenderer = forwardRef<HTMLVideoElement, RenderComponentType>(
       ? getString("VIDEO_CONTROLS_PAUSE")
       : getString("VIDEO_CONTROLS_PLAY");
 
+    // Fallback to rendering an image if loading the video fails
+    if (error) {
+      return <ImageRenderer {...props} />;
+    }
+
     return (
       <MediaLoader getStyles={getStyles} loading={loading} error={error}>
         {video.current && (
@@ -135,7 +142,7 @@ export const VideoRenderer = forwardRef<HTMLVideoElement, RenderComponentType>(
           </div>
         )}
         <video
-          {...props}
+          {...mediaProps}
           aria-controls={controlAriaId}
           autoPlay
           controls={isFullScreen}
@@ -143,7 +150,7 @@ export const VideoRenderer = forwardRef<HTMLVideoElement, RenderComponentType>(
           muted={isMuted}
           onCanPlayThrough={onCanPlay}
           onEnded={playLoop}
-          onLoadedData={props.onLoad}
+          onLoadedData={mediaProps.onLoad}
           onPause={() => setIsPlaying(false)}
           onPlay={() => setIsPlaying(true)}
           playsInline
