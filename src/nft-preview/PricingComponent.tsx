@@ -65,8 +65,10 @@ export const PricingComponent = ({
         <div {...getStyles("cardAuctionPricing", { type: "reserve-pending" })}>
           <span {...getStyles("textSubdued")}>{getString("SOLD_FOR")}</span>
           <span {...getStyles("pricingAmount")}>
-            {highestPreviousBid?.pricing.prettyAmount}{" "}
-            {highestPreviousBid?.pricing.currency.symbol}
+            <PricingString
+              pricing={highestPreviousBid.pricing}
+              showUSD={false}
+            />
           </span>
           {listPrice}
         </div>
@@ -76,9 +78,11 @@ export const PricingComponent = ({
       <div {...getStyles("cardAuctionPricing", { type: "perpetual" })}>
         <span {...getStyles("textSubdued")}>{getString("HIGHEST_BID")}</span>
         <span {...getStyles("pricingAmount")}>
-          {!highestBid && getString("NO_PRICING_PLACEHOLDER")}
-          {highestBid?.pricing.prettyAmount}{" "}
-          {highestBid?.pricing.currency.symbol}
+          {highestBid ? (
+            <PricingString showUSD={false} pricing={highestBid.pricing} />
+          ) : (
+            getString("NO_PRICING_PLACEHOLDER")
+          )}
         </span>
         {listPrice}
       </div>
@@ -94,8 +98,9 @@ export const PricingComponent = ({
         <div {...getStyles("cardAuctionPricing", { type: "reserve-active" })}>
           <span {...getStyles("textSubdued")}>{getString("TOP_BID")}</span>
           <span {...getStyles("pricingAmount")}>
-            {highestBid?.pricing.prettyAmount}{" "}
-            {highestBid?.pricing.currency.symbol}
+            {highestBid && (
+              <PricingString pricing={highestBid?.pricing} showUSD={false} />
+            )}
           </span>
           {pricing.reserve?.expectedEndTimestamp &&
             isInFuture(pricing.reserve.expectedEndTimestamp) && (
@@ -121,8 +126,7 @@ export const PricingComponent = ({
             {getString("AUCTION_SOLD_FOR")}
           </span>
           <span {...getStyles("pricingAmount")}>
-            {highestBid.pricing.prettyAmount}{" "}
-            {highestBid.pricing.currency.symbol}
+            <PricingString showUSD={false} pricing={highestBid.pricing} />
           </span>
         </div>
       );
@@ -132,10 +136,13 @@ export const PricingComponent = ({
         <div {...getStyles("cardAuctionPricing", { type: "reserve-pending" })}>
           <span {...getStyles("textSubdued")}>
             {getString("RESERVE_PRICE")}
+            TEST
           </span>
           <span>
-            {pricing.reserve.reservePrice.prettyAmount}{" "}
-            {pricing.reserve.reservePrice.currency.symbol}
+            <PricingString
+              showUSD={false}
+              pricing={pricing.reserve.reservePrice}
+            />
           </span>
         </div>
       );
