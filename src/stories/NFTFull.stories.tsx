@@ -75,6 +75,12 @@ ArtBlocks.args = {
   testnet: true,
 };
 
+export const ModelViewer = Template.bind({})
+ModelViewer.args = {
+  id: "3591",
+  testnet: true,
+};
+
 export const CryptoKitty = Template.bind({});
 CryptoKitty.args = {
   id: "556",
