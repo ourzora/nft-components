@@ -15,6 +15,13 @@ export const ThemeOptions = {
   },
 
   /**
+   * Flag if showing transaction history links on full view
+   * should be enabled
+   * @default true
+   */
+  showTxnLinks: true,
+
+  /**
    * Padding for preview card text block
    * @default 10px 15px
    */

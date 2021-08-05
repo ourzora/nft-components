@@ -198,6 +198,40 @@ export const Style = {
       `,
       theme.bodyFont,
     ],
+    // CSS Class for restyling and targeting
+    fullPageHistoryItemDescription: (theme: ThemeOptionsType) => css`
+      ${theme.showTxnLinks ? "margin-right: 20px;" : ""}
+    `,
+    fullPageHistoryItemMeta: () => css`
+      position: relative;
+    `,
+    fullPageHistoryTxnLink: () => css`
+      font-size: 0;
+      position: relative;
+      display: block;
+      &:hover {
+        :after {
+          opacity: 1;
+          background-color: #f2f2f2;
+        }
+      }
+      :after {
+        border-radius: 4px;
+        padding: 4px;
+        opacity: 0.8;
+        background-repeat: no-repeat;
+        background-position: center;
+        top: 14px;
+        z-index: 10;
+        right: 0;
+        transition: opacity 0.4s ease-in;
+        content: " ";
+        width: 14px;
+        height: 14px;
+        position: absolute;
+        ${renderSVG(SVG_NEXT_ICON)}
+      }
+    `,
     nftProposalMediaWrapper: (theme: ThemeOptionsType) => css`
       border-radius: 4px;
       display: flex;

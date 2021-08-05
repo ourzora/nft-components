@@ -24,7 +24,7 @@ type BidHistoryProps = {
 
 export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
   const { nft } = useContext(NFTDataContext);
-  const { getString, getStyles } = useMediaContext();
+  const { getString, getStyles, style } = useMediaContext();
 
   const getPastBids = () => {
     const { data } = nft;
@@ -44,6 +44,8 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
       actor: bid.bidder.id,
       pricing: <PricingString pricing={bid.pricing} showUSD={false} />,
       createdAt: bid.createdAtTimestamp,
+      // hint for type inference
+      transactionHash: bid.transactionHash as string | null,
     }));
 
     if (
@@ -57,6 +59,7 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
         actor: data.pricing.reserve.tokenOwner.id,
         // TODO(iain): Update to the timestamp when approved
         createdAt: data.pricing.reserve.approvedTimestamp,
+        transactionHash: data.pricing.reserve.transactionHash,
       });
     }
 
@@ -74,6 +77,7 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
         pricing: <Fragment />,
         actor: highestBid.bidder.id,
         createdAt: data.pricing.reserve.expectedEndTimestamp,
+        transactionHash: null,
       });
     }
 
@@ -83,6 +87,7 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
         pricing: <Fragment />,
         actor: data.nft.creator || "",
         createdAt: data.zoraNFT.createdAtTimestamp,
+        transactionHash: null,
       });
     }
 
@@ -92,26 +97,41 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
         pricing: <Fragment />,
         actor: data.openseaInfo.creator.address,
         createdAt: null,
+        transactionHash: null,
       });
     }
 
     return eventsList
       .sort((bidA, bidB) => (bidA.createdAt > bidB.createdAt ? -1 : 1))
       .map((bidItem) => (
-        <li {...getStyles("fullPageHistoryItem")} key={`${bidItem.actor}-${bidItem.createdAt}`}>
-          <div>
+        <li
+          {...getStyles("fullPageHistoryItem")}
+          key={`${bidItem.actor}-${bidItem.createdAt}`}
+        >
+          <div {...getStyles("fullPageHistoryItemDescription")}>
             <span {...getStyles("pricingAmount")}>
               <AddressView address={bidItem.actor} />{" "}
             </span>
             {bidItem.activityDescription} {bidItem.pricing}
           </div>
           {bidItem.createdAt && (
-            <time
-              dateTime={dateFromTimestamp(bidItem.createdAt).toISOString()}
-              {...getStyles("fullPageHistoryItemDatestamp")}
-            >
-              {formatDate(bidItem.createdAt)}
-            </time>
+            <div {...getStyles("fullPageHistoryItemMeta")}>
+              <time
+                dateTime={dateFromTimestamp(bidItem.createdAt).toISOString()}
+                {...getStyles("fullPageHistoryItemDatestamp")}
+              >
+                {formatDate(bidItem.createdAt)}
+              </time>
+              {bidItem.transactionHash && style.theme.showTxnLinks && (
+                <a
+                  {...getStyles("fullPageHistoryTxnLink")}
+                  href={`https://etherscan.io/tx/${bidItem.transactionHash}`}
+                  target="_blank"
+                >
+                  {getString("BID_HISTORY_VIEW_TRANSACTION")}
+                </a>
+              )}
+            </div>
           )}
         </li>
       ));

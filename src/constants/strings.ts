@@ -138,6 +138,11 @@ export const Strings = {
    */
   BID_HISTORY_WON_AUCTION: "won the auction",
   /**
+   * Link to transaction details from bid history
+   * @default View Transaction
+   */
+  BID_HISTORY_VIEW_TRANSACTION: "View Transaction",
+  /**
    * Minted by bid history text
    * @default minted the NFT
    */
