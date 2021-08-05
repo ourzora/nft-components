@@ -21,3 +21,6 @@ export const SVG_AUCTION_APPROVE =
 
 export const SVG_AUCTION_DENY =
   '<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M2 2L8.75 8.75M15.5 15.5L8.75 8.75M8.75 8.75L15.5 2L2 15.5" stroke="black" stroke-width="3"/> </svg>';
+
+export const SVG_ARROW_LINK =
+  '<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><title>ionicons-v5-b</title><path fill="black" d="M58.79,439.13A16,16,0,0,1,48,424c0-73.1,14.68-131.56,43.65-173.77,35-51,90.21-78.46,164.35-81.87V88a16,16,0,0,1,27.05-11.57l176,168a16,16,0,0,1,0,23.14l-176,168A16,16,0,0,1,256,424V344.23c-45,1.36-79,8.65-106.07,22.64-29.25,15.12-50.46,37.71-73.32,67a16,16,0,0,1-17.82,5.28Z"/></svg> ';
