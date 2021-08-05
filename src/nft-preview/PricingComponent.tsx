@@ -136,7 +136,6 @@ export const PricingComponent = ({
         <div {...getStyles("cardAuctionPricing", { type: "reserve-pending" })}>
           <span {...getStyles("textSubdued")}>
             {getString("RESERVE_PRICE")}
-            TEST
           </span>
           <span>
             <PricingString
