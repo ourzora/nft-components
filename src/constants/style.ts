@@ -9,7 +9,6 @@ import {
   SVG_UNMUTED,
   SVG_AUCTION_APPROVE,
   SVG_AUCTION_DENY,
-  SVG_ARROW_LINK,
 } from "./svg-icons";
 import { ThemeOptions, ThemeOptionsType } from "./theme";
 
