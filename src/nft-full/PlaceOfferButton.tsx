@@ -20,25 +20,47 @@ export const PlaceOfferButton = ({ allowOffer }: PlaceOfferButtonProps) => {
 
   // Disable offer functionality if not a zora NFT or if offers are disabled
   if (
-    (allowOffer === false || !('zoraNFT' in nft.data)) &&
+    (allowOffer === false || !("zoraNFT" in nft.data)) &&
     nft.data.pricing.auctionType !== AuctionType.RESERVE
   ) {
     return <Fragment />;
   }
 
+  function getBidURLParts() {
+    const data = nft.data;
+    if (!data) {
+      return;
+    }
+    if (
+      data.nft.contract.knownContract !== "zora" &&
+      data.pricing.auctionType === AuctionType.RESERVE
+    ) {
+      return [
+        ZORA_SITE_URL_BASE,
+        "auction",
+        data.nft.contract.address,
+        data.nft.tokenId,
+        "bid",
+      ];
+    }
+
+    return [
+      ZORA_SITE_URL_BASE,
+      data.nft.creator,
+      data.nft.tokenId,
+      data.pricing.auctionType === AuctionType.RESERVE ? "auction/bid" : "bid",
+    ];
+  }
+
+  const bidURL = getBidURLParts()?.join("/");
+
+  if (!bidURL) {
+    return <Fragment />;
+  }
+
   return (
     <div {...getStyles("fullPlaceOfferButton")}>
-      <Button
-        primary={true}
-        href={[
-          ZORA_SITE_URL_BASE,
-          nft.data.nft.creator,
-          nft.data.nft.tokenId,
-          nft.data.pricing.auctionType === AuctionType.RESERVE
-            ? "auction/bid"
-            : "bid",
-        ].join("/")}
-      >
+      <Button primary={true} href={bidURL}>
         {getString(
           nft.data.pricing.auctionType === AuctionType.RESERVE
             ? "PLACE_BID"

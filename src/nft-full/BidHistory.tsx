@@ -86,7 +86,7 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
       });
     }
 
-    if ("openseaInfo" in data) {
+    if ("openseaInfo" in data && data.openseaInfo.creator) {
       eventsList.push({
         activityDescription: getString("BID_HISTORY_MINTED"),
         pricing: <Fragment />,
