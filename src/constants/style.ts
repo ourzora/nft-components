@@ -200,8 +200,8 @@ export const Style = {
       theme.bodyFont,
     ],
     // CSS Class for restyling and targeting
-    fullPageHistoryItemDescription: () => css`
-      margin-right: 20px;
+    fullPageHistoryItemDescription: (theme: ThemeOptionsType) => css`
+      ${theme.showTxnLinks ? "margin-right: 20px;" : ""}
     `,
     fullPageHistoryItemMeta: () => css`
       position: relative;

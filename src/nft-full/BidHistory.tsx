@@ -24,7 +24,7 @@ type BidHistoryProps = {
 
 export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
   const { nft } = useContext(NFTDataContext);
-  const { getString, getStyles } = useMediaContext();
+  const { getString, getStyles, style } = useMediaContext();
 
   const getPastBids = () => {
     const { data } = nft;
@@ -122,7 +122,7 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
               >
                 {formatDate(bidItem.createdAt)}
               </time>
-              {bidItem.transactionHash && (
+              {bidItem.transactionHash && style.theme.showTxnLinks && (
                 <a
                   {...getStyles("fullPageHistoryTxnLink")}
                   href={`https://etherscan.io/tx/${bidItem.transactionHash}`}
