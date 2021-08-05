@@ -17,11 +17,13 @@ describe("CountdownDisplay", () => {
     ${3600}  | ${"1h 0m 0s"}
     ${3601}  | ${"1h 0m 1s"}
     ${86401} | ${"1d 0h 0m 1s"}
+    ${-400}  | ${"0s"}
   `(
     "returns $expected from $offset",
     async ({ offset, expected }: { offset: number; expected: string }) => {
       // TODO(iain): Update the offset to be 0 (instead of 1 which gets cast to 0)
       render(<CountdownDisplay from={1} to={offset + 1} />);
+      console.log(screen.debug())
 
       await screen.findByText(expected);
     }
