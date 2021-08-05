@@ -1,11 +1,12 @@
-import { Text } from "./Text";
+import { Audio } from "./Audio";
 import { HTML } from "./HTML";
 import { Image } from "./Image";
-import { Video } from "./Video";
-import { Audio } from "./Audio";
+import { Model } from "./Model";
+import { Text } from "./Text";
 import { Unknown } from "./Unknown";
+import { Video } from "./Video";
 
-export const MediaRendererDefaults = [Audio, Text, HTML, Image, Video, Unknown];
+export const MediaRendererDefaults = [Model, Audio, Text, HTML, Image, Video, Unknown];
 
 export {
   Text,
@@ -13,5 +14,6 @@ export {
   Image,
   Video,
   Audio,
+  Model,
   Unknown,
 };
