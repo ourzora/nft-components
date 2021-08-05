@@ -17,7 +17,11 @@ export const CountdownDisplay = (props: CountdownDisplayProps) => {
     if (!from) {
       return null;
     }
-    const difference = to - from;
+    let difference = to - from;
+
+    if (difference < 0) {
+      difference = 0;
+    }
 
     return {
       d: Math.floor(difference / (3600 * 24)),
@@ -74,5 +78,5 @@ export const CountdownDisplay = (props: CountdownDisplayProps) => {
       }
       return `${lastString} ${number}${postfix}`;
     }, "");
-  return <Fragment>{timeString}</Fragment>;
+  return <Fragment>{timeString || '0s'}</Fragment>;
 };
