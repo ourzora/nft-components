@@ -1,5 +1,4 @@
-import { Meta } from '@storybook/addon-docs/blocks';
-
+import { Meta } from "@storybook/addon-docs/blocks";
 
 <Meta title="Renderer/About" />
 
@@ -9,11 +8,10 @@ These components render information from Zora NFTs and markets with default comp
 
 Those settings can be overridden using a context component for general theme overrides and text overrides.
 
-However, to re-structure the components themselves or to add custom components, you can pass in children to the 
+However, to re-structure the components themselves or to add custom components, you can pass in children to the
 rendering components to override the component structure. When no children are passed to either `NFTFullPage` or `NFTPreview`
 a default out-of-the-box layout is added. To customize the layout or rendering of these components,
 pass in React children to override and reset the defaults.
-
 
 ### With defaults:
 
@@ -25,51 +23,53 @@ pass in React children to override and reset the defaults.
 
 ```ts
 const STRINGS_OVERRIDE = {
-    BIDS: "arr bids",
+  BIDS: "arr bids",
 };
 const STYLE_OVERRIDE = {
-    theme: {
-        bodyFont: `
+  theme: {
+    bodyFont: `
             font-family: courier;
         `,
-        previewCard: {
-            height: '20vh',
-        },
+    previewCard: {
+      height: "20vh",
     },
+  },
 };
 return (
-    <MediaConfiguration
-        themePreset="dark"
-        strings={STRINGS_OVERRIDE}
-        style={STYLE_OVERRIDE}
-    >
-        <NFTFullPage id="YOUR_ID" />
-    </MediaConfiguration>
-)
+  <MediaConfiguration
+    themePreset="dark"
+    strings={STRINGS_OVERRIDE}
+    style={STYLE_OVERRIDE}
+  >
+    <NFTFullPage id="YOUR_ID" />
+  </MediaConfiguration>
+);
 ```
 
 ### With custom layout and data components:
 
 ```tsx
-import {useContext} from 'react';
-import {NFTFullPage, FullComponents, NFTDataContext} from '@zoralabs/nft-components';
+import { useContext } from "react";
+import {
+  NFTFullPage,
+  FullComponents,
+  NFTDataContext,
+} from "@zoralabs/nft-components";
 
 const VerifyHash = () => {
-    const {nft} = useContext(NFTDataContext);
-    if (!nft.data?.contentHash) {
-        return null;
-    }
-    return (
-        <h3>Verification hash: {nft.data?.contentHash}</h3>
-    );
+  const { nft } = useContext(NFTDataContext);
+  if (!nft.data?.contentHash) {
+    return null;
+  }
+  return <h3>Verification hash: {nft.data?.contentHash}</h3>;
 };
 
 const Page = () => (
-    <NFTFullPage id="YOUR_ID">
-        <h3>Media info:</h3>
-        <FullComponents.MediaInfo />
-        <VerifyHash />
-        <FullComponents.BidInfo />
-    </NFTFullPage>
+  <NFTFullPage id="YOUR_ID">
+    <h3>Media info:</h3>
+    <FullComponents.MediaInfo />
+    <VerifyHash />
+    <FullComponents.BidInfo />
+  </NFTFullPage>
 );
 ```

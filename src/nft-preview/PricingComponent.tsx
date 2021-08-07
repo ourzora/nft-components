@@ -26,7 +26,11 @@ export const PricingComponent = ({
 
   const pricing = data?.pricing;
 
-  if (pricing && !pricing.reserve && pricing.status === AuctionStateInfo.NO_PRICING) {
+  if (
+    pricing &&
+    !pricing.reserve &&
+    pricing.status === AuctionStateInfo.NO_PRICING
+  ) {
     return (
       <div {...getStyles("cardAuctionPricing", { type: "unknown" })}>
         <div {...getStyles("textSubdued")}>{getString("RESERVE_PRICE")}</div>

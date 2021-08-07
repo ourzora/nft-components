@@ -30,6 +30,7 @@ export const AuctionHouseList = ({
           <NFTPreview
             key={auction.id}
             id={auction.tokenId}
+            contract={auction.tokenContract}
             onClick={onClick ? (evt) => onClick(evt, auction) : undefined}
           />
         ))}

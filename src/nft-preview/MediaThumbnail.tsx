@@ -18,7 +18,9 @@ export const MediaThumbnail = () => {
       return {
         media: (
           <MediaObject
-            contentURI={data && 'zoraNFT' in data ? data.zoraNFT.contentURI : undefined}
+            contentURI={
+              data && "zoraNFT" in data ? data.zoraNFT.contentURI : undefined
+            }
             metadata={metadata}
           />
         ),

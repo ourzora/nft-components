@@ -46,7 +46,9 @@ export const GalleryTheme = {
         css`
           position: relative;
           max-height: 600px;
-          ${shouldHighlight ? 'box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.35);' : ''}
+          ${shouldHighlight
+            ? "box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.35);"
+            : ""}
         `,
       ];
     },

@@ -75,7 +75,7 @@ ArtBlocks.args = {
   testnet: true,
 };
 
-export const ModelViewer = Template.bind({})
+export const ModelViewer = Template.bind({});
 ModelViewer.args = {
   id: "3591",
   testnet: true,

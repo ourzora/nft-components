@@ -4,7 +4,7 @@ import { useMediaContext } from "../context/useMediaContext";
 export type InfoContainerProps = {
   children: React.ReactNode;
   titleString: keyof typeof Strings;
-  bottomPadding?: boolean,
+  bottomPadding?: boolean;
 };
 
 export const InfoContainer = ({
@@ -15,7 +15,7 @@ export const InfoContainer = ({
   const { getStyles, getString } = useMediaContext();
 
   return (
-    <div {...getStyles("infoContainer", {bottomPadding})}>
+    <div {...getStyles("infoContainer", { bottomPadding })}>
       <h4 {...getStyles("fullLabel")}>{getString(titleString)}</h4>
       {children}
     </div>

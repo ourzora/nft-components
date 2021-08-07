@@ -17,7 +17,7 @@ export const MediaThumbnailWrapper = ({
   const { nft } = useContext(NFTDataContext);
   const auctionStatus = nft.data?.pricing.status;
 
-  const LinkComponent = href ? 'a' : 'button';
+  const LinkComponent = href ? "a" : "button";
 
   return (
     <div

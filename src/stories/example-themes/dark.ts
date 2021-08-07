@@ -7,7 +7,7 @@ import { ThemeOptionsType } from "../../constants/theme";
 export const DarkTheme = {
   theme: {
     previewCard: {
-      height: '420px',
+      height: "420px",
     },
     titleFont: {
       fontFamily: "courier",

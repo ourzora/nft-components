@@ -4,14 +4,14 @@ export const ThemeOptions = {
    * @default {width: '330px', height: '330px', background: 'transparent'}
    */
   previewCard: {
-    width: '330px',
-    height: '330px',
+    width: "330px",
+    height: "330px",
     background: "white",
   },
 
   nftProposalCard: {
-    mediaWidth: '160px',
-    mediaHeight: '160px',
+    mediaWidth: "160px",
+    mediaHeight: "160px",
   },
 
   /**
@@ -111,6 +111,5 @@ export const ThemeOptions = {
    */
   fontSizeFull: 16,
 };
-
 
 export type ThemeOptionsType = typeof ThemeOptions;

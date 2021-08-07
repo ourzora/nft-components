@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/addon-docs/blocks';
+import { Meta } from "@storybook/addon-docs/blocks";
 
 <Meta title="About/ServerRendering" />
 
@@ -6,11 +6,12 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 `@zoralabs/nft-components` supports server-side rendering out of the box.
 
-This shows how to hydrate NFTs from the server side. They automatically re-fetch on 
+This shows how to hydrate NFTs from the server side. They automatically re-fetch on
 the client side using `useSWR` to refresh for the latest data, allowing the next.js page
 to be cached safely.
 
 ### Rendering single NFT in next.js
+
 ```jsx
 import Head from "next/head";
 import Image from "next/image";
@@ -60,6 +61,7 @@ export async function getServerSideProps() {
 ```
 
 ### Rendering multiple NFTs in next.js
+
 ```js
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
@@ -115,6 +117,4 @@ export async function getServerSideProps() {
     props: prepareJson({ nfts }),
   };
 }
-
 ```
-

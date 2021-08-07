@@ -163,7 +163,7 @@ export const AudioRenderer = forwardRef<HTMLAudioElement, RenderComponentType>(
                 {playingText}
               </button>
               <div {...getStyles("mediaAudioWaveform")}>
-                <FakeWaveformCanvas uri={uri || ''} audioRef={audioRef} />
+                <FakeWaveformCanvas uri={uri || ""} audioRef={audioRef} />
               </div>
             </Fragment>
           )}

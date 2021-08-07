@@ -27,7 +27,7 @@ export const NFTFullPage = ({
   config,
   ...wrapperProps
 }: NFTFullPageProps) => {
-  const a11yIdPrefix = useA11yIdPrefix('media');
+  const a11yIdPrefix = useA11yIdPrefix("media");
   const { getStyles } = useMediaContext();
   const allowOffer = config?.allowOffer;
   const showPerpetual = config?.showPerpetual;

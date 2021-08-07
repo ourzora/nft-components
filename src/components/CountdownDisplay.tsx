@@ -78,5 +78,5 @@ export const CountdownDisplay = (props: CountdownDisplayProps) => {
       }
       return `${lastString} ${number}${postfix}`;
     }, "");
-  return <Fragment>{timeString || '0s'}</Fragment>;
+  return <Fragment>{timeString || "0s"}</Fragment>;
 };

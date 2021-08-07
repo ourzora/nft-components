@@ -6,14 +6,14 @@ import { Text } from "./Text";
 import { Unknown } from "./Unknown";
 import { Video } from "./Video";
 
-export const MediaRendererDefaults = [Model, Audio, Text, HTML, Image, Video, Unknown];
-
-export {
+export const MediaRendererDefaults = [
+  Model,
+  Audio,
   Text,
   HTML,
   Image,
   Video,
-  Audio,
-  Model,
   Unknown,
-};
+];
+
+export { Text, HTML, Image, Video, Audio, Model, Unknown };

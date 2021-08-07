@@ -34,7 +34,7 @@ Gallery.args = {
   id: "3109",
   strings: {
     RESERVE_PRICE: "price needed",
-    CARD_CREATED_BY: "creator~~ "
+    CARD_CREATED_BY: "creator~~ ",
   },
 };
 
@@ -43,6 +43,6 @@ FullPage.args = {
   id: "3112",
   showFull: true,
   strings: {
-      PLACE_OFFER: "send your eth",
+    PLACE_OFFER: "send your eth",
   },
 };

@@ -175,19 +175,19 @@ export const Strings = {
   NO_PRICING_PLACEHOLDER: "--",
   /**
    * Play audio button description text
-   * 
+   *
    * @default Play audio
    */
   AUDIO_CONTROLS_PLAY: "Play audio",
   /**
    * Pause audio description text
-   * 
+   *
    * @default Pause audio
    */
   AUDIO_CONTROLS_PAUSE: "Pause audio",
   /**
    * aria-label for video controls container, announced when user selects video controls
-   * 
+   *
    * @default Video playback controls
    */
   VIDEO_CONTROLS_LABEL: "Video playback controls",
@@ -199,19 +199,19 @@ export const Strings = {
   VIDEO_CONTROLS_FULLSCREEN: "Fullscreen",
   /**
    * Play video button description text
-   * 
+   *
    * @default Play
    */
   VIDEO_CONTROLS_PLAY: "Play",
   /**
    * Pause video description text
-   * 
+   *
    * @default Pause
    */
   VIDEO_CONTROLS_PAUSE: "Pause",
   /**
    * Mute video controls description text
-   * 
+   *
    * @default Mute
    */
   VIDEO_CONTROLS_MUTE: "Mute",

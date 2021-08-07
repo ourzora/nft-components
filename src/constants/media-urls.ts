@@ -6,10 +6,8 @@ export const MEDIA_URL_BASE_BY_NETWORK = {
 };
 
 export const VIEW_ETHERSCAN_URL_BASE_BY_NETWORK = {
-  [Networks.MAINNET]:
-    "https://etherscan.io/token/",
-  [Networks.RINKEBY]:
-    "https://rinkeby.etherscan.io/token/",
+  [Networks.MAINNET]: "https://etherscan.io/token/",
+  [Networks.RINKEBY]: "https://rinkeby.etherscan.io/token/",
 };
 
 export const ZORA_SITE_URL_BASE = "https://zora.co";

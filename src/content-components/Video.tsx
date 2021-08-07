@@ -6,7 +6,7 @@ import {
   RenderingPreference,
   RenderRequest,
 } from "./RendererConfig";
-import {ImageRenderer} from './Image';
+import { ImageRenderer } from "./Image";
 
 import { useSyncRef } from "../utils/useSyncRef";
 import { useA11yIdPrefix } from "../utils/useA11yIdPrefix";
@@ -25,7 +25,11 @@ export const VideoRenderer = forwardRef<HTMLVideoElement, RenderComponentType>(
         ? request.media.animation?.uri || request.media.content?.uri
         : request.media.content?.uri || request.media.animation?.uri;
 
-    const { props: mediaProps, loading, error } = useMediaObjectProps({
+    const {
+      props: mediaProps,
+      loading,
+      error,
+    } = useMediaObjectProps({
       uri,
       request,
       a11yIdPrefix,

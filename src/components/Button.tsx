@@ -20,7 +20,7 @@ export const Button = ({
     <ButtonComponent
       onClick={onClick}
       href={href}
-      target={href ? '_blank' : undefined}
+      target={href ? "_blank" : undefined}
       {...getStyles("button", { primary })}
     >
       {children}
