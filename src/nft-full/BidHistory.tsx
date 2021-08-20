@@ -81,7 +81,7 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
       });
     }
 
-    if ("zoraNFT" in data && data.zoraNFT.createdAtTimestamp) {
+    if ("zoraNFT" in data && data.zoraNFT && data.zoraNFT.createdAtTimestamp) {
       eventsList.push({
         activityDescription: getString("BID_HISTORY_MINTED"),
         pricing: <Fragment />,

@@ -14,14 +14,14 @@ export const CreatorEquity = () => {
     <React.Fragment>{Math.floor(bidSharePercentage)}%</React.Fragment>
   );
 
-  if (!data || !("zoraNFT" in data)) {
+  if (!data || !("zoraNFT" in data) || !data.zoraNFT) {
     return <React.Fragment />;
   }
 
   return (
     <InfoContainer titleString="CREATOR_EQUITY">
       <div {...getStyles("fullInfoCreatorEquityContainer")}>
-        {getContent(data.zoraNFT.creatorBidSharePercentage)}
+        {getContent(data.zoraNFT?.creatorBidSharePercentage)}
       </div>
     </InfoContainer>
   );

@@ -11,6 +11,8 @@ export const MediaThumbnail = () => {
     metadata: { metadata },
   } = useContext(NFTDataContext);
 
+  console.log({ type: "thumbnail", data, metadata });
+
   const { getStyles, getString } = useMediaContext();
 
   const getContent = () => {
@@ -19,7 +21,9 @@ export const MediaThumbnail = () => {
         media: (
           <MediaObject
             contentURI={
-              data && "zoraNFT" in data ? data.zoraNFT.contentURI : undefined
+              data && "zoraNFT" in data && data.zoraNFT
+                ? data.zoraNFT.contentURI
+                : undefined
             }
             metadata={metadata}
           />

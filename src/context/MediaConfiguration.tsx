@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import {
   NetworkIDs,
-  Networks,
   NFTFetchConfiguration,
 } from "@zoralabs/nft-hooks";
 import { merge } from "merge-anything";
@@ -35,13 +34,15 @@ type MediaContextConfigurationProps = {
 };
 
 export const MediaConfiguration = ({
-  networkId = Networks.MAINNET,
+  networkId,
   style = {},
   children,
   strings = {},
   renderers,
 }: MediaContextConfigurationProps) => {
   const superContext = useContext(MediaContext);
+
+  const newNetworkId = networkId || superContext.networkId;
 
   if (!renderers) {
     renderers = MediaRendererDefaults;
@@ -52,12 +53,12 @@ export const MediaConfiguration = ({
     style: merge(superContext.style, style) as ThemeType,
     strings: merge(superContext.strings, strings),
     renderers,
-    networkId,
+    networkId: newNetworkId,
   };
 
   return (
     <MediaContext.Provider value={newContext}>
-      <NFTFetchConfiguration networkId={networkId}>
+      <NFTFetchConfiguration networkId={newNetworkId}>
         {children}
       </NFTFetchConfiguration>
     </MediaContext.Provider>

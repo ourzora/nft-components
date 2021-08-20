@@ -21,7 +21,7 @@ export const ProposalMediaDisplay = ({}: ProposalMediaDisplayProps) => {
         media: (
           <MediaObject
             contentURI={
-              data && "zoraNFT" in data ? data.zoraNFT.contentURI : undefined
+              data && "zoraNFT" in data ? data.zoraNFT?.contentURI : undefined
             }
             metadata={metadata}
           />

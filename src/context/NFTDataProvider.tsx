@@ -15,6 +15,7 @@ import type {
 export type NFTDataProviderProps = {
   id: string;
   contract?: string;
+  useBetaIndexer?: boolean;
   refreshInterval?: number;
   children: React.ReactNode;
   initialData?: {
@@ -32,17 +33,21 @@ export const NFTDataProvider = ({
   contract,
   refreshInterval,
   initialData,
+  useBetaIndexer = false,
 }: NFTDataProviderProps) => {
   const { nft: nftInitial } = initialData || {};
   const nft = useNFT(contract, id, {
     loadCurrencyInfo: true,
     initialData: nftInitial,
     refreshInterval: refreshInterval,
+    useBetaIndexer,
   });
+
   const fetchedMetadata = useNFTMetadata(
     isZNFT(nft.data) ? nft.data?.nft.metadataURI : undefined,
     initialData?.metadata
   );
+
   const openseaMetadata = isOpensea(nft.data)
     ? {
         loading: !!nft.data,
@@ -52,7 +57,19 @@ export const NFTDataProvider = ({
       }
     : undefined;
 
-  const metadata = openseaMetadata || fetchedMetadata;
+  let zoraIndexerMetadata =
+    nft &&
+    nft.data &&
+    "zoraIndexerResponse" in nft.data &&
+    (nft as any).data?.zoraIndexerResponse?.metadata?.json;
+
+  const metadata = zoraIndexerMetadata
+    ? {
+        metadata: zoraIndexerMetadata,
+        loading: !!zoraIndexerMetadata,
+        error: nft.error ? new Error(nft.error) : undefined,
+      }
+    : openseaMetadata || fetchedMetadata;
 
   return (
     <NFTDataContext.Provider value={{ nft, metadata }}>

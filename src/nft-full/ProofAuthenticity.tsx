@@ -41,7 +41,7 @@ export const ProofAuthenticity = () => {
       <ProofLink
         styles={linkStyles}
         href={
-          (data && "zoraNFT" in data && data?.zoraNFT.contentURI) ||
+          (data && "zoraNFT" in data && data?.zoraNFT?.contentURI) ||
           data?.nft.metadataURI
         }
       >
