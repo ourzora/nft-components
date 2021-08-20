@@ -18,10 +18,12 @@ export type NFTDataProviderProps = {
   useBetaIndexer?: boolean;
   refreshInterval?: number;
   children: React.ReactNode;
-  initialData?: {
-    nft?: useNFTType["data"];
-    metadata?: useNFTMetadataType["metadata"];
-  };
+  initialData?:
+    | {
+        nft?: useNFTType["data"];
+        metadata?: useNFTMetadataType["metadata"];
+      }
+    | any;
 };
 
 let isZNFT = (p: any): p is ZNFTDataType => p && !!p.zoraNFT;
@@ -36,6 +38,11 @@ export const NFTDataProvider = ({
   useBetaIndexer = false,
 }: NFTDataProviderProps) => {
   const { nft: nftInitial } = initialData || {};
+  if (nftInitial?.tokenData && !useBetaIndexer) {
+    throw new Error(
+      "useBetaIndexer={true} prop on NFTFull/NFTDataProvider/NFTPreview required when using indexer-style initialData"
+    );
+  }
   const nft = useNFT(contract, id, {
     loadCurrencyInfo: true,
     initialData: nftInitial,

@@ -4,30 +4,22 @@ import { AddressView } from "../components/AddressView";
 import { MediaObject } from "../components/MediaObject";
 import { useMediaContext } from "../context/useMediaContext";
 import { NFTDataContext } from "../context/NFTDataContext";
+import { defaultGetContentData, GetContentDataType } from "../utils/getContentDataOptions";
 
-export const MediaThumbnail = () => {
+export const MediaThumbnail = ({
+  getContentData = defaultGetContentData,
+}: GetContentDataType) => {
   const {
     nft: { data },
     metadata: { metadata },
   } = useContext(NFTDataContext);
-
-  console.log({ type: "thumbnail", data, metadata });
 
   const { getStyles, getString } = useMediaContext();
 
   const getContent = () => {
     if (metadata && data) {
       return {
-        media: (
-          <MediaObject
-            contentURI={
-              data && "zoraNFT" in data && data.zoraNFT
-                ? data.zoraNFT.contentURI
-                : undefined
-            }
-            metadata={metadata}
-          />
-        ),
+        media: <MediaObject {...getContentData(data, metadata)} />,
         title: metadata.name,
       };
     }
