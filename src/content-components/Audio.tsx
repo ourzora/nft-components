@@ -78,7 +78,6 @@ const FakeWaveformCanvas = ({ audioRef, uri }: FakeWaveformCanvasProps) => {
       }
       context.clearRect(0, 0, width, height);
 
-      console.log({ uriEntropy });
       for (let i = 0; i < width; i += 5) {
         const sinRnd = Math.sin(i + uriEntropy) * 10000;
         const lineHeight = Math.floor(
