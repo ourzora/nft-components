@@ -65,7 +65,8 @@ VideoCustom.args = {
 export const NonZoraImage = Template.bind({});
 NonZoraImage.args = {
   id: "5683",
-  contract: "0xb7f7f6c52f2e2fdb1963eab30438024864c313f6",
+  useBetaIndexer: true,
+  contract: "0xb7F7F6C52F2e2fdb1963Eab30438024864c313F6",
 };
 
 export const ArtBlocks = Template.bind({});

@@ -3,12 +3,19 @@ import { useContext } from "react";
 import { NFTDataContext } from "../context/NFTDataContext";
 import { MediaObject } from "../components/MediaObject";
 import { useMediaContext } from "../context/useMediaContext";
+import {
+  defaultGetContentData,
+  GetContentDataType,
+} from "../utils/getContentDataOptions";
 
-type MediaFullProps = {
+type MediaFullProps = GetContentDataType & {
   a11yIdPrefix?: string;
 };
 
-export const MediaFull = ({ a11yIdPrefix }: MediaFullProps) => {
+export const MediaFull = ({
+  a11yIdPrefix,
+  getContentData = defaultGetContentData,
+}: MediaFullProps) => {
   const { getStyles } = useMediaContext();
   const {
     nft: { data },
@@ -20,9 +27,8 @@ export const MediaFull = ({ a11yIdPrefix }: MediaFullProps) => {
       return (
         <MediaObject
           isFullPage={true}
-          contentURI={"zoraNFT" in data ? data.zoraNFT?.contentURI : undefined}
-          metadata={metadata}
           a11yIdPrefix={a11yIdPrefix}
+          {...getContentData(data, metadata)}
         />
       );
     }
