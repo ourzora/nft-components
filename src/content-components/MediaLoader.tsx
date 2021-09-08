@@ -1,6 +1,16 @@
 import React, { useState } from "react";
 import type { RenderRequest } from "./RendererConfig";
 
+function getNormalizedURI(uri: string) {
+  if (uri.startsWith("ipfs://")) {
+    return uri.replace("ipfs://", "https://ipfs.io/ipfs/");
+  }
+  if (uri.startsWith("arweave://")) {
+    return uri.replace("arweave://", "https://arweave.net/");
+  }
+  return uri;
+}
+
 export function useMediaObjectProps({
   uri,
   request,
@@ -24,7 +34,7 @@ export function useMediaObjectProps({
       onLoad: () => setLoading(false),
       // TODO(iain): Update Error
       onError: () => setError("Error loading"),
-      src: uri,
+      src: uri ? getNormalizedURI(uri) : uri,
       ...getStyles("mediaObject", {
         mediaLoaded: !loading,
         isFullPage: request.renderingContext === "FULL",
