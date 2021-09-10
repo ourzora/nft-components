@@ -91,6 +91,16 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
       });
     }
 
+    if ('zoraIndexerResponse' in data && data.zoraIndexerResponse.minter) {
+      eventsList.push({
+        activityDescription: getString('BID_HISTORY_MINTED'),
+        pricing: <Fragment />,
+        actor: data.zoraIndexerResponse.minter,
+        createdAt: data.zoraIndexerResponse.mintTransferEvent?.blockTimestamp,
+        transactionHash: null,
+      })
+    }
+
     if ("openseaInfo" in data && data.openseaInfo.creator) {
       eventsList.push({
         activityDescription: getString("BID_HISTORY_MINTED"),
