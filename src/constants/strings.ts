@@ -29,6 +29,11 @@ export const Strings = {
    */
   VIEW_IPFS: "View on IPFS",
   /**
+   * View metadata in proof of authenticity box
+   * @default View Metadata
+   */
+  VIEW_METADATA: 'View Metadata',
+  /**
    * List price used in pricing components
    * @default List price
    */
