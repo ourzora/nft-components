@@ -10,7 +10,7 @@
   ],
   "repository": "https://github.com/ourzora/nft-components",
   "author": "Zora",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "private": false,
   "dependencies": {
     "@emotion/css": "^11.1.3",
