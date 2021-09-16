@@ -15,9 +15,13 @@ export const InfoContainer = ({
   const { getStyles, getString } = useMediaContext();
 
   return (
-    <div {...getStyles("infoContainer", { bottomPadding })}>
-      <h4 {...getStyles("fullLabel")}>{getString(titleString)}</h4>
-      {children}
-    </div>
+    <>
+      {/*
+        // @ts-ignore */}
+        <div {...getStyles("infoContainer", { bottomPadding })}>
+          <h4 {...getStyles("fullLabel")}>{getString(titleString)}</h4>
+          {children}
+          </div>
+      </>
   );
 };

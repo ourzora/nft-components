@@ -21,7 +21,8 @@ export const MediaThumbnailWrapper = ({
 
   return (
     <div
-      {...getStyles("cardOuter", { hasClickEvent: !!onClick, auctionStatus })}
+      {...getStyles("cardOuter", /*@ts-ignore */
+        { hasClickEvent: !!onClick, auctionStatus })}
     >
       {(href || onClick) && (
         <LinkComponent {...getStyles("cardLink")} href={href} onClick={onClick}>

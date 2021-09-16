@@ -21,6 +21,7 @@ export const Button = ({
       onClick={onClick}
       href={href}
       target={href ? "_blank" : undefined}
+      /* @ts-ignore */
       {...getStyles("button", { primary })}
     >
       {children}

@@ -2,7 +2,7 @@ import { createContext } from "react";
 import { NetworkIDs, Networks } from "@zoralabs/nft-hooks";
 
 import { Strings } from "../constants/strings";
-import { Style } from "../constants/style";
+import { Style } from "../constants/noStyle";
 import { MediaRendererDefaults } from "../content-components";
 import type { RendererConfig } from "../content-components/RendererConfig";
 

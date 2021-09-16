@@ -63,6 +63,8 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
     return (
       <AuctionInfoWrapper titleString="AUCTION_SOLD_FOR">
         <PricingString pricing={highestPreviousBid.pricing} />
+        {/*
+          // @ts-ignore */}
         <div {...getStyles("fullInfoSpacer", { width: 15 })} />
         <div {...getStyles("fullLabel")}>{getString("WINNER")}</div>
         <AddressView address={highestPreviousBid.bidder.id} />

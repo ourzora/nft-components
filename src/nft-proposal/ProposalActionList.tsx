@@ -22,12 +22,14 @@ export const ProposalActionList = ({
       return (
         <div {...getStyles("nftProposalActions")}>
           <button
+            /* @ts-ignore */
             {...getStyles("nftProposalActionButton", { action: "approve" })}
             onClick={onAccept}
           >
             approve
           </button>
           <button
+            /* @ts-ignore */
             {...getStyles("nftProposalActionButton", { action: "deny" })}
             onClick={onDeny}
           >
