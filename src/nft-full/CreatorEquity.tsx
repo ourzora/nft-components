@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { useMediaContext } from "../context/useMediaContext";
 import { NFTDataContext } from "../context/NFTDataContext";
 import { InfoContainer } from "./InfoContainer";
-import { AddressView } from "src/components/AddressView";
+import { AddressView } from "../components/AddressView";
 
 export const CreatorEquity = () => {
   const {
