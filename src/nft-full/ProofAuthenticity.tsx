@@ -34,9 +34,10 @@ export const ProofAuthenticity = () => {
     const infoURL =
       (data && "zoraNFT" in data && data?.zoraNFT?.contentURI) ||
       data?.nft.metadataURI;
-    const infoUrlLabelText = infoURL?.includes("ipfs")
-      ? "VIEW_IPFS"
-      : "VIEW_METADATA";
+    const infoUrlLabelText =
+      infoURL?.includes("/ipfs/") || infoURL?.startsWith("ipfs://")
+        ? "VIEW_IPFS"
+        : "VIEW_METADATA";
 
     return (
       <React.Fragment>
