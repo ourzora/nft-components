@@ -304,6 +304,9 @@ export const Style = {
     fullInfoCreatorEquityContainer: (_: any) => css`
       margin-top: 20px;
     `,
+    fullInfoCuratorFeeContainer: (_: any) => css`
+      margin-top: 20px;
+    `,
     fullInfoProofAuthenticityContainer: (_: any) => css`
       margin-top: 20px;
     `,
