@@ -131,6 +131,7 @@ export const VideoRenderer = forwardRef<HTMLVideoElement, RenderComponentType>(
             <button
               {...getStyles("mediaPlayButton", { playing: isPlaying })}
               aria-live="polite"
+              aria-pressed={isPlaying ? "false" : "true"}
               onClick={togglePlay}
               title={playingText}
             >
