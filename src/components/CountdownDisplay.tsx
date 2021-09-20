@@ -12,24 +12,66 @@ function getNumber(time: number | string) {
   return time;
 }
 
-export const CountdownDisplay = (props: CountdownDisplayProps) => {
-  const getTimeLeft = (to: number, from: number) => {
-    if (!from) {
-      return null;
-    }
-    let difference = to - from;
+export const TimeDisplayMap = {
+  d: "day",
+  h: "hour",
+  m: "minute",
+  s: "second",
+};
 
-    if (difference < 0) {
-      difference = 0;
-    }
+export const splitDurationSegments = (difference: number) => ({
+  d: Math.floor(difference / (3600 * 24)),
+  h: Math.floor(difference / 3600) % 24,
+  m: Math.floor((difference / 60) % 60),
+  s: Math.floor(difference % 60),
+});
 
-    return {
-      d: Math.floor(difference / (3600 * 24)),
-      h: Math.floor(difference / 3600) % 24,
-      m: Math.floor((difference / 60) % 60),
-      s: Math.floor(difference % 60),
-    };
+const getTimeLeft = (to: number, from?: number) => {
+  if (from === undefined) {
+    return null;
+  }
+  let difference = to - from;
+
+  if (difference < 0) {
+    difference = 0;
+  }
+
+  return splitDurationSegments(difference);
+};
+
+export const DurationDisplay = ({ duration }: { duration: number }) => {
+  const renderSegmentText = (
+    segmentName: keyof typeof splitDurationSegments,
+    segmentValue: number
+  ) => {
+    if (segmentValue === 0) {
+      return "";
+    }
+    if (segmentValue === 1) {
+      return `${segmentValue} ${TimeDisplayMap[segmentName]}`;
+    }
+    return `${segmentValue} ${TimeDisplayMap[segmentName]}s`;
   };
+  const durationSegments = splitDurationSegments(duration);
+  const singleSegment = Object.values(durationSegments)
+    .map((segment) => segment === 0)
+    .reduce((last, now) => last + (now ? 0 : 1), 0);
+  if (singleSegment <= 1) {
+    return (
+      <Fragment>
+        {Object.keys(durationSegments)
+          .map((segment: string) =>
+            // @ts-ignore: ignoring due to key type erasure with string
+            renderSegmentText(segment, durationSegments[segment])
+          )
+          .join("")}
+      </Fragment>
+    );
+  }
+  return <CountdownDisplay from={0} to={duration} />;
+};
+
+export const CountdownDisplay = (props: CountdownDisplayProps) => {
   const [timeLeft, setTimeLeft] = useState<{
     d: number;
     h: number;

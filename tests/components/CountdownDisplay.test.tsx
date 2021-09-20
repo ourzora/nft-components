@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { CountdownDisplay } from "../../src/components/CountdownDisplay";
+import { CountdownDisplay, DurationDisplay } from "../../src/components/CountdownDisplay";
 
 describe("CountdownDisplay", () => {
   it("renders countdown with days", async () => {
@@ -23,9 +23,29 @@ describe("CountdownDisplay", () => {
     async ({ offset, expected }: { offset: number; expected: string }) => {
       // TODO(iain): Update the offset to be 0 (instead of 1 which gets cast to 0)
       render(<CountdownDisplay from={1} to={offset + 1} />);
-      console.log(screen.debug())
 
       await screen.findByText(expected);
     }
   );
+  describe('renders duration with keys', () => {
+    it.only.each`
+      duration   | expected
+      ${1}     | ${"1 second"}
+      ${60}    | ${"1 minute"}
+      ${120}    | ${"2 minutes"}
+      ${3600}  | ${"1 hour"}
+      ${3601}  | ${"1h 0m 1s"}
+      ${86401} | ${"1d 0h 0m 1s"}
+      ${-400}  | ${"0s"}
+    `(
+      "returns $expected from $offset",
+      async ({ duration, expected }: { duration: number; expected: string }) => {
+        // TODO(iain): Update the offset to be 0 (instead of 1 which gets cast to 0)
+        render(<DurationDisplay duration={duration} />);
+
+        await screen.findByText(expected);
+      }
+    );
+
+  })
 });

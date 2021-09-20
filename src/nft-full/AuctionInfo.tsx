@@ -3,7 +3,10 @@ import React, { Fragment, useContext } from "react";
 
 import { PricingString } from "../utils/PricingString";
 import { AddressView } from "../components/AddressView";
-import { CountdownDisplay } from "../components/CountdownDisplay";
+import {
+  CountdownDisplay,
+  DurationDisplay,
+} from "../components/CountdownDisplay";
 import { NFTDataContext } from "../context/NFTDataContext";
 import { useMediaContext } from "../context/useMediaContext";
 import { InfoContainer, InfoContainerProps } from "./InfoContainer";
@@ -52,6 +55,21 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
   }
 
   const reserve = data.pricing.reserve;
+
+  console.log("has reserve", data.pricing.reserve);
+  if (
+    data.pricing.reserve &&
+    data.pricing.reserve.status === "Active" &&
+    !data.pricing.reserve.currentBid
+  ) {
+    const { duration } = data.pricing.reserve;
+    return (
+      <AuctionInfoWrapper titleString="AUCTION_PENDING_DURATION">
+        <DurationDisplay duration={duration} />
+      </AuctionInfoWrapper>
+    );
+  }
+
   if (
     data.pricing.reserve &&
     data.pricing.reserve.current.likelyHasEnded &&

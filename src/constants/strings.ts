@@ -98,6 +98,11 @@ export const Strings = {
    */
   NFT_HISTORY: "History",
   /**
+   * Title for auction duration informationbox
+   * @default Auction duration
+   */
+  AUCTION_PENDING_DURATION: "Auction Duration",
+  /**
    * Header for the box to show creator equity
    * @default Creator equity
    */
@@ -111,7 +116,7 @@ export const Strings = {
    * Placed a bid message for bid history box on full view page
    * @default placed a bid of
    */
-  BID_HISTORY_BID: "placed a bid of",
+  BID_HISTORY_BID: "Placed a bid of",
   /**
    * Open offers from user box
    * @default Open offers
