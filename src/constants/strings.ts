@@ -116,7 +116,7 @@ export const Strings = {
    * Placed a bid message for bid history box on full view page
    * @default placed a bid of
    */
-  BID_HISTORY_BID: "Placed a bid of",
+  BID_HISTORY_BID: "placed a bid of",
   /**
    * Open offers from user box
    * @default Open offers
