@@ -56,20 +56,6 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
 
   const reserve = data.pricing.reserve;
 
-  console.log("has reserve", data.pricing.reserve);
-  if (
-    data.pricing.reserve &&
-    data.pricing.reserve.status === "Active" &&
-    !data.pricing.reserve.currentBid
-  ) {
-    const { duration } = data.pricing.reserve;
-    return (
-      <AuctionInfoWrapper titleString="AUCTION_PENDING_DURATION">
-        <DurationDisplay duration={duration} />
-      </AuctionInfoWrapper>
-    );
-  }
-
   if (
     data.pricing.reserve &&
     data.pricing.reserve.current.likelyHasEnded &&
@@ -107,37 +93,6 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
     );
   }
 
-  // if (
-  //   data.pricing.reserve &&
-  //   data.pricing.status === AuctionStateInfo.RESERVE_AUCTION_ENDED &&
-  //   data.pricing.reserve.currentBid
-  // ) {
-  //   const highestPreviousBid = data.pricing.reserve.currentBid;
-  //   return (
-  //     <AuctionInfoWrapper titleString="AUCTION_SOLD_FOR">
-  //       <PricingString pricing={highestPreviousBid.pricing} />
-  //       <div {...getStyles("fullInfoSpacer", { width: 15 })} />
-  //       <div {...getStyles("fullLabel")}>{getString("WINNER")}</div>
-  //       <AddressView address={highestPreviousBid.bidder.id} />
-  //     </AuctionInfoWrapper>
-  //   );
-  // }
-
-  // if (
-  //   data.pricing.reserve &&
-  //   data.pricing.status === AuctionStateInfo.RESERVE_AUCTION_FINISHED
-  // ) {
-  //   const highestPreviousBid = data.pricing.reserve.previousBids[0];
-  //   return (
-  //     <AuctionInfoWrapper titleString="AUCTION_SOLD_FOR">
-  //       <PricingString pricing={highestPreviousBid.pricing} />
-  //       <div {...getStyles("fullInfoSpacer", { width: 15 })} />
-  //       <div {...getStyles("fullLabel")}>{getString("WINNER")}</div>
-  //       <AddressView address={highestPreviousBid.bidder.id} />
-  //     </AuctionInfoWrapper>
-  //   );
-  // }
-
   if (
     showPerpetual &&
     data.pricing.auctionType === AuctionType.PERPETUAL &&
@@ -169,7 +124,14 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
           )}
         {data.pricing.auctionType === AuctionType.RESERVE &&
           data.pricing.reserve?.reservePrice && (
-            <PricingString pricing={data.pricing.reserve.reservePrice} />
+            <>
+              <PricingString pricing={data.pricing.reserve.reservePrice} />
+              <div>
+              <div style={{ height: "20px" }} />
+                <div {...getStyles("fullLabel")}>{getString("AUCTION_PENDING_DURATION")}</div>
+                <DurationDisplay duration={data.pricing.reserve.duration} />
+              </div>
+            </>
           )}
       </div>
     </AuctionInfoWrapper>
