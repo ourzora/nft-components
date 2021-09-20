@@ -80,7 +80,7 @@ describe("AuctionInfo", () => {
 
       await screen.findByText("Reserve price");
       const weth = await screen.findByText(/[0-9.]+ ETH/);
-      expect(weth.innerHTML).toEqual("0.1 ETH");
+      expect(weth.innerHTML).toContain("0.1 ETH");
     });
 
     it("renders a current auction with a bid", async () => {
@@ -164,7 +164,7 @@ describe("AuctionInfo", () => {
 
       await screen.findByText("Reserve price");
       const weth = await screen.findByText(/[0-9.]+ ETH/);
-      expect(weth.innerHTML).toEqual("0.1 ETH");
+      expect(weth.innerHTML).toContain("0.1 ETH");
     });
 
     it("renders a current auction with a bid", async () => {

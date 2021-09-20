@@ -31,7 +31,7 @@ const TestHarness = ({
 };
 
 const getBids = () => {
-  return screen.queryAllByText(/placed a bid of/).map((item) => {
+  return screen.queryAllByText(/placed a bid of/i).map((item) => {
     const match = item.innerHTML.match(/[0-9,\.]+ [A-Z]+/);
     return match ? match[0] : null;
   });
@@ -125,7 +125,7 @@ describe("AuctionInfo", () => {
 
       await screen.findByText("minted the NFT");
       await screen.findByText("listed the NFT");
-      expect(getBids()).toEqual(["0.1 ETH"])
+      expect(getBids()).toEqual(["0.1 ETH"]);
     });
 
     it("renders finished reserve auction", async () => {
@@ -141,7 +141,7 @@ describe("AuctionInfo", () => {
       expect(wonArea.parentElement?.innerHTML).toContain("May 14, 10:23 PM");
       await screen.findByText("minted the NFT");
       await screen.findByText("listed the NFT");
-      expect(getBids()).toEqual(["0.4 ETH"])
+      expect(getBids()).toEqual(["0.4 ETH"]);
     });
     it("renders finalized reserve auction", async () => {
       const data = await loadJSON("doge_auction_finished");

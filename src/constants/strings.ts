@@ -98,6 +98,11 @@ export const Strings = {
    */
   NFT_HISTORY: "History",
   /**
+   * Title for auction duration informationbox
+   * @default Auction duration
+   */
+  AUCTION_PENDING_DURATION: "Duration",
+  /**
    * Header for the box to show creator equity
    * @default Creator equity
    */
