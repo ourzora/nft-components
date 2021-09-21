@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { css } from "@emotion/css";
 import type { Strings } from "../constants/strings";
 import { MediaContext, ThemeType } from "./MediaContext";
-import camelCase from 'lodash/camelCase'
+import { camelCase } from '../utils/camelCase'
 
 export function useMediaContext() {
   const mediaContext = useContext(MediaContext);
@@ -25,20 +25,18 @@ export function useMediaContext() {
     );
 
     const getUtilitySelectors = (flagsObject: any) => {
-      let selectors: string[] = []
-      
       if (Object.keys(flagsObject).length) {
-        Object.entries(flagsObject).forEach((key) => {
-          const objectType = typeof key[1]
-          if (objectType === 'boolean' && key[1]) {
-            selectors.push(`zora-${themeKey}--${key[0]}`)
-          } else if (objectType === 'string') {
-            selectors.push(`zora-${themeKey}__${key[0]}--${camelCase(key[1] as string)}`)
-          }
-        })
+        return Object.entries(flagsObject)
+          .map(key => {
+            const objectType = typeof key[1]
+            return objectType === 'boolean' && key[1] ? `zora-${themeKey}--${key[0]}`
+              : objectType === 'string' ? `zora-${themeKey}__${key[0]}--${camelCase(key[1] as string)}`
+              : ''
+          })
+          .join(' ');
+      } else {
+        return ''
       }
-      
-      return `${selectors.join(' ')}`
     }
 
     return {
