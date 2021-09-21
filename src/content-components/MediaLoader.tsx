@@ -38,7 +38,7 @@ export function useMediaObjectProps({
       ...getStyles("mediaObject", {
         mediaLoaded: !loading,
         isFullPage: request.renderingContext === "FULL"
-      }, loading ? 'loading' : 'loaded' ),
+      }),
     },
   };
 }
