@@ -33,7 +33,7 @@ export function useMediaContext() {
           if (objectType === 'boolean' && key[1]) {
             selectors.push(`zora-${themeKey}--${key[0]}`)
           } else if (objectType === 'string') {
-            selectors.push(`zora-${themeKey}__${key[0]}--${camelCase(key[1])}`)
+            selectors.push(`zora-${themeKey}__${key[0]}--${camelCase(key[1] as string)}`)
           }
         })
       }
