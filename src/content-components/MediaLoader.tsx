@@ -37,8 +37,8 @@ export function useMediaObjectProps({
       src: uri ? getNormalizedURI(uri) : uri,
       ...getStyles("mediaObject", {
         mediaLoaded: !loading,
-        isFullPage: request.renderingContext === "FULL",
-      }),
+        isFullPage: request.renderingContext === "FULL"
+      }, loading ? 'loading' : 'loaded' ),
     },
   };
 }

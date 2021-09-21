@@ -8,7 +8,8 @@ export function useMediaContext() {
 
   const getStyles = (
     themeKey: keyof ThemeType["styles"],
-    flags: any = {}
+    flags: any = {},
+    utilityClasses?: any
   ): any => {
     if (!(themeKey in mediaContext.style.styles)) {
       throw new Error(
@@ -22,7 +23,7 @@ export function useMediaContext() {
       flags
     );
     return {
-      className: `zora-${themeKey} ${css(styles)}`,
+      className: `zora-${themeKey} ${css(styles)} ${utilityClasses !== undefined ? utilityClasses : ''}`,
     };
   };
 
