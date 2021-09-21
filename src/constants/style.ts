@@ -63,6 +63,7 @@ function renderSVG(svg: string) {
 
 export const Style = {
   theme: ThemeOptions,
+  useDefaultStyles: <boolean>true,
   styles: {
     auctionHouseList: (_: ThemeOptionsType) => css`
       display: flex;
