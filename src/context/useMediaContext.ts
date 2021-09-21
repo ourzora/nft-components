@@ -7,8 +7,6 @@ import { camelCase } from '../utils/camelCase'
 export function useMediaContext() {
   const mediaContext = useContext(MediaContext);
 
-  console.log(mediaContext)
-
   const getStyles = (
     themeKey: keyof ThemeType["styles"],
     flags: any = {}
@@ -42,7 +40,7 @@ export function useMediaContext() {
     }
 
     return {
-      className: `zora-${themeKey} ${css(mediaContext.style.useDefaultStyles ? styles : false)} ${getUtilitySelectors(flags)}`,
+      className: `zora-${themeKey} ${css(mediaContext.style.useDefaultStyles ? styles : '')} ${getUtilitySelectors(flags)}`,
     };
   };
 
