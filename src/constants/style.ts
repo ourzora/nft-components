@@ -199,8 +199,14 @@ export const Style = {
       theme.bodyFont,
     ],
     // CSS Class for restyling and targeting
-    fullPageHistoryItemDescription: (theme: ThemeOptionsType) => css`
-      ${theme.showTxnLinks ? "margin-right: 20px;" : ""}
+    fullPageHistoryItemDescription: () => css`
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    `,
+    fullPageHistoryItemDescriptionCopy: () => css`
+      display: flex;
+      flex-direction: row;
     `,
     fullPageHistoryItemMeta: () => css`
       position: relative;
@@ -221,7 +227,7 @@ export const Style = {
         opacity: 0.8;
         background-repeat: no-repeat;
         background-position: center;
-        top: 14px;
+        top: 0;
         z-index: 10;
         right: 0;
         transition: opacity 0.4s ease-in;

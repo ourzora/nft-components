@@ -119,10 +119,19 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
           key={`${bidItem.actor}-${bidItem.createdAt}`}
         >
           <div {...getStyles("fullPageHistoryItemDescription")}>
-            <span {...getStyles("pricingAmount")}>
-              <AddressView address={bidItem.actor} />{" "}
-            </span>
-            {bidItem.activityDescription} {bidItem.pricing}
+            <div {...getStyles("fullPageHistoryItemDescriptionCopy")}>
+              <AddressView selector={{...getStyles("pricingAmount")}} address={bidItem.actor} />&nbsp;
+              <span {...getStyles("pricingAmount")}>{bidItem.activityDescription} {bidItem.pricing}</span>
+            </div>
+            {bidItem.transactionHash && style.theme.showTxnLinks && (
+              <a
+                {...getStyles("fullPageHistoryTxnLink")}
+                href={`https://etherscan.io/tx/${bidItem.transactionHash}`}
+                target="_blank"
+              >
+                {getString("BID_HISTORY_VIEW_TRANSACTION")}
+              </a>
+            )}
           </div>
           {bidItem.createdAt && (
             <div {...getStyles("fullPageHistoryItemMeta")}>
@@ -132,15 +141,6 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
               >
                 {formatDate(bidItem.createdAt)}
               </time>
-              {bidItem.transactionHash && style.theme.showTxnLinks && (
-                <a
-                  {...getStyles("fullPageHistoryTxnLink")}
-                  href={`https://etherscan.io/tx/${bidItem.transactionHash}`}
-                  target="_blank"
-                >
-                  {getString("BID_HISTORY_VIEW_TRANSACTION")}
-                </a>
-              )}
             </div>
           )}
         </li>
