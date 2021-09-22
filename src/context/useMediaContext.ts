@@ -40,7 +40,7 @@ export function useMediaContext() {
     }
 
     return {
-      className: `zora-${themeKey}${mediaContext.style.useDefaultStyles ? ` ${css(styles)} ` : ''}${getUtilitySelectors(flags)}`,
+      className: `zora-${themeKey}${mediaContext.style.useDefaultStyles ? ` ${css(styles)}` : ''} ${getUtilitySelectors(flags)}`,
     };
   };
 
