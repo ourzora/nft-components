@@ -13,7 +13,7 @@ export const camelCase = (text: string) => {
     const regex = /[^a-z0-9]|\s+|\r?\n|\r/gmi;
 
     return text
-      .replace(regex, ',').split(',')
+      .split(regex)
       .map((word, index) =>
         index ? capitalize(word) : word.toLowerCase()
       )

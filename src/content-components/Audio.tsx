@@ -155,7 +155,7 @@ export const AudioRenderer = forwardRef<HTMLAudioElement, RenderComponentType>(
             <Fragment>
               <button
                 aria-live="polite"
-                aria-pressed={playing ? "true" : "false"}
+                aria-pressed={playing ? true : false}
                 onClick={togglePlay}
                 title={playingText}
                 {...getStyles("mediaPlayButton", { playing })}
