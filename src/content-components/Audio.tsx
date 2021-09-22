@@ -20,9 +20,13 @@ import {
 type FakeWaveformCanvasProps = {
   audioRef: any;
   uri: string;
+  audioColors: {
+    progressColor: string;
+    waveformColor: string;
+  };
 };
 
-const FakeWaveformCanvas = ({ audioRef, uri }: FakeWaveformCanvasProps) => {
+const FakeWaveformCanvas = ({ audioRef, uri, audioColors }: FakeWaveformCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [width, setWidth] = useState<undefined | number>();
   const updateWidth = useCallback(() => {
@@ -91,9 +95,9 @@ const FakeWaveformCanvas = ({ audioRef, uri }: FakeWaveformCanvasProps) => {
           audioRef.current.currentTime / audioRef.current.duration >
           i / width
         ) {
-          context.fillStyle = "#333";
+          context.fillStyle = audioColors.progressColor;
         } else {
-          context.fillStyle = "#999";
+          context.fillStyle = audioColors.waveformColor;
         }
         context.fillRect(i, (height - lineHeight) / 2, 2, lineHeight);
       }
@@ -106,7 +110,7 @@ const FakeWaveformCanvas = ({ audioRef, uri }: FakeWaveformCanvasProps) => {
 };
 
 export const AudioRenderer = forwardRef<HTMLAudioElement, RenderComponentType>(
-  ({ request, getStyles, a11yIdPrefix }, ref) => {
+  ({ request, getStyles, a11yIdPrefix, theme }, ref) => {
     const uri = request.media.content?.uri || request.media.animation?.uri;
     const { props, loading, error } = useMediaObjectProps({
       uri,
@@ -162,7 +166,11 @@ export const AudioRenderer = forwardRef<HTMLAudioElement, RenderComponentType>(
                 {playingText}
               </button>
               <div {...getStyles("mediaAudioWaveform")}>
-                <FakeWaveformCanvas uri={uri || ""} audioRef={audioRef} />
+                <FakeWaveformCanvas
+                  uri={uri || ""}
+                  audioRef={audioRef}
+                  audioColors={theme.audioColors}
+                />
               </div>
             </Fragment>
           )}
