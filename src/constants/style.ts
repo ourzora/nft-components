@@ -145,17 +145,17 @@ export const Style = {
         grid-auto-column: 1fr;
         padding: ${theme.textBlockPadding};
         border-top: ${theme.borderStyle};
-        ${getActiveStyle()}
+        ${getActiveStyle()};
       `;
     },
     cardTitle: (theme: ThemeOptionsType) => css`
       font-size: inherit;
       margin: 0;
-      max-width: calc(${theme.previewCard.width} - 30px),
+      max-width: calc(${theme.previewCard.width} - 30px);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      ${theme.titleFont}
+      ${theme.titleFont};
     `,
     // Styles for full-page view
     fullPage: (theme: ThemeOptionsType) => theme.bodyFont,
@@ -227,7 +227,7 @@ export const Style = {
         opacity: 0.8;
         background-repeat: no-repeat;
         background-position: center;
-        top: 0;
+        top: 2px;
         z-index: 10;
         right: 0;
         transition: opacity 0.4s ease-in;
@@ -366,7 +366,14 @@ export const Style = {
       `,
       theme.bodyFont,
     ],
-    pricingAmount: (theme: ThemeOptionsType) => theme.titleFont,
+    pricingAmount: (theme: ThemeOptionsType) => theme.bodyFont,
+    addressLink: (theme: ThemeOptionsType) => [
+      css`
+        text-decoration: none;
+        color: ${theme.linkColor};
+      `,
+      theme.titleFont,
+    ],
     nftProposal: (theme: ThemeOptionsType) => css`
       border: ${theme.borderStyle};
       border-radius: ${theme.defaultBorderRadius}px;

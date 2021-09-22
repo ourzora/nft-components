@@ -120,7 +120,7 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
         >
           <div {...getStyles("fullPageHistoryItemDescription")}>
             <div {...getStyles("fullPageHistoryItemDescriptionCopy")}>
-              <AddressView selector={{...getStyles("pricingAmount")}} address={bidItem.actor} />&nbsp;
+              <AddressView address={bidItem.actor} />&nbsp;
               <span {...getStyles("pricingAmount")}>{bidItem.activityDescription} {bidItem.pricing}</span>
             </div>
             {bidItem.transactionHash && style.theme.showTxnLinks && (
