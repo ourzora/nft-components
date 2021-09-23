@@ -122,7 +122,7 @@ export const VideoRenderer = forwardRef<HTMLVideoElement, RenderComponentType>(
           >
             <button
               {...getStyles("mediaFullscreenButton")}
-              aria-pressed={isFullScreen ? "true" : "false"}
+              aria-pressed={isFullScreen ? true : false}
               onClick={openFullscreen}
               title={getString("VIDEO_CONTROLS_FULLSCREEN")}
             >
@@ -131,6 +131,7 @@ export const VideoRenderer = forwardRef<HTMLVideoElement, RenderComponentType>(
             <button
               {...getStyles("mediaPlayButton", { playing: isPlaying })}
               aria-live="polite"
+              aria-pressed={isPlaying ? false : true}
               onClick={togglePlay}
               title={playingText}
             >
@@ -139,7 +140,7 @@ export const VideoRenderer = forwardRef<HTMLVideoElement, RenderComponentType>(
             <button
               {...getStyles("mediaMuteButton", { muted: isMuted })}
               onClick={toggleMute}
-              aria-pressed={isMuted ? "false" : "true"}
+              aria-pressed={isMuted ? false : true}
             >
               {getString("VIDEO_CONTROLS_MUTE")}
             </button>

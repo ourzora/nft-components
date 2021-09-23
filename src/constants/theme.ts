@@ -110,6 +110,15 @@ export const ThemeOptions = {
    * @default 16
    */
   fontSizeFull: 16,
+
+  /**
+   * Audio Player Color configurations
+   * @default {waveformColor: '#999, progressColor: '#333'}
+   */
+   audioColors: {
+    waveformColor: '#999',
+    progressColor: '#333'
+  }
 };
 
 export type ThemeOptionsType = typeof ThemeOptions;
