@@ -208,6 +208,7 @@ export const Style = {
     fullPageHistoryItemDescriptionCopy: () => css`
       display: flex;
       flex-direction: row;
+      flex-wrap: wrap;
     `,
     fullPageHistoryItemMeta: () => css`
       position: relative;
