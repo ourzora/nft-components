@@ -13,11 +13,14 @@ export const AddressView = ({ address, showChars = 6 }: AddressViewProps) => {
   const addressFirst = address.slice(0, showChars + PREFIX_ADDRESS.length);
   const addressLast = address.slice(address.length - showChars);
 
-  if (username.username?.username) {
-    return <span>{`@${username.username.username}`}</span>;
+  if (username.ensData) {
+    return <span>{username.ensData.name}</span>;
   }
   if (!username.error && !username.username) {
     return <span>...</span>;
+  }
+  if (username.username) {
+    return <span>{`@${username}`}</span>;
   }
   return (
     <span>
