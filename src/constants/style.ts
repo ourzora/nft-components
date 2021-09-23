@@ -313,6 +313,9 @@ export const Style = {
     `,
     fullInfoCuratorFeeContainer: (_: any) => css`
       margin-top: 20px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
     `,
     fullInfoProofAuthenticityContainer: (_: any) => css`
       margin-top: 20px;
