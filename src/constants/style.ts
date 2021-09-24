@@ -134,7 +134,7 @@ export const Style = {
         display: grid;
         grid-auto-flow: column;
         grid-template-rows: auto auto;
-        grid-auto-column: 1fr;
+        grid-auto-columns: 1fr;
         padding: ${theme.textBlockPadding};
         border-top: ${theme.borderStyle};
         ${getActiveStyle()};
@@ -156,10 +156,10 @@ export const Style = {
       position: relative;
     `,
     fullItemInfo: (_: ThemeOptionsType) => css``,
-    fullTitle: (_: ThemeOptionsType) => css`
+    fullTitle: (theme: ThemeOptionsType) => css`
       font-weight: inherit;
       font-size: 30px;
-      margin: 20px 0;
+      margin: ${theme.spacingUnit} 0;
     `,
     fullDescription: (theme: ThemeOptionsType) => css`
       font-size: ${theme.fontSizeFull}px;
@@ -288,15 +288,15 @@ export const Style = {
       `,
       theme.bodyFont,
     ],
-    fullPageDataGrid: (_: ThemeOptionsType) => css`
+    fullPageDataGrid: (theme: ThemeOptionsType) => css`
       display: grid;
-      grid-gap: 20px;
+      grid-gap: ${theme.spacingUnit};
     `,
     infoContainer: (theme: ThemeOptionsType, { bottomPadding }: any) =>
       css`
         border: ${theme.borderStyle};
         border-radius: ${theme.defaultBorderRadius}px;
-        padding: 20px 20px ${bottomPadding ? "20px" : 0};
+        padding: ${theme.spacingUnit} ${theme.spacingUnit} ${bottomPadding ? theme.spacingUnit : 0};
         position: relative;
       `,
     fullInfoSpacer: (_: any, { height = 15 }: { height: number }) => css`
@@ -310,15 +310,15 @@ export const Style = {
       flex-direction: row;
       flex-wrap: wrap;
     `,
-    fullInfoProofAuthenticityContainer: (_: any) => css`
-      margin-top: 20px;
+    fullInfoProofAuthenticityContainer: (theme: ThemeOptionsType) => css`
+      margin-top: ${theme.spacingUnit};
     `,
     fullProofLink: (theme: ThemeOptionsType) => css`
       display: block;
       text-decoration: none;
       color: ${theme.linkColor};
-      padding: 20px;
-      margin: 0 -20px;
+      padding: ${theme.spacingUnit};
+      margin: 0 -${theme.spacingUnit};
       border-top: ${theme.borderStyle};
 
       :hover {
@@ -331,7 +331,7 @@ export const Style = {
         opacity: 0.5;
         ${renderSVG(SVG_NEXT_ICON)}
         color: #eee;
-        right: 20px;
+        right: ${theme.spacingUnit};
         position: absolute;
       }
     `,
@@ -340,10 +340,10 @@ export const Style = {
       grid-auto-flow: column;
       grid-template-rows: auto auto;
       grid-auto-columns: 1fr;
-      padding: 20px;
+      padding: ${theme.spacingUnit};
       border: ${theme.borderStyle};
       border-radius: ${theme.defaultBorderRadius}px;
-      margin: 20px 0 0;
+      margin: ${theme.spacingUnit} 0 0;
     `,
     // Generic styles
     button: (theme: ThemeOptionsType, { primary }: any) => css`
@@ -379,7 +379,7 @@ export const Style = {
       border: ${theme.borderStyle};
       border-radius: ${theme.defaultBorderRadius}px;
       display: flex;
-      padding: 20px;
+      padding: ${theme.spacingUnit};
     `,
     nftProposalActions: () => css`
       grid-area: 1 / 2 / span 1 / span 2;
@@ -467,7 +467,7 @@ export const Style = {
       css`
         white-space: pre;
         text-align: left;
-        padding: 20px;
+        padding: ${theme.spacingUnit};
         width: 100%;
       `,
       theme.mediaContentFont,
@@ -495,13 +495,13 @@ export const Style = {
       `
         : "display: none;"}
     `,
-    mediaFullscreenButton: (_: ThemeOptionsType) => css`
-      ${buttonCommonSize("20px")}
+    mediaFullscreenButton: (theme: ThemeOptionsType) => css`
+      ${buttonCommonSize(theme.spacingUnit)}
       background-color: #000;
       ${renderSVG(SVG_FULLSCREEN)}
     `,
-    mediaMuteButton: (_: ThemeOptionsType, { muted }: any) => css`
-      ${buttonCommonSize("20px")}
+    mediaMuteButton: (theme: ThemeOptionsType, { muted }: any) => css`
+      ${buttonCommonSize(theme.spacingUnit)}
       background-color: #000;
       background-image: url("data:image/svg+xml,${encodeURIComponent(
         muted ? SVG_UNMUTED : SVG_MUTED

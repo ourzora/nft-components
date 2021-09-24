@@ -37,6 +37,12 @@ export const ThemeOptions = {
 
   /**
    * Padding for preview card text block
+   * @default 20px
+   */
+  spacingUnit: "20px",
+  
+  /**
+   * Padding for preview card text block
    * @default 10px 15px
    */
   textBlockPadding: "10px 15px",
