@@ -181,9 +181,13 @@ export const Style = {
       `,
       theme.bodyFont,
     ],
+    fullPageHistoryList: () => css`
+      padding: 0;
+      margin: 0;
+    `,
     fullPageHistoryItem: (theme: ThemeOptionsType) => [
       css`
-        margin-top: 14px;
+        margin-top: 15px;
         display: flex;
         flex-direction: column;
         font-weight: 300;
@@ -300,11 +304,8 @@ export const Style = {
     `,
     fullInfoAuctionWrapper: () => ``,
     fullPlaceOfferButton: (_: any) => css``,
-    fullInfoCreatorEquityContainer: (_: any) => css`
-      margin-top: 20px;
-    `,
+    fullInfoCreatorEquityContainer: (_: any) => css``,
     fullInfoCuratorFeeContainer: (_: any) => css`
-      margin-top: 20px;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;

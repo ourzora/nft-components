@@ -149,7 +149,7 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
 
   return (
     <InfoContainer titleString="NFT_HISTORY">
-      <ol style={{ padding: 0 }}>{getPastBids()}</ol>
+      <ol {...getStyles("fullPageHistoryList")}>{getPastBids()}</ol>
     </InfoContainer>
   );
 };
