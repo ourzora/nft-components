@@ -6,7 +6,7 @@ import { camelCase } from '../utils/camelCase'
 
 export function useMediaContext() {
   const mediaContext = useContext(MediaContext);
-
+  
   const getStyles = (
     themeKey: keyof ThemeType["styles"],
     flags: any = {}

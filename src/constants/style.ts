@@ -12,15 +12,6 @@ import {
 } from "./svg-icons";
 import { ThemeOptions, ThemeOptionsType } from "./theme";
 
-const pricingLayout = (theme: ThemeOptionsType) => css`
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-rows: auto auto;
-  grid-auto-column: 1fr;
-  padding: ${theme.textBlockPadding};
-  border-top: ${theme.borderStyle};
-`;
-
 const buttonCommonSize = (size: string) => `
   padding: ${size};
   width: ${size};
@@ -343,12 +334,16 @@ export const Style = {
         position: absolute;
       }
     `,
-    fullCreatorOwnerSection: (theme: ThemeOptionsType) => [
-      pricingLayout(theme),
-      css`
-        border-top: 0;
-      `,
-    ],
+    fullCreatorOwnerSection: (theme: ThemeOptionsType) => css`
+      display: grid;
+      grid-auto-flow: column;
+      grid-template-rows: auto auto;
+      grid-auto-columns: 1fr;
+      padding: 20px;
+      border: ${theme.borderStyle};
+      border-radius: ${theme.defaultBorderRadius}px;
+      margin: 20px 0 0;
+    `,
     // Generic styles
     button: (theme: ThemeOptionsType, { primary }: any) => css`
       ${buttonReset}
