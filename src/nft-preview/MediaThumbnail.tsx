@@ -30,6 +30,7 @@ export const MediaThumbnail = ({
   };
 
   const { media, title } = getContent();
+  console.log(media.props)
   const hasCreator = data?.nft.creator;
   const address = hasCreator ? data?.nft.creator : data?.nft.owner;
   return (
