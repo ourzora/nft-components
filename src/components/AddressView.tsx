@@ -26,7 +26,7 @@ export const AddressView = ({ address, showChars = 6 }: AddressViewProps) => {
     return <span>...</span>;
   }
   return (
-    <a {...getStyles("addressLink")} href={`https://zora.co/${address}`} target="_blank">
+    <a {...getStyles("addressLink")} href={`https://etherscan.io/address/${address}`} target="_blank">
       <span>
         {addressFirst}...{addressLast}
       </span>
