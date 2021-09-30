@@ -12,15 +12,6 @@ import {
 } from "./svg-icons";
 import { ThemeOptions, ThemeOptionsType } from "./theme";
 
-const pricingLayout = (theme: ThemeOptionsType) => css`
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-rows: auto auto;
-  grid-auto-column: 1fr;
-  padding: ${theme.textBlockPadding};
-  border-top: ${theme.borderStyle};
-`;
-
 const buttonCommonSize = (size: string) => `
   padding: ${size};
   width: ${size};
@@ -143,20 +134,20 @@ export const Style = {
         display: grid;
         grid-auto-flow: column;
         grid-template-rows: auto auto;
-        grid-auto-column: 1fr;
+        grid-auto-columns: 1fr;
         padding: ${theme.textBlockPadding};
         border-top: ${theme.borderStyle};
-        ${getActiveStyle()}
+        ${getActiveStyle()};
       `;
     },
     cardTitle: (theme: ThemeOptionsType) => css`
       font-size: inherit;
       margin: 0;
-      max-width: calc(${theme.previewCard.width} - 30px),
+      max-width: calc(${theme.previewCard.width} - 30px);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      ${theme.titleFont}
+      ${theme.titleFont};
     `,
     // Styles for full-page view
     fullPage: (theme: ThemeOptionsType) => theme.bodyFont,
@@ -165,10 +156,10 @@ export const Style = {
       position: relative;
     `,
     fullItemInfo: (_: ThemeOptionsType) => css``,
-    fullTitle: (_: ThemeOptionsType) => css`
+    fullTitle: (theme: ThemeOptionsType) => css`
       font-weight: inherit;
       font-size: 30px;
-      margin: 20px 0;
+      margin: ${theme.spacingUnit} 0;
     `,
     fullDescription: (theme: ThemeOptionsType) => css`
       font-size: ${theme.fontSizeFull}px;
@@ -190,9 +181,13 @@ export const Style = {
       `,
       theme.bodyFont,
     ],
+    fullPageHistoryList: () => css`
+      padding: 0;
+      margin: 0;
+    `,
     fullPageHistoryItem: (theme: ThemeOptionsType) => [
       css`
-        margin-top: 14px;
+        margin-top: 15px;
         display: flex;
         flex-direction: column;
         font-weight: 300;
@@ -200,8 +195,15 @@ export const Style = {
       theme.bodyFont,
     ],
     // CSS Class for restyling and targeting
-    fullPageHistoryItemDescription: (theme: ThemeOptionsType) => css`
-      ${theme.showTxnLinks ? "margin-right: 20px;" : ""}
+    fullPageHistoryItemDescription: () => css`
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    `,
+    fullPageHistoryItemDescriptionCopy: () => css`
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
     `,
     fullPageHistoryItemMeta: () => css`
       position: relative;
@@ -222,7 +224,7 @@ export const Style = {
         opacity: 0.8;
         background-repeat: no-repeat;
         background-position: center;
-        top: 14px;
+        top: 2px;
         z-index: 10;
         right: 0;
         transition: opacity 0.4s ease-in;
@@ -286,15 +288,15 @@ export const Style = {
       `,
       theme.bodyFont,
     ],
-    fullPageDataGrid: (_: ThemeOptionsType) => css`
+    fullPageDataGrid: (theme: ThemeOptionsType) => css`
       display: grid;
-      grid-gap: 20px;
+      grid-gap: ${theme.spacingUnit};
     `,
     infoContainer: (theme: ThemeOptionsType, { bottomPadding }: any) =>
       css`
         border: ${theme.borderStyle};
         border-radius: ${theme.defaultBorderRadius}px;
-        padding: 20px 20px ${bottomPadding ? "20px" : 0};
+        padding: ${theme.spacingUnit} ${theme.spacingUnit} ${bottomPadding ? theme.spacingUnit : 0};
         position: relative;
       `,
     fullInfoSpacer: (_: any, { height = 15 }: { height: number }) => css`
@@ -302,21 +304,21 @@ export const Style = {
     `,
     fullInfoAuctionWrapper: () => ``,
     fullPlaceOfferButton: (_: any) => css``,
-    fullInfoCreatorEquityContainer: (_: any) => css`
-      margin-top: 20px;
-    `,
+    fullInfoCreatorEquityContainer: (_: any) => css``,
     fullInfoCuratorFeeContainer: (_: any) => css`
-      margin-top: 20px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
     `,
-    fullInfoProofAuthenticityContainer: (_: any) => css`
-      margin-top: 20px;
+    fullInfoProofAuthenticityContainer: (theme: ThemeOptionsType) => css`
+      margin-top: ${theme.spacingUnit};
     `,
     fullProofLink: (theme: ThemeOptionsType) => css`
       display: block;
       text-decoration: none;
       color: ${theme.linkColor};
-      padding: 20px;
-      margin: 0 -20px;
+      padding: ${theme.spacingUnit};
+      margin: 0 -${theme.spacingUnit};
       border-top: ${theme.borderStyle};
 
       :hover {
@@ -329,16 +331,20 @@ export const Style = {
         opacity: 0.5;
         ${renderSVG(SVG_NEXT_ICON)}
         color: #eee;
-        right: 20px;
+        right: ${theme.spacingUnit};
         position: absolute;
       }
     `,
-    fullCreatorOwnerSection: (theme: ThemeOptionsType) => [
-      pricingLayout(theme),
-      css`
-        border-top: 0;
-      `,
-    ],
+    fullCreatorOwnerSection: (theme: ThemeOptionsType) => css`
+      display: grid;
+      grid-auto-flow: column;
+      grid-template-rows: auto auto;
+      grid-auto-columns: 1fr;
+      padding: ${theme.spacingUnit};
+      border: ${theme.borderStyle};
+      border-radius: ${theme.defaultBorderRadius}px;
+      margin: ${theme.spacingUnit} 0 0;
+    `,
     // Generic styles
     button: (theme: ThemeOptionsType, { primary }: any) => css`
       ${buttonReset}
@@ -361,12 +367,19 @@ export const Style = {
       `,
       theme.bodyFont,
     ],
-    pricingAmount: (theme: ThemeOptionsType) => theme.titleFont,
+    pricingAmount: (theme: ThemeOptionsType) => theme.bodyFont,
+    addressLink: (theme: ThemeOptionsType) => [
+      css`
+        text-decoration: none;
+        color: ${theme.linkColor};
+      `,
+      theme.titleFont,
+    ],
     nftProposal: (theme: ThemeOptionsType) => css`
       border: ${theme.borderStyle};
       border-radius: ${theme.defaultBorderRadius}px;
       display: flex;
-      padding: 20px;
+      padding: ${theme.spacingUnit};
     `,
     nftProposalActions: () => css`
       grid-area: 1 / 2 / span 1 / span 2;
@@ -454,7 +467,7 @@ export const Style = {
       css`
         white-space: pre;
         text-align: left;
-        padding: 20px;
+        padding: ${theme.spacingUnit};
         width: 100%;
       `,
       theme.mediaContentFont,
@@ -482,13 +495,13 @@ export const Style = {
       `
         : "display: none;"}
     `,
-    mediaFullscreenButton: (_: ThemeOptionsType) => css`
-      ${buttonCommonSize("20px")}
+    mediaFullscreenButton: (theme: ThemeOptionsType) => css`
+      ${buttonCommonSize(theme.spacingUnit)}
       background-color: #000;
       ${renderSVG(SVG_FULLSCREEN)}
     `,
-    mediaMuteButton: (_: ThemeOptionsType, { muted }: any) => css`
-      ${buttonCommonSize("20px")}
+    mediaMuteButton: (theme: ThemeOptionsType, { muted }: any) => css`
+      ${buttonCommonSize(theme.spacingUnit)}
       background-color: #000;
       background-image: url("data:image/svg+xml,${encodeURIComponent(
         muted ? SVG_UNMUTED : SVG_MUTED

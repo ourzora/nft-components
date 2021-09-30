@@ -27,10 +27,8 @@ export const CreatorEquity = () => {
       {data && data.pricing.reserve && data.pricing.reserve?.curatorFeePercentage > 0 && (
         <InfoContainer titleString="CURATOR_FEE">
           <div {...getStyles("fullInfoCuratorFeeContainer")}>
-            <p>{getContent(data.pricing.reserve?.curatorFeePercentage)} {getString('CURATOR_PROCEEDS_DESC')}</p>
-            <p>
-              <AddressView address={data.pricing.reserve.curator.id} />
-            </p>
+            <span>{getContent(data.pricing.reserve?.curatorFeePercentage)} {getString('CURATOR_PROCEEDS_DESC')}</span>
+            &nbsp;<AddressView address={data.pricing.reserve.curator.id} />
           </div>
         </InfoContainer>
       )}

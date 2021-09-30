@@ -17,7 +17,7 @@ type AuctionInfoProps = {
 
 export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
   const { nft } = useContext(NFTDataContext);
-  const { getStyles, getString } = useMediaContext();
+  const { getStyles, getString, style } = useMediaContext();
 
   const AuctionInfoWrapper = ({
     children,
@@ -83,10 +83,10 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
     return (
       <AuctionInfoWrapper titleString="AUCTION_ENDS">
         <CountdownDisplay to={reserve.expectedEndTimestamp} />
-        <div style={{ height: "20px" }} />
+        <div style={{ height: style.theme.spacingUnit }} />
         <div {...getStyles("fullLabel")}>{getString("HIGHEST_BID")}</div>
         <PricingString pricing={reserve.current.highestBid.pricing} />
-        <div style={{ height: "20px" }} />
+        <div style={{ height: style.theme.spacingUnit }} />
         <div {...getStyles("fullLabel")}>{getString("BIDDER")}</div>
         <AddressView address={reserve.current.highestBid?.placedBy} />
       </AuctionInfoWrapper>
@@ -127,7 +127,7 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
             <>
               <PricingString pricing={data.pricing.reserve.reservePrice} />
               <div>
-              <div style={{ height: "20px" }} />
+              <div style={{ height: style.theme.spacingUnit }} />
                 <div {...getStyles("fullLabel")}>{getString("AUCTION_PENDING_DURATION")}</div>
                 <DurationDisplay duration={data.pricing.reserve.duration} />
               </div>

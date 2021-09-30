@@ -137,8 +137,7 @@ describe("AuctionInfo", () => {
         </TestHarness>
       );
 
-      const wonArea = await screen.findByText("won the auction");
-      expect(wonArea.parentElement?.innerHTML).toContain("May 14, 10:23 PM");
+      await screen.findAllByText("May 14, 10:23 PM");
       await screen.findByText("minted the NFT");
       await screen.findByText("listed the NFT");
       expect(getBids()).toEqual(["0.4 ETH"]);
@@ -152,8 +151,7 @@ describe("AuctionInfo", () => {
         </TestHarness>
       );
 
-      const wonArea = await screen.findByText("won the auction");
-      expect(wonArea.parentElement?.innerHTML).toContain("June 11, 12:25 PM");
+      await screen.findAllByText("June 11, 12:25 PM");
       await screen.findByText("minted the NFT");
       await screen.findByText("listed the NFT");
     });
