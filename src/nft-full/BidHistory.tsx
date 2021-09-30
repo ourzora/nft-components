@@ -128,6 +128,7 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
                 {...getStyles("fullPageHistoryTxnLink")}
                 href={`https://etherscan.io/tx/${bidItem.transactionHash}`}
                 target="_blank"
+                rel="noreferrer"
               >
                 {getString("BID_HISTORY_VIEW_TRANSACTION")}
               </a>

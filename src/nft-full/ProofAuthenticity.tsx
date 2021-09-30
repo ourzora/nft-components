@@ -18,7 +18,12 @@ const ProofLink = ({
   children: string;
   styles: any;
 }) => (
-  <a {...styles} href={href} target="_blank">
+  <a
+    {...styles}
+    href={href}
+    target="_blank"
+    rel="noreferrer"
+  >
     {children}
   </a>
 );

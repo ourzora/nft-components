@@ -17,7 +17,12 @@ export const AddressView = ({ address, showChars = 6 }: AddressViewProps) => {
 
   if (username.username?.username) {
     return (
-      <a {...getStyles("addressLink")} href={`https://zora.co/${username.username.username}`} target="_blank">
+      <a
+        {...getStyles("addressLink")}
+        href={`https://zora.co/${username.username.username}`}
+        target="_blank"
+        rel="noreferrer"
+      >
         <span>{`@${username.username.username}`}</span>
       </a>
     );
@@ -26,7 +31,12 @@ export const AddressView = ({ address, showChars = 6 }: AddressViewProps) => {
     return <span>...</span>;
   }
   return (
-    <a {...getStyles("addressLink")} href={`https://etherscan.io/address/${address}`} target="_blank">
+    <a
+      {...getStyles("addressLink")}
+      href={`https://etherscan.io/address/${address}`}
+      target="_blank"
+      rel="noreferrer"
+    >
       <span>
         {addressFirst}...{addressLast}
       </span>
