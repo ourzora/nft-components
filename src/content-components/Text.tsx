@@ -9,6 +9,9 @@ import {
 
 export const Text: RendererConfig = {
   getRenderingPreference: (request: RenderRequest) => {
+    if (request.media.content?.type === 'text/html') {
+      return RenderingPreference.INVALID;
+    }
     if (request.media.content?.type?.startsWith("text/plain")) {
       return RenderingPreference.PRIORITY;
     }
