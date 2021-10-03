@@ -48,7 +48,7 @@ export const HTML: RendererConfig = {
     ) {
       return request.renderingContext === "FULL"
         ? RenderingPreference.PRIORITY
-        : RenderingPreference.LOW;
+        : RenderingPreference.INVALID;
     }
     return RenderingPreference.INVALID;
   },
