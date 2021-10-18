@@ -10,7 +10,7 @@ export const Unknown: RendererConfig = {
     if (request.media.content?.type?.startsWith("text/")) {
       return RenderingPreference.LOW;
     }
-    return RenderingPreference.INVALID;
+    return RenderingPreference.FALLBACK;
   },
 
   render: ({ request, getStyles }: RenderComponentType) => (

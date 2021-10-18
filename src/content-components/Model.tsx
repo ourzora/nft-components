@@ -34,10 +34,11 @@ export const Model: ModelRenderer = {
     if (props.request.media.image) {
       params.append("poster", props.request.media.image?.uri);
     }
-    props.request.media.content = {
+    const newProps = { ...props };
+    newProps.request.media.content = {
       uri: `${Model.renderingPage}#${params.toString()}`,
     };
 
-    return <HTML.render {...props} />;
+    return <HTML.render {...newProps} />;
   },
 };

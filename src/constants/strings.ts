@@ -114,9 +114,9 @@ export const Strings = {
   CURATOR_FEE: "Curator fee",
   /**
    * Header showing curator information on NFT full page
-   * @default  of proceeds go to the curator
+   * @default  of proceeds go to
    */
-  CURATOR_PROCEEDS_DESC: " of proceeds go to the curator",
+  CURATOR_PROCEEDS_DESC: " of proceeds go to",
   /**
    * Sold for view on full view page auction info box
    * @default Sold for
