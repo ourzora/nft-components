@@ -1,5 +1,4 @@
 import { Fragment, useContext } from "react";
-import { useNFTMetadata } from "@zoralabs/nft-hooks";
 import { useMediaContext } from "../context/useMediaContext";
 import { NFTDataContext } from "../context/NFTDataContext";
 import { InfoContainer } from "./InfoContainer";
