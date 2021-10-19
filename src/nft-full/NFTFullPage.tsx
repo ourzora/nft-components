@@ -8,6 +8,7 @@ import { BidHistory } from "./BidHistory";
 import { CreatorEquity } from "./CreatorEquity";
 import { MediaInfo } from "./MediaInfo";
 import { PlaceOfferButton } from "./PlaceOfferButton";
+import { CollectionTag } from "./CollectionTag";
 import {
   NFTDataProvider,
   NFTDataProviderProps,
@@ -41,6 +42,7 @@ export const NFTFullPage = ({
       <Fragment>
         <MediaFull a11yIdPrefix={a11yIdPrefix} />
         <div {...getStyles("fullPageDataGrid")}>
+          <CollectionTag/>
           <MediaInfo a11yIdPrefix={a11yIdPrefix} />
           <PlaceOfferButton allowOffer={allowOffer} />
           <AuctionInfo showPerpetual={showPerpetual} />

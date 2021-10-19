@@ -138,7 +138,13 @@ export const ThemeOptions = {
    audioColors: {
     waveformColor: '#999',
     progressColor: '#333'
-  }
+   },
+
+   /**
+   * Background color for loading media content
+   * @default {placeHolderColor '#e6e6e6'}
+   */
+   placeHolderColor: '#e6e6e6'
 };
 
 export type ThemeOptionsType = typeof ThemeOptions;
