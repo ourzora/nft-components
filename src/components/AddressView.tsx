@@ -23,10 +23,11 @@ export const AddressView = ({
   const addressLast = address.slice(address.length - showChars);
 
   if (ens.data?.name) {
+    const zoraLink = ens.data.name.endsWith('.ens') ? ens.data.name : address;
     return (
       <a
         {...getStyles("addressLink")}
-        href={`https://zora.co/${ens.data.name}`}
+        href={`https://zora.co/${zoraLink}`}
         target="_blank"
         rel="noreferrer"
       >
