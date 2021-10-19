@@ -345,6 +345,25 @@ export const Style = {
       border-radius: ${theme.defaultBorderRadius}px;
       margin: ${theme.spacingUnit} 0 0;
     `,
+    // Properties Component
+    propertiesGrid: (theme: ThemeOptionsType) => css`
+      display: grid;
+      grid-auto-flow: row;
+      grid-template-columns: auto auto;
+      padding-top: ${theme.spacingUnit};
+      grid-gap: calc(${theme.spacingUnit} / 2);
+      text-align: center;
+    `,
+    propertiesItem: (theme: ThemeOptionsType) => css`
+      border: ${theme.borderStyle};
+      border-radius: ${theme.defaultBorderRadius}px;
+      padding: ${theme.spacingUnit} calc(${theme.spacingUnit} / 4);
+      position: relative;
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      grid-gap: calc(${theme.spacingUnit} / 6);
+      line-height: 1;
+    `,
     // Generic styles
     button: (theme: ThemeOptionsType, { primary }: any) => css`
       ${buttonReset}

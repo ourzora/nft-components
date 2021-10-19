@@ -235,4 +235,10 @@ export const Strings = {
    * @default Mute
    */
   VIDEO_CONTROLS_MUTE: "Mute",
+  /**
+   * Mute video controls description text
+   *
+   * @default Mute
+   */
+  PROPERTIES_TITLE: "Attributes",
 };
