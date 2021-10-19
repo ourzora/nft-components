@@ -1,35 +1,62 @@
-import { useZoraUsername } from "@zoralabs/nft-hooks";
+import { useENSAddress, useZoraUsername } from "@zoralabs/nft-hooks";
 import { useMediaContext } from "../context/useMediaContext";
 
 type AddressViewProps = {
   address: string;
   showChars?: number;
+  useEns?: boolean;
 };
 
 const PREFIX_ADDRESS = "0x";
 
-export const AddressView = ({ address, showChars = 6 }: AddressViewProps) => {
+export const AddressView = ({
+  address,
+  showChars = 6,
+  useEns = true,
+}: AddressViewProps) => {
   const { getStyles } = useMediaContext();
-  const username = useZoraUsername(address);
+  // @ts-ignore (address can be undefined but not typed correctly for now)
+  const ens = useENSAddress(useEns ? address : undefined);
+  const username = useZoraUsername(!useEns || ens.error ? address : undefined);
 
   const addressFirst = address.slice(0, showChars + PREFIX_ADDRESS.length);
   const addressLast = address.slice(address.length - showChars);
 
-  if (username.username?.username) {
+  if (ens.data?.name) {
     return (
       <a
         {...getStyles("addressLink")}
-        href={`https://zora.co/${username.username.username}`}
+        href={`https://zora.co/${ens.data.name}`}
         target="_blank"
         rel="noreferrer"
       >
-        <span>{`@${username.username.username}`}</span>
+        <span>{ens.data.name}</span>
       </a>
     );
   }
+  if (username.username?.name) {
+    return (
+      <a
+        {...getStyles("addressLink")}
+        href={`https://zora.co/${username.username.name}`}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <span>{`@${username.username.name}`}</span>
+      </a>
+    );
+  }
+
+  // Username loading
   if (!username.error && !username.username) {
     return <span>...</span>;
   }
+
+  // Ens loading
+  if (useEns && !ens.error && !ens.data) {
+    return <span>...</span>;
+  }
+
   return (
     <a
       {...getStyles("addressLink")}
