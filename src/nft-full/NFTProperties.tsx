@@ -8,13 +8,9 @@ export const NFTProperties = () => {
   const {
     nft: { data },
   } = useContext(NFTDataContext);
-  const { metadata } = useNFTMetadata(data && data?.nft?.metadataURI);
   const { getStyles } = useMediaContext();
 
   const getContent = () => {
-    console.log(metadata)
-    console.log(data)
-    
     if (data && "openseaInfo" in data) {
       return (
         <InfoContainer titleString={'PROPERTIES_TITLE'}>
