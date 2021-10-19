@@ -39,9 +39,10 @@ export const PlaceOfferButton = ({ allowOffer }: PlaceOfferButtonProps) => {
     ) {
       return [
         ZORA_SITE_URL_BASE,
-        "auction",
+        "collections",
         data.nft.contract.address,
         data.nft.tokenId,
+        "auction",
         "bid",
       ];
     }
