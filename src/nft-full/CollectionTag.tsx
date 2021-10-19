@@ -16,7 +16,7 @@ export const CollectionTag = () => {
     return (
       <a
         {...getStyles("colectionTagWrapper")}
-        href={`https://zora.co/collections/${data.nft.contract.address}`}
+        href={`https://zora.co/collections/${data?.nft.contract.address}`}
         target="_blank"
         rel="noreferrer"
       >
