@@ -238,7 +238,7 @@ export const Strings = {
   /**
    * Properties component title text
    *
-   * @default Attributes
+   * @default Properties
    */
-  PROPERTIES_TITLE: "Attributes",
+  PROPERTIES_TITLE: "Properties",
 };
