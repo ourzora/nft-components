@@ -364,6 +364,15 @@ export const Style = {
       grid-gap: calc(${theme.spacingUnit} / 6);
       line-height: 1;
     `,
+    propertiesLabel: (theme: ThemeOptionsType) => [
+      css`
+        margin: 0 0 5px;
+        text-transform: capitalize;
+        font-size: 14px;
+        opacity: 0.5;
+      `,
+      theme.bodyFont,
+    ],
     // Generic styles
     button: (theme: ThemeOptionsType, { primary }: any) => css`
       ${buttonReset}

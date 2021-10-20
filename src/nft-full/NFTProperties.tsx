@@ -14,7 +14,7 @@ export const NFTProperties = () => {
   const renderAttributes = (attributes: any) => {
     
     function formatAttributes(obj: any) {
-      if (!!obj && obj.constructor === Array) {
+      if (Array.isArray(obj)) {
         return obj
       } else {
         const array = Object.keys(obj).length === 0 ? false : Object.entries(obj)
@@ -33,7 +33,7 @@ export const NFTProperties = () => {
 
     if (attributes && formattedAttributes.length) {
       return (
-        <InfoContainer titleString={'PROPERTIES_TITLE'}>
+        <InfoContainer titleString="PROPERTIES_TITLE">
           <div {...getStyles("propertiesGrid")}>
             {formattedAttributes.map((attribute: any, index: number) => {
               return (
@@ -41,7 +41,7 @@ export const NFTProperties = () => {
                   {...getStyles("propertiesItem")}
                   key={`${data?.nft?.tokenId}${index}`}
                 >
-                  {attribute?.trait_type && <span {...getStyles("fullLabel")}>{attribute?.trait_type}</span>}
+                  {attribute?.trait_type && <span {...getStyles("propertiesLabel")}>{attribute?.trait_type}</span>}
                   {attribute?.value && <span>{attribute?.value}</span>}
                 </div>
               )

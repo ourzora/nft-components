@@ -43,7 +43,7 @@ export const NFTFullPage = ({
         <MediaFull a11yIdPrefix={a11yIdPrefix} />
         <div {...getStyles("fullPageDataGrid")}>
           <MediaInfo a11yIdPrefix={a11yIdPrefix} />
-          <NFTProperties/>
+          <NFTProperties />
           <PlaceOfferButton allowOffer={allowOffer} />
           <AuctionInfo showPerpetual={showPerpetual} />
           <ProofAuthenticity />
