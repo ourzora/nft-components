@@ -5,12 +5,13 @@ import { useMediaContext } from "../context/useMediaContext";
 import { Button } from "../components/Button";
 import { NFTDataContext } from "../context/NFTDataContext";
 import { AuctionType } from "@zoralabs/nft-hooks";
+import type { StyleProps } from "../utils/StyleTypes";
 
 type PlaceOfferButtonProps = {
   allowOffer?: boolean;
-};
+} & StyleProps;
 
-export const PlaceOfferButton = ({ allowOffer }: PlaceOfferButtonProps) => {
+export const PlaceOfferButton = ({ allowOffer, className }: PlaceOfferButtonProps) => {
   const { nft } = useContext(NFTDataContext);
   const { getString, getStyles } = useMediaContext();
 
@@ -62,7 +63,7 @@ export const PlaceOfferButton = ({ allowOffer }: PlaceOfferButtonProps) => {
   }
 
   return (
-    <div {...getStyles("fullPlaceOfferButton")}>
+    <div {...getStyles("fullPlaceOfferButton", className)}>
       <Button primary={true} href={bidURL}>
         {getString(
           nft.data.pricing.auctionType === AuctionType.RESERVE

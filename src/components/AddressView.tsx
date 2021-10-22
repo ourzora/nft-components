@@ -1,14 +1,15 @@
 import { useENSAddress, useZoraUsername } from "@zoralabs/nft-hooks";
 import { useMediaContext } from "../context/useMediaContext";
+import type {StyleProps} from '../utils/StyleTypes';
 
 type AddressViewProps = {
   address: string;
   showChars?: number;
-};
+} & StyleProps;
 
 const PREFIX_ADDRESS = "0x";
 
-export const AddressView = ({ address, showChars = 6 }: AddressViewProps) => {
+export const AddressView = ({ address, showChars = 6, className }: AddressViewProps) => {
   const { getStyles, style } = useMediaContext();
   const { theme } = style;
   // @ts-ignore (address can be undefined but not typed correctly for now)
@@ -24,7 +25,7 @@ export const AddressView = ({ address, showChars = 6 }: AddressViewProps) => {
     const zoraLink = ens.data.name.endsWith(".ens") ? ens.data.name : address;
     return (
       <a
-        {...getStyles("addressLink")}
+        {...getStyles("addressLink", className)}
         href={`https://zora.co/${zoraLink}`}
         target="_blank"
         rel="noreferrer"
@@ -36,7 +37,7 @@ export const AddressView = ({ address, showChars = 6 }: AddressViewProps) => {
   if (username.username?.username) {
     return (
       <a
-        {...getStyles("addressLink")}
+        {...getStyles("addressLink", className)}
         href={`https://zora.co/${username.username.username}`}
         target="_blank"
         rel="noreferrer"
@@ -62,7 +63,7 @@ export const AddressView = ({ address, showChars = 6 }: AddressViewProps) => {
 
   return (
     <a
-      {...getStyles("addressLink")}
+      {...getStyles("addressLink", className)}
       href={`https://etherscan.io/address/${address}`}
       target="_blank"
       rel="noreferrer"

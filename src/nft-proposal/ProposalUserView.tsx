@@ -1,6 +1,6 @@
 import { useZoraUsername } from "@zoralabs/nft-hooks";
-import { AddressView } from "src/components/AddressView";
-import { useMediaContext } from "src/context/useMediaContext";
+import { AddressView } from "../components/AddressView";
+import { useMediaContext } from "../context/useMediaContext";
 
 type ProposalUserViewProps = {
   address: string;
