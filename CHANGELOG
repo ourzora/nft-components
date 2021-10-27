@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [0.1.15] - 2021-10-27
+- Bump `@zoralabs/nft-hooks` to `0.7.0`
+
 ## [0.1.14] - 2021-10-22
 ### Added
 Added ENS name hooks
