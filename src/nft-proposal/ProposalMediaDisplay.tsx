@@ -1,13 +1,16 @@
-import { Fragment, useContext } from "react";
+import { useContext } from "react";
 
 import { AddressView } from "../components/AddressView";
 import { MediaObject } from "../components/MediaObject";
 import { useMediaContext } from "../context/useMediaContext";
 import { NFTDataContext } from "../context/NFTDataContext";
+import type { StyleProps } from "../utils/StyleTypes";
 
-type ProposalMediaDisplayProps = {};
+type ProposalMediaDisplayProps = {} & StyleProps;
 
-export const ProposalMediaDisplay = ({}: ProposalMediaDisplayProps) => {
+export const ProposalMediaDisplay = ({
+  className,
+}: ProposalMediaDisplayProps) => {
   const {
     nft: { data },
     metadata: { metadata },
@@ -39,7 +42,7 @@ export const ProposalMediaDisplay = ({}: ProposalMediaDisplayProps) => {
   const hasCreator = data?.nft.creator;
   const address = hasCreator ? data?.nft.creator : data?.nft.owner;
   return (
-    <Fragment>
+    <div className={className}>
       <div {...getStyles("nftProposalMediaWrapper")}>{media}</div>
       <div {...getStyles("nftProposalInfoLayout")}>
         <div {...getStyles("nftProposalTitle")}>{title}</div>
@@ -66,6 +69,6 @@ export const ProposalMediaDisplay = ({}: ProposalMediaDisplayProps) => {
           </div>
         )}
       </div>
-    </Fragment>
+    </div>
   );
 };
