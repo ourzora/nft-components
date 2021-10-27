@@ -1,4 +1,4 @@
-import { useZoraUsername } from "@zoralabs/nft-hooks";
+import { useENSAddress, useZoraUsername } from "@zoralabs/nft-hooks";
 
 type AddressViewProps = {
   address: string;
@@ -8,19 +8,20 @@ type AddressViewProps = {
 const PREFIX_ADDRESS = "0x";
 
 export const AddressView = ({ address, showChars = 6 }: AddressViewProps) => {
-  const username = useZoraUsername(address);
+  const ens = useENSAddress(address);
+  const username = useZoraUsername(!ens || ens.error ? address : undefined);
 
   const addressFirst = address.slice(0, showChars + PREFIX_ADDRESS.length);
   const addressLast = address.slice(address.length - showChars);
 
-  if (username.ensData) {
-    return <span>{username.ensData.name}</span>;
+  if (ens.data?.name) {
+    return <span>{ens.data.name}</span>;
   }
-  if (!username.error && !username.username) {
+  if (username.username?.username) {
+    return <span>{`@${username.username.username}`}</span>;
+  }
+  if (!username.error && !username.username && !ens.error && !ens.data) {
     return <span>...</span>;
-  }
-  if (username.username) {
-    return <span>{`@${username}`}</span>;
   }
   return (
     <span>
