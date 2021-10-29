@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.16] - 2021-10-29
+- Fix display username instead of user.name in addressview
+- Bumping nft-hooks to fix ipfs:// data content fetch uri replacement
 
 ## [0.1.15] - 2021-10-27
 - Bump `@zoralabs/nft-hooks` to `0.7.0`

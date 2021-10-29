@@ -35,15 +35,15 @@ export const AddressView = ({
       </a>
     );
   }
-  if (username.username?.name) {
+  if (username.username?.username) {
     return (
       <a
         {...getStyles("addressLink")}
-        href={`https://zora.co/${username.username.name}`}
+        href={`https://zora.co/${username.username.username}`}
         target="_blank"
         rel="noreferrer"
       >
-        <span>{`@${username.username.name}`}</span>
+        <span>{`@${username.username.username}`}</span>
       </a>
     );
   }
