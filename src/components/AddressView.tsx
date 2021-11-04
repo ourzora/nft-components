@@ -4,26 +4,24 @@ import { useMediaContext } from "../context/useMediaContext";
 type AddressViewProps = {
   address: string;
   showChars?: number;
-  useEns?: boolean;
 };
 
 const PREFIX_ADDRESS = "0x";
 
-export const AddressView = ({
-  address,
-  showChars = 6,
-  useEns = true,
-}: AddressViewProps) => {
-  const { getStyles } = useMediaContext();
+export const AddressView = ({ address, showChars = 6 }: AddressViewProps) => {
+  const { getStyles, style } = useMediaContext();
+  const { theme } = style;
   // @ts-ignore (address can be undefined but not typed correctly for now)
-  const ens = useENSAddress(useEns ? address : undefined);
-  const username = useZoraUsername(!useEns || ens.error ? address : undefined);
+  const ens = useENSAddress(theme.useEnsResolution ? address : undefined);
+  const username = useZoraUsername(
+    theme.useZoraUsernameResolution || ens.error ? address : undefined
+  );
 
   const addressFirst = address.slice(0, showChars + PREFIX_ADDRESS.length);
   const addressLast = address.slice(address.length - showChars);
 
   if (ens.data?.name) {
-    const zoraLink = ens.data.name.endsWith('.ens') ? ens.data.name : address;
+    const zoraLink = ens.data.name.endsWith(".ens") ? ens.data.name : address;
     return (
       <a
         {...getStyles("addressLink")}
@@ -49,12 +47,16 @@ export const AddressView = ({
   }
 
   // Username loading
-  if (!username.error && !username.username) {
+  if (
+    theme.useZoraUsernameResolution &&
+    !username.error &&
+    !username.username
+  ) {
     return <span>...</span>;
   }
 
   // Ens loading
-  if (useEns && !ens.error && !ens.data) {
+  if (theme.useEnsResolution && !ens.error && !ens.data) {
     return <span>...</span>;
   }
 

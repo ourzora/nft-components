@@ -20,6 +20,18 @@ export const ThemeOptions = {
    * @default true
    */
   showCreator: true,
+
+  /**
+   * Flag if ens resolution should be automatically used
+   * @default true
+   */
+  useEnsResolution: true,
+
+  /**
+   * Flag if zora username resolution should be automatically used
+   * @default true
+   */
+  useZoraUsernameResolution: true,
    
   /**
    * Flag if showing the nft owner on full view
