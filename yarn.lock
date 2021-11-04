@@ -2904,10 +2904,10 @@
   resolved "https://registry.npmjs.org/@xtuc/long/-/long-4.2.2.tgz"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@zoralabs/nft-hooks@^0.7.1":
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/@zoralabs/nft-hooks/-/nft-hooks-0.7.1.tgz#2169daaf48938c4334fcef28ff373f7be6c8897d"
-  integrity sha512-w/dr1F+kNZ2rHKFDEm5JC5DH1F9Ga/NUiKTYifBZ0CT5eWPvx0J6s/TMfoPmmW/h53YyEousYBchcBX5sCiQPg==
+"@zoralabs/nft-hooks@^0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@zoralabs/nft-hooks/-/nft-hooks-0.7.2.tgz#5a11a3eba62c41d38ab4871b65575d37032da3db"
+  integrity sha512-aWxXDSAs3pgcKLUFacRJlhAw9IczIs8S70byHC7K+1TuwU4FK94CasFHm41cwjiNJsOnRl+hOD6HjNwYRPxyIg==
   dependencies:
     "@ethersproject/address" "^5.4.0"
     big.js "^6.1.0"
