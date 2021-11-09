@@ -87,3 +87,9 @@ CryptoKitty.args = {
   id: "556",
   contract: "0x06012c8cf97bead5deae237070f9587f8e7a266d",
 };
+
+export const CryptovoxelsParcel = Template.bind({});
+CryptovoxelsParcel.args = {
+  id: "10",
+  contract: "0x79986aF15539de2db9A5086382daEdA917A9CF0C",
+};
