@@ -22,7 +22,9 @@ export const PricingString = ({
 
   return (
     <Fragment>
-      {format(parseFloat(pricing.prettyAmount))} {pricing.currency.symbol}
+      <span {...getStyles("pricingAmount")}>
+        {format(parseFloat(pricing.prettyAmount))} {pricing.currency.symbol}
+      </span>
       {showUSD && pricing.computedValue && (
         <span {...getStyles("textSubdued")}>
           {" "}

@@ -302,6 +302,13 @@ export const Style = {
     fullInfoSpacer: (_: any, { height = 15 }: { height: number }) => css`
       height: ${height}px;
     `,
+    fullInfoAuctionPricing: (theme: ThemeOptionsType) => css`
+      display: flex;
+      flex-direction: row;
+      span:first-of-type {
+        padding-right: calc(${theme.spacingUnit} / 2);
+      }
+    `,
     fullInfoAuctionWrapper: () => ``,
     fullPlaceOfferButton: (_: any) => css``,
     fullInfoCreatorEquityContainer: (_: any) => css``,
