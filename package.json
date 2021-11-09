@@ -1,6 +1,6 @@
 {
   "name": "@zoralabs/nft-components",
-  "version": "0.1.13-pre1",
+  "version": "0.1.19",
   "description": "NFT Media Rendering Components",
   "typings": "dist/index.d.ts",
   "source": "src/index.ts",
