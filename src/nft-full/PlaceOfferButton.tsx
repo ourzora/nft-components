@@ -33,6 +33,9 @@ export const PlaceOfferButton = ({ allowOffer }: PlaceOfferButtonProps) => {
     if (!data) {
       return;
     }
+    if (data.pricing.auctionType !== AuctionType.RESERVE && data.nft.contract.knownContract !== 'zora') {
+      return;
+    }
     return [
       ZORA_SITE_URL_BASE,
       "collections",
