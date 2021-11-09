@@ -33,25 +33,12 @@ export const PlaceOfferButton = ({ allowOffer }: PlaceOfferButtonProps) => {
     if (!data) {
       return;
     }
-    if (
-      data.nft.contract.knownContract !== "zora" &&
-      data.pricing.auctionType === AuctionType.RESERVE
-    ) {
-      return [
-        ZORA_SITE_URL_BASE,
-        "collections",
-        data.nft.contract.address,
-        data.nft.tokenId,
-        "auction",
-        "bid",
-      ];
-    }
-
     return [
       ZORA_SITE_URL_BASE,
-      data.nft.creator,
+      "collections",
+      data.nft.contract.address,
       data.nft.tokenId,
-      data.pricing.auctionType === AuctionType.RESERVE ? "auction/bid" : "bid",
+      data.pricing.auctionType === AuctionType.RESERVE ? "auction/bid" : "offer",
     ];
   }
 
