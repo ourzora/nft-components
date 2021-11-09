@@ -17,7 +17,7 @@ type AuctionInfoProps = {
 
 export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
   const { nft } = useContext(NFTDataContext);
-  const { getStyles, getString, style } = useMediaContext();
+  const { getStyles, getString } = useMediaContext();
 
   const AuctionInfoWrapper = ({
     children,
