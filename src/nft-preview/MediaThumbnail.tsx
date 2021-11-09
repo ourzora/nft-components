@@ -1,14 +1,19 @@
-import { Fragment, useContext } from "react";
+import { useContext } from "react";
 
 import { AddressView } from "../components/AddressView";
 import { MediaObject } from "../components/MediaObject";
 import { useMediaContext } from "../context/useMediaContext";
 import { NFTDataContext } from "../context/NFTDataContext";
-import { defaultGetContentData, GetContentDataType } from "../utils/getContentDataOptions";
+import {
+  defaultGetContentData,
+  GetContentDataType,
+} from "../utils/getContentDataOptions";
+import type { StyleProps } from "../utils/StyleTypes";
 
 export const MediaThumbnail = ({
   getContentData = defaultGetContentData,
-}: GetContentDataType) => {
+  className,
+}: GetContentDataType & StyleProps) => {
   const {
     nft: { data },
     metadata: { metadata },
@@ -33,7 +38,7 @@ export const MediaThumbnail = ({
   const hasCreator = data?.nft.creator;
   const address = hasCreator ? data?.nft.creator : data?.nft.owner;
   return (
-    <Fragment>
+    <div className={className}>
       <div {...getStyles("cardMediaWrapper")}>{media}</div>
       <div {...getStyles("cardItemInfo")}>
         <h5 {...getStyles("cardTitle")}>{title}</h5>
@@ -46,6 +51,6 @@ export const MediaThumbnail = ({
           <span>{address && <AddressView address={address} />}</span>
         </div>
       </div>
-    </Fragment>
+    </div>
   );
 };

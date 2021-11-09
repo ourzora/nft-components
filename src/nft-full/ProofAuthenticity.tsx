@@ -8,6 +8,7 @@ import {
 } from "../constants/media-urls";
 import { useMediaContext } from "../context/useMediaContext";
 import { InfoContainer } from "./InfoContainer";
+import type { StyleProps } from "../utils/StyleTypes";
 
 const ProofLink = ({
   href,
@@ -18,17 +19,12 @@ const ProofLink = ({
   children: string;
   styles: any;
 }) => (
-  <a
-    {...styles}
-    href={href}
-    target="_blank"
-    rel="noreferrer"
-  >
+  <a {...styles} href={href} target="_blank" rel="noreferrer">
     {children}
   </a>
 );
 
-export const ProofAuthenticity = () => {
+export const ProofAuthenticity = ({ className }: StyleProps) => {
   const {
     nft: { data },
   } = useContext(NFTDataContext);
@@ -70,7 +66,11 @@ export const ProofAuthenticity = () => {
   };
 
   return (
-    <InfoContainer titleString="PROOF_AUTHENTICITY" bottomPadding={false}>
+    <InfoContainer
+      titleString="PROOF_AUTHENTICITY"
+      bottomPadding={false}
+      className={className}
+    >
       <div {...getStyles("fullInfoProofAuthenticityContainer")}>
         {data && getContent(data.nft)}
       </div>

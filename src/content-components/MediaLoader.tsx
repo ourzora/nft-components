@@ -35,7 +35,7 @@ export function useMediaObjectProps({
       // TODO(iain): Update Error
       onError: () => setError("Error loading"),
       src: uri ? getNormalizedURI(uri) : uri,
-      ...getStyles("mediaObject", {
+      ...getStyles("mediaObject", undefined, {
         mediaLoaded: !loading,
         isFullPage: request.renderingContext === "FULL"
       }),

@@ -10,12 +10,16 @@ import {
 import { NFTDataContext } from "../context/NFTDataContext";
 import { useMediaContext } from "../context/useMediaContext";
 import { InfoContainer, InfoContainerProps } from "./InfoContainer";
+import type { StyleProps } from "../utils/StyleTypes";
 
 type AuctionInfoProps = {
   showPerpetual?: boolean;
-};
+} & StyleProps;
 
-export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
+export const AuctionInfo = ({
+  showPerpetual = true,
+  className,
+}: AuctionInfoProps) => {
   const { nft } = useContext(NFTDataContext);
   const { getStyles, getString } = useMediaContext();
 
@@ -23,8 +27,8 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
     children,
     ...containerArgs
   }: InfoContainerProps) => (
-    <InfoContainer {...containerArgs}>
-      {children}
+    <InfoContainer {...containerArgs} className={className}>
+      <div {...getStyles("fullInfoAuctionWrapper")}>{children}</div>
     </InfoContainer>
   );
 
@@ -64,11 +68,11 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
     const highestPreviousBid =
       data.pricing.reserve.currentBid || data.pricing.reserve.previousBids[0];
     return (
-      <AuctionInfoWrapper titleString="AUCTION_SOLD_FOR">
+      <AuctionInfoWrapper className={className} titleString="AUCTION_SOLD_FOR">
         <div {...getStyles("fullInfoAuctionPricing")}>
           <PricingString pricing={highestPreviousBid.pricing} />
         </div>
-        <div {...getStyles("fullInfoSpacer", { width: 15 })} />
+        <div {...getStyles("fullInfoSpacer", undefined, { width: 15 })} />
         <div {...getStyles("fullLabel")}>{getString("WINNER")}</div>
         <AddressView address={highestPreviousBid.bidder.id} />
       </AuctionInfoWrapper>
@@ -125,7 +129,9 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
       <div {...getStyles("pricingAmount")}>
         {data.pricing.auctionType === AuctionType.PERPETUAL &&
           data.pricing.perpetual.ask && (
-            <div><PricingString pricing={data.pricing.perpetual.ask.pricing} /></div>
+            <div>
+              <PricingString pricing={data.pricing.perpetual.ask.pricing} />
+            </div>
           )}
         {data.pricing.auctionType === AuctionType.RESERVE &&
           data.pricing.reserve?.reservePrice && (
@@ -135,7 +141,9 @@ export const AuctionInfo = ({ showPerpetual = true }: AuctionInfoProps) => {
               </div>
               <div>
                 <div {...getStyles("fullInfoSpacer")} />
-                <div {...getStyles("fullLabel")}>{getString("AUCTION_PENDING_DURATION")}</div>
+                <div {...getStyles("fullLabel")}>
+                  {getString("AUCTION_PENDING_DURATION")}
+                </div>
                 <DurationDisplay duration={data.pricing.reserve.duration} />
               </div>
             </>

@@ -5,6 +5,7 @@ import { NFTDataContext } from "../context/NFTDataContext";
 import { CountdownDisplay } from "../components/CountdownDisplay";
 import { PricingString } from "../utils/PricingString";
 import { AuctionStateInfo, AuctionType } from "@zoralabs/nft-hooks";
+import type { StyleProps } from "../utils/StyleTypes";
 
 function isInFuture(timestamp: string) {
   const timestampParsed = parseInt(timestamp);
@@ -13,10 +14,11 @@ function isInFuture(timestamp: string) {
 
 type PricingComponentProps = {
   showPerpetual?: boolean;
-};
+} & StyleProps;
 
 export const PricingComponent = ({
   showPerpetual = true,
+  className,
 }: PricingComponentProps) => {
   const {
     nft: { data },
@@ -32,7 +34,7 @@ export const PricingComponent = ({
     pricing.status === AuctionStateInfo.NO_PRICING
   ) {
     return (
-      <div {...getStyles("cardAuctionPricing", { type: "unknown" })}>
+      <div {...getStyles("cardAuctionPricing", className, { type: "unknown" })}>
         <div {...getStyles("textSubdued")}>{getString("RESERVE_PRICE")}</div>
         <div {...getStyles("pricingAmount")}>
           {getString("NO_PRICING_PLACEHOLDER")}
@@ -66,7 +68,11 @@ export const PricingComponent = ({
     if (!highestBid && pricing.reserve?.previousBids.length) {
       const highestPreviousBid = pricing.reserve.previousBids[0];
       return (
-        <div {...getStyles("cardAuctionPricing", { type: "reserve-pending" })}>
+        <div
+          {...getStyles("cardAuctionPricing", className, {
+            type: "reserve-pending",
+          })}
+        >
           <span {...getStyles("textSubdued")}>{getString("SOLD_FOR")}</span>
           <span {...getStyles("pricingAmount")}>
             <PricingString
@@ -79,7 +85,9 @@ export const PricingComponent = ({
       );
     }
     return (
-      <div {...getStyles("cardAuctionPricing", { type: "perpetual" })}>
+      <div
+        {...getStyles("cardAuctionPricing", className, { type: "perpetual" })}
+      >
         <span {...getStyles("textSubdued")}>{getString("HIGHEST_BID")}</span>
         <span {...getStyles("pricingAmount")}>
           {highestBid ? (
@@ -99,7 +107,11 @@ export const PricingComponent = ({
     ) {
       const highestBid = pricing.reserve?.current.highestBid;
       return (
-        <div {...getStyles("cardAuctionPricing", { type: "reserve-active" })}>
+        <div
+          {...getStyles("cardAuctionPricing", className, {
+            type: "reserve-active",
+          })}
+        >
           <span {...getStyles("textSubdued")}>{getString("TOP_BID")}</span>
           <span {...getStyles("pricingAmount")}>
             {highestBid && (
@@ -125,7 +137,11 @@ export const PricingComponent = ({
       const highestBid =
         pricing.reserve.currentBid || pricing.reserve.previousBids[0];
       return (
-        <div {...getStyles("cardAuctionPricing", { type: "reserve-finished" })}>
+        <div
+          {...getStyles("cardAuctionPricing", className, {
+            type: "reserve-finished",
+          })}
+        >
           <span {...getStyles("textSubdued")}>
             {getString("AUCTION_SOLD_FOR")}
           </span>
@@ -137,7 +153,11 @@ export const PricingComponent = ({
     }
     if (pricing.reserve?.reservePrice) {
       return (
-        <div {...getStyles("cardAuctionPricing", { type: "reserve-pending" })}>
+        <div
+          {...getStyles("cardAuctionPricing", className, {
+            type: "reserve-pending",
+          })}
+        >
           <span {...getStyles("textSubdued")}>
             {getString("RESERVE_PRICE")}
           </span>
@@ -153,7 +173,7 @@ export const PricingComponent = ({
   }
 
   return (
-    <div {...getStyles("cardAuctionPricing", { type: "unknown" })}>
+    <div {...getStyles("cardAuctionPricing", className, { type: "unknown" })}>
       <div {...getStyles("textSubdued")}>{getString("PRICING_LOADING")}</div>
       <div {...getStyles("pricingAmount")}>{getString("PRICING_LOADING")}</div>
     </div>
