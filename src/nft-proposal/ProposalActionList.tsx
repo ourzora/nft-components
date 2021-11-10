@@ -2,15 +2,17 @@ import { Fragment, useContext } from "react";
 import { useMediaContext } from "../context/useMediaContext";
 import { NFTDataContext } from "../context/NFTDataContext";
 import { PricingString } from "../utils/PricingString";
+import type { StyleProps } from "../utils/StyleTypes";
 
 export type ProposalActionListProps = {
   onAccept?: () => void;
   onDeny?: () => void;
-};
+} & StyleProps;
 
 export const ProposalActionList = ({
   onAccept,
   onDeny,
+  className,
 }: ProposalActionListProps) => {
   const {
     nft: { data },
@@ -22,13 +24,17 @@ export const ProposalActionList = ({
       return (
         <div {...getStyles("nftProposalActions")}>
           <button
-            {...getStyles("nftProposalActionButton", { action: "approve" })}
+            {...getStyles("nftProposalActionButton", undefined, {
+              action: "approve",
+            })}
             onClick={onAccept}
           >
             approve
           </button>
           <button
-            {...getStyles("nftProposalActionButton", { action: "deny" })}
+            {...getStyles("nftProposalActionButton", undefined, {
+              action: "deny",
+            })}
             onClick={onDeny}
           >
             reject
@@ -49,7 +55,7 @@ export const ProposalActionList = ({
   };
 
   return (
-    <div {...getStyles("nftProposalActionList")}>
+    <div {...getStyles("nftProposalActionList", className)}>
       <div {...getStyles("nftProposalLabelWrapper")}>
         <div {...getStyles("nftProposalLabel")}>
           {getString("RESERVE_PRICE")}

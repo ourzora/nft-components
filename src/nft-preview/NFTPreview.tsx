@@ -1,12 +1,13 @@
+import { Fragment } from "react";
+
 import { PricingComponent } from "./PricingComponent";
 import {
   NFTDataProvider,
   NFTDataProviderProps,
 } from "../context/NFTDataProvider";
-
+import type { StyleProps } from "../utils/StyleTypes";
 import { MediaThumbnailWrapper } from "./MediaThumbnailWrapper";
 import { MediaThumbnail } from "./MediaThumbnail";
-import { Fragment } from "react";
 
 export type NFTPreviewProps = {
   onClick?: (evt: React.MouseEvent<HTMLElement>) => void;
@@ -14,14 +15,16 @@ export type NFTPreviewProps = {
   children?: React.ReactNode;
   showBids?: boolean;
   showPerpetual?: boolean;
-} & Omit<NFTDataProviderProps, "children">;
+} & Omit<NFTDataProviderProps, "children"> &
+  StyleProps;
 
 export const NFTPreview = ({
-  onClick = undefined,
-  href = undefined,
+  children,
+  className,
+  href,
+  onClick,
   showBids = true,
   showPerpetual = true,
-  children,
   ...wrapperProps
 }: NFTPreviewProps) => {
   const getChildren = () => {
@@ -38,7 +41,11 @@ export const NFTPreview = ({
 
   return (
     <NFTDataProvider {...wrapperProps}>
-      <MediaThumbnailWrapper onClick={onClick} href={href}>
+      <MediaThumbnailWrapper
+        className={className}
+        onClick={onClick}
+        href={href}
+      >
         {getChildren()}
       </MediaThumbnailWrapper>
     </NFTDataProvider>

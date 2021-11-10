@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { useNFTContent } from "@zoralabs/nft-hooks";
 
 import { useMediaContext } from "../context/useMediaContext";
@@ -84,5 +84,5 @@ export const MediaObject = ({
     );
   }
 
-  return <span></span>;
+  return <Fragment />;
 };

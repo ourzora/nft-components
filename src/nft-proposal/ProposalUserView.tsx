@@ -1,17 +1,21 @@
 import { useZoraUsername } from "@zoralabs/nft-hooks";
-import { AddressView } from "src/components/AddressView";
-import { useMediaContext } from "src/context/useMediaContext";
+import type { StyleProps } from "src/utils/StyleTypes";
+import { AddressView } from "../components/AddressView";
+import { useMediaContext } from "../context/useMediaContext";
 
 type ProposalUserViewProps = {
   address: string;
-};
+} & StyleProps;
 
-export const ProposalUserView = ({ address }: ProposalUserViewProps) => {
+export const ProposalUserView = ({
+  address,
+  className,
+}: ProposalUserViewProps) => {
   const { getStyles } = useMediaContext();
   const username = useZoraUsername(address);
 
   return (
-    <div {...getStyles("nftProposalUserView")}>
+    <div {...getStyles("nftProposalUserView", className)}>
       {username.username?.profile_image_url && (
         <img
           src={username.username?.profile_image_url}

@@ -5,6 +5,7 @@ import { AddressView } from "../components/AddressView";
 import { NFTDataContext } from "../context/NFTDataContext";
 import { useMediaContext } from "../context/useMediaContext";
 import { InfoContainer } from "./InfoContainer";
+import type { StyleProps } from "../utils/StyleTypes";
 
 const dateFromTimestamp = (timestamp: string) =>
   new Date(parseInt(timestamp, 10) * 1000);
@@ -20,9 +21,9 @@ const formatDate = (timestamp: string) =>
 
 type BidHistoryProps = {
   showPerpetual?: boolean;
-};
+} & StyleProps;
 
-export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
+export const BidHistory = ({ showPerpetual = true, className }: BidHistoryProps) => {
   const { nft } = useContext(NFTDataContext);
   const { getString, getStyles, style } = useMediaContext();
 
@@ -149,7 +150,7 @@ export const BidHistory = ({ showPerpetual = true }: BidHistoryProps) => {
   };
 
   return (
-    <InfoContainer titleString="NFT_HISTORY">
+    <InfoContainer titleString="NFT_HISTORY" className={className}>
       <ol {...getStyles("fullPageHistoryList")}>{getPastBids()}</ol>
     </InfoContainer>
   );
