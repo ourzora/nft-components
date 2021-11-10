@@ -296,7 +296,8 @@ export const Style = {
       css`
         border: ${theme.borderStyle};
         border-radius: ${theme.defaultBorderRadius}px;
-        padding: ${theme.spacingUnit} ${theme.spacingUnit} ${bottomPadding ? theme.spacingUnit : 0};
+        padding: ${theme.spacingUnit} ${theme.spacingUnit}
+          ${bottomPadding ? theme.spacingUnit : 0};
         position: relative;
       `,
     fullInfoSpacer: (_: any, { height = 15 }: { height: number }) => css`
@@ -380,6 +381,48 @@ export const Style = {
       `,
       theme.bodyFont,
     ],
+    // Collection Tag
+    colectionTagWrapper: (theme: ThemeOptionsType) => [
+      css`
+        border: ${theme.borderStyle};
+        border-radius: 200px;
+        transition: transform 0.1s ease-in-out;
+        padding: calc(${theme.spacingUnit} / 4);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        text-decoration: none;
+        color: ${theme.linkColor};
+        cursor: pointer;
+        &:active {
+          transform: scale(0.98);
+        }
+        span {
+          margin: 0 calc(${theme.spacingUnit} / 2);
+        }
+      `,
+      theme.titleFont,
+    ],
+    collectionTagIcon: (theme: ThemeOptionsType) => css`
+      border-radius: 1500px;
+      display: block;
+      width: 32px;
+      height: 32px;
+      overflow: hidden;
+      position: relative;
+      background: ${theme.placeHolderColor};
+      img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        object-fit: cover;
+      }
+    `,
     // Generic styles
     button: (theme: ThemeOptionsType, { primary }: any) => css`
       ${buttonReset}

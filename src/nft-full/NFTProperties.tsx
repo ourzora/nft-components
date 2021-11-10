@@ -35,7 +35,7 @@ export const NFTProperties = ({ className }: NFTPropertiesProps) => {
     const formattedAttributes = formatAttributes(attributes);
 
     if (!attributes || !formattedAttributes.length) {
-      return;
+      return null;
     }
     return (
       <InfoContainer className={className} titleString="PROPERTIES_TITLE">
