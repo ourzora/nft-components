@@ -1,17 +1,21 @@
 import { useContext } from "react";
+import type { StyleProps } from "../utils/StyleTypes";
 
 import { NFTDataContext } from "../context/NFTDataContext";
 import { useMediaContext } from "../context/useMediaContext";
+
+type MediaThumbnailWrapperProps = {
+  children: React.ReactNode;
+  onClick?: (evt: React.MouseEvent<HTMLElement>) => void;
+  href?: string;
+} & StyleProps;
 
 export const MediaThumbnailWrapper = ({
   children,
   onClick,
   href,
-}: {
-  children: React.ReactNode;
-  onClick?: (evt: React.MouseEvent<HTMLElement>) => void;
-  href?: string;
-}) => {
+  className,
+}: MediaThumbnailWrapperProps) => {
   const { getStyles } = useMediaContext();
 
   const { nft } = useContext(NFTDataContext);
@@ -21,7 +25,10 @@ export const MediaThumbnailWrapper = ({
 
   return (
     <div
-      {...getStyles("cardOuter", { hasClickEvent: !!onClick, auctionStatus })}
+      {...getStyles("cardOuter", className, {
+        hasClickEvent: !!onClick,
+        auctionStatus,
+      })}
     >
       {(href || onClick) && (
         <LinkComponent {...getStyles("cardLink")} href={href} onClick={onClick}>

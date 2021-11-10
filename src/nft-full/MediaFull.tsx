@@ -7,14 +7,16 @@ import {
   defaultGetContentData,
   GetContentDataType,
 } from "../utils/getContentDataOptions";
+import type { StyleProps } from "../utils/StyleTypes";
 
 type MediaFullProps = GetContentDataType & {
   a11yIdPrefix?: string;
-};
+} & StyleProps;
 
 export const MediaFull = ({
   a11yIdPrefix,
   getContentData = defaultGetContentData,
+  className,
 }: MediaFullProps) => {
   const { getStyles } = useMediaContext();
   const {
@@ -39,5 +41,5 @@ export const MediaFull = ({
   };
 
   const media = getContent();
-  return <div {...getStyles("fullMediaWrapper")}>{media}</div>;
+  return <div {...getStyles("fullMediaWrapper", className)}>{media}</div>;
 };
