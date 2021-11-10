@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2021-11-09
+- Adding `className` prop to all top-level components for `sx` and design system compat
+- Fixing auction urls for latest version of zora.co website
+- Refactoring AuctionInfo component html layout and sytling
+
 ## [0.1.19] - 2021-11-04
 - Adding ens and zora username resolution flags to AddressView
 - updating nft-hooks lib version
