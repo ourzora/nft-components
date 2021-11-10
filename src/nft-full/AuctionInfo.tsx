@@ -28,7 +28,7 @@ export const AuctionInfo = ({
     ...containerArgs
   }: InfoContainerProps) => (
     <InfoContainer {...containerArgs} className={className}>
-      <div {...getStyles("fullInfoAuctionWrapper")}>{children}</div>
+      {children}
     </InfoContainer>
   );
 
