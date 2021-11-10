@@ -6,6 +6,7 @@ import { MediaInfo } from "./MediaInfo";
 import { PlaceOfferButton } from "./PlaceOfferButton";
 import { MediaFull } from "./MediaFull";
 import { ProofAuthenticity } from "./ProofAuthenticity";
+import { NFTProperties } from "./NFTProperties";
 import { CollectionTag } from "./CollectionTag";
 
 const FullComponents = {
@@ -16,7 +17,8 @@ const FullComponents = {
   PlaceOfferButton,
   ProofAuthenticity,
   MediaFull,
-  CollectionTag
+  NFTProperties,
+  CollectionTag,
 };
 
 export { FullComponents, NFTFullPage };

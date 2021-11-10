@@ -235,4 +235,10 @@ export const Strings = {
    * @default Mute
    */
   VIDEO_CONTROLS_MUTE: "Mute",
+  /**
+   * Properties component title text
+   *
+   * @default Properties
+   */
+  PROPERTIES_TITLE: "Properties",
 };

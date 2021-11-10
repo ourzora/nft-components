@@ -296,7 +296,8 @@ export const Style = {
       css`
         border: ${theme.borderStyle};
         border-radius: ${theme.defaultBorderRadius}px;
-        padding: ${theme.spacingUnit} ${theme.spacingUnit} ${bottomPadding ? theme.spacingUnit : 0};
+        padding: ${theme.spacingUnit} ${theme.spacingUnit}
+          ${bottomPadding ? theme.spacingUnit : 0};
         position: relative;
       `,
     fullInfoSpacer: (_: any, { height = 15 }: { height: number }) => css`
@@ -352,6 +353,34 @@ export const Style = {
       border-radius: ${theme.defaultBorderRadius}px;
       margin: ${theme.spacingUnit} 0 0;
     `,
+    // Properties Component
+    propertiesGrid: (theme: ThemeOptionsType) => css`
+      display: grid;
+      grid-auto-flow: row;
+      grid-template-columns: auto auto;
+      padding-top: ${theme.spacingUnit};
+      grid-gap: calc(${theme.spacingUnit} / 2);
+      text-align: center;
+    `,
+    propertiesItem: (theme: ThemeOptionsType) => css`
+      border: ${theme.borderStyle};
+      border-radius: ${theme.defaultBorderRadius}px;
+      padding: ${theme.spacingUnit} calc(${theme.spacingUnit} / 4);
+      position: relative;
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      grid-gap: calc(${theme.spacingUnit} / 6);
+      line-height: 1;
+    `,
+    propertiesLabel: (theme: ThemeOptionsType) => [
+      css`
+        margin: 0 0 5px;
+        text-transform: capitalize;
+        font-size: 14px;
+        opacity: 0.5;
+      `,
+      theme.bodyFont,
+    ],
     // Collection Tag
     colectionTagWrapper: (theme: ThemeOptionsType) => [
       css`
@@ -372,7 +401,7 @@ export const Style = {
           margin: 0 calc(${theme.spacingUnit} / 2);
         }
       `,
-      theme.titleFont
+      theme.titleFont,
     ],
     collectionTagIcon: (theme: ThemeOptionsType) => css`
       border-radius: 1500px;
