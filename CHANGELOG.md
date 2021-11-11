@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2021-11-10
+- Add collection tag element
+- Add properties list element
+- Fix wrapping around AuctionInfo
+
 ## [0.2.0] - 2021-11-09
 - Adding `className` prop to all top-level components for `sx` and design system compat
 - Fixing auction urls for latest version of zora.co website
