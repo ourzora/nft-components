@@ -116,7 +116,7 @@ export const VideoRenderer = forwardRef<HTMLVideoElement, RenderComponentType>(
             tabIndex="0"
             // @ts-ignore Blur is kinda invalid but okay to be unsafe here.
             onMouseOut={(evt) => evt.target.blur()}
-            {...getStyles("mediaVideoControls", {
+            {...getStyles("mediaVideoControls", undefined, {
               isFullPage: request.renderingContext === "FULL",
             })}
           >
@@ -129,7 +129,9 @@ export const VideoRenderer = forwardRef<HTMLVideoElement, RenderComponentType>(
               {getString("VIDEO_CONTROLS_FULLSCREEN")}
             </button>
             <button
-              {...getStyles("mediaPlayButton", { playing: isPlaying })}
+              {...getStyles("mediaPlayButton", undefined, {
+                playing: isPlaying,
+              })}
               aria-live="polite"
               aria-pressed={isPlaying ? false : true}
               onClick={togglePlay}
@@ -138,7 +140,7 @@ export const VideoRenderer = forwardRef<HTMLVideoElement, RenderComponentType>(
               {playingText}
             </button>
             <button
-              {...getStyles("mediaMuteButton", { muted: isMuted })}
+              {...getStyles("mediaMuteButton", undefined, { muted: isMuted })}
               onClick={toggleMute}
               aria-pressed={isMuted ? false : true}
             >
