@@ -92,14 +92,19 @@ export const BidHistory = ({ showPerpetual = true, className }: BidHistoryProps)
       });
     }
 
-    if ('zoraIndexerResponse' in data && data.zoraIndexerResponse.minter) {
+    if ("zoraIndexerResponse" in data && data.zoraIndexerResponse.minter) {
+      const unixDate =
+        new Date(
+          data.zoraIndexerResponse.mintTransferEvent?.blockTimestamp
+        ).getTime() / 1000;
+
       eventsList.push({
-        activityDescription: getString('BID_HISTORY_MINTED'),
+        activityDescription: getString("BID_HISTORY_MINTED"),
         pricing: <Fragment />,
         actor: data.zoraIndexerResponse.minter,
-        createdAt: data.zoraIndexerResponse.mintTransferEvent?.blockTimestamp,
+        createdAt: unixDate.toString(),
         transactionHash: null,
-      })
+      });
     }
 
     if ("openseaInfo" in data && data.openseaInfo.creator) {
