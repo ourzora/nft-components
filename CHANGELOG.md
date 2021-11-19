@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.3] - 2021-11-19
+- Fix layout having an unneeded additional wrapping class #94
+
 ## [0.2.2] - 2021-11-16
 - Fix className issue with video and audio player #100
 - Fix issues with mint date formatting #99
