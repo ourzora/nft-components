@@ -28,6 +28,12 @@ export const ThemeOptions = {
   useEnsResolution: true,
 
   /**
+   * Set an overriding preferred IPFS provider here
+   * Include a trailing slash
+   */
+  preferredIPFSGateway: 'https://ipfs.io/ipfs/',
+
+  /**
    * Flag if zora username resolution should be automatically used
    * @default true
    */

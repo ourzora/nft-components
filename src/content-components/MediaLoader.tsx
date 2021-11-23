@@ -1,13 +1,23 @@
 import React, { useState } from "react";
 import type { RenderRequest } from "./RendererConfig";
 
-function getNormalizedURI(uri: string) {
+function getNormalizedURI(
+  uri: string,
+  { preferredIPFSGateway }: { preferredIPFSGateway?: string }
+) {
   if (uri.startsWith("ipfs://")) {
-    return uri.replace("ipfs://", "https://ipfs.io/ipfs/");
+    return uri.replace(
+      "ipfs://",
+      preferredIPFSGateway || "https://ipfs.io/ipfs/"
+    );
   }
-  if (uri.startsWith("arweave://")) {
-    return uri.replace("arweave://", "https://arweave.net/");
+  if (uri.includes("/ipfs/") && preferredIPFSGateway) {
+    return `${preferredIPFSGateway}${uri.replace(/^.+\/ipfs\//, "")}`;
   }
+  if (uri.startsWith("ar://")) {
+    return uri.replace("ar://", "https://arweave.net/");
+  }
+
   return uri;
 }
 
@@ -16,11 +26,13 @@ export function useMediaObjectProps({
   request,
   a11yIdPrefix,
   getStyles,
+  preferredIPFSGateway,
 }: {
   uri: string | undefined;
   request: RenderRequest;
   a11yIdPrefix?: string;
   getStyles: any;
+  preferredIPFSGateway?: string;
 }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>();
@@ -34,10 +46,10 @@ export function useMediaObjectProps({
       onLoad: () => setLoading(false),
       // TODO(iain): Update Error
       onError: () => setError("Error loading"),
-      src: uri ? getNormalizedURI(uri) : uri,
+      src: uri ? getNormalizedURI(uri, { preferredIPFSGateway }) : uri,
       ...getStyles("mediaObject", undefined, {
         mediaLoaded: !loading,
-        isFullPage: request.renderingContext === "FULL"
+        isFullPage: request.renderingContext === "FULL",
       }),
     },
   };

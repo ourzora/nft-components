@@ -13,7 +13,7 @@ import { useA11yIdPrefix } from "../utils/useA11yIdPrefix";
 
 export const VideoRenderer = forwardRef<HTMLVideoElement, RenderComponentType>(
   (props, ref) => {
-    const { getString, getStyles, request, a11yIdPrefix } = props;
+    const { getString, getStyles, request, theme, a11yIdPrefix } = props;
     const [isPlaying, setIsPlaying] = useState(true);
     const [isMuted, setIsMuted] = useState(true);
     const [isFullScreen, setIsFullScreen] = useState(false);
@@ -34,6 +34,7 @@ export const VideoRenderer = forwardRef<HTMLVideoElement, RenderComponentType>(
       request,
       a11yIdPrefix,
       getStyles,
+      preferredIPFSGateway: theme.preferredIPFSGateway,
     });
 
     useSyncRef(video, ref);
