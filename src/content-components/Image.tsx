@@ -9,9 +9,10 @@ import {
 
 export const ImageRenderer = forwardRef<HTMLImageElement, RenderComponentType>(
   (requestProps, ref) => {
-    const { getStyles, request } = requestProps;
+    const { getStyles, theme, request } = requestProps;
     const { props, loading, error } = useMediaObjectProps({
       uri: request.media.content?.uri || request.media.image?.uri,
+      preferredIPFSGateway: theme.preferredIPFSGateway,
       ...requestProps,
     });
 

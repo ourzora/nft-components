@@ -117,6 +117,7 @@ export const AudioRenderer = forwardRef<HTMLAudioElement, RenderComponentType>(
       request,
       a11yIdPrefix,
       getStyles,
+      preferredIPFSGateway: theme.preferredIPFSGateway,
     });
 
     const audioRef = useRef<HTMLAudioElement>(null);
