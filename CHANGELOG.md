@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.4] - 2021-12-02
+- Use preferred `ipfs.io/ipfs/` gateway and include setting to set new gateway to prevent media load failures
+- Make sure to test that the new gateway works for you – removing the gateway from the theme config will revert to previous behavior.
+
 ## [0.2.3] - 2021-11-19
 - Fix layout having an unneeded additional wrapping class #94
 
