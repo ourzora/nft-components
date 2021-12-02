@@ -93,3 +93,9 @@ CryptovoxelsParcel.args = {
   id: "10",
   contract: "0x79986aF15539de2db9A5086382daEdA917A9CF0C",
 };
+
+export const MutantApeYachtClub = Template.bind({});
+MutantApeYachtClub.args = {
+  id: "6721",
+  contract: "0x60E4d786628Fea6478F785A6d7e704777c86a7c6",
+};
