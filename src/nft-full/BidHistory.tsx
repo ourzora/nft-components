@@ -95,7 +95,7 @@ export const BidHistory = ({ showPerpetual = true, className }: BidHistoryProps)
     if ("zoraIndexerResponse" in data && data.zoraIndexerResponse.minter) {
       const unixDate =
         new Date(
-          data.zoraIndexerResponse.mintTransferEvent?.blockTimestamp
+          data.zoraIndexerResponse.mintTransferEvent?.blockTimestamp + "Z"
         ).getTime() / 1000;
 
       eventsList.push({
