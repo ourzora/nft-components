@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 - Fix auction history to include etherscan links on winning bids and mints
+- Fix audio rendering preview preference priority
 
 ## [0.3.1] - 2021-12-17
 - Handle application/svg+xml mime type as image
