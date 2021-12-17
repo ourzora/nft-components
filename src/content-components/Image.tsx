@@ -38,9 +38,6 @@ export const Image: RendererConfig = {
     if (request.media.content?.type?.startsWith("application/svg+xml")) {
       return RenderingPreference.NORMAL;
     }
-    if (request.media.image?.type?.startsWith("image")) {
-      return RenderingPreference.NORMAL;
-    }
     return RenderingPreference.INVALID;
   },
   render: ImageRenderer,
