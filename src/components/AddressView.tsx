@@ -1,6 +1,6 @@
 import { useENSAddress, useZoraUsername } from "@zoralabs/nft-hooks";
 import { useMediaContext } from "../context/useMediaContext";
-import type {StyleProps} from '../utils/StyleTypes';
+import type { StyleProps } from "../utils/StyleTypes";
 
 type AddressViewProps = {
   address: string;
@@ -9,7 +9,11 @@ type AddressViewProps = {
 
 const PREFIX_ADDRESS = "0x";
 
-export const AddressView = ({ address, showChars = 6, className }: AddressViewProps) => {
+export const AddressView = ({
+  address,
+  showChars = 6,
+  className,
+}: AddressViewProps) => {
   const { getStyles, style } = useMediaContext();
   const { theme } = style;
   // @ts-ignore (address can be undefined but not typed correctly for now)
@@ -21,8 +25,8 @@ export const AddressView = ({ address, showChars = 6, className }: AddressViewPr
   const addressFirst = address.slice(0, showChars + PREFIX_ADDRESS.length);
   const addressLast = address.slice(address.length - showChars);
 
-  if (ens.data?.name) {
-    const zoraLink = ens.data.name.endsWith(".ens") ? ens.data.name : address;
+  if (ens.data) {
+    const zoraLink = ens.data;
     return (
       <a
         {...getStyles("addressLink", className)}
@@ -30,7 +34,7 @@ export const AddressView = ({ address, showChars = 6, className }: AddressViewPr
         target="_blank"
         rel="noreferrer"
       >
-        <span>{ens.data.name}</span>
+        <span>{ens.data}</span>
       </a>
     );
   }
