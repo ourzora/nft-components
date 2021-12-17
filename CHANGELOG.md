@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Handle application/svg+xml mime type as image
 
 ## [0.2.4] - 2021-12-02
 - Use preferred `ipfs.io/ipfs/` gateway and include setting to set new gateway to prevent media load failures
