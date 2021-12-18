@@ -1,6 +1,6 @@
 {
   "name": "@zoralabs/nft-components",
-  "version": "0.2.4",
+  "version": "0.3.2",
   "description": "NFT Media Rendering Components",
   "typings": "dist/index.d.ts",
   "source": "src/index.ts",
@@ -42,7 +42,7 @@
     "typescript": "^4.2.4"
   },
   "peerDependencies": {
-    "@zoralabs/nft-hooks": "^0.7.0"
+    "@zoralabs/nft-hooks": "^0.8.0"
   },
   "lint-staged": {
     "*.{ts,md}": "prettier src --write"

@@ -4,7 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.3.2] - 2021-12-17
+- Fix auction history to include etherscan links on winning bids and mints
+- Fix audio rendering preview preference priority
+
+## [0.3.1] - 2021-12-17
+- Handle application/svg+xml mime type as image
+
+## [0.3.0] - 2021-12-16
+- Handle new ens fetching with latest minor version release of nft-hooks
 
 ## [0.2.4] - 2021-12-02
 - Use preferred `ipfs.io/ipfs/` gateway and include setting to set new gateway to prevent media load failures

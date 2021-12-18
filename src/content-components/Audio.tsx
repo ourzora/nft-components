@@ -26,7 +26,11 @@ type FakeWaveformCanvasProps = {
   };
 };
 
-const FakeWaveformCanvas = ({ audioRef, uri, audioColors }: FakeWaveformCanvasProps) => {
+const FakeWaveformCanvas = ({
+  audioRef,
+  uri,
+  audioColors,
+}: FakeWaveformCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [width, setWidth] = useState<undefined | number>();
   const updateWidth = useCallback(() => {
@@ -196,11 +200,13 @@ export const AudioRenderer = forwardRef<HTMLAudioElement, RenderComponentType>(
 
 export const Audio: RendererConfig = {
   getRenderingPreference(request: RenderRequest) {
-    if (request.media.content?.type?.startsWith("audio")) {
-      return RenderingPreference.PRIORITY;
-    }
-    if (request.media.animation?.type?.startsWith("audio")) {
-      return RenderingPreference.PRIORITY;
+    if (
+      request.media.content?.type?.startsWith("audio") ||
+      request.media.animation?.type?.startsWith("audio")
+    ) {
+      return request.renderingContext === "FULL"
+        ? RenderingPreference.PRIORITY
+        : RenderingPreference.LOW;
     }
     return RenderingPreference.INVALID;
   },
