@@ -12,6 +12,8 @@ export const CollectionTag = () => {
   
   const { getStyles } = useMediaContext();
 
+  console.log(data)
+
   const getContent = () => {
     return (
       <a
@@ -21,16 +23,13 @@ export const CollectionTag = () => {
         rel="noreferrer"
       >
         <div {...getStyles("collectionTagIcon")}>
-          {data && "openseaInfo" in data
-            ? <img src={data.openseaInfo.asset_contract.image_url} alt={data.openseaInfo.asset_contract.name}/>
+          {data && "openseaInfo" in data && data.openseaInfo.asset_contract.image_url !== null
+            ? <img src={data.openseaInfo.asset_contract.image_url} alt={data?.nft.contract.name}/>
             : <Orb />
           }
         </div>
         <span>
-          {data && "openseaInfo" in data
-            ? `${data?.openseaInfo.asset_contract.name}`
-            : `${data?.nft.contract.name}` 
-          }
+          {data && data?.nft.contract.name}
         </span>
       </a>
     )
