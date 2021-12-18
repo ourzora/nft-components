@@ -19,7 +19,11 @@ export const MediaInfo = ({ a11yIdPrefix, className }: MediaInfoProps) => {
   const getContent = () => {
     if (metadata && data) {
       return {
-        title: metadata.name !== null ? metadata.name : `${"openseaInfo" in data && data.openseaInfo.asset_contract.name} #${data.nft.tokenId}`,
+        title: metadata.name === undefined  || metadata.name === null ?
+          (`${data && "openseaInfo" in data
+            ? data?.openseaInfo.asset_contract.name
+            : data?.nft.contract.name
+          } #${data.nft.tokenId}`) : metadata.name,
         description: metadata.description,
       };
     }

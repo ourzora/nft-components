@@ -7,11 +7,11 @@ import { Orb } from "../components/Orb";
 
 export const CollectionTag = () => {
   const {
-    nft: { data },
+    nft: { data }
   } = useContext(NFTDataContext);
- 
-  const { getStyles } = useMediaContext();
   
+  const { getStyles } = useMediaContext();
+
   const getContent = () => {
     return (
       <a
@@ -21,12 +21,17 @@ export const CollectionTag = () => {
         rel="noreferrer"
       >
         <div {...getStyles("collectionTagIcon")}>
-          {/* @ts-ignore */ data && "openseaInfo" in data
+          {data && "openseaInfo" in data
             ? <img src={data.openseaInfo.asset_contract.image_url} alt={data.openseaInfo.asset_contract.name}/>
             : <Orb />
           }
         </div>
-        <span>{data && "openseaInfo" in data ? `${data.openseaInfo.asset_contract.name}` : 'Zora'}</span>
+        <span>
+          {data && "openseaInfo" in data
+            ? `${data?.openseaInfo.asset_contract.name}`
+            : `${data?.nft.contract.name}` 
+          }
+        </span>
       </a>
     )
   }
