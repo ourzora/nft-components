@@ -10,6 +10,7 @@ import type { RecursivePartial } from "../utils/RecursivePartial";
 import type { RendererConfig } from "../content-components/RendererConfig";
 import { MediaRendererDefaults } from "../content-components";
 import { MediaContext, ThemeType } from "./MediaContext";
+import type { NFTStrategy } from "@zoralabs/nft-hooks/dist/strategies";
 
 type MediaContextConfigurationProps = {
   /**
@@ -31,10 +32,12 @@ type MediaContextConfigurationProps = {
    * List of renderers.
    */
   renderers?: RendererConfig[];
+  strategy?: NFTStrategy,
 };
 
 export const MediaConfiguration = ({
   networkId,
+  strategy,
   style = {},
   children,
   strings = {},
@@ -58,7 +61,7 @@ export const MediaConfiguration = ({
 
   return (
     <MediaContext.Provider value={newContext}>
-      <NFTFetchConfiguration networkId={newNetworkId}>
+      <NFTFetchConfiguration strategy={strategy} networkId={newNetworkId}>
         {children}
       </NFTFetchConfiguration>
     </MediaContext.Provider>
