@@ -11,6 +11,7 @@ type PlaceOfferButtonProps = {
 } & StyleProps;
 
 export const PlaceOfferButton = ({
+  // @ts-ignore TS6133
   allowOffer,
   className,
 }: PlaceOfferButtonProps) => {

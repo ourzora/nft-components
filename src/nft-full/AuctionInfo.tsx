@@ -1,5 +1,4 @@
-import { AuctionType } from "@zoralabs/nft-hooks";
-import React, { useMemo, Fragment, useContext } from "react";
+import { useMemo, Fragment, useContext } from "react";
 
 import { PricingString } from "../utils/PricingString";
 import { AddressView } from "../components/AddressView";

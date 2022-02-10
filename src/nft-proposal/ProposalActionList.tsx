@@ -9,12 +9,14 @@ export type ProposalActionListProps = {
   onDeny?: () => void;
 } & StyleProps;
 
+/** @deprecated */
 export const ProposalActionList = ({
   onAccept,
   onDeny,
   className,
 }: ProposalActionListProps) => {
   const {
+    // @ts-ignore
     nft: { data },
   } = useContext(NFTDataContext);
   const { getStyles, getString } = useMediaContext();

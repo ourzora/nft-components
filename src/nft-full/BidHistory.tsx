@@ -8,7 +8,6 @@ import type { StyleProps } from "../utils/StyleTypes";
 import type {
   AuctionLike,
   CurrencyValue,
-  FixedPriceLike,
 } from "@zoralabs/nft-hooks/dist/backends/NFTInterface";
 import { PricingString } from "../utils/PricingString";
 
@@ -36,6 +35,7 @@ type MarketDataListType = {
 };
 
 export const BidHistory = ({
+  // @ts-ignore TS6196
   showPerpetual = true,
   className,
 }: BidHistoryProps) => {

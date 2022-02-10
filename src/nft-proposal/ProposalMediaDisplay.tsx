@@ -8,11 +8,14 @@ import type { StyleProps } from "../utils/StyleTypes";
 
 type ProposalMediaDisplayProps = {} & StyleProps;
 
+/** @deprecated */
 export const ProposalMediaDisplay = ({
   className,
 }: ProposalMediaDisplayProps) => {
   const {
+    // @ts-ignore
     nft: { data },
+    // @ts-ignore
     metadata: { metadata },
   } = useContext(NFTDataContext);
 

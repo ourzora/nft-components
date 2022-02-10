@@ -16,6 +16,7 @@ type PricingComponentProps = {
 } & StyleProps;
 
 export const PricingComponent = ({
+  // @ts-ignore TS6133
   showPerpetual = true,
   className,
 }: PricingComponentProps) => {
