@@ -1,5 +1,5 @@
-import type { NFTDataType } from "@zoralabs/nft-hooks";
-import React, { useContext } from "react";
+import type { NFTObject } from "@zoralabs/nft-hooks";
+import React, { Fragment, useContext } from "react";
 
 import { NFTDataContext } from "../context/NFTDataContext";
 import {
@@ -25,26 +25,26 @@ const ProofLink = ({
 );
 
 export const ProofAuthenticity = ({ className }: StyleProps) => {
-  const {
-    nft: { data },
-  } = useContext(NFTDataContext);
+  const { data } = useContext(NFTDataContext);
   const { getString, getStyles, networkId } = useMediaContext();
   const linkStyles = getStyles("fullProofLink");
 
-  const getContent = (nft: NFTDataType["nft"]) => {
-    const infoURL =
-      (data && "zoraNFT" in data && data?.zoraNFT?.contentURI) ||
-      data?.nft.metadataURI;
+  const getContent = (nft: NFTObject) => {
+    const infoURL = data?.nft?.contentURI;
     const infoUrlLabelText =
       infoURL?.includes("/ipfs/") || infoURL?.startsWith("ipfs://")
         ? "VIEW_IPFS"
         : "VIEW_METADATA";
 
+    if (!nft.nft) {
+      return <Fragment />;
+    }
+
     return (
       <React.Fragment>
         <ProofLink
           styles={linkStyles}
-          href={`${VIEW_ETHERSCAN_URL_BASE_BY_NETWORK[networkId]}${nft.contract.address}?a=${nft.tokenId}`}
+          href={`${VIEW_ETHERSCAN_URL_BASE_BY_NETWORK[networkId]}${nft.nft?.contract.address}?a=${nft.nft?.tokenId}`}
         >
           {getString("ETHERSCAN_TXN")}
         </ProofLink>
@@ -53,14 +53,18 @@ export const ProofAuthenticity = ({ className }: StyleProps) => {
             {getString(infoUrlLabelText)}
           </ProofLink>
         )}
-        {data && "zoraNFT" in data && data.zoraNFT && (
-          <ProofLink
-            styles={linkStyles}
-            href={`${MEDIA_URL_BASE_BY_NETWORK[networkId]}${nft.creator}/${nft.tokenId}`}
-          >
-            {getString("VIEW_ZORA")}
-          </ProofLink>
-        )}
+        {data &&
+          (data.rawData["zora-indexer"] ||
+            data.nft?.contract.knownContract === "zora") && (
+            <ProofLink
+              styles={linkStyles}
+              href={`${MEDIA_URL_BASE_BY_NETWORK[networkId]}${
+                nft.nft?.minted.minter
+              }/${nft.nft!.tokenId}`}
+            >
+              {getString("VIEW_ZORA")}
+            </ProofLink>
+          )}
       </React.Fragment>
     );
   };
@@ -72,7 +76,7 @@ export const ProofAuthenticity = ({ className }: StyleProps) => {
       className={className}
     >
       <div {...getStyles("fullInfoProofAuthenticityContainer")}>
-        {data && getContent(data.nft)}
+        {data && getContent(data)}
       </div>
     </InfoContainer>
   );

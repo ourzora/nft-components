@@ -7,7 +7,7 @@ import { Orb } from "../components/Orb";
 
 export const CollectionTag = () => {
   const {
-    nft: { data },
+    data,
   } = useContext(NFTDataContext);
  
   const { getStyles } = useMediaContext();
@@ -16,17 +16,17 @@ export const CollectionTag = () => {
     return (
       <a
         {...getStyles("colectionTagWrapper")}
-        href={`https://zora.co/collections/${data?.nft.contract.address}`}
+        href={`https://zora.co/collections/${data?.nft!.contract.address}`}
         target="_blank"
         rel="noreferrer"
       >
         <div {...getStyles("collectionTagIcon")}>
-          {/* @ts-ignore */ data && "openseaInfo" in data
-            ? <img src={data.openseaInfo.asset_contract.image_url} alt={data.openseaInfo.asset_contract.name}/>
+          {/* @ts-ignore */ data && "opensea" in data.rawData
+            ? <img src={data.rawData.opensea.asset_contract.image_url} alt={data.rawData.opensea.asset_contract.name}/>
             : <Orb />
           }
         </div>
-        <span>{data && "openseaInfo" in data ? `${data.openseaInfo.asset_contract.name}` : 'Zora'}</span>
+        <span>{data?.nft!.contract.name}</span>
       </a>
     )
   }
@@ -37,7 +37,7 @@ export const CollectionTag = () => {
       display: flex;
       flex-direction: row;
     `}>
-      {data ? getContent() : '...'}
+      {data?.nft ? getContent() : '...'}
     </div>
   )
 }

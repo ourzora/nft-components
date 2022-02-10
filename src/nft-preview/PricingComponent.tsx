@@ -1,15 +1,14 @@
-import { Fragment, useContext } from "react";
+import { Fragment, useContext, useMemo } from "react";
 
 import { useMediaContext } from "../context/useMediaContext";
 import { NFTDataContext } from "../context/NFTDataContext";
 import { CountdownDisplay } from "../components/CountdownDisplay";
 import { PricingString } from "../utils/PricingString";
-import { AuctionStateInfo, AuctionType } from "@zoralabs/nft-hooks";
 import type { StyleProps } from "../utils/StyleTypes";
+import type { AuctionLike } from "@zoralabs/nft-hooks/dist/backends/NFTInterface";
 
-function isInFuture(timestamp: string) {
-  const timestampParsed = parseInt(timestamp);
-  return timestampParsed > Math.floor(new Date().getTime() / 1000);
+function isInFuture(timestamp: number) {
+  return timestamp > Math.floor(new Date().getTime() / 1000);
 }
 
 type PricingComponentProps = {
@@ -20,19 +19,28 @@ export const PricingComponent = ({
   showPerpetual = true,
   className,
 }: PricingComponentProps) => {
-  const {
-    nft: { data },
-  } = useContext(NFTDataContext);
+  const { data } = useContext(NFTDataContext);
 
   const { getStyles, getString } = useMediaContext();
 
-  const pricing = data?.pricing;
+  const reserveAuction = useMemo(
+    () =>
+      data?.markets?.find(
+        (market) =>
+          market.source === "ZoraReserveV0" && market.status !== "cancelled"
+      ),
+    [data?.markets]
+  ) as undefined | AuctionLike;
 
-  if (
-    pricing &&
-    !pricing.reserve &&
-    pricing.status === AuctionStateInfo.NO_PRICING
-  ) {
+  const perpetualAsk = useMemo(
+    () =>
+      data?.markets?.find(
+        (market) => market.type === "FixedPrice" && market.status === "active"
+      ),
+    [data?.markets]
+  );
+
+  if (!reserveAuction && !perpetualAsk) {
     return (
       <div {...getStyles("cardAuctionPricing", className, { type: "unknown" })}>
         <div {...getStyles("textSubdued")}>{getString("RESERVE_PRICE")}</div>
@@ -47,26 +55,19 @@ export const PricingComponent = ({
     );
   }
 
-  if (
-    pricing &&
-    showPerpetual &&
-    (!pricing.reserve || pricing.reserve?.finalizedAtTimestamp) &&
-    pricing.auctionType === AuctionType.PERPETUAL
-  ) {
+  if (perpetualAsk && reserveAuction?.status === "complete") {
     let listPrice = null;
 
-    if (pricing.perpetual.ask?.pricing) {
-      const perpetualPricing = pricing.perpetual.ask?.pricing;
+    if (perpetualAsk) {
       listPrice = (
         <Fragment>
           <span {...getStyles("textSubdued")}>{getString("LIST_PRICE")}</span>
-          <PricingString pricing={perpetualPricing} showUSD={false} />
+          <PricingString pricing={perpetualAsk.amount} showUSD={false} />
         </Fragment>
       );
     }
-    const highestBid = pricing.perpetual.highestBid;
-    if (!highestBid && pricing.reserve?.previousBids.length) {
-      const highestPreviousBid = pricing.reserve.previousBids[0];
+    const highestBid = perpetualAsk?.amount;
+    if (!highestBid && reserveAuction?.status === "complete") {
       return (
         <div
           {...getStyles("cardAuctionPricing", className, {
@@ -75,10 +76,7 @@ export const PricingComponent = ({
         >
           <span {...getStyles("textSubdued")}>{getString("SOLD_FOR")}</span>
           <span {...getStyles("pricingAmount")}>
-            <PricingString
-              pricing={highestPreviousBid.pricing}
-              showUSD={false}
-            />
+            <PricingString pricing={reserveAuction.amount} showUSD={false} />
           </span>
           {listPrice}
         </div>
@@ -91,7 +89,7 @@ export const PricingComponent = ({
         <span {...getStyles("textSubdued")}>{getString("HIGHEST_BID")}</span>
         <span {...getStyles("pricingAmount")}>
           {highestBid ? (
-            <PricingString showUSD={false} pricing={highestBid.pricing} />
+            <PricingString showUSD={false} pricing={highestBid} />
           ) : (
             getString("NO_PRICING_PLACEHOLDER")
           )}
@@ -100,12 +98,9 @@ export const PricingComponent = ({
       </div>
     );
   }
-  if (pricing && pricing.reserve) {
-    if (
-      pricing.reserve?.current.reserveMet &&
-      !pricing.reserve?.current.likelyHasEnded
-    ) {
-      const highestBid = pricing.reserve?.current.highestBid;
+  if (reserveAuction) {
+    if (reserveAuction.status === "active") {
+      const highestBid = reserveAuction.amount;
       return (
         <div
           {...getStyles("cardAuctionPricing", className, {
@@ -115,17 +110,17 @@ export const PricingComponent = ({
           <span {...getStyles("textSubdued")}>{getString("TOP_BID")}</span>
           <span {...getStyles("pricingAmount")}>
             {highestBid && (
-              <PricingString pricing={highestBid?.pricing} showUSD={false} />
+              <PricingString pricing={highestBid} showUSD={false} />
             )}
           </span>
-          {pricing.reserve?.expectedEndTimestamp &&
-            isInFuture(pricing.reserve.expectedEndTimestamp) && (
+          {reserveAuction.endsAt?.timestamp &&
+            isInFuture(reserveAuction.endsAt.timestamp) && (
               <Fragment>
                 <span {...getStyles("textSubdued")}>
                   {getString("ENDS_IN")}
                 </span>
                 <span {...getStyles("pricingAmount")}>
-                  <CountdownDisplay to={pricing.reserve.expectedEndTimestamp} />
+                  <CountdownDisplay to={reserveAuction.endsAt.timestamp} />
                 </span>
               </Fragment>
             )}
@@ -133,9 +128,7 @@ export const PricingComponent = ({
       );
     }
 
-    if (pricing.reserve && pricing.reserve.current.likelyHasEnded) {
-      const highestBid =
-        pricing.reserve.currentBid || pricing.reserve.previousBids[0];
+    if (reserveAuction.status === "complete") {
       return (
         <div
           {...getStyles("cardAuctionPricing", className, {
@@ -146,12 +139,12 @@ export const PricingComponent = ({
             {getString("AUCTION_SOLD_FOR")}
           </span>
           <span {...getStyles("pricingAmount")}>
-            <PricingString showUSD={false} pricing={highestBid.pricing} />
+            <PricingString showUSD={false} pricing={reserveAuction.amount} />
           </span>
         </div>
       );
     }
-    if (pricing.reserve?.reservePrice) {
+    if (reserveAuction.status === "pending") {
       return (
         <div
           {...getStyles("cardAuctionPricing", className, {
@@ -162,10 +155,7 @@ export const PricingComponent = ({
             {getString("RESERVE_PRICE")}
           </span>
           <span>
-            <PricingString
-              showUSD={false}
-              pricing={pricing.reserve.reservePrice}
-            />
+            <PricingString showUSD={false} pricing={reserveAuction.amount} />
           </span>
         </div>
       );

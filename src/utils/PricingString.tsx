@@ -1,4 +1,4 @@
-import type { PricingInfo } from "@zoralabs/nft-hooks";
+import type { CurrencyValue } from "@zoralabs/nft-hooks";
 import { Fragment } from "react";
 
 import { useMediaContext } from "../context/useMediaContext";
@@ -7,7 +7,7 @@ export const PricingString = ({
   pricing,
   showUSD = true,
 }: {
-  pricing: PricingInfo;
+  pricing: CurrencyValue;
   showUSD?: boolean;
 }) => {
   const { getStyles, style } = useMediaContext();
@@ -23,12 +23,12 @@ export const PricingString = ({
   return (
     <Fragment>
       <span {...getStyles("pricingAmount")}>
-        {format(parseFloat(pricing.prettyAmount))} {pricing.currency.symbol}
+        {format(parseFloat(pricing.prettyAmount))} {pricing.symbol}
       </span>
-      {showUSD && pricing.computedValue && (
+      {showUSD && pricing.usdValue && (
         <span {...getStyles("textSubdued")}>
           {" "}
-          ${format(parseInt(pricing.computedValue?.inUSD, 10))}
+          ${format(parseInt(pricing.usdValue, 10))}
         </span>
       )}
     </Fragment>

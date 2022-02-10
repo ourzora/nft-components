@@ -11,26 +11,31 @@ const Template: Story<NFTPreviewProps> = (args) => <NFTPreview {...args} />;
 export const Image = Template.bind({});
 Image.args = {
   id: "3366",
+  contract: "0xabEFBc9fD2F806065b4f3C237d4b59D9A97Bcac7",
 };
 
 export const Video = Template.bind({});
 Video.args = {
   id: "2411",
+  contract: "0xabEFBc9fD2F806065b4f3C237d4b59D9A97Bcac7",
 };
 
 export const GIF = Template.bind({});
 GIF.args = {
   id: "2671",
+  contract: "0xabEFBc9fD2F806065b4f3C237d4b59D9A97Bcac7",
 };
 
 export const Audio = Template.bind({});
 Audio.args = {
   id: "2563",
+  contract: "0xabEFBc9fD2F806065b4f3C237d4b59D9A97Bcac7",
 };
 
 export const Text = Template.bind({});
 Text.args = {
   id: "3079",
+  contract: "0xabEFBc9fD2F806065b4f3C237d4b59D9A97Bcac7",
 };
 
 export const NonZoraImage = Template.bind({});

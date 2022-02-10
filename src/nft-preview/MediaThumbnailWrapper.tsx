@@ -18,8 +18,12 @@ export const MediaThumbnailWrapper = ({
 }: MediaThumbnailWrapperProps) => {
   const { getStyles } = useMediaContext();
 
-  const { nft } = useContext(NFTDataContext);
-  const auctionStatus = nft?.data?.pricing?.status;
+  const { data } = useContext(NFTDataContext);
+
+  const markets = data?.markets?.filter(
+    (market) => market.status === "active" || market.status === "complete"
+  );
+  const lastMarket = markets?.length ? markets[markets.length - 1] : null;
 
   const LinkComponent = href ? "a" : "button";
 
@@ -27,7 +31,7 @@ export const MediaThumbnailWrapper = ({
     <div
       {...getStyles("cardOuter", className, {
         hasClickEvent: !!onClick,
-        auctionStatus,
+        auctionStatus: lastMarket?.status,
       })}
     >
       {(href || onClick) && (

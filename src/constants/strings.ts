@@ -128,6 +128,21 @@ export const Strings = {
    */
   BID_HISTORY_BID: "placed a bid of",
   /**
+   * Cancelled an auction message for bid history box on full view page
+   * @default cancelled the auction
+   */
+  BID_HISTORY_CANCELLED: "cancelled the auction",
+  /**
+   * Asked for an amount for bid history box on full view page
+   * @default cancelled the auction
+   */
+  HISTORY_ASK_PRICE: "asked",
+  /**
+   * Created an offer message for bid history box on full view page
+   * @default offered
+   */
+  HISTORY_OFFER_PRICE: "offered",
+  /**
    * Open offers from user box
    * @default Open offers
    */

@@ -4,45 +4,36 @@ import { ZORA_SITE_URL_BASE } from "../constants/media-urls";
 import { useMediaContext } from "../context/useMediaContext";
 import { Button } from "../components/Button";
 import { NFTDataContext } from "../context/NFTDataContext";
-import { AuctionType } from "@zoralabs/nft-hooks";
 import type { StyleProps } from "../utils/StyleTypes";
 
 type PlaceOfferButtonProps = {
   allowOffer?: boolean;
 } & StyleProps;
 
-export const PlaceOfferButton = ({ allowOffer, className }: PlaceOfferButtonProps) => {
-  const { nft } = useContext(NFTDataContext);
+export const PlaceOfferButton = ({
+  allowOffer,
+  className,
+}: PlaceOfferButtonProps) => {
+  const { data } = useContext(NFTDataContext);
   const { getString, getStyles } = useMediaContext();
 
-  if (!nft.data) {
+  if (!data?.nft) {
     return <Fragment />;
   }
 
-  // Disable offer functionality if not a zora NFT or if offers are disabled
-  if (
-    (allowOffer === false ||
-      !("zoraNFT" in nft.data) ||
-      nft.data.zoraNFT === undefined) &&
-    nft.data.pricing.auctionType !== AuctionType.RESERVE
-  ) {
-    return <Fragment />;
-  }
+  const nft = data.nft;
+
+  const activeAuction = data.markets?.find(
+    (market) => market.type === "Auction" && market.status === "active"
+  );
 
   function getBidURLParts() {
-    const data = nft.data;
-    if (!data) {
-      return;
-    }
-    if (data.pricing.auctionType !== AuctionType.RESERVE && data.nft.contract.knownContract !== 'zora') {
-      return;
-    }
     return [
       ZORA_SITE_URL_BASE,
       "collections",
-      data.nft.contract.address,
-      data.nft.tokenId,
-      data.pricing.auctionType === AuctionType.RESERVE ? "auction/bid" : "offer",
+      nft.contract.address,
+      nft.tokenId,
+      activeAuction ? "auction/bid" : "offer",
     ];
   }
 
@@ -55,11 +46,7 @@ export const PlaceOfferButton = ({ allowOffer, className }: PlaceOfferButtonProp
   return (
     <div {...getStyles("fullPlaceOfferButton", className)}>
       <Button primary={true} href={bidURL}>
-        {getString(
-          nft.data.pricing.auctionType === AuctionType.RESERVE
-            ? "PLACE_BID"
-            : "PLACE_OFFER"
-        )}
+        {getString(activeAuction ? "PLACE_BID" : "PLACE_OFFER")}
       </Button>
     </div>
   );

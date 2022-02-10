@@ -20,7 +20,7 @@ type MetadataIsh = {
 type MediaObjectProps = {
   contentURI?: string;
   a11yIdPrefix?: string;
-  metadata: MetadataIsh;
+  metadata?: MetadataIsh;
   isFullPage?: boolean;
 };
 
@@ -30,7 +30,7 @@ export const MediaObject = ({
   a11yIdPrefix,
   isFullPage = false,
 }: MediaObjectProps) => {
-  const mediaType = useNFTContent(metadata.animation_url);
+  const mediaType = useNFTContent();
   const [renderingInfo, setRenderingInfo] = useState<RendererConfig>();
   const { getStyles, getString, renderers, style } = useMediaContext();
 
@@ -41,19 +41,19 @@ export const MediaObject = ({
         ? {
             uri: contentURI,
             // TODO(iain): Clean up for catalog.works
-            type: metadata.mimeType || (metadata as any).body?.mimeType,
+            type: metadata?.mimeType || (metadata as any).body?.mimeType,
           }
         : undefined,
-      image: metadata.image
+      image: metadata?.image
         ? {
-            uri: metadata.image,
+            uri: metadata?.image,
             type: "image/",
           }
         : undefined,
       // from metadata.animation_url
-      animation: metadata.animation_url
+      animation: metadata?.animation_url
         ? {
-            uri: metadata.animation_url,
+            uri: metadata?.animation_url,
             type: mediaType.content?.mimeType,
           }
         : undefined,

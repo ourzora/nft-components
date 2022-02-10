@@ -20,21 +20,20 @@ export const MediaFull = ({
 }: MediaFullProps) => {
   const { getStyles } = useMediaContext();
   const {
-    nft: { data },
-    metadata: { metadata, error },
+    data,
   } = useContext(NFTDataContext);
 
   const getContent = () => {
-    if (metadata && data) {
+    if (data && data.metadata) {
       return (
         <MediaObject
           isFullPage={true}
           a11yIdPrefix={a11yIdPrefix}
-          {...getContentData(data, metadata)}
+          {...getContentData(data)}
         />
       );
     }
-    if (error) {
+    if (!data) {
       return <div {...getStyles("mediaLoader")}>error fetching...</div>;
     }
     return <div {...getStyles("mediaLoader")}>loading...</div>;

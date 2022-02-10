@@ -4,7 +4,7 @@ import { render, screen } from "@testing-library/react";
 import MockDate from "mockdate";
 import type { ReactNode } from "react";
 
-import { FullComponents, NFTDataContext } from "../../src";
+import { FullComponents, NFTDataContext, NFTDataProvider } from "../../src";
 import fetchMock from "./fetchMock";
 
 const loadJSON = async (name: string) => {
