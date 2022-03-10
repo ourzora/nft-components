@@ -3139,12 +3139,14 @@
   resolved "https://registry.npmjs.org/@xtuc/long/-/long-4.2.2.tgz"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@zoralabs/nft-hooks@../nft-hooks":
-  version "1.0.3"
+"@zoralabs/nft-hooks@1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@zoralabs/nft-hooks/-/nft-hooks-1.0.5.tgz#fa527b31ed6798d914a9e729316ab151e0835fbe"
+  integrity sha512-NXVD0zuHCNrWljtTKdm8T7e9XrCwvcarTw3Z9nv2DWQEWG0ccykzV4GDRsL001u8Nmj4OS/7uTkMXO5aYX5MKQ==
   dependencies:
     "@ethersproject/address" "^5.4.0"
     "@ethersproject/bytes" "^5.5.0"
-    "@zoralabs/zdk-alpha" "^0.0.6"
+    "@zoralabs/zdk-alpha" "^0.0.7"
     big.js "^6.1.0"
     cross-fetch "^3.1.4"
     dataloader "^2.0.0"
@@ -3157,10 +3159,10 @@
     swr "^0.5.6"
     tslib "^2.2.0"
 
-"@zoralabs/zdk-alpha@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@zoralabs/zdk-alpha/-/zdk-alpha-0.0.6.tgz#e4d6cecc5326ef6bbc954468d756a2c40cfd792d"
-  integrity sha512-/nomEaqNO8Pi/2xRaYf1d0FnOkROPLv6MqjPYu/Q5HW+8wkVV7iKlmIDtvQJ6nNANP0dZPxCP6C3JZGt4rh6tA==
+"@zoralabs/zdk-alpha@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@zoralabs/zdk-alpha/-/zdk-alpha-0.0.7.tgz#1e9384aaddc40c881691f9d7da0f56418b61e796"
+  integrity sha512-wcClAcNPskqNbRs4RVFODquoBCchDLK/tx+NzhJExojsKcS5SRXdgA0cNk9706AAfNnC9eIayxI3P2kkA+sYMQ==
   dependencies:
     big.js "^6.1.0"
     graphql "16.3.0"
