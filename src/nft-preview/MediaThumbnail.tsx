@@ -21,9 +21,9 @@ export const MediaThumbnail = ({
   const { getStyles, getString } = useMediaContext();
 
   const getContent = () => {
-    if (data?.nft) {
+    if (data?.metadata) {
       return {
-        media: <MediaObject {...getContentData(data)} />,
+        media: <MediaObject isFullPage={false} {...getContentData(data)} />,
         title: data.metadata?.name,
       };
     }

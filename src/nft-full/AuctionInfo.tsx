@@ -33,6 +33,11 @@ export const AuctionInfo = ({
     [data?.markets]
   );
 
+  const newAsk = useMemo(
+    () => data?.markets?.find((market) => market.source === "ZoraAskV1"),
+    [data?.markets]
+  );
+
   const AuctionInfoWrapper = ({
     children,
     ...containerArgs
@@ -57,6 +62,28 @@ export const AuctionInfo = ({
         <AuctionInfoWrapper titleString="OPEN_OFFERS">
           Be the first one to bid on this piece!
         </AuctionInfoWrapper>
+      </Fragment>
+    );
+  }
+
+  if (newAsk) {
+    return (
+      <Fragment>
+        {newAsk && (
+          <AuctionInfoWrapper titleString="CURRENT_PRICE">
+            <PricingString pricing={newAsk.amount} />
+            <div {...getStyles("fullInfoSpacer", undefined, { width: 15 })} />
+            <div {...getStyles("fullLabel")}>{getString("FINDERS_FEE")}</div>
+            {`${Math.floor(
+              parseInt(newAsk.raw.findersFeeBps, 10) / 100
+            )}%`}
+          </AuctionInfoWrapper>
+        )}
+        {reserveAuction && reserveAuction.status === "active" && (
+          <AuctionInfoWrapper titleString="RESERVE_PRICE">
+            <PricingString pricing={reserveAuction.amount} />
+          </AuctionInfoWrapper>
+        )}
       </Fragment>
     );
   }

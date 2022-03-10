@@ -7,11 +7,8 @@ import type { StyleProps } from "../utils/StyleTypes";
 type NFTPropertiesProps = StyleProps;
 
 export const NFTProperties = ({ className }: NFTPropertiesProps) => {
-  const {
-    data
-  } = useContext(NFTDataContext);
+  const { data } = useContext(NFTDataContext);
   const { getStyles } = useMediaContext();
-
 
   const renderAttributes = (attributes: any) => {
     function formatAttributes(obj: any) {
@@ -40,16 +37,14 @@ export const NFTProperties = ({ className }: NFTPropertiesProps) => {
       <InfoContainer className={className} titleString="PROPERTIES_TITLE">
         <div {...getStyles("propertiesGrid")}>
           {formattedAttributes.map((attribute: any, index: number) => {
+            const name = attribute?.name || attribute?.trait_type;
+
             return (
               <div
                 {...getStyles("propertiesItem")}
                 key={`${data?.nft?.tokenId}${index}`}
               >
-                {attribute?.trait_type && (
-                  <span {...getStyles("propertiesLabel")}>
-                    {attribute?.trait_type}
-                  </span>
-                )}
+                {name && <span {...getStyles("propertiesLabel")}>{name}</span>}
                 {attribute?.value && <span>{attribute?.value}</span>}
               </div>
             );

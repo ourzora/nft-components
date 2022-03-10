@@ -1,4 +1,4 @@
-import { Fragment, useContext } from "react";
+import { Fragment, useContext, useMemo } from "react";
 
 import { ZORA_SITE_URL_BASE } from "../constants/media-urls";
 import { useMediaContext } from "../context/useMediaContext";
@@ -28,14 +28,41 @@ export const PlaceOfferButton = ({
     (market) => market.type === "Auction" && market.status === "active"
   );
 
+  const activeAsk = useMemo(() => {
+    const fixedPrice = data.markets?.filter(
+      (market) => market.type === "FixedPrice"
+    );
+    if (!fixedPrice || !fixedPrice.length) {
+      return undefined;
+    }
+    const lastFixedPrice = fixedPrice[fixedPrice.length - 1];
+    if (lastFixedPrice.status === "active") {
+      return lastFixedPrice;
+    }
+    return undefined;
+  }, [data?.markets]);
+
   function getBidURLParts() {
     return [
       ZORA_SITE_URL_BASE,
       "collections",
       nft.contract.address,
       nft.tokenId,
-      activeAuction ? "auction/bid" : "offer",
+      activeAuction ? "auction/bid" : "",
     ];
+  }
+
+  function getButtonText() {
+    if (activeAuction) {
+      return getString("PLACE_BID");
+    }
+    if (activeAsk) {
+      return getString("BUY_NOW");
+    }
+    if (nft.contract.knownContract === "zora") {
+      return getString("PLACE_OFFER");
+    }
+    return getString("VIEW_ZORA");
   }
 
   const bidURL = getBidURLParts()?.join("/");
@@ -47,7 +74,7 @@ export const PlaceOfferButton = ({
   return (
     <div {...getStyles("fullPlaceOfferButton", className)}>
       <Button primary={true} href={bidURL}>
-        {getString(activeAuction ? "PLACE_BID" : "PLACE_OFFER")}
+        {getButtonText()}
       </Button>
     </div>
   );

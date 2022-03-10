@@ -33,7 +33,7 @@ export const PricingComponent = ({
     [data?.markets]
   ) as undefined | AuctionLike;
 
-  const perpetualAsk = useMemo(
+  const ask = useMemo(
     () =>
       data?.markets?.find(
         (market) => market.type === "FixedPrice" && market.status === "active"
@@ -41,7 +41,7 @@ export const PricingComponent = ({
     [data?.markets]
   );
 
-  if (!reserveAuction && !perpetualAsk) {
+  if (!reserveAuction && !ask) {
     return (
       <div {...getStyles("cardAuctionPricing", className, { type: "unknown" })}>
         <div {...getStyles("textSubdued")}>{getString("RESERVE_PRICE")}</div>
@@ -56,18 +56,18 @@ export const PricingComponent = ({
     );
   }
 
-  if (perpetualAsk && reserveAuction?.status === "complete") {
+  if (ask && reserveAuction?.status !== "active") {
     let listPrice = null;
 
-    if (perpetualAsk) {
+    if (ask) {
       listPrice = (
         <Fragment>
           <span {...getStyles("textSubdued")}>{getString("LIST_PRICE")}</span>
-          <PricingString pricing={perpetualAsk.amount} showUSD={false} />
+          <PricingString pricing={ask.amount} showUSD={false} />
         </Fragment>
       );
     }
-    const highestBid = perpetualAsk?.amount;
+    const highestBid = undefined;
     if (!highestBid && reserveAuction?.status === "complete") {
       return (
         <div
@@ -136,9 +136,7 @@ export const PricingComponent = ({
             type: "reserve-finished",
           })}
         >
-          <span {...getStyles("textSubdued")}>
-            {getString("AUCTION_SOLD_FOR")}
-          </span>
+          <span {...getStyles("textSubdued")}>{getString("SOLD_FOR")}</span>
           <span {...getStyles("pricingAmount")}>
             <PricingString showUSD={false} pricing={reserveAuction.amount} />
           </span>

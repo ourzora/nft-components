@@ -63,8 +63,8 @@ export const BidHistory = ({
           bidEvents.push({
             activityDescription: getString("BID_HISTORY_CANCELLED"),
             actor: typedAuction.createdBy!,
-            createdAt: typedAuction.finishedAt!.timestamp,
-            transactionHash: null,
+            createdAt: typedAuction.cancelledAt!.timestamp,
+            transactionHash: typedAuction.cancelledAt!.transactionHash,
             pricing: undefined,
           });
         }
@@ -73,7 +73,7 @@ export const BidHistory = ({
             activityDescription: getString("AUCTION_SOLD_FOR"),
             actor: typedAuction.winner,
             createdAt: typedAuction.finishedAt!.timestamp,
-            transactionHash: null,
+            transactionHash: typedAuction.finishedAt?.transactionHash || null,
             pricing: typedAuction.amount,
           });
         }
@@ -89,13 +89,33 @@ export const BidHistory = ({
       }
       if (market.type === "FixedPrice") {
         if (market.side === "ask") {
-          bidEvents.push({
-            activityDescription: getString("HISTORY_ASK_PRICE"),
-            createdAt: market.createdAt.timestamp,
-            actor: market.createdBy!,
-            transactionHash: market.createdAt.transactionHash,
-            pricing: market.amount,
-          });
+          if (market.status === "active") {
+            bidEvents.push({
+              activityDescription: getString("HISTORY_ASK_PRICE"),
+              createdAt: market.createdAt.timestamp,
+              actor: market.createdBy!,
+              transactionHash: market.createdAt.transactionHash,
+              pricing: market.amount,
+            });
+          }
+          if (market.status === "cancelled") {
+            bidEvents.push({
+              activityDescription: getString("HISTORY_ASK_CANCELLED"),
+              createdAt: market.cancelledAt!.timestamp,
+              actor: market.createdBy!,
+              transactionHash: market.cancelledAt?.transactionHash || null,
+              pricing: market.amount,
+            });
+          }
+          if (market.status === "complete") {
+            bidEvents.push({
+              activityDescription: getString("HISTORY_ASK_FILLED"),
+              createdAt: market.createdAt.timestamp,
+              actor: market.createdBy!,
+              transactionHash: market.createdAt.transactionHash,
+              pricing: market.amount,
+            });
+          }
         }
         if (market.side === "offer") {
           bidEvents.push({
@@ -108,12 +128,15 @@ export const BidHistory = ({
         }
       }
     });
+    // data.events?.filter((evt) => )
     return bidEvents;
   }, [data?.markets]);
 
   if (!processedData.length) {
     return <Fragment />;
   }
+
+  console.log(processedData);
 
   const pastBids = processedData
     .sort((bidA, bidB) => (bidA.createdAt > bidB.createdAt ? -1 : 1))

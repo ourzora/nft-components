@@ -21,6 +21,7 @@ export const MediaFull = ({
   const { getStyles } = useMediaContext();
   const {
     data,
+    error
   } = useContext(NFTDataContext);
 
   const getContent = () => {
@@ -33,7 +34,7 @@ export const MediaFull = ({
         />
       );
     }
-    if (!data) {
+    if (!data && error) {
       return <div {...getStyles("mediaLoader")}>error fetching...</div>;
     }
     return <div {...getStyles("mediaLoader")}>loading...</div>;

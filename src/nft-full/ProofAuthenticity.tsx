@@ -53,13 +53,13 @@ export const ProofAuthenticity = ({ className }: StyleProps) => {
             {getString(infoUrlLabelText)}
           </ProofLink>
         )}
-        {data &&
+        {data?.nft &&
           (data.rawData["zora-indexer"] ||
             data.nft?.contract.knownContract === "zora") && (
             <ProofLink
               styles={linkStyles}
-              href={`${MEDIA_URL_BASE_BY_NETWORK[networkId]}${
-                nft.nft?.minted.minter
+              href={`${MEDIA_URL_BASE_BY_NETWORK[networkId]}collections/${
+                nft.nft!.contract.address
               }/${nft.nft!.tokenId}`}
             >
               {getString("VIEW_ZORA")}
