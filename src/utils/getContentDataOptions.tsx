@@ -4,11 +4,16 @@ export const defaultGetContentData = (nft: NFTObject) => {
   return {
     contentURI: nft.nft?.contentURI as string,
     metadata: nft.metadata?.raw,
+    contract: nft.nft?.contract?.address,
+    tokenId: nft.nft?.tokenId,
   };
 };
 
 export type GetContentDataType = {
-  getContentData?: (
-    nft: NFTObject,
-  ) => { contentURI?: string, metadata?: any };
+  getContentData?: (nft: NFTObject) => {
+    contentURI?: string;
+    metadata?: any;
+    contract?: any;
+    tokenId?: any;
+  };
 };
