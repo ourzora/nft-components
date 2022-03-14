@@ -3139,10 +3139,8 @@
   resolved "https://registry.npmjs.org/@xtuc/long/-/long-4.2.2.tgz"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@zoralabs/nft-hooks@1.0.5":
+"@zoralabs/nft-hooks@../nft-hooks":
   version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@zoralabs/nft-hooks/-/nft-hooks-1.0.5.tgz#fa527b31ed6798d914a9e729316ab151e0835fbe"
-  integrity sha512-NXVD0zuHCNrWljtTKdm8T7e9XrCwvcarTw3Z9nv2DWQEWG0ccykzV4GDRsL001u8Nmj4OS/7uTkMXO5aYX5MKQ==
   dependencies:
     "@ethersproject/address" "^5.4.0"
     "@ethersproject/bytes" "^5.5.0"

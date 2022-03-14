@@ -5,7 +5,10 @@ import { NFTDataContext } from "../context/NFTDataContext";
 import { CountdownDisplay } from "../components/CountdownDisplay";
 import { PricingString } from "../utils/PricingString";
 import type { StyleProps } from "../utils/StyleTypes";
-import type { AuctionLike } from "@zoralabs/nft-hooks/dist/backends/NFTInterface";
+import type {
+  AuctionLike,
+  EditionLike,
+} from "@zoralabs/nft-hooks/dist/backends/NFTInterface";
 
 function isInFuture(timestamp: number) {
   return timestamp > Math.floor(new Date().getTime() / 1000);
@@ -41,7 +44,15 @@ export const PricingComponent = ({
     [data?.markets]
   );
 
-  if (!reserveAuction && !ask) {
+  const edition = useMemo(
+    () =>
+      data?.markets?.find(
+        (market) => market.type === "Edition" && market.status === "active"
+      ),
+    [data?.markets]
+  ) as undefined | EditionLike;
+
+  if (!reserveAuction && !ask && !edition) {
     return (
       <div {...getStyles("cardAuctionPricing", className, { type: "unknown" })}>
         <div {...getStyles("textSubdued")}>{getString("RESERVE_PRICE")}</div>
@@ -52,6 +63,20 @@ export const PricingComponent = ({
         <div {...getStyles("pricingAmount")}>
           {getString("NO_PRICING_PLACEHOLDER")}
         </div>
+      </div>
+    );
+  }
+
+  if (edition && edition.status === "active") {
+    return (
+      <div {...getStyles("cardAuctionPricing", className, { type: "unknown" })}>
+        <span {...getStyles("textSubdued")}>{getString("EDITION_PRICE")}</span>
+        <PricingString pricing={edition.amount} showUSD={false} />
+
+        <span {...getStyles("textSubdued")}>{getString("NFTS_COLLECTED")}</span>
+        <span {...getStyles("pricingAmount")}>
+          {`${edition.totalSupply} / ${edition.editionSize}`}
+        </span>
       </div>
     );
   }
