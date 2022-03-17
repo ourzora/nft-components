@@ -185,6 +185,7 @@ export const AudioRenderer = forwardRef<HTMLAudioElement, RenderComponentType>(
             ref={audioRef}
             preload="auto"
             playsInline
+            onLoadedMetadata={props.onLoad}
             onPlay={() => setPlaying(true)}
             onPause={() => setPlaying(false)}
             {...props}
