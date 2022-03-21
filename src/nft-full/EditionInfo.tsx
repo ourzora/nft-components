@@ -18,8 +18,6 @@ export const EditionInfo = ({ className }: StyleProps) => {
     [data?.markets]
   ) as undefined | EditionLike;
 
-  console.log("Editions Amount", edition);
-
   const EditionInfoWrapper = ({
     children,
     ...containerArgs
