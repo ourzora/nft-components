@@ -42,7 +42,7 @@ export function useMediaObjectProps({
     error,
     props: {
       "aria-describedby": `${a11yIdPrefix}description`,
-      alt: request.metadata.name || request.metadata.description,
+      alt: request.metadata?.name || request.metadata?.description,
       onLoad: () => setLoading(false),
       // TODO(iain): Update Error
       onError: () => setError("Error loading"),
