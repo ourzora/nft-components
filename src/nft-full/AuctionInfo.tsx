@@ -101,7 +101,7 @@ export const AuctionInfo = ({
     );
   }
 
-  if (reserveAuction && reserveAuction.status === "complete") {
+  if (reserveAuction && reserveAuction.status === "active") {
     return (
       <AuctionInfoWrapper titleString="AUCTION_ENDS">
         <div {...getStyles("pricingAmount")}>
