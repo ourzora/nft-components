@@ -24,7 +24,11 @@ export const AuctionInfo = ({
   const { getStyles, getString } = useMediaContext();
 
   const reserveAuction = useMemo(
-    () => data?.markets?.find((market) => market.source === "ZoraReserveV0"),
+    () =>
+      data?.markets?.find(
+        (market) =>
+          market.source === "ZoraReserveV0" && market.status !== "cancelled"
+      ),
     [data?.markets]
   ) as undefined | AuctionLike;
 
