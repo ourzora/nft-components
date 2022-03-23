@@ -119,7 +119,7 @@ export const AuctionInfo = ({
     );
   }
 
-  if (!reserveAuction || !perpetualAsk) {
+  if (!reserveAuction && !perpetualAsk) {
     return <Fragment />;
   }
 
