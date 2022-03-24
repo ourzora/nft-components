@@ -8,7 +8,7 @@ import type { StyleProps } from "../utils/StyleTypes";
 import type {
   AuctionLike,
   CurrencyValue,
-} from "@zoralabs/nft-hooks/dist/backends/NFTInterface";
+} from "@zoralabs/nft-hooks/dist/types";
 import { PricingString } from "../utils/PricingString";
 
 const dateFromTimestamp = (timestamp: number) => new Date(timestamp * 1000);

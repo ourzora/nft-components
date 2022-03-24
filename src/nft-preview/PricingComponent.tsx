@@ -5,7 +5,7 @@ import { NFTDataContext } from "../context/NFTDataContext";
 import { CountdownDisplay } from "../components/CountdownDisplay";
 import { PricingString } from "../utils/PricingString";
 import type { StyleProps } from "../utils/StyleTypes";
-import type { AuctionLike } from "@zoralabs/nft-hooks/dist/backends/NFTInterface";
+import type { AuctionLike } from "@zoralabs/nft-hooks/dist/types";
 
 function isInFuture(timestamp: number) {
   return timestamp > Math.floor(new Date().getTime() / 1000);

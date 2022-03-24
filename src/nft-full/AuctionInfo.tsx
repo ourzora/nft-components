@@ -10,7 +10,8 @@ import { NFTDataContext } from "../context/NFTDataContext";
 import { useMediaContext } from "../context/useMediaContext";
 import { InfoContainer, InfoContainerProps } from "./InfoContainer";
 import type { StyleProps } from "../utils/StyleTypes";
-import type { AuctionLike } from "@zoralabs/nft-hooks/dist/backends/NFTInterface";
+import type { AuctionLike } from "@zoralabs/nft-hooks/dist/types";
+
 
 type AuctionInfoProps = {
   showPerpetual?: boolean;
@@ -74,9 +75,7 @@ export const AuctionInfo = ({
             <PricingString pricing={newAsk.amount} />
             <div {...getStyles("fullInfoSpacer", undefined, { width: 15 })} />
             <div {...getStyles("fullLabel")}>{getString("FINDERS_FEE")}</div>
-            {`${Math.floor(
-              parseInt(newAsk.raw.findersFeeBps, 10) / 100
-            )}%`}
+            {`${Math.floor(parseInt(newAsk.raw.findersFeeBps, 10) / 100)}%`}
           </AuctionInfoWrapper>
         )}
         {reserveAuction && reserveAuction.status === "active" && (
