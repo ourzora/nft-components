@@ -1,11 +1,8 @@
-import { useState, useEffect, Fragment } from "react";
+import { Fragment, useMemo } from "react";
 import { useNFTContent } from "@zoralabs/nft-hooks";
 
 import { useMediaContext } from "../context/useMediaContext";
-import type {
-  RendererConfig,
-  RenderRequest,
-} from "../content-components/RendererConfig";
+import type { RenderRequest } from "../content-components/RendererConfig";
 
 type MetadataIsh = {
   mimeType: string;
@@ -21,6 +18,8 @@ type MediaObjectProps = {
   contentURI?: string;
   a11yIdPrefix?: string;
   metadata?: MetadataIsh;
+  contract?: string;
+  tokenId?: string;
   isFullPage?: boolean;
 };
 
@@ -28,11 +27,13 @@ export const MediaObject = ({
   contentURI,
   metadata,
   a11yIdPrefix,
+  contract,
+  tokenId,
   isFullPage = false,
 }: MediaObjectProps) => {
-  const mediaType = useNFTContent();
-  const [renderingInfo, setRenderingInfo] = useState<RendererConfig>();
-  const { getStyles, getString, renderers, style } = useMediaContext();
+  const mediaType = useNFTContent(contentURI ?? metadata?.animation_url);
+  const { getStyles, getString, renderers, style, networkId } =
+    useMediaContext();
 
   const request: RenderRequest = {
     media: {
@@ -41,7 +42,10 @@ export const MediaObject = ({
         ? {
             uri: contentURI,
             // TODO(iain): Clean up for catalog.works
-            type: metadata?.mimeType || (metadata as any).body?.mimeType,
+            type:
+              metadata?.mimeType ||
+              (metadata as any)?.body?.mimeType ||
+              mediaType.content?.mimeType,
           }
         : undefined,
       image: metadata?.image
@@ -59,16 +63,19 @@ export const MediaObject = ({
         : undefined,
     },
     metadata,
+    contract,
+    tokenId,
+    networkId,
     renderingContext: isFullPage ? "FULL" : "PREVIEW",
   };
 
-  useEffect(() => {
+  const renderingInfo = useMemo(() => {
     const sortedRenderers = renderers.sort((a, b) =>
       a.getRenderingPreference(request) > b.getRenderingPreference(request)
         ? -1
         : 1
     );
-    setRenderingInfo(sortedRenderers[0]);
+    return sortedRenderers[0];
   }, [renderers, metadata, contentURI, mediaType.content]);
 
   if (renderingInfo) {

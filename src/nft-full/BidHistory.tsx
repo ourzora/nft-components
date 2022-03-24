@@ -68,7 +68,7 @@ export const BidHistory = ({
             pricing: undefined,
           });
         }
-        if (typedAuction.winner) {
+        if (typedAuction.winner && typedAuction.finishedAt) {
           bidEvents.push({
             activityDescription: getString("AUCTION_SOLD_FOR"),
             actor: typedAuction.winner,
