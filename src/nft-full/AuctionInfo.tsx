@@ -10,8 +10,12 @@ import { NFTDataContext } from "../context/NFTDataContext";
 import { useMediaContext } from "../context/useMediaContext";
 import { InfoContainer, InfoContainerProps } from "./InfoContainer";
 import type { StyleProps } from "../utils/StyleTypes";
-import type { AuctionLike } from "@zoralabs/nft-hooks/dist/types";
-
+import {
+  AuctionLike,
+  AUCTION_SOURCE_TYPES,
+  FIXED_PRICE_MARKET_SOURCES,
+  MARKET_INFO_STATUSES,
+} from "@zoralabs/nft-hooks/dist/types";
 
 type AuctionInfoProps = {
   showPerpetual?: boolean;
@@ -28,18 +32,25 @@ export const AuctionInfo = ({
     () =>
       data?.markets?.find(
         (market) =>
-          market.source === "ZoraReserveV0" && market.status !== "cancelled"
+          market.source === AUCTION_SOURCE_TYPES.ZORA_RESERVE_V2 &&
+          market.status !== MARKET_INFO_STATUSES.CANCELLED
       ),
     [data?.markets]
   ) as undefined | AuctionLike;
 
   const perpetualAsk = useMemo(
-    () => data?.markets?.find((market) => market.source === "ZNFTPerpetual"),
+    () =>
+      data?.markets?.find(
+        (market) => market.source === FIXED_PRICE_MARKET_SOURCES.ZNFT_PERPETUAL
+      ),
     [data?.markets]
   );
 
   const newAsk = useMemo(
-    () => data?.markets?.find((market) => market.source === "ZoraAskV1"),
+    () =>
+      data?.markets?.find(
+        (market) => market.source === FIXED_PRICE_MARKET_SOURCES.ZORA_ASK_V1
+      ),
     [data?.markets]
   );
 
@@ -107,9 +118,11 @@ export const AuctionInfo = ({
   if (reserveAuction && reserveAuction.status === "active") {
     return (
       <AuctionInfoWrapper titleString="AUCTION_ENDS">
-        <div {...getStyles("pricingAmount")}>
-          <CountdownDisplay to={reserveAuction.endsAt!.timestamp} />
-        </div>
+        {reserveAuction.endsAt && (
+          <div {...getStyles("pricingAmount")}>
+            <CountdownDisplay to={reserveAuction.endsAt?.timestamp} />
+          </div>
+        )}
         <div {...getStyles("fullInfoSpacer")} />
         <div {...getStyles("fullLabel")}>{getString("HIGHEST_BID")}</div>
         <div {...getStyles("fullInfoAuctionPricing")}>

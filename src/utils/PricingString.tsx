@@ -28,7 +28,7 @@ export const PricingString = ({
       {showUSD && pricing.usdValue && (
         <span {...getStyles("textSubdued")}>
           {" "}
-          ${format(parseInt(pricing.usdValue, 10))}
+          ${format(pricing.usdValue)}
         </span>
       )}
     </Fragment>

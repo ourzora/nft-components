@@ -11,7 +11,13 @@ import type {
 } from "@zoralabs/nft-hooks/dist/types";
 import { PricingString } from "../utils/PricingString";
 
-const dateFromTimestamp = (timestamp: number) => new Date(timestamp * 1000);
+const dateFromTimestamp = (timestamp: number) => {
+  try {
+    return new Date(timestamp * 1000);
+  } catch (e) {
+    return new Date()
+  }
+}
 
 const formatDate = (timestamp: number) =>
   dateFromTimestamp(timestamp).toLocaleString("en-US", {
