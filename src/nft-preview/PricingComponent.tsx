@@ -6,8 +6,9 @@ import { CountdownDisplay } from "../components/CountdownDisplay";
 import { PricingString } from "../utils/PricingString";
 import type { StyleProps } from "../utils/StyleTypes";
 import {
-  AuctionLike,
   AUCTION_SOURCE_TYPES,
+  AuctionLike,
+  EditionLike,
   MARKET_INFO_STATUSES,
   MARKET_TYPES,
 } from "@zoralabs/nft-hooks/dist/types";
@@ -49,7 +50,15 @@ export const PricingComponent = ({
     [data?.markets]
   );
 
-  if (!reserveAuction && !ask) {
+  const edition = useMemo(
+    () =>
+      data?.markets?.find(
+        (market) => market.type === "Edition" && market.status === "active"
+      ),
+    [data?.markets]
+  ) as undefined | EditionLike;
+
+  if (!reserveAuction && !ask && !edition) {
     return (
       <div {...getStyles("cardAuctionPricing", className, { type: "unknown" })}>
         <div {...getStyles("textSubdued")}>{getString("RESERVE_PRICE")}</div>
@@ -60,6 +69,20 @@ export const PricingComponent = ({
         <div {...getStyles("pricingAmount")}>
           {getString("NO_PRICING_PLACEHOLDER")}
         </div>
+      </div>
+    );
+  }
+
+  if (edition && edition.status === MARKET_INFO_STATUSES.ACTIVE) {
+    return (
+      <div {...getStyles("cardAuctionPricing", className, { type: "unknown" })}>
+        <span {...getStyles("textSubdued")}>{getString("EDITION_PRICE")}</span>
+        <PricingString pricing={edition.amount} showUSD={false} />
+
+        <span {...getStyles("textSubdued")}>{getString("NFTS_COLLECTED")}</span>
+        <span {...getStyles("pricingAmount")}>
+          {`${edition.totalSupply} / ${edition.editionSize}`}
+        </span>
       </div>
     );
   }
