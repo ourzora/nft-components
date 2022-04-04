@@ -21,7 +21,7 @@ export const CollectionTag = () => {
         rel="noreferrer"
       >
         <div {...getStyles("collectionTagIcon")}>
-          {/* @ts-ignore */ data && "opensea" in data.rawData
+          {/* @ts-ignore */ data && "opensea" in data.rawData && data.rawData.opensea.asset_contract.image_url
             ? <img src={data.rawData.opensea.asset_contract.image_url} alt={data.rawData.opensea.asset_contract.name}/>
             : <Orb />
           }
