@@ -20,6 +20,7 @@ export const CreatorEquity = ({ className }: StyleProps) => {
 
   return (
     <>
+      {/* TODO Fix media {media { ownerBidShare creatorBidShare prevOwnerBidShare }} */}
       {/* {data && data.rawData["zoraNFT"] in data && data.zoraNFT && (
         <InfoContainer titleString="CREATOR_EQUITY" className={className}>
           <div {...getStyles("fullInfoCreatorEquityContainer")}>
@@ -29,7 +30,7 @@ export const CreatorEquity = ({ className }: StyleProps) => {
       )} */}
       {activeAuction &&
         activeAuction.raw.curatorFeePercentage &&
-        activeAuction.raw.curatorFeePercentage > 0 && (
+        activeAuction.raw.curatorFeePercentage > 0 ? (
           <InfoContainer titleString="CURATOR_FEE" className={className}>
             <div {...getStyles("fullInfoCuratorFeeContainer")}>
               <span>
@@ -44,7 +45,7 @@ export const CreatorEquity = ({ className }: StyleProps) => {
               )}
             </div>
           </InfoContainer>
-        )}
+        ) : <></>}
     </>
   );
 };

@@ -16,9 +16,8 @@ export const AddressView = ({
 }: AddressViewProps) => {
   const { getStyles, style } = useMediaContext();
   const { theme } = style;
-  // @ts-ignore (address can be undefined but not typed correctly for now)
+
   const ens = useENSAddress(theme.useEnsResolution ? address : undefined);
-  console.log(theme.useEnsResolution, ens);
 
   // const username = useZoraUsername(
   //   theme.useZoraUsernameResolution || ens.error ? address : undefined
