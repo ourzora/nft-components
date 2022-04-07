@@ -37,11 +37,11 @@ export const MediaInfo = ({ a11yIdPrefix, className }: MediaInfoProps) => {
         <Fragment />
       ) : (
         <dl {...getStyles("fullCreatorOwnerSection")}>
-          {data?.nft?.minted.minter && style.theme.showCreator && (
+          {data?.nft?.minted.address && style.theme.showCreator && (
             <Fragment>
               <dt {...getStyles("fullLabel")}>{getString("CREATOR")}</dt>
               <dd {...getStyles("fullOwnerAddress")}>
-                <AddressView address={data.nft.minted.minter} />
+                <AddressView address={data.nft.minted.address} />
               </dd>
             </Fragment>
           )}
@@ -49,7 +49,7 @@ export const MediaInfo = ({ a11yIdPrefix, className }: MediaInfoProps) => {
             <Fragment>
               <dt {...getStyles("fullLabel")}>{getString("OWNER")}</dt>
               <dd {...getStyles("fullOwnerAddress")}>
-                <AddressView address={data.nft.owner} />
+                <AddressView address={data.nft.owner.address} />
               </dd>
             </Fragment>
           )}

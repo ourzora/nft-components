@@ -13,6 +13,7 @@ import {
   MARKET_TYPES,
 } from "@zoralabs/nft-hooks/dist/types";
 
+
 function isInFuture(timestamp: number) {
   return timestamp > Math.floor(new Date().getTime() / 1000);
 }
@@ -35,7 +36,7 @@ export const PricingComponent = ({
       data?.markets?.find(
         (market) =>
           market.source === AUCTION_SOURCE_TYPES.ZORA_RESERVE_V2 &&
-          market.status !== MARKET_INFO_STATUSES.CANCELLED
+          market.status !== MARKET_INFO_STATUSES.CANCELED
       ),
     [data?.markets]
   ) as undefined | AuctionLike;

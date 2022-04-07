@@ -34,10 +34,10 @@ export const EditionInfo = ({ className }: StyleProps) => {
   return (
     <EditionInfoWrapper titleString="EDITION_PRICE">
       <div {...getStyles("pricingAmount")}>
-        {edition.amount.prettyAmount && (
+        {edition.amount.amount.decimals && (
           <Fragment>
             {" "}
-            {edition.amount.prettyAmount} {edition.amount.symbol}
+            {edition.amount.amount.decimals} {edition.amount.symbol}
           </Fragment>
         )}
         <div>
