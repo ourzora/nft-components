@@ -70,8 +70,6 @@ export const MediaObject = ({
   };
 
   const renderingInfo = useMemo(() => {
-    console.log("Rendering input", { contentURI, metadata });
-    console.log("Rendering request", { request });
     const sortedRenderers = renderers.sort((a, b) =>
       a.getRenderingPreference(request) > b.getRenderingPreference(request)
         ? -1
