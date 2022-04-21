@@ -1,8 +1,10 @@
-import type { NFTObject } from "@zoralabs/nft-hooks";
+import type { NFTObject } from "@zoralabs/nft-hooks/dist";
 
 export const defaultGetContentData = (nft: NFTObject) => {
   return {
-    contentURI: nft.nft?.contentURI as string,
+    contentURI: (nft.media?.content?.uri ||
+      nft.media?.image?.uri ||
+      nft.nft?.contentURI) as string,
     metadata: nft.metadata,
     contract: nft.nft?.contract?.address,
     tokenId: nft.nft?.tokenId,
