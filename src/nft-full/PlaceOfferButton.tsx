@@ -18,18 +18,8 @@ export const PlaceOfferButton = ({
   const { data } = useContext(NFTDataContext);
   const { getString, getStyles } = useMediaContext();
 
-  if (!data?.nft) {
-    return <Fragment />;
-  }
-
-  const nft = data.nft;
-
-  const activeAuction = data.markets?.find(
-    (market) => market.type === "Auction" && market.status === "active"
-  );
-
   const activeAsk = useMemo(() => {
-    const fixedPrice = data.markets?.filter(
+    const fixedPrice = data?.markets?.filter(
       (market) => market.type === "FixedPrice"
     );
     if (!fixedPrice || !fixedPrice.length) {
@@ -42,12 +32,16 @@ export const PlaceOfferButton = ({
     return undefined;
   }, [data?.markets]);
 
+  const activeAuction = data?.markets?.find(
+    (market) => market.type === "Auction" && market.status === "active"
+  );
+
   function getBidURLParts() {
     return [
       ZORA_SITE_URL_BASE,
       "collections",
-      nft.contract.address,
-      nft.tokenId,
+      data?.nft?.contract.address,
+      data?.nft?.tokenId,
       activeAuction ? "auction/bid" : "",
     ];
   }
@@ -59,7 +53,7 @@ export const PlaceOfferButton = ({
     if (activeAsk) {
       return getString("BUY_NOW");
     }
-    if (nft.contract.knownContract === "zora") {
+    if (data?.nft?.contract.knownContract === "zora") {
       return getString("PLACE_OFFER");
     }
     return getString("VIEW_ZORA");

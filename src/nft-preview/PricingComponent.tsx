@@ -5,10 +5,14 @@ import { NFTDataContext } from "../context/NFTDataContext";
 import { CountdownDisplay } from "../components/CountdownDisplay";
 import { PricingString } from "../utils/PricingString";
 import type { StyleProps } from "../utils/StyleTypes";
-import type {
+import {
+  AUCTION_SOURCE_TYPES,
   AuctionLike,
   EditionLike,
-} from "@zoralabs/nft-hooks/dist/backends/NFTInterface";
+  MARKET_INFO_STATUSES,
+  MARKET_TYPES,
+} from "@zoralabs/nft-hooks/dist/types";
+
 
 function isInFuture(timestamp: number) {
   return timestamp > Math.floor(new Date().getTime() / 1000);
@@ -31,7 +35,8 @@ export const PricingComponent = ({
     () =>
       data?.markets?.find(
         (market) =>
-          market.source === "ZoraReserveV0" && market.status !== "cancelled"
+          market.source === AUCTION_SOURCE_TYPES.ZORA_RESERVE_V2 &&
+          market.status !== MARKET_INFO_STATUSES.CANCELED
       ),
     [data?.markets]
   ) as undefined | AuctionLike;
@@ -39,7 +44,9 @@ export const PricingComponent = ({
   const ask = useMemo(
     () =>
       data?.markets?.find(
-        (market) => market.type === "FixedPrice" && market.status === "active"
+        (market) =>
+          market.type === MARKET_TYPES.FIXED_PRICE &&
+          market.status === MARKET_INFO_STATUSES.ACTIVE
       ),
     [data?.markets]
   );
@@ -67,7 +74,7 @@ export const PricingComponent = ({
     );
   }
 
-  if (edition && edition.status === "active") {
+  if (edition && edition.status === MARKET_INFO_STATUSES.ACTIVE) {
     return (
       <div {...getStyles("cardAuctionPricing", className, { type: "unknown" })}>
         <span {...getStyles("textSubdued")}>{getString("EDITION_PRICE")}</span>
@@ -81,7 +88,7 @@ export const PricingComponent = ({
     );
   }
 
-  if (ask && reserveAuction?.status !== "active") {
+  if (ask && reserveAuction?.status !== MARKET_INFO_STATUSES.ACTIVE) {
     let listPrice = null;
 
     if (ask) {
@@ -93,7 +100,10 @@ export const PricingComponent = ({
       );
     }
     const highestBid = undefined;
-    if (!highestBid && reserveAuction?.status === "complete") {
+    if (
+      !highestBid &&
+      reserveAuction?.status === MARKET_INFO_STATUSES.COMPLETE
+    ) {
       return (
         <div
           {...getStyles("cardAuctionPricing", className, {
@@ -154,7 +164,7 @@ export const PricingComponent = ({
       );
     }
 
-    if (reserveAuction.status === "complete") {
+    if (reserveAuction.status === MARKET_INFO_STATUSES.COMPLETE) {
       return (
         <div
           {...getStyles("cardAuctionPricing", className, {
@@ -168,7 +178,7 @@ export const PricingComponent = ({
         </div>
       );
     }
-    if (reserveAuction.status === "pending") {
+    if (reserveAuction.status === MARKET_INFO_STATUSES.PENDING) {
       return (
         <div
           {...getStyles("cardAuctionPricing", className, {

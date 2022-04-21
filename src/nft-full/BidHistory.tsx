@@ -5,13 +5,22 @@ import { NFTDataContext } from "../context/NFTDataContext";
 import { useMediaContext } from "../context/useMediaContext";
 import { InfoContainer } from "./InfoContainer";
 import type { StyleProps } from "../utils/StyleTypes";
-import type {
+import {
   AuctionLike,
   CurrencyValue,
-} from "@zoralabs/nft-hooks/dist/backends/NFTInterface";
+  FIXED_SIDE_TYPES,
+  MARKET_INFO_STATUSES,
+  MARKET_TYPES,
+} from "@zoralabs/nft-hooks/dist/types";
 import { PricingString } from "../utils/PricingString";
 
-const dateFromTimestamp = (timestamp: number) => new Date(timestamp * 1000);
+const dateFromTimestamp = (timestamp: number) => {
+  try {
+    return new Date(timestamp * 1000);
+  } catch (e) {
+    return new Date()
+  }
+}
 
 const formatDate = (timestamp: number) =>
   dateFromTimestamp(timestamp).toLocaleString("en-US", {
@@ -47,24 +56,24 @@ export const BidHistory = ({
       return [];
     }
     const bidEvents: MarketDataListType[] = [];
-    if (data.nft?.minted && data.nft.minted?.at?.timestamp) {
+    if (data.nft?.minted?.address && data.nft.minted?.at?.timestamp) {
       bidEvents.push({
         activityDescription: getString("BID_HISTORY_MINTED"),
-        actor: data.nft.minted.minter!,
+        actor: data.nft.minted.address,
         createdAt: data.nft.minted.at.timestamp,
-        transactionHash: data.nft.minted.at.transactionHash,
+        transactionHash: data.nft.minted.at.transactionHash || null,
         pricing: undefined,
       });
     }
     data.markets?.forEach((market) => {
-      if (market.type === "Auction") {
+      if (market.type === MARKET_TYPES.AUCTION) {
         const typedAuction = market as AuctionLike;
-        if (typedAuction.cancelledAt) {
+        if (typedAuction.canceledAt) {
           bidEvents.push({
             activityDescription: getString("BID_HISTORY_CANCELLED"),
             actor: typedAuction.createdBy!,
-            createdAt: typedAuction.cancelledAt!.timestamp,
-            transactionHash: typedAuction.cancelledAt!.transactionHash,
+            createdAt: typedAuction.canceledAt.timestamp,
+            transactionHash: typedAuction.canceledAt.transactionHash || null,
             pricing: undefined,
           });
         }
@@ -82,47 +91,47 @@ export const BidHistory = ({
             activityDescription: getString("BID_HISTORY_BID"),
             createdAt: bid.created.timestamp,
             actor: bid.creator,
-            transactionHash: bid.created.transactionHash,
+            transactionHash: bid.created.transactionHash || null,
             pricing: bid.amount,
           })
         );
       }
-      if (market.type === "FixedPrice") {
-        if (market.side === "ask") {
-          if (market.status === "active") {
+      if (market.type === MARKET_TYPES.FIXED_PRICE) {
+        if (market.side === FIXED_SIDE_TYPES.ASK) {
+          if (market.status === MARKET_INFO_STATUSES.ACTIVE) {
             bidEvents.push({
               activityDescription: getString("HISTORY_ASK_PRICE"),
               createdAt: market.createdAt.timestamp,
               actor: market.createdBy!,
-              transactionHash: market.createdAt.transactionHash,
+              transactionHash: market.createdAt.transactionHash || null,
               pricing: market.amount,
             });
           }
-          if (market.status === "cancelled") {
+          if (market.status === MARKET_INFO_STATUSES.CANCELED) {
             bidEvents.push({
               activityDescription: getString("HISTORY_ASK_CANCELLED"),
-              createdAt: market.cancelledAt!.timestamp,
+              createdAt: market.canceledAt!.timestamp,
               actor: market.createdBy!,
-              transactionHash: market.cancelledAt?.transactionHash || null,
+              transactionHash: market.canceledAt?.transactionHash || null,
               pricing: market.amount,
             });
           }
-          if (market.status === "complete") {
+          if (market.status === MARKET_INFO_STATUSES.COMPLETE) {
             bidEvents.push({
               activityDescription: getString("HISTORY_ASK_FILLED"),
               createdAt: market.createdAt.timestamp,
               actor: market.createdBy!,
-              transactionHash: market.createdAt.transactionHash,
+              transactionHash: market.createdAt.transactionHash || null,
               pricing: market.amount,
             });
           }
         }
-        if (market.side === "offer") {
+        if (market.side === FIXED_SIDE_TYPES.OFFER) {
           bidEvents.push({
             activityDescription: getString("HISTORY_OFFER_PRICE"),
             createdAt: market.createdAt.timestamp,
             actor: market.createdBy!,
-            transactionHash: market.createdAt.transactionHash,
+            transactionHash: market.createdAt.transactionHash || null,
             pricing: market.amount,
           });
         }
@@ -135,8 +144,6 @@ export const BidHistory = ({
   if (!processedData.length) {
     return <Fragment />;
   }
-
-  console.log(processedData);
 
   const pastBids = processedData
     .sort((bidA, bidB) => (bidA.createdAt > bidB.createdAt ? -1 : 1))

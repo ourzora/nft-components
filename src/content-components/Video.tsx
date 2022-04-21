@@ -173,10 +173,10 @@ export const VideoRenderer = forwardRef<HTMLVideoElement, RenderComponentType>(
 export const Video: RendererConfig = {
   getRenderingPreference: (request: RenderRequest) => {
     if (request.media.animation?.type?.startsWith("video/")) {
-      return RenderingPreference.PRIORITY;
+      return RenderingPreference.PREFERRED;
     }
     if (request.media.content?.type?.startsWith("video/")) {
-      return RenderingPreference.PRIORITY;
+      return RenderingPreference.PREFERRED;
     }
     return RenderingPreference.INVALID;
   },

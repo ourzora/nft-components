@@ -4,7 +4,8 @@ import { NFTDataContext } from "../context/NFTDataContext";
 import type { StyleProps } from "../utils/StyleTypes";
 import { InfoContainer, InfoContainerProps } from "./InfoContainer";
 import { useMemo } from "react";
-import type { EditionLike } from "@zoralabs/nft-hooks/dist/backends/NFTInterface";
+import type { EditionLike } from "@zoralabs/nft-hooks/dist/types";
+import { PricingString } from "../utils/PricingString";
 
 export const EditionInfo = ({ className }: StyleProps) => {
   const { data } = useContext(NFTDataContext);
@@ -34,11 +35,8 @@ export const EditionInfo = ({ className }: StyleProps) => {
   return (
     <EditionInfoWrapper titleString="EDITION_PRICE">
       <div {...getStyles("pricingAmount")}>
-        {edition.amount.prettyAmount && (
-          <Fragment>
-            {" "}
-            {edition.amount.prettyAmount} {edition.amount.symbol}
-          </Fragment>
+        {edition.amount.amount && (
+          <PricingString pricing={edition.amount} showUSD={false} />
         )}
         <div>
           <div {...getStyles("fullInfoSpacer")} />

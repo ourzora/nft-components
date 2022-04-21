@@ -22,13 +22,15 @@ export const PricingString = ({
 
   return (
     <Fragment>
-      <span {...getStyles("pricingAmount")}>
-        {format(parseFloat(pricing.prettyAmount))} {pricing.symbol}
-      </span>
-      {showUSD && pricing.usdValue && (
+      {pricing.amount.value && (
+        <span {...getStyles("pricingAmount")}>
+          {format(pricing.amount.value)} {pricing.symbol}
+        </span>
+      )}
+      {showUSD && pricing.usd?.value && (
         <span {...getStyles("textSubdued")}>
           {" "}
-          ${format(parseInt(pricing.usdValue, 10))}
+          ${format(pricing.usd?.value)}
         </span>
       )}
     </Fragment>

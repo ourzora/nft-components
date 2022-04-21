@@ -11,7 +11,7 @@ export const ImageRenderer = forwardRef<HTMLImageElement, RenderComponentType>(
   (requestProps, ref) => {
     const { getStyles, theme, request } = requestProps;
     const { props, loading, error } = useMediaObjectProps({
-      uri: request.media.content?.uri || request.media.image?.uri,
+      uri: request.media.image?.uri || request.media.content?.uri,
       preferredIPFSGateway: theme.preferredIPFSGateway,
       ...requestProps,
     });
