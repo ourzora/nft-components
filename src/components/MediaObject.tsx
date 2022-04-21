@@ -10,8 +10,8 @@ type MetadataIsh = {
   description: string;
 
   // Only used for non-zora NFTs
-  animation_url?: string;
-  image?: string;
+  contentUri?: string;
+  imageUri?: string;
 };
 
 type MediaObjectProps = {
@@ -31,7 +31,7 @@ export const MediaObject = ({
   tokenId,
   isFullPage = false,
 }: MediaObjectProps) => {
-  const mediaType = useNFTContent(contentURI ?? metadata?.animation_url);
+  const mediaType = useNFTContent(contentURI ?? metadata?.contentUri);
   const { getStyles, getString, renderers, style, networkId } =
     useMediaContext();
 
@@ -48,16 +48,16 @@ export const MediaObject = ({
               mediaType.content?.mimeType,
           }
         : undefined,
-      image: metadata?.image
+      image: metadata?.imageUri
         ? {
-            uri: metadata?.image,
+            uri: metadata?.imageUri,
             type: "image/",
           }
         : undefined,
       // from metadata.animation_url
-      animation: metadata?.animation_url
+      animation: metadata?.contentUri
         ? {
-            uri: metadata?.animation_url,
+            uri: metadata?.contentUri,
             type: mediaType.content?.mimeType,
           }
         : undefined,
