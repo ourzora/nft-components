@@ -49,7 +49,7 @@ export const AuctionInfo = ({
   const newAsk = useMemo(
     () =>
       data?.markets?.find(
-        (market) => market.source === FIXED_PRICE_MARKET_SOURCES.ZORA_ASK_V1
+        (market) => market.source === FIXED_PRICE_MARKET_SOURCES.ZORA_ASK_V3
       ),
     [data?.markets]
   );
