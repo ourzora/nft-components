@@ -3,6 +3,13 @@ import { useMediaContext } from "../context/useMediaContext";
 import { NFTDataContext } from "../context/NFTDataContext";
 import { PricingString } from "../utils/PricingString";
 import type { StyleProps } from "../utils/StyleTypes";
+import {
+  AuctionLike,
+  AUCTION_SOURCE_TYPES,
+  MARKET_INFO_STATUSES,
+} from "@zoralabs/nft-hooks/dist/types";
+import { useMemo } from "react";
+import type { ReserveAuctionPartialFragment } from "@zoralabs/nft-hooks/dist/backends/zora-graph/zora-graph-types";
 
 export type ProposalActionListProps = {
   onAccept?: () => void;
@@ -15,14 +22,26 @@ export const ProposalActionList = ({
   onDeny,
   className,
 }: ProposalActionListProps) => {
-  const {
-    // @ts-ignore
-    nft: { data },
-  } = useContext(NFTDataContext);
+  const { data } = useContext(NFTDataContext);
+
+  const reserveAuction = useMemo(
+    () =>
+      data?.markets?.find(
+        (market) =>
+          market.source === AUCTION_SOURCE_TYPES.ZORA_RESERVE_V2 &&
+          market.status !== MARKET_INFO_STATUSES.CANCELED
+      ),
+    [data?.markets]
+  ) as undefined | AuctionLike;
+
+  const raw = reserveAuction?.raw as ReserveAuctionPartialFragment;
+
+  console.log("reserveAuction", reserveAuction);
+
   const { getStyles, getString } = useMediaContext();
 
   const getActions = () => {
-    if (data?.pricing.reserve?.approved === false) {
+    if (!raw.approved) {
       return (
         <div {...getStyles("nftProposalActions")}>
           <button
@@ -44,7 +63,7 @@ export const ProposalActionList = ({
         </div>
       );
     }
-    if (data?.pricing.reserve?.approved) {
+    if (raw.approved) {
       return (
         <div {...getStyles("nftProposalActions")}>
           <span {...getStyles("nftProposalAcceptedPill")}>
@@ -63,11 +82,8 @@ export const ProposalActionList = ({
           {getString("RESERVE_PRICE")}
         </div>
         <div {...getStyles("fullOwnerAddress")}>
-          {data?.pricing.reserve?.reservePrice !== undefined && (
-            <PricingString
-              pricing={data.pricing.reserve.reservePrice}
-              showUSD={false}
-            />
+          {reserveAuction?.amount !== undefined && (
+            <PricingString pricing={reserveAuction.amount} showUSD={false} />
           )}
         </div>
       </div>
@@ -77,7 +93,7 @@ export const ProposalActionList = ({
           {getString("PROPOSAL_CURATOR_SHARE")}
         </div>
         <div {...getStyles("fullOwnerAddress")}>
-          {data?.pricing.reserve && data.pricing.reserve.curatorFeePercentage}%
+          {reserveAuction?.amount && raw.curatorFeePercentage}%
         </div>
       </div>
       {getActions()}
