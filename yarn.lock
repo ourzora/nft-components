@@ -3139,29 +3139,29 @@
   resolved "https://registry.npmjs.org/@xtuc/long/-/long-4.2.2.tgz"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@zoralabs/nft-hooks@^1.0.9":
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/@zoralabs/nft-hooks/-/nft-hooks-1.0.9.tgz#3313c0228c42665c087c065b51e1c60b1104666e"
-  integrity sha512-Ly5RefaVYXq3OyCU/op1mALC2KK0RELDnBv8C8sfgpMeNjMGJOJQSpS6vFGHEGKlFVpfexy6SuHvF2DxhXD/NQ==
+"@zoralabs/nft-hooks@1.0.11":
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@zoralabs/nft-hooks/-/nft-hooks-1.0.11.tgz#2f57d902257df82ffc3f60405c94a73c53708afa"
+  integrity sha512-OV1eIXRQRJuxMPYhh47QP1SpoYdEWRoO40NpkZ5GYFmFiakpE6bHlXceNM2+0GtpTXBuu/Njl5zsGXTorHPE5g==
   dependencies:
     "@ethersproject/address" "^5.4.0"
     "@ethersproject/bytes" "^5.5.0"
-    "@zoralabs/zdk-alpha" "^0.0.13"
+    "@zoralabs/zdk-alpha" "0.0.15"
     big.js "^6.1.0"
     cross-fetch "^3.1.4"
     dataloader "^2.0.0"
     graphql "^15.5.0"
     graphql-request "^3.4.0"
-    merge-anything "5.0.2"
+    merge-anything "^5.0.2"
     node-abort-controller "^2.0.0"
     react-test-renderer "^17.0.2"
     swr "^0.5.6"
     tslib "^2.2.0"
 
-"@zoralabs/zdk-alpha@^0.0.13":
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/@zoralabs/zdk-alpha/-/zdk-alpha-0.0.13.tgz#055aa363871d8339907d4f415656a91426076d3e"
-  integrity sha512-ncgwp5yhb31UL08he+6+S4RHEUA1GvehXbNNHdpd8bFcgYRuXZv8znhC4MdR0UT2UEWozUmOt1K6jLGKYY/yFQ==
+"@zoralabs/zdk-alpha@0.0.15":
+  version "0.0.15"
+  resolved "https://registry.yarnpkg.com/@zoralabs/zdk-alpha/-/zdk-alpha-0.0.15.tgz#6075f2fbaf7c048bb0108768255395f69bbeffab"
+  integrity sha512-Cvw0LTh4uN2RtkYOZYV68pkBIrl/t6WTx8+PWOUhnn27Kkc/HkSys5fz+xUK/cX32mHLionm1IudQqSxUrSQ3A==
   dependencies:
     big.js "^6.1.0"
     graphql "16.3.0"
@@ -8041,14 +8041,6 @@ memory-fs@^0.5.0:
     errno "^0.1.3"
     readable-stream "^2.0.1"
 
-merge-anything@5.0.2:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/merge-anything/-/merge-anything-5.0.2.tgz#b023af9b8f48e2fc71eb859d4ad834ba667f4150"
-  integrity sha512-POPQBWkBC0vxdgzRJ2Mkj4+2NTKbvkHo93ih+jGDhNMLzIw+rYKjO7949hOQM2X7DxMHH1uoUkwWFLIzImw7gA==
-  dependencies:
-    is-what "^4.1.6"
-    ts-toolbelt "^9.6.0"
-
 merge-anything@^4.0.1:
   version "4.0.1"
   resolved "https://registry.npmjs.org/merge-anything/-/merge-anything-4.0.1.tgz"
@@ -8056,6 +8048,14 @@ merge-anything@^4.0.1:
   dependencies:
     is-what "^3.14.1"
     ts-toolbelt "^9.3.12"
+
+merge-anything@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/merge-anything/-/merge-anything-5.0.2.tgz#b023af9b8f48e2fc71eb859d4ad834ba667f4150"
+  integrity sha512-POPQBWkBC0vxdgzRJ2Mkj4+2NTKbvkHo93ih+jGDhNMLzIw+rYKjO7949hOQM2X7DxMHH1uoUkwWFLIzImw7gA==
+  dependencies:
+    is-what "^4.1.6"
+    ts-toolbelt "^9.6.0"
 
 merge-deep@^3.0.3:
   version "3.0.3"
