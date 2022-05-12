@@ -15,6 +15,7 @@ import {
   AUCTION_SOURCE_TYPES,
   FIXED_PRICE_MARKET_SOURCES,
   MARKET_INFO_STATUSES,
+  MARKET_TYPES,
 } from "@zoralabs/nft-hooks/dist/types";
 
 type AuctionInfoProps = {
@@ -40,18 +41,12 @@ export const AuctionInfo = ({
     [data?.markets]
   ) as undefined | AuctionLike;
 
-  const perpetualAsk = useMemo(
+  const ask = useMemo(
     () =>
       data?.markets?.find(
-        (market) => market.source === FIXED_PRICE_MARKET_SOURCES.ZNFT_PERPETUAL
-      ),
-    [data?.markets]
-  );
-
-  const newAsk = useMemo(
-    () =>
-      data?.markets?.find(
-        (market) => market.source === FIXED_PRICE_MARKET_SOURCES.ZORA_ASK_V3
+        (market) =>
+          market.type === MARKET_TYPES.FIXED_PRICE &&
+          market.status === MARKET_INFO_STATUSES.ACTIVE
       ),
     [data?.markets]
   );
@@ -69,12 +64,15 @@ export const AuctionInfo = ({
     return <Fragment />;
   }
 
-  if (showPerpetual && perpetualAsk) {
+  if (
+    showPerpetual &&
+    ask?.source === FIXED_PRICE_MARKET_SOURCES.ZNFT_PERPETUAL
+  ) {
     return (
       <Fragment>
-        {perpetualAsk && (
+        {ask && (
           <AuctionInfoWrapper titleString="LIST_PRICE">
-            <PricingString pricing={perpetualAsk.amount} />
+            <PricingString pricing={ask.amount} />
           </AuctionInfoWrapper>
         )}
         <AuctionInfoWrapper titleString="OPEN_OFFERS">
@@ -84,13 +82,13 @@ export const AuctionInfo = ({
     );
   }
 
-  if (newAsk) {
+  if (ask) {
     return (
       <Fragment>
-        {newAsk && (
+        {ask && (
           <AuctionInfoWrapper titleString="CURRENT_PRICE">
-            <PricingString pricing={newAsk.amount} />
-            {showFindersFee && (
+            <PricingString pricing={ask.amount} />
+            {showFindersFee && ask.raw.findersFeeBps && (
               <Fragment>
                 <div
                   {...getStyles("fullInfoSpacer", undefined, { width: 15 })}
@@ -98,7 +96,7 @@ export const AuctionInfo = ({
                 <div {...getStyles("fullLabel")}>
                   {getString("FINDERS_FEE")}
                 </div>
-                {`${Math.floor(parseInt(newAsk.raw.findersFeeBps, 10) / 100)}%`}
+                {`${Math.floor(parseInt(ask.raw.findersFeeBps, 10) / 100)}%`}
               </Fragment>
             )}
           </AuctionInfoWrapper>
@@ -145,7 +143,7 @@ export const AuctionInfo = ({
     );
   }
 
-  if (!reserveAuction && !perpetualAsk) {
+  if (!reserveAuction && !ask) {
     return <Fragment />;
   }
 
@@ -154,11 +152,6 @@ export const AuctionInfo = ({
       titleString={reserveAuction ? "RESERVE_PRICE" : "LIST_PRICE"}
     >
       <div {...getStyles("pricingAmount")}>
-        {perpetualAsk?.amount && (
-          <div>
-            <PricingString pricing={perpetualAsk.amount} />
-          </div>
-        )}
         {reserveAuction && (
           <>
             <div {...getStyles("fullInfoAuctionPricing")}>
