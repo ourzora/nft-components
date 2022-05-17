@@ -4,14 +4,11 @@ import { useMediaContext } from "../context/useMediaContext";
 import { NFTDataContext } from "../context/NFTDataContext";
 import { Orb } from "../components/Orb";
 
-
 export const CollectionTag = () => {
-  const {
-    data,
-  } = useContext(NFTDataContext);
- 
+  const { data } = useContext(NFTDataContext);
+
   const { getStyles } = useMediaContext();
-  
+
   const getContent = () => {
     return (
       <a
@@ -21,23 +18,33 @@ export const CollectionTag = () => {
         rel="noreferrer"
       >
         <div {...getStyles("collectionTagIcon")}>
-          {/* @ts-ignore */ data && "opensea" in data.rawData && data.rawData.opensea.asset_contract.image_url
-            ? <img src={data.rawData.opensea.asset_contract.image_url} alt={data.rawData.opensea.asset_contract.name}/>
-            : <Orb />
+          {
+            /* @ts-ignore */ data &&
+            "OpenSea" in data.rawData &&
+            data.rawData["OpenSea"].asset_contract.image_url ? (
+              <img
+                src={data.rawData["OpenSea"].asset_contract.image_url}
+                alt={data.rawData["OpenSea"].asset_contract.name}
+              />
+            ) : (
+              <Orb />
+            )
           }
         </div>
         <span>{data?.nft!.contract.name}</span>
       </a>
-    )
-  }
-  
+    );
+  };
+
   return (
-    <div className={css`
-      position: relative;
-      display: flex;
-      flex-direction: row;
-    `}>
-      {data?.nft ? getContent() : '...'}
+    <div
+      className={css`
+        position: relative;
+        display: flex;
+        flex-direction: row;
+      `}
+    >
+      {data?.nft ? getContent() : "..."}
     </div>
-  )
-}
+  );
+};
