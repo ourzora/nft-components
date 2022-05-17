@@ -16,7 +16,7 @@ import { PricingString } from "../utils/PricingString";
 
 const dateFromTimestamp = (timestamp: number) => {
   try {
-    return new Date(timestamp * 1000);
+    return new Date(timestamp);
   } catch (e) {
     return new Date()
   }

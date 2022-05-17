@@ -13,9 +13,8 @@ import {
   MARKET_TYPES,
 } from "@zoralabs/nft-hooks/dist/types";
 
-
-function isInFuture(timestamp: number) {
-  return timestamp > Math.floor(new Date().getTime() / 1000);
+function isInFuture(timestamp: string) {
+  return new Date(timestamp).getTime() > new Date().getTime();
 }
 
 type PricingComponentProps = {
