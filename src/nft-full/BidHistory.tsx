@@ -14,15 +14,15 @@ import {
 } from "@zoralabs/nft-hooks/dist/types";
 import { PricingString } from "../utils/PricingString";
 
-const dateFromTimestamp = (timestamp: number) => {
+const dateFromTimestamp = (timestamp: string) => {
   try {
-    return new Date(timestamp * 1000);
+    return new Date(timestamp);
   } catch (e) {
-    return new Date()
+    return new Date();
   }
-}
+};
 
-const formatDate = (timestamp: number) =>
+const formatDate = (timestamp: string) =>
   dateFromTimestamp(timestamp).toLocaleString("en-US", {
     month: "long",
     day: "numeric",
@@ -38,7 +38,7 @@ type BidHistoryProps = {
 type MarketDataListType = {
   activityDescription: string;
   actor: string;
-  createdAt: number;
+  createdAt: string;
   transactionHash: string | null;
   pricing: CurrencyValue | undefined;
 };
@@ -146,7 +146,11 @@ export const BidHistory = ({
   }
 
   const pastBids = processedData
-    .sort((bidA, bidB) => (bidA.createdAt > bidB.createdAt ? -1 : 1))
+    .sort((bidA, bidB) =>
+      new Date(bidA.createdAt).getTime() < new Date(bidB.createdAt).getTime()
+        ? -1
+        : 1
+    )
     .map((bidItem) => (
       <li
         {...getStyles("fullPageHistoryItem")}

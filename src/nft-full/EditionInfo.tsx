@@ -35,7 +35,7 @@ export const EditionInfo = ({ className }: StyleProps) => {
   return (
     <EditionInfoWrapper titleString="EDITION_PRICE">
       <div {...getStyles("pricingAmount")}>
-        {edition.amount.amount && (
+        {edition.amount?.amount && (
           <PricingString pricing={edition.amount} showUSD={false} />
         )}
         <div>
