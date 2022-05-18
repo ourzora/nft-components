@@ -7,7 +7,7 @@ export const PricingString = ({
   pricing,
   showUSD = true,
 }: {
-  pricing: CurrencyValue;
+  pricing?: CurrencyValue;
   showUSD?: boolean;
 }) => {
   const { getStyles, style } = useMediaContext();
@@ -19,6 +19,10 @@ export const PricingString = ({
       maximumFractionDigits: style.theme.maximumPricingDecimals,
     }
   );
+
+  if (!pricing) {
+    return <Fragment />;
+  }
 
   return (
     <Fragment>
