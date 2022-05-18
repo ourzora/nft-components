@@ -3146,7 +3146,7 @@
   resolved "https://registry.npmjs.org/@xtuc/long/-/long-4.2.2.tgz"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@zoralabs/nft-hooks@1.x":
+"@zoralabs/nft-hooks@^1.0.28":
   version "1.0.28"
   resolved "https://registry.yarnpkg.com/@zoralabs/nft-hooks/-/nft-hooks-1.0.28.tgz#9df8dcaa605d5a4b5bb3191e321c2d27f8bcdc1d"
   integrity sha512-JbQBYcf5sumD8Yx0B7O+9Z51sPEaYO/4GCJkOiYH1ciSOlw2Af/iwLXS4VEQo3mzy7NKwNv9vSOQc9I1Djr6Tw==
