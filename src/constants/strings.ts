@@ -32,7 +32,7 @@ export const Strings = {
    * View metadata in proof of authenticity box
    * @default View Metadata
    */
-  VIEW_METADATA: 'View Metadata',
+  VIEW_METADATA: "View Metadata",
   /**
    * List price used in pricing components
    * @default List price
@@ -121,12 +121,47 @@ export const Strings = {
    * Sold for view on full view page auction info box
    * @default Sold for
    */
-  AUCTION_SOLD_FOR: "Sold for",
+  AUCTION_SOLD_FOR: "sold for",
   /**
    * Placed a bid message for bid history box on full view page
    * @default placed a bid of
    */
   BID_HISTORY_BID: "placed a bid of",
+  /**
+   * Cancelled an auction message for bid history box on full view page
+   * @default cancelled the auction
+   */
+  BID_HISTORY_CANCELLED: "cancelled the auction",
+  /**
+   * Current fixed price display
+   * @default current price
+   */
+  CURRENT_PRICE: "current price",
+  /**
+   * Finders fee
+   * @default finders fee
+   */
+  FINDERS_FEE: "finders fee",
+  /**
+   * Asked for an amount for bid history box on full view page
+   * @default asked for
+   */
+  HISTORY_ASK_PRICE: "asked",
+  /**
+   * Asked for an amount for bid history box on full view page
+   * @default cancelled ask
+   */
+  HISTORY_ASK_CANCELLED: "cancelled ask",
+  /**
+   * Ask has been filled
+   * @default filled ask for
+   */
+  HISTORY_ASK_FILLED: "filled ask for",
+  /**
+   * An offer price is created
+   * @default offered
+   */
+  HISTORY_OFFER_PRICE: "offered",
   /**
    * Open offers from user box
    * @default Open offers
@@ -142,6 +177,11 @@ export const Strings = {
    * @default Place offer
    */
   PLACE_OFFER: "Place offer",
+  /**
+   * CTA to go to zora to buy the NFT now
+   * @default Buy now
+   */
+  BUY_NOW: "Buy now",
   /**
    * Winner of the auction on the full view page
    * @default Winner
@@ -241,4 +281,16 @@ export const Strings = {
    * @default Properties
    */
   PROPERTIES_TITLE: "Properties",
+  /**
+   * Edition price title text
+   *
+   * @default Edition Price
+   */
+  EDITION_PRICE: "Edition Price",
+  /**
+   * NFTs Collected title text
+   *
+   * @default NFTs Collected
+   */
+  NFTS_COLLECTED: "NFTs Collected",
 };

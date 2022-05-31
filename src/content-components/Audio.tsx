@@ -205,7 +205,7 @@ export const Audio: RendererConfig = {
       request.media.animation?.type?.startsWith("audio")
     ) {
       return request.renderingContext === "FULL"
-        ? RenderingPreference.PRIORITY
+        ? RenderingPreference.PREFERRED
         : RenderingPreference.LOW;
     }
     return RenderingPreference.INVALID;

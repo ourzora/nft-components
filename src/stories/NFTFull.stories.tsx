@@ -1,21 +1,25 @@
 import { Story, Meta } from "@storybook/react";
 import { NFTFullPage } from "../nft-full/NFTFullPage";
 import { MediaConfiguration } from "../context/MediaConfiguration";
-import { Networks } from "@zoralabs/nft-hooks";
+import { Networks, Strategies } from "@zoralabs/nft-hooks";
 
 export default {
   title: "Renderer/NFTFull",
   component: NFTFullPage,
 } as Meta;
 
-const Template: Story<typeof NFTFullPage> = (args) => (
+const Template: Story<typeof NFTFullPage> = (args) => {
+  // const strategy = new Strategies.ZDKAlphaFetchStrategy('1', 'https://api.zora.co/graphql');
+  return (
   <MediaConfiguration
     networkId={(args as any).testnet ? Networks.RINKEBY : Networks.MAINNET}
+    // strategy={strategy}
   >
     {/* @ts-ignore */}
     <NFTFullPage {...args} />
   </MediaConfiguration>
-);
+  );
+};
 
 export const Image = Template.bind({});
 Image.args = {
@@ -29,31 +33,37 @@ Image.args = {
 export const Video = Template.bind({});
 Video.args = {
   id: "2411",
+  contract: "0xabEFBc9fD2F806065b4f3C237d4b59D9A97Bcac7",
 };
 
 export const GIF = Template.bind({});
 GIF.args = {
   id: "2671",
+  contract: "0xabEFBc9fD2F806065b4f3C237d4b59D9A97Bcac7",
 };
 
 export const Audio = Template.bind({});
 Audio.args = {
   id: "3092",
+  contract: "0xabEFBc9fD2F806065b4f3C237d4b59D9A97Bcac7",
 };
 
 export const Text = Template.bind({});
 Text.args = {
   id: "3079",
+  contract: "0xabEFBc9fD2F806065b4f3C237d4b59D9A97Bcac7",
 };
 
 export const PDF = Template.bind({});
 PDF.args = {
   id: "3327",
+  contract: "0xabEFBc9fD2F806065b4f3C237d4b59D9A97Bcac7",
 };
 
 export const HTML = Template.bind({});
 HTML.args = {
   id: "3609",
+  contract: "0xabEFBc9fD2F806065b4f3C237d4b59D9A97Bcac7",
 };
 
 export const VideoCustom = Template.bind({});

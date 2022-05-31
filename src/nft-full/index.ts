@@ -8,6 +8,7 @@ import { MediaFull } from "./MediaFull";
 import { ProofAuthenticity } from "./ProofAuthenticity";
 import { NFTProperties } from "./NFTProperties";
 import { CollectionTag } from "./CollectionTag";
+import { EditionInfo } from "./EditionInfo";
 
 const FullComponents = {
   AuctionInfo,
@@ -19,6 +20,7 @@ const FullComponents = {
   MediaFull,
   NFTProperties,
   CollectionTag,
+  EditionInfo,
 };
 
 export { FullComponents, NFTFullPage };

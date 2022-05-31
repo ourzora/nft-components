@@ -1,6 +1,5 @@
 import { Fragment, useContext } from "react";
 import { useMediaContext } from "../context/useMediaContext";
-import { useNFTMetadata } from "@zoralabs/nft-hooks";
 import { NFTDataContext } from "../context/NFTDataContext";
 import { InfoContainer } from "./InfoContainer";
 import type { StyleProps } from "../utils/StyleTypes";
@@ -8,11 +7,8 @@ import type { StyleProps } from "../utils/StyleTypes";
 type NFTPropertiesProps = StyleProps;
 
 export const NFTProperties = ({ className }: NFTPropertiesProps) => {
-  const {
-    nft: { data },
-  } = useContext(NFTDataContext);
+  const { data } = useContext(NFTDataContext);
   const { getStyles } = useMediaContext();
-  const { metadata } = useNFTMetadata(data?.nft.metadataURI);
 
   const renderAttributes = (attributes: any) => {
     function formatAttributes(obj: any) {
@@ -41,16 +37,14 @@ export const NFTProperties = ({ className }: NFTPropertiesProps) => {
       <InfoContainer className={className} titleString="PROPERTIES_TITLE">
         <div {...getStyles("propertiesGrid")}>
           {formattedAttributes.map((attribute: any, index: number) => {
+            const name = attribute?.name || attribute?.trait_type;
+
             return (
               <div
                 {...getStyles("propertiesItem")}
                 key={`${data?.nft?.tokenId}${index}`}
               >
-                {attribute?.trait_type && (
-                  <span {...getStyles("propertiesLabel")}>
-                    {attribute?.trait_type}
-                  </span>
-                )}
+                {name && <span {...getStyles("propertiesLabel")}>{name}</span>}
                 {attribute?.value && <span>{attribute?.value}</span>}
               </div>
             );
@@ -61,13 +55,10 @@ export const NFTProperties = ({ className }: NFTPropertiesProps) => {
   };
 
   const getContent = () => {
-    if (data && metadata !== undefined && "attributes" in metadata) {
-      return renderAttributes(metadata?.attributes);
-    } else if (data && metadata !== undefined && "traits" in metadata) {
-      return renderAttributes(metadata?.traits);
-    } else if (data && metadata === undefined && "openseaInfo" in data) {
-      // @ts-ignore
-      return renderAttributes(data?.openseaInfo?.traits);
+    if (data && data.metadata && "attributes" in data.metadata) {
+      return renderAttributes(data.metadata.attributes);
+    } else if (data && data.metadata && "traits" in data.metadata) {
+      return renderAttributes((data.metadata as any).traits);
     } else {
       return <Fragment />;
     }

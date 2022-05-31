@@ -1,49 +1,62 @@
-import { Fragment, useContext } from "react";
+import { Fragment, useContext, useMemo } from "react";
 
 import { ZORA_SITE_URL_BASE } from "../constants/media-urls";
 import { useMediaContext } from "../context/useMediaContext";
 import { Button } from "../components/Button";
 import { NFTDataContext } from "../context/NFTDataContext";
-import { AuctionType } from "@zoralabs/nft-hooks";
 import type { StyleProps } from "../utils/StyleTypes";
 
 type PlaceOfferButtonProps = {
   allowOffer?: boolean;
 } & StyleProps;
 
-export const PlaceOfferButton = ({ allowOffer, className }: PlaceOfferButtonProps) => {
-  const { nft } = useContext(NFTDataContext);
+export const PlaceOfferButton = ({
+  // @ts-ignore TS6133
+  allowOffer,
+  className,
+}: PlaceOfferButtonProps) => {
+  const { data } = useContext(NFTDataContext);
   const { getString, getStyles } = useMediaContext();
 
-  if (!nft.data) {
-    return <Fragment />;
-  }
+  const activeAsk = useMemo(() => {
+    const fixedPrice = data?.markets?.filter(
+      (market) => market.type === "FixedPrice"
+    );
+    if (!fixedPrice || !fixedPrice.length) {
+      return undefined;
+    }
+    const lastFixedPrice = fixedPrice[fixedPrice.length - 1];
+    if (lastFixedPrice.status === "active") {
+      return lastFixedPrice;
+    }
+    return undefined;
+  }, [data?.markets]);
 
-  // Disable offer functionality if not a zora NFT or if offers are disabled
-  if (
-    (allowOffer === false ||
-      !("zoraNFT" in nft.data) ||
-      nft.data.zoraNFT === undefined) &&
-    nft.data.pricing.auctionType !== AuctionType.RESERVE
-  ) {
-    return <Fragment />;
-  }
+  const activeAuction = data?.markets?.find(
+    (market) => market.type === "Auction" && market.status === "active"
+  );
 
   function getBidURLParts() {
-    const data = nft.data;
-    if (!data) {
-      return;
-    }
-    if (data.pricing.auctionType !== AuctionType.RESERVE && data.nft.contract.knownContract !== 'zora') {
-      return;
-    }
     return [
       ZORA_SITE_URL_BASE,
       "collections",
-      data.nft.contract.address,
-      data.nft.tokenId,
-      data.pricing.auctionType === AuctionType.RESERVE ? "auction/bid" : "offer",
+      data?.nft?.contract.address,
+      data?.nft?.tokenId,
+      activeAuction ? "auction/bid" : "",
     ];
+  }
+
+  function getButtonText() {
+    if (activeAuction) {
+      return getString("PLACE_BID");
+    }
+    if (activeAsk) {
+      return getString("BUY_NOW");
+    }
+    if (data?.nft?.contract.knownContract === "zora") {
+      return getString("PLACE_OFFER");
+    }
+    return getString("VIEW_ZORA");
   }
 
   const bidURL = getBidURLParts()?.join("/");
@@ -55,11 +68,7 @@ export const PlaceOfferButton = ({ allowOffer, className }: PlaceOfferButtonProp
   return (
     <div {...getStyles("fullPlaceOfferButton", className)}>
       <Button primary={true} href={bidURL}>
-        {getString(
-          nft.data.pricing.auctionType === AuctionType.RESERVE
-            ? "PLACE_BID"
-            : "PLACE_OFFER"
-        )}
+        {getButtonText()}
       </Button>
     </div>
   );

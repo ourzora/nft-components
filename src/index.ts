@@ -1,6 +1,5 @@
 import { Networks } from "@zoralabs/nft-hooks";
 
-import { AuctionHouseList } from "./auction-house/AuctionHouseList";
 import { MediaConfiguration } from "./context/MediaConfiguration";
 import * as MediaRenderers from "./content-components";
 import * as RendererConfigTypes from "./content-components/RendererConfig";
@@ -15,8 +14,6 @@ export {
   Networks,
   // Contextual wrapper component for media configuration
   MediaConfiguration,
-  // Auction house helper for listing curated NFTs
-  AuctionHouseList,
   // Media rendering component
   // Preview thumbnail renderer
   NFTPreview,

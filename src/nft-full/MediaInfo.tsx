@@ -11,22 +11,13 @@ type MediaInfoProps = {
 
 export const MediaInfo = ({ a11yIdPrefix, className }: MediaInfoProps) => {
   const { getStyles, getString, style } = useMediaContext();
-  const {
-    nft: { data },
-    metadata: { metadata, error },
-  } = useContext(NFTDataContext);
+  const { data } = useContext(NFTDataContext);
 
   const getContent = () => {
-    if (metadata && data) {
+    if (data?.metadata) {
       return {
-        title: metadata.name,
-        description: metadata.description,
-      };
-    }
-    if (error) {
-      return {
-        title: "?",
-        description: "?",
+        title: data.metadata.name,
+        description: data.metadata.description,
       };
     }
     return {
@@ -46,19 +37,19 @@ export const MediaInfo = ({ a11yIdPrefix, className }: MediaInfoProps) => {
         <Fragment />
       ) : (
         <dl {...getStyles("fullCreatorOwnerSection")}>
-          {data?.nft.creator && style.theme.showCreator && (
+          {data?.nft?.minted.address && style.theme.showCreator && (
             <Fragment>
               <dt {...getStyles("fullLabel")}>{getString("CREATOR")}</dt>
               <dd {...getStyles("fullOwnerAddress")}>
-                {data ? <AddressView address={data.nft.creator} /> : " "}
+                <AddressView address={data.nft.minted.address} />
               </dd>
             </Fragment>
           )}
-          {data?.nft.creator && style.theme.showOwner && (
+          {data?.nft?.owner && style.theme.showOwner && (
             <Fragment>
               <dt {...getStyles("fullLabel")}>{getString("OWNER")}</dt>
               <dd {...getStyles("fullOwnerAddress")}>
-                {data ? <AddressView address={data.nft.owner} /> : " "}
+                <AddressView address={data.nft.owner.address} />
               </dd>
             </Fragment>
           )}

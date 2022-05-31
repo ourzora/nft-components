@@ -1,4 +1,4 @@
-import { AuctionResultType, useAuctions } from "@zoralabs/nft-hooks";
+/*
 import { useMediaContext } from "../context/useMediaContext";
 import { NFTPreview } from "../nft-preview/NFTPreview";
 
@@ -7,7 +7,7 @@ type AuctionHouseProps = {
   approved?: boolean | null;
   onClick?: (
     evt: React.MouseEvent<HTMLElement>,
-    result: AuctionResultType
+    result: void
   ) => void;
 };
 
@@ -37,3 +37,7 @@ export const AuctionHouseList = ({
     </div>
   );
 };
+
+*/
+
+export {}
