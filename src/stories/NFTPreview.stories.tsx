@@ -2,15 +2,19 @@ import { NFTPreview, NFTPreviewProps } from "../nft-preview/NFTPreview";
 import { Story, Meta } from "@storybook/react";
 import { MediaConfiguration } from "../context/MediaConfiguration";
 import { Networks } from "@zoralabs/nft-hooks";
+import { Strategies } from "@zoralabs/nft-hooks";
 
 export default {
   title: "Renderer/NFTPreview",
   component: NFTPreview,
 } as Meta;
 
+const strategy = new Strategies.ZDKFetchStrategy(Networks.MAINNET);
+
 const Template: Story<NFTPreviewProps> = (args) => (
   <MediaConfiguration
     networkId={(args as any).testnet ? Networks.RINKEBY : Networks.MAINNET}
+    strategy={strategy}
   >
     <NFTPreview {...args} />
   </MediaConfiguration>
@@ -49,5 +53,5 @@ Text.args = {
 export const NonZoraImage = Template.bind({});
 NonZoraImage.args = {
   id: "5683",
-  contract: "0xb7f7f6c52f2e2fdb1963eab30438024864c313f6",
+  contract: "0x60e4d786628fea6478f785a6d7e704777c86a7c6",
 };
