@@ -20,6 +20,14 @@ export const PricingString = ({
     }
   );
 
+  const { format: formatUSD } = new Intl.NumberFormat(
+    typeof window === "undefined" ? "en-US" : navigator.language,
+    {
+      style: "decimal",
+      maximumFractionDigits: 2,
+    }
+  );
+
   if (!pricing) {
     return <Fragment />;
   }
@@ -34,7 +42,7 @@ export const PricingString = ({
       {showUSD && pricing.usd?.value && (
         <span {...getStyles("textSubdued")}>
           {" "}
-          ${format(pricing.usd?.value)}
+          ${formatUSD(pricing.usd?.value)}
         </span>
       )}
     </Fragment>

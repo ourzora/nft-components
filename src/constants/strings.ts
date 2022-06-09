@@ -151,7 +151,7 @@ export const Strings = {
    * Asked for an amount for bid history box on full view page
    * @default cancelled ask
    */
-  HISTORY_ASK_CANCELLED: "cancelled ask",
+  HISTORY_ASK_CANCELLED: "cancelled ask for",
   /**
    * Ask has been filled
    * @default filled ask for

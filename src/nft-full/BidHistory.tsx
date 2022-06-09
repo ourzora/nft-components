@@ -28,6 +28,7 @@ const formatDate = (timestamp: string) =>
     day: "numeric",
     hour: "2-digit",
     minute: "2-digit",
+    year: "numeric",
     hour12: true,
   });
 
@@ -110,7 +111,7 @@ export const BidHistory = ({
           if (market.status === MARKET_INFO_STATUSES.CANCELED) {
             bidEvents.push({
               activityDescription: getString("HISTORY_ASK_CANCELLED"),
-              createdAt: market.canceledAt!.timestamp,
+              createdAt: market.canceledAt?.timestamp || market.createdAt.timestamp,
               actor: market.createdBy!,
               transactionHash: market.canceledAt?.transactionHash || null,
               pricing: market.amount,
