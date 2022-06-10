@@ -3,7 +3,7 @@ import {
   NetworkIDs,
   NFTFetchConfiguration,
 } from "@zoralabs/nft-hooks";
-import { merge } from "merge-anything";
+import deepmerge from "deepmerge";
 
 import type { Strings } from "../constants/strings";
 import type { RecursivePartial } from "../utils/RecursivePartial";
@@ -53,8 +53,8 @@ export const MediaConfiguration = ({
 
   let newContext = {
     // TODO(iain): Fix typing
-    style: merge(superContext.style, style) as ThemeType,
-    strings: merge(superContext.strings, strings),
+    style: deepmerge(superContext.style, style) as ThemeType,
+    strings: deepmerge(superContext.strings, strings),
     renderers,
     networkId: newNetworkId,
   };

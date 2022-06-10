@@ -1,4 +1,4 @@
-import { merge } from "merge-anything";
+import merge from "deepmerge";
 import { Story, Meta } from "@storybook/react";
 
 import { DarkTheme } from "./example-themes/dark";
@@ -12,11 +12,16 @@ type ThemeProps = {
   style: Partial<typeof Style>;
   showFull: boolean;
   id: string;
+  contract: string;
 };
 
-const DemoComponent = ({ id, style, showFull }: ThemeProps) => (
+const DemoComponent = ({ id, contract, style, showFull }: ThemeProps) => (
   <MediaConfiguration style={style}>
-    {showFull ? <NFTFullPage id={id} /> : <NFTPreview id={id} />}
+    {showFull ? (
+      <NFTFullPage contract={contract} id={id} />
+    ) : (
+      <NFTPreview contract={contract} id={id} />
+    )}
   </MediaConfiguration>
 );
 
