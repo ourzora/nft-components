@@ -138,7 +138,7 @@ export const BidHistory = ({
         }
       }
     });
-    // data.events?.filter((evt) => )
+
     return bidEvents;
   }, [data?.markets]);
 
@@ -149,8 +149,8 @@ export const BidHistory = ({
   const pastBids = processedData
     .sort((bidA, bidB) =>
       new Date(bidA.createdAt).getTime() < new Date(bidB.createdAt).getTime()
-        ? -1
-        : 1
+        ? 1
+        : -1
     )
     .map((bidItem) => (
       <li

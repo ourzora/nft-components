@@ -34,12 +34,12 @@ export const PricingString = ({
 
   return (
     <Fragment>
-      {pricing.amount.value && (
+      {!!pricing.amount.value && (
         <span {...getStyles("pricingAmount")}>
           {format(pricing.amount.value)} {pricing.symbol}
         </span>
       )}
-      {showUSD && pricing.usd?.value && (
+      {showUSD && !!pricing.usd?.value && (
         <span {...getStyles("textSubdued")}>
           {" "}
           ${formatUSD(pricing.usd?.value)}
