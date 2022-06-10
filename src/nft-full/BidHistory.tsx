@@ -28,6 +28,7 @@ const formatDate = (timestamp: string) =>
     day: "numeric",
     hour: "2-digit",
     minute: "2-digit",
+    year: "numeric",
     hour12: true,
   });
 
@@ -110,7 +111,7 @@ export const BidHistory = ({
           if (market.status === MARKET_INFO_STATUSES.CANCELED) {
             bidEvents.push({
               activityDescription: getString("HISTORY_ASK_CANCELLED"),
-              createdAt: market.canceledAt!.timestamp,
+              createdAt: market.canceledAt?.timestamp || market.createdAt.timestamp,
               actor: market.createdBy!,
               transactionHash: market.canceledAt?.transactionHash || null,
               pricing: market.amount,
@@ -137,7 +138,7 @@ export const BidHistory = ({
         }
       }
     });
-    // data.events?.filter((evt) => )
+
     return bidEvents;
   }, [data?.markets]);
 
@@ -148,8 +149,8 @@ export const BidHistory = ({
   const pastBids = processedData
     .sort((bidA, bidB) =>
       new Date(bidA.createdAt).getTime() < new Date(bidB.createdAt).getTime()
-        ? -1
-        : 1
+        ? 1
+        : -1
     )
     .map((bidItem) => (
       <li

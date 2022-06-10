@@ -11,6 +11,7 @@ import {
   EditionLike,
   MARKET_INFO_STATUSES,
   MARKET_TYPES,
+  FIXED_SIDE_TYPES,
 } from "@zoralabs/nft-hooks/dist/types";
 
 function isInFuture(timestamp: string) {
@@ -45,6 +46,7 @@ export const PricingComponent = ({
       data?.markets?.find(
         (market) =>
           market.type === MARKET_TYPES.FIXED_PRICE &&
+          market.side === FIXED_SIDE_TYPES.ASK &&
           market.status === MARKET_INFO_STATUSES.ACTIVE
       ),
     [data?.markets]
