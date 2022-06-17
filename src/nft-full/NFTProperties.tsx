@@ -12,6 +12,7 @@ export const NFTProperties = ({ className }: NFTPropertiesProps) => {
 
   const renderAttributes = (attributes: any) => {
     function formatAttributes(obj: any) {
+      if (!obj) return [];
       if (Array.isArray(obj)) {
         return obj;
       } else {
