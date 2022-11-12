@@ -13,9 +13,6 @@ import {
 import { ThemeOptions, ThemeOptionsType } from "./theme";
 
 const buttonCommonSize = (size: string) => `
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
   padding: ${size};
   width: ${size};
   height: ${size};
