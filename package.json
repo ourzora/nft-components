@@ -10,7 +10,7 @@
   ],
   "repository": "https://github.com/SweetmanTech/audio-player",
   "author": "sweetman.eth (forked from Zora)",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "private": false,
   "peerDependencies": {
     "react": "^17.0.2",
