@@ -8,8 +8,23 @@ import { MediaObject } from "./components/MediaObject";
 import { NFTDataContext } from "./context/NFTDataContext";
 import { NFTPreview, PreviewComponents } from "./nft-preview";
 import { NFTFullPage, FullComponents } from "./nft-full";
+import AudioPlayer from "./audio-player/AudioPlayer";
+import {
+  DispatchPlayerContext,
+  PlayerContext,
+} from "./context/player.context";
+import {
+  playerReducer,
+  playerInitialState
+} from "./reducers/player.reducer"
 
 export {
+  // Audio Player
+  AudioPlayer,
+  DispatchPlayerContext,
+  PlayerContext,
+  playerReducer,
+  playerInitialState, 
   // Constant list of all networks
   Networks,
   // Contextual wrapper component for media configuration
