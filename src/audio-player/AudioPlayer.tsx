@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-
 import {
   PlayerContext,
   DispatchPlayerContext,
@@ -21,11 +20,9 @@ type AudioPlayerProps = {
 
 const AudioPlayer = (props: AudioPlayerProps) => {
   const { audioSrc, callbackAfterPlay } = props;
-  const [audio, setAudio] = useState(null as any);
-  // const MP3 = 'https://www.dropbox.com/s/gkfytymrtayuiws/MP3-AF_Making%20Out%20WIth%20Vampires%20%28FBTMix4%29_BECKER%20MASTER.mp3?dl=0';
-
   const { isPlaying, currentSongSrc } = useContext(PlayerContext);
   const playerDispatch = useContext(DispatchPlayerContext);
+  const [audio, setAudio] = useState(null as any);
   const [message, setMessage] = useState(false);
 
   const togglePlay = () => {
