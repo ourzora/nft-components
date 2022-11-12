@@ -27,6 +27,6 @@
     "resolveJsonModule": true,
     "importsNotUsedAsValues": "error"
   },
-  "include": ["src", "styles"],
+  "include": ["src"],
   "exclude": ["src/stories"]
 }
