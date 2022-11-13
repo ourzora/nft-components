@@ -1,6 +1,6 @@
 {
   "name": "decent-audio-player",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Decent Audio Player Prototype",
   "typings": "dist/index.d.ts",
   "source": "src/index.ts",
