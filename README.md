@@ -1,78 +1,60 @@
-# 💅 @zoralabs/nft-components
+# ⏯️ decent-audio-player 🎧
 
-Zora's NFT components allow you to easily create your own gallery or auction house with zNFT infrastructure.
+Decent's Audio Player allows you to easily create your own music player or streaming player with Decent infrastructure.
 
-This library provides the front-end display components on top of the [`@zoralabs/nft-hooks`](https://github.com/ourzora/nft-hooks) data-fetching library;
-
-This library works alongside the Zora [auction house](https://zora.mirror.xyz/9mQ9AeJK84USTnQ9eBY4Sc7s1bi0N8RoZd3Oy4q82FM) ([code](https://github.com/ourzora/auction-house)) allows for DAOs and individuals to run their own decentralized auction house. Arbitrary NFTs across a wide variety of contract implementations are supported.
-
-✨ [view docs on storybook](https://ourzora.github.io/nft-components) →
-
-## NFT Components
-
-These components allow for drop-in rendering of NFTs. They work on the frontend and do not need any server-side components. These components are aware of both ongoing auctions and the perpetual markets for zNFTs, integrating latest bid information and other relevant marketplace information. They also handle most all of the same media types that the Zora marketplace natively handles (audio, video, image, HTML, and text). The components can be modified as needed and should be used as a prototype look and feel. Under the hood, they use the @zoralabs/nft-hooks library to retrieve data, if more customization is needed for the look and feel of the components the underlying data can be retrieved directly.
+This library works alongside the Decent [minting studio](https://hq.decent.xyz/) allows for DAOs and individuals to run their own decentralized record labels. Arbitrary music NFTs across a wide variety of contract implementations are supported.
 
 ### Main components:
 
-- [NFTPreview](https://ourzora.github.io/nft-components?path=/docs/renderer-nftpreview--image)
-  - Used to render a zNFT preview thumbnail
-- [NFTFullPage](https://ourzora.github.io/nft-components?path=/docs/renderer-nftfull--image)
-  - Used to render a zNFT full page component
-- [NFTDataProvider](https://ourzora.github.io/nft-components?path=/story/renderer-nftdataprovider--page)
-  - Used to compose a custom set of zNFT components
-- [MediaConfiguration](https://ourzora.github.io/nft-components?path=/story/renderer-mediaconfiguration--page)
-  - Configure the text, theme, and network settings for the zNFT.
-- [AuctionHouseList](https://ourzora.github.io/nft-components?path=/docs/renderer-auctionhouselist--images)
-  - Load a list of auctions for a given curator
-
-### Key Features:
-
-- [Server-side rendering](https://ourzora.github.io/nft-components?path=/story/about-serverrendering--page)
-- [Customizable theming / styling](https://ourzora.github.io/nft-components?path=/story/theming-previewcomponent--preview-card)
-- [Customizable information ordering / display](https://ourzora.github.io/nft-components?path=/story/renderer-about--page)
-- [Updatable media rendering](https://ourzora.github.io/nft-components?path=/story/about-customcomponentdocs--page)
+- [AudioPlayer](https://github.com/SweetmanTech/audio-player/blob/main/src/audio-player/AudioPlayer.tsx)
+  - Used to render a Play / Pause button.
+  - `size` - size of Audio Player.
+  - `audioSrc` - src of audio.
+  - `callbackAfterPlay` - function to call after track begins playing.
+  - `active` - flag for pre-released tracks to be unplayable / disabled.
 
 ### Quickstart
 
 1. Install package:
+
 ```bash
-yarn add @zoralabs/nft-components
+yarn add decent-audio-player
 ```
 
-2. Render a NFT Thumbnail:
+2. Add Providers:
 
 ```tsx
-import { NFTPreview } from "@zoralabs/nft-components";
+import { useReducer } from "react";
+import {
+  DispatchPlayerContext,
+  PlayerContext,
+  playerInitialState,
+  playerReducer,
+} from "decent-audio-player";
 
-export const Page = () => <NFTPreview id="3002" />;
+const App = ({ Component, pageProps }: AppProps) => {
+  const [state, dispatch] = useReducer(playerReducer, playerInitialState);
+  return (
+    <PlayerContext.Provider value={state}>
+      <DispatchPlayerContext.Provider value={dispatch}>
+        <Component {...pageProps} />
+      </DispatchPlayerContext.Provider>
+    </PlayerContext.Provider>
+  );
+};
 ```
 
-3. Render a NFT Full page:
+3. Render a simple Audio Player:
 
 ```tsx
-import { NFTFullPage } from "@zoralabs/nft-components";
+import { AudioPlayer } from "decent-audio-player";
 
-export const Page = () => <NFTFullPage id="3002" />;
-```
-
-4. Render a list of auctions for a curator:
-
-```tsx
-import { NFTFullPage } from "@zoralabs/nft-components";
-
-export const Page = ({curatorId}: {curatorId: string}) => (
-    <AuctionHouseList
-      onClick={(_, auction) => alert(`Clicked token ${auction.tokenId}`)}
-      curatorIds={[curatorId]}
-    />
+export const Page = () => (
+  <AudioPlayer
+    size={56}
+    audioSrc="https://nftstorage.link/ipfs/QmWNaSdhXq2WdusiBcVC2Ju5A1JJySRDVNrQMEBGcaazvC"
+    callbackAfterPlay={console.log}
+    active
+  />
 );
-```
-
-
-4. Render a proposed auction:
-
-```tsx
-import { NFTProposal } from "@zoralabs/nft-components";
-
-export const Page = () => <NFTProposal id="3002" />;
 ```
