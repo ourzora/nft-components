@@ -6,6 +6,7 @@ import {
 import {PauseIcon} from "./images/Pause";
 import PlayIcon from "./images/Start";
 import { PlayerActionType } from "../reducers/player.reducer";
+import { useMediaContext } from "../context/useMediaContext";
 
 type AudioPlayerProps = {
   audioSrc: string;
@@ -22,6 +23,7 @@ const AudioPlayer = (props: AudioPlayerProps) => {
   const { audioSrc, callbackAfterPlay } = props;
   const { isPlaying, currentSongSrc } = useContext(PlayerContext);
   const playerDispatch = useContext(DispatchPlayerContext);
+  const { getStyles } = useMediaContext();
   const [audio, setAudio] = useState(null as any);
   const [message, setMessage] = useState(false);
 
@@ -55,24 +57,24 @@ const AudioPlayer = (props: AudioPlayerProps) => {
       <div className="audio-player flex space-x-3 place-items-center mb-1">
         {props.active === true ? (
           isPlaying && audioSrc === currentSongSrc ? (
-            <button onClick={togglePause}>
+            <button {...getStyles("buttonTransparent")} onClick={togglePause}>
               <PauseIcon
-                className="fill-primary hover:fill-purple-dark"
+                {...getStyles("playIcon")}
                 width={props.size}
                 height={props.size}
               />
             </button>
           ) : (
-            <button onClick={togglePlay}>
+            <button {...getStyles("buttonTransparent")} onClick={togglePlay}>
               <PlayIcon
-                className="fill-primary hover:fill-purple-dark"
+                {...getStyles("playIcon")}
                 width={props.size}
                 height={props.size}
               />
             </button>
           )
         ) : (
-        <button className='relative' onClick={showMessage}>
+        <button className='relative' {...getStyles("buttonTransparent")} onClick={showMessage}>
           {message === true ?
           <div className="bg-background rounded-md text-sm absolute w-40 p-4 right-0 bottom-0 z-20 drop-shadow-md">
             This song has not been released to streaming platforms yet. Listening will begin 2 hours prior to mint!

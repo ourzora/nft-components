@@ -1,30 +1,5 @@
 import { css } from "@emotion/css";
-
-import {
-  SVG_FULLSCREEN,
-  SVG_MUTED,
-  SVG_NEXT_ICON,
-  SVG_PAUSE,
-  SVG_PLAY_ARROW,
-  SVG_UNMUTED,
-  SVG_AUCTION_APPROVE,
-  SVG_AUCTION_DENY,
-} from "./svg-icons";
 import { ThemeOptions, ThemeOptionsType } from "./theme";
-
-const buttonCommonSize = (size: string) => `
-  padding: ${size};
-  width: ${size};
-  height: ${size};
-  background: #eee;
-  border: 0;
-  border-radius: 200px;
-  color: transparent;
-  cursor: pointer;
-  background-repeat: no-repeat;
-  background-position: center;
-  margin: 0 10px;
-`;
 
 const buttonReset = `
   font: inherit;
@@ -46,16 +21,20 @@ const CENTER_FULL_CONTAINER = `
   height: 100%;
 `;
 
-function renderSVG(svg: string) {
-  return `background-image: url("data:image/svg+xml,${encodeURIComponent(
-    svg
-  )}");`;
-}
-
 export const Style = {
   theme: ThemeOptions,
   useDefaultStyles: true,
   styles: {
+    buttonTransparent: () => css`
+      background-color: transparent;
+      border: none;
+    `,
+    playIcon: () => css`
+      fill: #9969FF;
+      &:hover {
+        fill: #730FE6;
+      }
+    `,
     auctionHouseList: (_: ThemeOptionsType) => css`
       display: flex;
       flex-wrap: wrap;
@@ -208,33 +187,6 @@ export const Style = {
     fullPageHistoryItemMeta: () => css`
       position: relative;
     `,
-    fullPageHistoryTxnLink: () => css`
-      font-size: 0;
-      position: relative;
-      display: block;
-      &:hover {
-        :after {
-          opacity: 1;
-          background-color: #f2f2f2;
-        }
-      }
-      :after {
-        border-radius: 4px;
-        padding: 4px;
-        opacity: 0.8;
-        background-repeat: no-repeat;
-        background-position: center;
-        top: 2px;
-        z-index: 10;
-        right: 0;
-        transition: opacity 0.4s ease-in;
-        content: " ";
-        width: 14px;
-        height: 14px;
-        position: absolute;
-        ${renderSVG(SVG_NEXT_ICON)}
-      }
-    `,
     nftProposalMediaWrapper: (theme: ThemeOptionsType) => css`
       border-radius: 4px;
       display: flex;
@@ -320,28 +272,6 @@ export const Style = {
     `,
     fullInfoProofAuthenticityContainer: (theme: ThemeOptionsType) => css`
       margin-top: ${theme.spacingUnit};
-    `,
-    fullProofLink: (theme: ThemeOptionsType) => css`
-      display: block;
-      text-decoration: none;
-      color: ${theme.linkColor};
-      padding: ${theme.spacingUnit};
-      margin: 0 -${theme.spacingUnit};
-      border-top: ${theme.borderStyle};
-
-      :hover {
-        background-color: #f2f2f2;
-      }
-      :after {
-        content: " ";
-        width: 14px;
-        height: 14px;
-        opacity: 0.5;
-        ${renderSVG(SVG_NEXT_ICON)}
-        color: #eee;
-        right: ${theme.spacingUnit};
-        position: absolute;
-      }
     `,
     fullCreatorOwnerSection: (theme: ThemeOptionsType) => css`
       display: grid;
@@ -463,25 +393,6 @@ export const Style = {
       grid-area: 1 / 2 / span 1 / span 2;
       text-align: right;
     `,
-    nftProposalActionButton: (
-      theme: ThemeOptionsType,
-      { action }: { action: "approve" | "deny" }
-    ) => css`
-      border-radius: 1000px;
-      background-color: ${theme.buttonColor.background};
-      background-repeat: no-repeat;
-      color: transparent;
-      width: 40px;
-      height: 40px;
-      background-position: center;
-      border: 0;
-      cursor: pointer;
-
-      ${action === "approve" && `margin-right: 15px;`}
-
-      ${action === "approve" && renderSVG(SVG_AUCTION_APPROVE)}
-      ${action === "deny" && renderSVG(SVG_AUCTION_DENY)}
-    `,
     nftProposalAcceptedPill: (theme: ThemeOptionsType) => css`
       color: #009165;
       background: rgba(64, 193, 154, 0.2);
@@ -550,40 +461,5 @@ export const Style = {
       `,
       theme.mediaContentFont,
     ],
-    mediaPlayButton: (_: ThemeOptionsType, { playing }: any) => css`
-      ${buttonCommonSize("32px")}
-      background-image: url("data:image/svg+xml,${encodeURIComponent(
-        playing ? SVG_PAUSE : SVG_PLAY_ARROW
-      )}");
-      z-index: 8;
-    `,
-    mediaVideoControls: (_: ThemeOptionsType, { isFullPage }: any) => css`
-      ${CENTER_FULL_CONTAINER}
-      ${isFullPage
-        ? `
-        z-index: 1; /* todo: iain remove need for line */
-        opacity: 0;
-        &:hover,
-        &:focus,
-        &:focus-within {
-          opacity: 1;
-        }
-        transition: opacity 0.6s ease-in-out;
-        transition-delay: 0 0.3s;
-      `
-        : "display: none;"}
-    `,
-    mediaFullscreenButton: (theme: ThemeOptionsType) => css`
-      ${buttonCommonSize(theme.spacingUnit)}
-      background-color: #000;
-      ${renderSVG(SVG_FULLSCREEN)}
-    `,
-    mediaMuteButton: (theme: ThemeOptionsType, { muted }: any) => css`
-      ${buttonCommonSize(theme.spacingUnit)}
-      background-color: #000;
-      background-image: url("data:image/svg+xml,${encodeURIComponent(
-        muted ? SVG_UNMUTED : SVG_MUTED
-      )}");
-    `,
   },
 };
