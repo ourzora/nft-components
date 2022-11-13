@@ -25,6 +25,16 @@ export const Style = {
   theme: ThemeOptions,
   useDefaultStyles: true,
   styles: {
+    buttonTransparent: () => css`
+      background-color: transparent;
+      border: none;
+    `,
+    playIcon: () => css`
+      fill: #9969FF;
+      &:hover {
+        fill: #730FE6;
+      }
+    `,
     auctionHouseList: (_: ThemeOptionsType) => css`
       display: flex;
       flex-wrap: wrap;
@@ -272,12 +282,6 @@ export const Style = {
       border: ${theme.borderStyle};
       border-radius: ${theme.defaultBorderRadius}px;
       margin: ${theme.spacingUnit} 0 0;
-    `,
-    pauseIcon: () => `
-      fill: black;
-      &:hover {
-        fill: purple;
-      }
     `,
     // Properties Component
     propertiesGrid: (theme: ThemeOptionsType) => css`
