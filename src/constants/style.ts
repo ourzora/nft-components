@@ -273,6 +273,12 @@ export const Style = {
       border-radius: ${theme.defaultBorderRadius}px;
       margin: ${theme.spacingUnit} 0 0;
     `,
+    pauseIcon: () => `
+      fill: black;
+      &:hover {
+        fill: purple;
+      }
+    `,
     // Properties Component
     propertiesGrid: (theme: ThemeOptionsType) => css`
       display: grid;
