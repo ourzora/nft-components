@@ -55,10 +55,10 @@ export const NFTProperties = ({ className }: NFTPropertiesProps) => {
   };
 
   const getContent = () => {
-    if (data && data.metadata && "attributes" in data.metadata) {
+    if (data?.metadata?.attributes) {
       return renderAttributes(data.metadata.attributes);
-    } else if (data && data.metadata && "traits" in data.metadata) {
-      return renderAttributes((data.metadata as any).traits);
+    } else if ((data as any)?.metadata?.traits) {
+      return renderAttributes((data as any).traits);
     } else {
       return <Fragment />;
     }
