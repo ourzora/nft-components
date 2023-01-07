@@ -128,6 +128,16 @@ export const Strings = {
    */
   BID_HISTORY_BID: "placed a bid of",
   /**
+   * Bid history auction approved text
+   * @default approved the auction
+   */
+  BID_HISTORY_AUCTION_APPROVED: "approved the auction",
+  /**
+   * Bid history auction reserve updated
+   * @default auction reserve updated
+   */
+  BID_HISTORY_AUCTION_UPDATED: "auction reserve updated to",
+  /**
    * Cancelled an auction message for bid history box on full view page
    * @default cancelled the auction
    */
@@ -197,6 +207,16 @@ export const Strings = {
    * @default won the auction
    */
   BID_HISTORY_WON_AUCTION: "won the auction",
+  /**
+   * Created the auction in bid history text
+   * @default created the auction
+   */
+  BID_HISTORY_CREATED_AUCTION: "created the auction with reserve of ",
+  /**
+   * Notice that the NFT has been transferred
+   * @default transferred to
+   */
+  BID_HISTORY_TRANSFER: "transferred to",
   /**
    * Link to transaction details from bid history
    * @default View Transaction
